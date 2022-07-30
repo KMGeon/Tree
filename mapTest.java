@@ -1,3 +1,8 @@
+/*
+이거를 한 이유 : 여러값을 map에 널고 싶음 
+그러면 클래스vo하나 만들어서 map에 담기 그리고 쓰고 싶을 때 iterator를 이용하여 뽑기
+*/
+
 package GeonStudy;
 
 import java.util.HashMap;
