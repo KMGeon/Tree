@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)http://192.168.142.3/jsstudy/%ec%82%ac%ec%9a%a9%ec%9e%90%ec%9e%85%eb%a0%a5%ed%83%9c%ea%b7%b8.html -->
+<html lang="en" id="id_html"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>싸용자입력태긍</title>
+<style>
+    input {
+        color:yellow;
+        background-color: black;
+        font-size: 50px;
+    }
+    #id_disp {
+        width:600px;
+      /*  height:400px; */
+        border:1px solid black;
+        color:white;
+        background-color: magenta;
+    }
+</style>
+</head>
+<body>
+    <!-- 버튼 맹글깅  onclick은 이벤트, f_click은 이벤트 핸들러라고 함-->
+    <!-- type value onclick  속성(attribute) 
+        각 태그는 element (그냥 한개의 객체라고 생각하면 됨) 
+    -->
+    <p id="id_ppp">
+        <a href="http://naver.com/">네이벙</a><br>
+        <a href="http://daum.net/">까까요</a><br>
+    </p>
+    <div id="id_disp" onclick="f_divClick()">이건 뭐얌</div>
+    <input type="button" value="소스보깅" onclick="f_source()">
+    <input id="id_merong" type="button" value="눌러방방" onclick="f_click()">
+<script>
+    function f_source(){
+        //작성하시옹
+        alert(id_html.innerHTML);
+    }
+
+    function f_divClick() {
+        alert(document.head.innerHTML);
+        alert(id_ppp.innerHTML); 
+        //? innerHTML하고 문자열 더하기만 알아도 현업에서 꽤 급하게 땜방 가능
+        alert(id_disp.innerHTML);
+        id_disp.innerHTML += "<h1>난 최고의 프로그래머 졸리지 않앙!!</h1>";
+       // id_disp.innerHTML = 
+       //      id_disp.innerHTML + "<h1>난 최고의 프로그래머 졸리지 않앙!!</h1>";
+    }
+    // 스크립트에서 html문서를 가리키는 예약어는 document
+    function f_click(){
+        id_disp.innerHTML += "<h2>난 최고의 엔지니엉 안졸앙!!</h2>";
+        console.log(id_merong.type);
+        console.log(id_merong.value);
+        console.log(id_merong.onclick);
+        console.log(id_merong.id);
+        id_merong.value = "또 누를껴";
+    
+        /*
+        alert("너 지금 나 눌렀닝");
+        console.log(document.head);
+        console.log(document.body.innerHTML); // 중요한 속성
+        */
+    }
+</script>
+
+</body></html>

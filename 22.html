@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)http://192.168.142.3/jsstudy/%ea%b0%91%ec%9e%90%ea%b8%b0%ec%88%99%ec%a0%9c.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<style>
+    #id_work {
+        color:yellow;
+        background-color: black;
+        font-size:20px;
+        border:1px solid blue;
+    }
+</style>
+</head>
+<body>
+<div id="id_work">
+    당신의 취미는 Max 3개까지만 체크하시옹 <br>
+    4개째는 3개넘었다는 메세지 출력과 함께 체크안됨<br>
+    다른거 해제하고(2개가 됨) 체크하면(3번째) 체크가 됨<br>
+<br>    
+</div>
+자바<input type="checkbox" name="hobby" value="java" onclick="f_hobby(this)">
+자바스크립트<input type="checkbox" name="hobby" value="js" onclick="f_hobby(this)">
+HTML<input type="checkbox" name="hobby" value="html" onclick="f_hobby(this)">
+CSS<input type="checkbox" name="hobby" value="css" onclick="f_hobby(this)">
+서버<input type="checkbox" name="hobby" value="server" onclick="f_hobby(this)">
+<br>
+<script>
+   // var v_ckboxs = document.getElementsByName("hobby");
+    var v_cnt =0;   // 갯수 셀 변수, 초기값 0, 체크된 체크박스 없으니깡
+                    // function안에 선언하면 함수 불릴때마다 초기화되니 짜증
+    var v_max = 3;
+    function f_hobby(p_this){
+        if(p_this.checked){  // 해제에서 체크로 갯수 증가
+            v_cnt++;
+        }else {
+            v_cnt--;
+        }
+        if(v_cnt > v_max){
+            alert("3개만 하시라니까영~~");
+            p_this.checked = false;// 4번째 체크된 거 강제 해젱
+            v_cnt--; //4번째 체크된 거 해제했으니, 갯수에서 마이너스
+        }
+        // 산수 문제 였으니, 차분히 잘 이해해 봅니다!.
+
+        //alert(p_this.value);
+        //alert(p_this.checked); // 체크여부 확인
+        //p_this.checked = false; // 강제 해제
+       // alert(v_ckboxs[p_num].value);
+    }
+</script>
+
+</body></html>
