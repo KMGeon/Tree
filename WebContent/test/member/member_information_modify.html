@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이컬리- 개인정보수정</title>
+    <link rel="stylesheet" href="../main/css/reset.css">
+    <link rel="stylesheet" href="../main/css/common.css">
+    <link rel="stylesheet" href="./css/mykurly_order_list.css">
+    <link rel="stylesheet" href="./css/mykurly_information.css">
+    <link rel="stylesheet" href="./css/join.css">  
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="../main/js/common.js"></script>
+    <script src="./js/mykurly.js"></script>
+
+    <script>
+        
+
+        function pw_check(){
+            var pw = $(".field_pw input").val();                   // 변수 pw에 pw값 대입
+            var now_pw = $('.field_nowpw input').val();
+
+            var num = /[0-9]/;
+            var eng = /[a-zA-Z]/;
+            var spe = /[~!@#$%^&*()_+|<>?:{}]/;
+        
+
+
+            if(pw.length < 10){                                  //pw의 길이가 10 이하일 때
+                $(".field_pw .txt_guide .txt_case1").css('color', '#b3130b');
+            }
+
+            if(pw.length >= 10){                                  //pw의 길이가 10 이상일 때
+                $(".field_pw .txt_guide .txt_case1").css('color', '#0f851a'); 
+            }
+
+            if(num.test(pw) == 0 || eng.test(pw) == 0 || spe.test(pw) == 0){    // pw의 숫자가 없거나 , 영어가 없거나, 특수문자가 없을경우 실패
+                $(".field_pw .txt_guide .txt_case2").css('color', '#b3130b');
+            }
+            
+
+            if(num.test(pw) == 1 && eng.test(pw) == 1 && spe.test(pw) == 1){ // pw의 숫자,영어,특수문자가 1개이상씩 있을경우 성공
+                $(".field_pw .txt_guide .txt_case2").css('color', '#0f851a');
+            }
+
+            if(pw == now_pw){
+                $(".field_pw .txt_guide .txt_case3").css('color', '#b3130b');
+            }
+
+            if(pw != now_pw){
+                $(".field_pw .txt_guide .txt_case3").css('color', '#0f851a'); 
+            }
+
+        }
+
+
+
+        function pw2_check(){
+            var pwd1 = $(".field_pw input").val(); 
+            var pwd2 = $(".field_repw input").val();
+
+            if ( pwd1 != '' && pwd2 == '' ) {          //둘다 빈칸일 경우 아무것도 하지 않음
+                null;
+            } else if (pwd1 != "" || pwd2 != "") {     // 빈칸이 아닐 경우
+                if (pwd1 == pwd2) {                    // 비교해서 같으면
+                    $(".field_repw .txt_guide .txt_case1").css('color', '#0f851a');                 
+                    $(".field_repw .txt_guide .txt_case1").text("비밀번호가 동일합니다.");
+            
+                
+                } else {        // 비교해서 같지 않으면
+                    $(".field_repw .txt_guide .txt_case1").css('color', '#b3130b');
+                    $(".field_repw .txt_guide .txt_case1").text("비밀번호가 일치하지 않습니다.");
+                
+                }
+            }
+
+        }
+
+
+        function pw3_check(){
+
+            pw_overlap_input = document.querySelector('input[name="originalPassword"]');
+    
+            $.ajax({
+            type: "GET",
+            url: "./pw_check?pw="+pw_overlap_input,    //해당 url로 데이터를 넘김
+            data: {
+                'username': $('.field_nowpw input').val()
+            },
+            datatype: 'json',
+            success: function (data) {
+                console.log(data['overlap']);
+                if (data['overlap'] == "fail") {
+                $(".field_nowpw .txt_guide .txt_case4").css('color', '#b3130b');
+                id_overlap_input.focus();
+                return;
+                } else {
+                $(".field_nowpw .txt_guide .txt_case4").css('color', '#0f851a');
+                return;
+                }
+            }
+            });
+        }
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="main">
+            <div id="content">
+                <div id="myPageTop" class="page_aticle mypage_top">
+                    <h2 class="blind">마이페이지</h2>
+                    <div class="mypagetop_user">
+                        <div class="inner_mypagetop">
+                            
+                            <div class="grade_user">
+                                <div class="grade">
+                                    <span class="blind">등급</span>
+                                    <span class="ico_grade class0">
+                                        <span class="inner_grade">
+                                            <span class="in_grade">일반</span>
+                                        </span>
+                                    </span>
+                                    <div class="grade_bnenfit">
+                                        <div class="user">
+                                            <strong class="name">멋쟁이</strong>
+                                            <span class="txt">님</span>
+                                        </div>
+                                        <div class="benefit">
+                                            <strong class="tit"></strong>
+                                            적립 0.5%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="next">
+                                    <a href="#" class="total_grade">전체등급 보기</a>
+                                    <a href="#" class="next_month">다음 달 예상등급 보기</a>
+                                </div>
+                            </div>
+
+                            <ul class="list_mypage">
+                                <li class="user_reserve">
+                                    <div class="link">
+                                        <div class="tit">
+                                            적립금
+                                        </div>
+                                        <a href="#" class="info">
+                                            999,999,999 원
+                                            <img src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png" alt="자세히보기">
+                                            <span class="date">소멸 예정 0원</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="user_coupon">
+                                    <div class="link">
+                                        <div class="tit">
+                                            쿠폰
+                                        </div>
+                                        <a href="#" class="info">
+                                            1123354 개
+                                            <img src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png" alt="자세히 보기">
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="user_kurlypass">
+                                    <div class="link">
+                                        <div class="tit">
+                                            컬리패스    
+                                        </div>
+                                        <a href="#" class="info info_link">
+                                            알아보기
+                                            <img src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png" alt="자세히 보기">
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="bnr_event" style="background-image: url(https://img-cf.kurly.com/shop/data/skin/designgj/img/banner/bb20c3b9d5542cfdfec3ef5bfefcafa5.jpg);">
+                        </a>
+                    </div>
+                </div>
+                <div class="page_aticle aticle_type2">
+                    <div id="snb" class="snb_my">
+                        <h2 class="tit_snb">마이컬리</h2>
+                        <div class="inner_sub">
+                            <ul class="list_menu">
+                                <li>
+                                    <a href="#">주문내역</a>
+                                </li>
+                                <li>
+                                    <a href="#">배송지 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">상품 후기</a>
+                                </li>
+                                <li class="on">
+                                    <a href="#">개인 정보 수정</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="link_inquire">
+                            <span class="emph">도움이 필요하신가요?</span>
+                            1:1 문의하기
+                        </a>
+                    </div>
+
+                    <div class="page_section section_myinfo">
+                        <div class="head_aticle">
+                            <h2 class="tit">개인 정보 수정</h2>
+                        </div>
+
+                        
+                        <div class="type_form member_join member_mod">
+                            <form id="form" name="frmMember" action="" method="post">
+                                <table class="tbl_comm">
+                                    <tbody>
+                                        <tr class="fst field_id">
+                                            <th>아이디
+                                                
+                                            </th>
+                                            <td>
+                                                <input type="text" name="id" maxlength="16" readonly=""  option="regId" value="siwha9808"> <!-- value에 이름데이터 나오게-->
+                                                
+                                                <p class="txt_guide square">
+                                                    <span class="txt txt_case1">
+                                                        6자 이상의 영문 혹은 영문과 숫자를 조합
+                                                    </span>
+                                                    <span class="txt txt_case2">
+                                                        아이디 중복확인
+                                                    </span>
+                                                </p>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="field_nowpw">
+                                            <th>현재 비밀번호</th>
+                                            <td>
+                                                <input type="password" name="originalPassword" id="originalPassword">
+                                                 <p class="txt_guide square">
+                                                    <span class="txt txt_case4">현재 비밀번호를 확인해주세요</span>
+                                                </p>
+                                            </td>
+                                        </tr>
+    
+                                        <tr class="field_pw">
+                                            <th>
+                                                새 비밀번호
+                                                
+                                            </th>
+                                            <td>
+                                                <input type="password" name="pw" required=""  option="regPass" onkeyup="pw_check()" maxlength="16" class="reg_pw bad" >
+                                                <p class="txt_guide square">
+                                                    <span class="txt txt_case1">
+                                                        10자 이상 입력
+                                                    </span>
+                                                    <span class="txt txt_case2">
+                                                        영문/숫자/특수문자(공백 제외)만 허용하며, 2개 이상 조합
+                                                    </span>
+                                                    <span class="txt txt_case3">
+                                                        현재 비밀번호와 다르게 입력
+                                                    </span>
+                                                </p>
+                                            </td>
+                                        </tr>
+    
+                                        <tr class="member_pwd field_repw">
+                                            <th>
+                                                새 비밀번호확인
+                                                
+                                            </th>
+                                            <td>
+                                                <input type="password" required=""  option="regPass" onkeyup="pw2_check()" maxlength="16" class="confirm_pw">
+                                                <p class="txt_guide square">
+                                                    <span class="txt txt_case1">
+                                                        동일한 비밀번호를 입력해주세요.
+                                                    </span>
+                                                </p>
+                                            </td>
+                                        </tr>
+    
+                                        <tr class="field_name">
+                                            <th>
+                                                이름
+                                                
+                                            </th>
+                                            <td>
+                                                <input type="text" name="name"   label="이름" value="이도현"> <!-- value에 이름데이터 나오게 설정 -->
+                                            </td>
+                                        </tr>
+    
+                                        <tr class="field_email">
+                                            <th>
+                                                이메일 
+                                                
+                                            </th>
+    
+                                            <td>
+                                                <input type="text" name="email"   size="30" required=""  option="regEmail" label="이메일" value="siwha9808@naver.com"> <!-- value에 이메일 데이터 나오게-->
+                                                <a href="#" class="btn default">중복확인</a>
+                                            </td>
+                                        </tr>
+    
+    
+                                        <tr class="field_phone">
+                                            <th>
+                                                휴대폰
+                                                
+                                            </th>
+    
+                                            <td>
+                                                <div class="phone_num">
+                                                    <input type="text" pattern="[0-9]*" name="mobileInp"  class="inp" value="01012345678"> <!-- value에 휴대폰 번호 데이터 나오게 -->
+    
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        
+    
+                                        <tr class="birth field_birth">
+                                            <th>생년월일</th>
+    
+                                            <td style="padding-bottom: 60px;">
+                                                <div class="birth_day">
+                                                    <input type="text" name="year" id="birth_year" pattern="[0-9]*"  label="생년월일" size="4" maxlength="4" placeholder="YYYY">
+                                                    <span class="bar">
+    
+                                                    </span>
+                                                    <input type="text" name="month" id="birth_month" pattern="[0-9]*"  label="생년월일" size="2" maxlength="2" placeholder="MM">
+                                                    <span class="bar"></span>
+                                                    <input type="text" name="day" id="birth_day" pattern="[0-9]*"  label="생년월일" size="2" maxlength="2" placeholder="DD">
+    
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div id="formSubmit" class="form_footer" style="border-top: 2px solid;">
+                                    <a href="#" class="btn default">탈퇴하기</a>
+                                    <button type="submit" class="btn active">회원정보수정</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
