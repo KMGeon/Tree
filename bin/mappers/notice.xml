@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice2">
+	
+	<resultMap type="kr.or.funding.board2.vo.Notice2VO" id="notice2Map">
+		<result property="ntNum" 		column="NT_NUM"/>
+		<result property="ntClf" 		column="NT_CLF"/>
+		<result property="ntTit" 		column="NT_TIT"/>
+		<result property="ntCnt" 		column="NT_CNT"/>
+		<result property="ntWriteDt" 	column="NT_WRITE_DT"/>
+	  	<result property="atchFileId" 	 	column="ATCH_FILE_ID"/> 
+	</resultMap>
+	
+	<select id="notice2AllList" resultMap="notice2Map">
+		select * from NOTICE
+	</select>
+	
+
+		
+	<select id="getNotice2" parameterType="String" resultMap="notice2Map">
+			select * 
+			from NOTICE
+			WHERE NT_NUM = #{ntNum}
+			
+		</select>
+		
+		<insert id="insertNotice2" parameterType="kr.or.funding.board2.vo.Notice2VO">
+			INSERT INTO NOTICE(
+				NT_NUM,
+				NT_CLF,
+				NT_TIT,
+				NT_CNT,
+				NT_WRITE_DT,
+				ATCH_FILE_ID			
+			)
+			VALUES
+			(
+			  NT_NUM_SEQ.nextval, 
+			   1,
+			   #{ntTit},
+			   #{ntCnt},
+			   sysdate, 
+			   #{atchFileId}
+			)		
+		
+		</insert>
+		
+		
+		
+		<update id="updateNotice2" parameterType="kr.or.funding.board2.vo.Notice2VO">
+			
+			UPDATE NOTICE
+			SET
+				NT_CNT = #{ntCnt},
+				NT_TIT =  #{ntTit}
+			WHERE NT_NUM = #{ntNum}	
+		</update>
+		
+		
+		<delete id="deleteNotice2" parameterType="String">
+		
+			delete from NOTICE
+			WHERE NT_NUM = #{ntNum} 
+		
+		</delete>
+	
+		
+		
+		
+	
+</mapper>
+

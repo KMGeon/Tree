@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ptimfor">
+
+
+	<resultMap type="kr.or.funding.ptImfor.PtImforVO" id="ptimforMap">
+		<result property="ptNum" column="PT_NUM" />
+		<result property="ptNm" column="PT_NM" />
+		<result property="mbsNum" column="MBS_NUM" />
+		<result property="itdt" column="ITDT" />
+		<result property="atchFileId" column="ATCH_FILE_ID" />
+		<result property="ptPrc" column="PT_PRC" />
+		<result property="stDt" column="ST_DT" />
+		<result property="edDt" column="ED_DT" />
+		<result property="ptCgy" column="PT_CGY" />
+		<result property="pyQty" column="PY_QTY" />
+	</resultMap>
+	
+	<!-- 메인화면에 상품 출력하기 -->
+	<select id="ptimforAllList" resultMap="ptimforMap">
+		SELECT * FROM PT_IMFOR
+	</select>
+	
+	
+	<insert id="insertPtRegister" parameterType="kr.or.funding.ptImfor.PtImforVO">
+		INSERT INTO PT_IMFOR (
+		PT_NUM, 
+		PT_NM, 
+		MBS_NUM, 
+		ITDT, 
+		ATCH_FILE_ID, 
+		PT_PRC, 
+		ST_DT, 
+		ED_DT, 
+		PT_CGY, 
+		PY_QTY
+		)
+		VALUES 
+		(PT_NUM_SEQ.nextval,
+		#{ptNm},
+		#{mbsNum},
+		#{itdt},
+		#{atchFileId},
+		#{ptPrc},
+		#{stDt},
+		#{edDt},
+		#{ptCgy},
+		#{pyQty}
+		)
+	</insert>
+	
+	<select id="atchList" resultMap="ptimforInfo">
+		select * from pt_imfor a
+		inner join atch_file_detail b
+		on a.atch_file_id = b.atch_file_id
+		where B.FILE_SN = 1
+		
+	</select>
+	
+	 
+	<select id="atchListDetail" resultMap="ptimforInfo">
+		select * from pt_imfor a
+		inner join atch_file_detail b
+		on a.atch_file_id = b.atch_file_id
+		where pt_num = #{ptNum}
+	</select>
+	
+	<!-- 
+		<select id="seller" resultMap="ptimforInfo">
+		select * from pt_imfor a
+		inner join atch_file_detail b
+		on a.atch_file_id = b.atch_file_id
+		where pt_num = #{ptNum}
+	</select>
+	 -->
+	
+	
+	
+	
+	<resultMap type="kr.or.funding.ptImfor.PtImforVO" id="ptimforInfo">
+		<result property="ptNum" column="PT_NUM" />
+		<result property="ptNm" column="PT_NM" />
+		<result property="mbsNum" column="MBS_NUM" />
+		<result property="itdt" column="ITDT" />
+		<result property="atchFileId" column="ATCH_FILE_ID" />
+		<result property="ptPrc" column="PT_PRC" />
+		<result property="stDt" column="ST_DT" />
+		<result property="edDt" column="ED_DT" />
+		<result property="ptCgy" column="PT_CGY" />
+		<result property="pyQty" column="PY_QTY" />
+		<result property="fileSn" column="FILE_SN" />
+		<result property="fileStreCours" column="FILE_STRE_COURS" />
+		<result property="streFileNm" column="STRE_FILE_NM" />
+		<result property="orignlFileNm" column="ORIGNL_FILE_NM" />
+		<result property="fileExtsn" column="FILE_EXTSN" />
+		<result property="fileCn" column="FILE_CN" />
+		<result property="fileSize" column="FILE_SIZE" />
+	</resultMap>
+		
+</mapper>

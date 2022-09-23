@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../main/css/reset.css">
+    <link rel="stylesheet" href="../main/css/common.css">    
+    <link rel="stylesheet" href="css/login.css">
+    <script src="../main/js/common.js"></script>
+</head>
+<body>
+    <div id="content">
+    <div class="section_login">
+        <h3 class="tit_login">비밀번호 찾기</h3>
+        <div class="layer_parent">
+            <div id="certPopLayer" style="display: block;"><div id="certFrameLayer"></div><div id="certPopLayerBG"></div></div>
+        </div>
+        <div class="write_form find_view">
+            <form name="certForm" method="post" action="/shop/member/find_pwd_auth.php?type=1" target="certFrame">
+                <strong class="tit_label">이메일 주소 인증</strong>
+                <input type="number" name="certKey" id="certKey" maxlength="8" placeholder="전송된 인증번호를 입력해주세요">
+                <p class="txt_email">
+                    인증번호를 못 받았다면?&nbsp;
+                    <a href="javascript:parent.resend_certKey(1, 'id', '6e0ef84393d9f32e65e49be274c2b981a48c6f984cf50163c320e60416036ecf', 'pc');" class="emph">인증번호 재전송</a>
+                </p><!-- id자리에 가져와야함.-->
+                <button type="submit" class="btn_type1"><span class="txt_type">확인</span></button>
+
+            </form>
+        </div>
+    </div></div>
+</body>
+</html>
+
+
+

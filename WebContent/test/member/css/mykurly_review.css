@@ -1,0 +1,240 @@
+.section_review .head_aticle {
+    padding-bottom: 20px;
+}
+
+.page_aticle .head_aticle {
+    padding: 5px 0 34px;
+}
+
+.section_review .review_notice {
+    font-size: 14px;
+    color: #999;
+    line-height: 22px;
+    letter-spacing: -.3px;
+}
+
+.section_review .tab_menu {
+    overflow: hidden;
+    padding-top: 30px;
+}
+
+.section_review .tab_menu li {
+    float: left;
+    width: 410px;
+    height: 50px;
+    background-color: #fff;
+}
+
+.section_review .tab_menu .on a {
+    border-bottom: 2px solid #5f0080;
+    font-weight: 700;
+    color: #5f0080;
+}
+
+.section_review .tab_menu a {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #dddfe1;
+    font-size: 14px;
+    color: #666;
+    line-height: 44px;
+    text-align: center;
+}
+
+.section_review .list_before {
+    padding-top: 10px;
+}
+
+.section_review .list_after li.no_data, .section_review .list_before .no_data {
+    padding: 50px 0;
+    border: 0;
+}
+.page_aticle .no_data {
+    padding: 50px 0;
+    font-size: 13px;
+    color: #757575;
+    text-align: center;
+}
+
+.section_review .list_after li {
+    border-bottom: 2px solid #ddd;
+}
+
+.section_review .list_after .tit_after {
+    padding: 25px 30px 17px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.section_review .list_after .main_name {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+}
+
+.section_review .list_after .cont_after {
+    padding-bottom: 20px;
+}
+
+.section_review .list_after .desc_after {
+    display: block;
+    overflow: hidden;
+    padding: 14px 30px 0;
+    cursor: pointer;
+}
+
+
+.section_review .list_after .subject {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding-right: 120px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #000;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.section_review .list_after .date {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 12px;
+    color: #949296;
+    line-height: 20px;
+    text-align: right;
+}
+
+.section_review .list_after .desc {
+    display: block;
+    overflow: hidden;
+    padding-top: 20px;
+}
+
+.section_review .list_after .thumb {
+    position: relative;
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+}
+
+.section_review .list_after span.photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+.section_review .list_after .txt {
+    display: block;
+    overflow: hidden;
+    max-height: 70px;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #000;
+    line-height: 20px;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+
+.section_review .list_after li.item_view .view {
+    display: block;
+    padding-top: 20px;
+}
+
+
+.section_review .list_after .view img {
+    display: block;
+    max-width: 600px;
+    margin: 0 auto 10px;
+    padding-top: 20px;
+}
+
+
+.section_review .list_after li.item_view .txt {
+    max-height: none;
+    padding-top: 0;
+    display: block;
+    -webkit-line-clamp: inherit;
+}
+
+.section_review .list_after .txt {
+    display: block;
+    overflow: hidden;
+    max-height: 70px;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #000;
+    line-height: 20px;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.section_review .list_after .btn_after {
+    overflow: hidden;
+    padding: 20px 30px 0;
+}
+
+.section_review .list_after li.item_view .btn_help {
+    padding-top: 16px;
+}
+
+.section_review .list_after .btn_help {
+    float: left;
+    padding-top: 0;
+    border: 0;
+    background: 0 0;
+    font-size: 12px;
+    color: #666;
+    line-height: 18px;
+    cursor: default;
+}
+
+.section_review .list_after li.item_view .btn {
+    display: block;
+}
+
+.section_review .list_after .btn_modify {
+    margin-left: 28px;
+    border: 1px solid #5f0080;
+}
+
+.section_review .list_after .btn {
+    display: none;
+    float: right;
+    height: 34px;
+    padding: 0 13px 0 12px;
+    font-size: 12px;
+    color: #5f0080;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.section_review .list_after .btn_del {
+    padding-top: 1px;
+}
+
+.section_review .list_after .view {
+    display: none;
+}
+
+.hover{
+    background-color: #fafafa;
+}
+
