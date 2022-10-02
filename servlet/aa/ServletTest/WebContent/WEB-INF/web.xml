@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>ServletTest</display-name>
+	<servlet>
+		<servlet-name>T01ServletLifeCycle</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T01ServletLifeCycle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T01ServletLifeCycle</servlet-name>
+		<url-pattern>/T01ServletLifeCycle</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>T02ServletTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T02ServletTest</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>T02ServletTest</servlet-name>
+		<url-pattern>/T02ServletTest</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>T03ServletParameterTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T03ServletParameterTest</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>T03ServletParameterTest</servlet-name>
+		<url-pattern>/T03ServletParameterTest</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>T04ErrorHandler</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T04ErrorHandler</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>T04ErrorHandler</servlet-name>
+		<url-pattern>/T04ErrorHandler</url-pattern>
+	</servlet-mapping>
+	
+	<error-page>
+	<error-code>404</error-code>
+	<location>/T04ErrorHandler</location>
+	</error-page>
+</web-app>
+
+
+
+
