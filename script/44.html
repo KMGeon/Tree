@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://192.168.142.3/jsstudy/dom%ec%a1%b0%ec%9e%91.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<script src="./44_files/mylib.js.다운로드"></script>
+<style>
+    #id_disp {
+        border:1px solid green;
+    }
+</style>
+</head>
+<body>
+<!-- DOM  Document Object Model  아주 자주 쓰는 말--> 
+<input type="button" value="뚜가" id="id_add">
+<input type="button" value="이미지도 한번 넣어보아용" id="id_img"><br>
+<input type="button" value="테스통" id="id_test"><br>
+<!--이 버튼 누르면 id_merong  네이버로 연결되는 a 태그가 생성되게 하시옹 -->
+<div id="id_disp"></div>
+<div id="id_merong" style="border:2px solid red">
+</div>
+<script>
+    var v_add = document.querySelector("#id_add");
+    var v_imgadd = document.querySelector("#id_img");
+    var v_disp = document.querySelector("#id_disp");
+    var v_index =1;
+    var v_test = document.querySelector("#id_test");
+    var v_merong = document.querySelector("#id_merong");
+    v_test.onclick = function(){
+        //v_merong.innerHTML += '<a href="http://naver.com">네이버롱</a><br>';
+        var v_a = document.createElement("a");
+        v_a.href="http://naver.com";
+        v_a.innerHTML="네이버로 갈까용";
+        v_a.style.display="block";
+        v_merong.appendChild(v_a); 
+    }
+    
+    v_imgadd.onclick = function(){
+        var v_img = document.createElement("img");
+        //v_img.src = "./images/dog"+ v_index + ".jpg";
+        v_img.setAttribute("src","./images/dog"+ v_index + ".jpg");
+        //v_img.width=100;
+        v_img.setAttribute("width","100");
+        //v_img.height=100;
+        v_img.setAttribute("height","100");
+        v_index++;
+        if(v_index>=6) v_index = 1;
+        //document.body.appendChild(v_img);
+        v_disp.appendChild(v_img);
+        
+       //위 방식과 비교하여 상황상 더 유리한 것을 사용
+       //table처럼 만들때 생성해야할 태그가 많을 때는 문자열 더하기와
+       //innerHTML 속성을 이용하는 경우가 많음
+       /*
+       var v_str = "<img src='./images/dog"+v_index + ".jpg' width=100 height=100>";
+       v_disp.innerHTML += v_str;
+       v_index++;
+       if(v_index>=6) v_index = 1;
+        */
+    }
+
+    //rgb 함수를 이용한 랜덤 칼라
+    function f_rgbRanColor(){
+        //rgba 에서 a는 alpha값으로 불리는 투명도 (0~1)
+        return "rgba("+ f_ranNum(0,255) + "," + 
+                       f_ranNum(0,255) + "," + 
+                       f_ranNum(0,255) + ",0.2)";
+    }
+
+    v_add.addEventListener("click", function(){
+        var v_h1 = document.createElement("h1"); //h1 태그 생성(메모리에)
+        // 만들어도 눈에 안 보임, 왜?, 문서에 넣지 않았기 때문에
+        v_h1.innerHTML = "관리할 동민이 없는 다영인 슬픔"+v_index;
+        v_h1.style.color=f_rgbRanColor();
+        v_h1.style.backgroundColor=f_rgbRanColor();
+        document.body.appendChild(v_h1);
+        v_index++;
+    });
+
+    //querySelector, querySelectorAll DOM(문서 트리구조) Search 메소드
+    //document.write("<h1>다영인 최고의 PM</h1>");
+    //DOM Element(요소) 쌩성
+</script>   
+
+</body></html>

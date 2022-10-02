@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        border: 1px solid black;
+      }
+      #wrapper {
+        width: 98vw;
+        height: 98vh;
+      }
+      .common {
+        width: 100%; /* 자식은 부모 기준으로 계산됨 */
+      }
+      #header {
+        height: 30%;
+      }
+      #content {
+        height: 50%;
+      }
+      #footer {
+        height: 20%;
+      }
+      .garo {
+        display: inline-block;
+        vertical-align: top; /*이게 없으면 맨 위에 garo의 값이 없어져서 지현 재경이 밑으로 감  */
+        width: 32%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 항상 세로로 먼저 나누고, 가로 나누고, 세로 나누고, 가로 나누기 식으로
+         처음 나눌땐 relative나 absolute를 사용하지 않는다
+         border 스타일을 이용해서 눈으로 영역을 보면서 작업한당
+         제일 큰 영역(wrapper나 container란 이름으로)을 전체 영역으로 잡아주고 시작한당(디자이너 스타일)
+    -->
+    <div id="wrapper">
+      <div id="header" class="common">헤딩</div>
+      <div id="content" class="common">
+        <div class="garo"></div>
+        <div class="garo">지현</div>
+        <div class="garo">째경</div>
+      </div>
+      <div id="footer" class="common">발딩</div>
+    </div>
+  </body>
+</html>
