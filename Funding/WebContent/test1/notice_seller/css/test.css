@@ -1,0 +1,19 @@
+/*.dropdown{
+    position : relative;
+    display : inline-block;
+  }
+  
+  .dropdown_content{
+    display : none;
+    position : absolute;
+    z-index : 1; 다른 요소들보다 앞에 배치
+  }
+  
+  .dropdown_content a{
+    display : block;
+  }
+  
+  .dropdown:hover .dropdown_content {
+    display: block;
+  }*/
+  

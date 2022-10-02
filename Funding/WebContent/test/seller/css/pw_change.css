@@ -1,0 +1,28 @@
+#content{
+    text-align: center;
+    font: small/ 1.5 Arial,Helvetica,sans-serif;
+    width:800px;
+}
+.ico, .confirm{
+    padding:20px 0 10px;
+}
+.confirm .confirm_con{
+    padding-bottom: 10px;
+}
+.confirm .confirm_num{
+    margin-left:21.5em;
+    width:30%;
+    padding:10px 0px 10px;
+    BACKGROUND-COLOR: #e3e4de;
+    COLOR: #922e00;
+    FONT-WEIGHT: BOLD;
+    text-align:center;
+}
+body, td, input, textarea, select {
+    margin: 0;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+}
+div{
+    display:block;
+}
+
