@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>무한스크롤</title>
+  </head>
+  <body>
+    <!-- 특히 모바일쪽에서 많이 사용됨 -->
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <h1>스크롤 테스트</h1>
+    <script>
+      //스크롤 이벤트
+      //크롬에서 스크롤바 움직이는데 문제가 있다.
+      //크롬에서 이거를 사용하려면 약간의 시간을 부려
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, timeout);
+      window.scrollTo(0, 0); //x,y축
+
+      window.onscroll = function () {
+        // 문서(document)의 실시간 바뀌는 정보를 가진 document.documentElement
+        let docElem = document.documentElement; // 줄여쓰기 용도
+
+        // 스크롤이 끝까지 같다면
+        let tunning = 50;
+        if (
+          docElem.scrollTop + docElem.clientHeight >=
+          docElem.scrollHeight - tunning
+        ) {
+          //alert("스크롤 다 내림!! 그럼 올려");
+          for (var i = 1; i <= 10; i++) {
+            let h1 = document.createElement("h1");
+            let ranNum = Math.ceil(Math.random() * 100);
+            h1.innerHTML = "테스트 할게요";
+            document.body.appendChild(h1);
+          }
+        }
+        //튜닝을 하는 이유는 50px위에서 또는 아래에서 randomNum만큼 만들어 주어서 무한스크롤을 만듬
+
+        console.log("스크롤높이:" + document.documentElement.scrollTop);
+        console.log("보이는 화면높이:" + document.documentElement.clientHeight);
+        console.log("실제문서 높이: " + document.documentElement.scrollHeight);
+        console.log("=========================================");
+      };
+    </script>
+  </body>
+</html>

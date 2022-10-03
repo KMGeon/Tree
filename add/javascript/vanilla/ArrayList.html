@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  var v_onj = {};
+  v_onj.aaa = "aaa"; //속성 메소드 추가할 땐 이미 정해진 키워드만 아니면 노상관
+  v_onj.bbb = "bbb";
+
+  delete v_onj.aaa;
+  console.log(v_onj);
+
+  //java의 ArrayList는 js의 배열에 해당
+
+  //**생성자**
+  var java = {}; //네임스페이스용
+  java.util = {}; //네임스페이스용
+
+  java.util.ArrayList = function () {
+    this.length = 0; // 생성될 때 갯수 0
+    return this;
+    // function키워드가 class로 사용되고 있다는 으미(100%는 아님, 거의 대부분)
+  };
+
+  //   **add함수**
+  //메소드 추가, prototype은 그저 메모리절약을 위한 것이 넘 신경 안 써도 됨
+  ArrayList.prototype.add = function (p_arg) {
+    this[this.length] = p_arg;
+    this.length++;
+    // return; //메소드는 일반 함수라서 기본적으로 return이 생략되어 있음
+    return this; //메소드 chaining을 위함
+  };
+  ArrayList.prototype.get = function (p_inx) {
+    return this[p_inx];
+  };
+
+  //  ** remove함수**
+  ArrayList.prototype.remove = function (p_inx) {
+    for (var i = 0; i < this.length - 1; i++) {
+      // 2가 빠진 인덱스 번호가 나오는데 순서대로 잘 나오도록 수정
+      this[i] = this[i + 1];
+    }
+    delete this[this.length - 1];
+    this.length--;
+    return this;
+  };
+  // ======================================================================================================
+  //실제 사용
+  var j_arrList = new ArrayList();
+  j_arrList.add("김").add("무").add("건");
+  //   j_arrList.add("무");
+  //   j_arrList.add("건"); 그냥 return이면 undifiend
+
+  console.log(j_arrList);
+  //console.log(j_arrList.get(1)); // 누느로 화긴!!!
+  //j_arrList.remove(1);
+  //console.log("check2:", j_arrList);
+</script>
