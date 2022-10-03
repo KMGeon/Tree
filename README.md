@@ -1,8 +1,4 @@
-# Java# Study_of_Java
-A repository created to study and review basic Java:star:
-
 # -# Java
-
 <br>
 
 <details>
