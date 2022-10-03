@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)http://192.168.142.3/jsstudy/%ec%9e%a1%ed%83%95%ea%b5%ac%eb%a6%ac5.html -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Document</title>
+    <style>
+        .aaa {
+            color: pink;
+            background-color: black;
+        }
+    </style>
+    <link rel="stylesheet" href="./Document_files/test.css">
+    <style>
+        .ccc {
+            color: ivory;
+            background-color: blueviolet;
+        }
+
+        .ddd {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ddd">안농 하숑</div>
+    <input type="button" value="누르쇼화긴" onclick="f_styleCheck()">
+    <script>
+        //사실 이런 정도까지는 front 전문 회사에 가지 않는 이상은 거의 사용되지 않음
+        // 선택자로 검색하는 함수를 맹글어서 사용하는 것이 일반적
+
+        function f_schSel(p_selector) {
+            var v_styleSheets = document.styleSheets;
+            for (var i = 0; i < v_styleSheets.length; i++) {
+                var v_cssRules = v_styleSheets[i].cssRules;
+                for (var j = 0; j < v_cssRules.length; j++) {
+                    if (v_cssRules[j].selectorText == p_selector) {
+                        return v_cssRules[j].style;
+                    }
+                }
+            }
+        }
+
+        function f_styleCheck() {
+            var v_ss = document.styleSheets[2].cssRules[1];
+            //alert(v_ss.cssText);
+            //alert(v_ss.selectorText);
+            v_ss.style.fontSize = parseInt(v_ss.style.fontSize) * 2 + "em";
+        }
+    </script>
+
+</body>
+
+</html>

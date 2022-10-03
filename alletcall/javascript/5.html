@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #img{
+            position: absolute;
+            margin-left: 380px;
+            margin-top: 390px;
+        }
+
+        #radius {
+            width: 200px;
+            height: 200px;
+            background-color: rgba( 0, 10, 20, 0.5 );
+            -webkit-border-radius: 200px 0 0 0;
+            -moz-border-radius: 200px 0 0 0;
+        }
+
+        #wrapper {
+            border-radius: 50%;
+            width: 400px;
+            height: 400px;
+            position: relative;
+            left: 300px;
+            top: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="img"><img src="/img/다운로드.jpg" alt=""></div>
+    <div id="wrapper">
+        <div id="radius">
+        </div>
+    </div>
+
+    <script>
+    var v_wrapper = document.querySelector("#wrapper");
+    var v_gak =0;
+    function f_rotate(){
+        v_gak = v_gak + 10;
+        v_wrapper.style.transform = "rotate(" + v_gak + "deg)";
+        setTimeout(f_rotate,150);
+    }
+   f_rotate(); 
+</script>   
+</body>
+
+</html>

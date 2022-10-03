@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  /* 직접 배열클라스 맹글어 보깅   */
+  function MyArray() {
+    //length가 핵심 속성
+    this.length = 0;
+    return this; // 새앵략 가능하지만 생략하지 않는게 유리!
+  }
+  // 메소드 추가 prototype방식으로
+  MyArray.prototype.push = function (p_arg) {
+    this[this.length] = p_arg;
+    this.length++; // 직접 length를 컨트롤 해야 함
+  };
+
+  MyArray.prototype.min = function () {
+    var v_min = this[0];
+    for (var i = 1; i < this.length; i++) {
+      if (v_min > this[i]) {
+        v_min = this[i]; // 더퍼 쓰으깅
+      }
+    }
+    return v_min;
+  };
+
+  MyArray.prototype.max = function () {
+    var v_max = this[0];
+    for (var i = 1; i < this.length; i++) {
+      if (v_max < this[i]) {
+        v_max = this[i]; // 더퍼 쓰으깅
+      }
+    }
+    return v_max;
+  };
+
+  MyArray.prototype.forEach = function (p_cb) {
+    for (var i = 0; i < this.length; i++) {
+      //함수.call(this세팅값,매개변수값1, 매개변수값2)
+      p_cb.call(this, this[i], i);
+    }
+  };
+
+  MyArray.prototype.sort = function (p_cb) {
+    if (!p_cb) {
+      // 매개변수가 넘어오지 않았다면
+      //가장 쉬운 정렬 버블 버블 버블정렬, max와 min을 구하는
+      //알고리즘만 이해했다면 문제 없음
+      for (var i = 0; i < this.length; i++) {
+        for (var j = i + 1; j < this.length; j++) {
+          if (this[i] > this[j]) {
+            // 작다면 서로 자리 교체
+            var v_temp = this[i];
+            this[i] = this[j];
+            this[j] = v_temp;
+          }
+        }
+      }
+      return this; // 메소드 체인닝을 위한 코드
+    }
+    if (typeof p_cb == "function") {
+      // 매개변수의 타입확인
+      for (var i = 0; i < this.length; i++) {
+        for (var j = i + 1; j < this.length; j++) {
+          if (p_cb(this[i], this[j]) > 0) {
+            //이 라인이 핵심이다. **************************
+            // 작다면 서로 자리 교체
+            var v_temp = this[i];
+            this[i] = this[j];
+            this[j] = v_temp;
+          }
+        }
+      }
+      return this; // 메소드 체인닝을 위한 코드
+    }
+  };
+  /****   여기서 부터는 사용 ****************/
+  var v_arr = new MyArray();
+
+  //    v_arr.sort(function(){});
+
+  v_arr.push(200);
+  v_arr.push(100);
+  v_arr.push(150);
+  v_arr.push(120);
+  console.log(
+    "ck:",
+    v_arr.sort(function (a, b) {
+      return a - b;
+    })
+  );
+  //    console.log("ck:",v_arr.sort());
+
+  /*
+    v_arr.forEach(function(p_arg,p_index){
+        //forEach가 항상 for문을 돌려주고 때문에
+        //난 개별 값 처리만 callback함수에서 처리하면 됨
+        console.log("넘어온 값:" + p_arg, p_index, this);
+        if(p_index == 2){
+            // 여기서 this -> v_arr을 가리킴  완존 중요 미래를 위해서
+            this[p_index] = 30*p_arg; 
+        }
+    })
+*/
+  /*
+    alert(v_arr.min()); //? 준혀기 준허기 배고픈 안고픈 듯 허기짐을 의미
+    alert(v_arr.max()); //? 
+    */
+  //    console.log(v_arr);
+</script>

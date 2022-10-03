@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="id_disp">
+      <img src="/images/dog6.jpg" width="100" height="100" />
+      <img src="/images/dog1.jpg" width="100" height="100" />
+      <img src="/images/dog2.jpg" width="100" height="100" />
+      <img src="/images/dog3.jpg" width="100" height="100" />
+      <img src="/images/dog5.jpg" width="100" height="100" />
+    </div>
+    <input type="button" value="누르세요" onclick="f_move()" />
+
+    <script>
+      var v_disp = document.querySelector("#id_disp");
+
+      function f_move() {
+        var v_img1 = document.querySelectorAll("#img")[0]; //첫번째 img 태그
+        v_disp.appendChild(v_img1);
+      }
+    </script>
+  </body>
+</html>

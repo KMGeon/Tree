@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://192.168.142.3/jsstudy/%eb%ac%b84.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<style>
+    #id_curtain {
+        width:400px;
+        border:10px groove pink;
+    }
+</style>
+</head>
+<body>
+    <div id="id_curtain" style="height: 345px;">
+        <div id="id_content">
+            내용 필요~~~, 처음엔 안 보이깅 설정 필용
+        </div>
+    </div> 
+<script>
+    var v_curtain = document.querySelector("#id_curtain");
+    var v_ex = 10;
+    function f_show(){
+        //태그 내에 height속성이 정의가 안 되어 있다면 강제 초기값
+        //function 밖에 있으면 더 좋음(상황에 의존)
+        if(!v_curtain.style.height){
+            v_curtain.style.height = "5px"; 
+        }
+        v_curtain.style.height = parseInt(v_curtain.style.height) + v_ex + "px";
+        // 재귀호출로 인해 무한 루핑이니, 종료 조건 필요(여기선 특정 height값!)
+        if(parseInt(v_curtain.style.height) >= 500) return;
+        setTimeout(f_show,150);
+    }
+    window.onload = f_show;
+</script>   
+
+</body></html>

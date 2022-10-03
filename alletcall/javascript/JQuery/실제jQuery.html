@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <!--jQuery 설치는 아래 1줄로 끝, 가끔 면접에서 
+  Content Delivery Network  
+cdn이 뭐냐고 물어봄-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- 아래 방식은 내 서버가 힘들어용, cdn으로 제공된다면 
+     cdn방식을 사용하는 것이 대빵 유리
+<script src="../jquery.min.js"></script>
+-->
+    <script>
+      /* window.onload와 비슷하지만 실제로 DomContentLoaded 이벤트 사용 */
+      $(function () {
+        // 문서 로딩이 끝나면 이벤트 발생
+        //alert("내가 빠른걸");
+        //$("div").html("메롱");
+        //$("div").css("color", "blue"); //style객체를 다룸 이건 안좋은 방식
+        //===============================
+        //더 좋은 방식
+        // $("div").html("메롱").css("color", "blue");
+        //===============================
+        /* 가장 좋은 방식 */
+        var v_divs = $("div");
+        // 개발자라면 jQuery객체임을 표시하기 위해 $를 붙인다
+        v_divs.html("메롱").css("color", "red"); //변수 미리 선언
+      });
+      window.onload = function () {
+        alert("누가 빠르겡?");
+      };
+    </script>
+  </head>
+  <body>
+    <div>맨날 div1</div>
+    <div>맨날 div2</div>
+    <div>맨날 div3</div>
+    <div>맨날 div4</div>
+    <video src="/전에 했던거/images/dog1.jpg"></video>
+    <script>
+      //오늘은 jQuery 기본 메소드만 정리 (꼬옥 외울 것)
+      /*
+    $(document).ready(function(){
+        alert("문서로딩 끝났어용");
+    });
+    */
+
+      /*  살짝 덮어 놓는 걸로
+    window.onload = function(){
+        alert("누가 빨라용?"); //예상외의 결과- 제가 잘못 알고 있는 건지?
+    }
+    */
+    </script>
+  </body>
+</html>
