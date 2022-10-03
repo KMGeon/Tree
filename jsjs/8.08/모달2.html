@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #id_modal {
+            display: none;
+            /* none하면 자리도 안잡고 안보임 */
+            position: fixed;
+            /* 모달 전체창은 항상 fixed로 만든다. */
+            /* fixed에선 height도 100프로 먹음 */
+            width: 100%;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+            background-color: rgba(209, 209, 209, 0.2);
+            /* rgba에서 0.5는 투명도 1이면 제일 투명 */
+        }
+
+        #id_content {
+            position: relative;
+            left: 30%;
+            top: 30%;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="/img/1.jpg" alt=""><br>
+    <input type="button" value="모달창 열기" onclick="f_open()">
+    <!-- window.open에 제약사항이 걸리다 보니 div를 이용해서 새창인 것 처럼 사용하는데 이것을 modal이라고 부름 -->
+    <!-- 모달의 특징은 모달창을 닫지 않으면 모달 뒤에 있는 메인창을 클릭할 수 없음 -->
+    <!-- 모달은 보통 전체를 막는다 그래서 뒤에 누르지 못한다. -->
+
+    <div id="id_modal">
+        <div id="id_content">
+            <h1>모달에 대해서 소개합니다.</h1>
+            <input type="button" value="끄기" onclick="f_close()">
+        </div>
+
+
+    </div>
+
+    <script>
+        var v_modal = document.querySelector('#id_modal');
+        f_open = function () {
+            v_modal.style.display = "block";
+            // none에서 ->block으로 바꾸면 보인다.
+        }
+
+        f_close = function () {
+            v_modal.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

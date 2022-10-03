@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>사용자 정의 속성 (user defined attribute)data-</h1>
+    <div data-friend="박종환" 
+    data-hobby="웹툰" 
+    data-message-merong="완전메롱">
+        <h1>김무건 무겁나요? 무건가요? 가변가요?</h1>
+    </div>
+
+    <script>
+        var v_div =document.querySelector("div"); 
+        //div 태그가 1개밖에 없음
+        alert(v_div.dataset.friend);
+        alert(v_div.dataset.hobby);
+        alert(v_div.dataset.message-Merong);
+        alert(v_div.dataset["messageMerong"]);
+    </script>
+</body>
+</html>

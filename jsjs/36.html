@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://192.168.142.3/jsstudy/%ec%98%a4%ed%94%88.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+</head>
+<body>
+    <h1>열어 준 창</h1>
+    <textarea id="old_text">승연이 상담?</textarea>
+    <input type="button" value="나 버튼이얌" id="old_btn" onclick="f_dayoung()"><br>
+
+    <input type="button" value="새창열엉" onclick="f_winOpen()">
+    <input type="button" value="새창다더" onclick="f_winClose()">
+<script>
+  function f_dayoung(){
+    //window와 document의 관계 -> window.document의 관계
+    v_newWin.document.querySelector("#new_text").value=
+          document.querySelector("#old_text").value;
+    v_newWin.document.querySelector("#new_btn").value="나 태훈이얌";      
+  }
+
+  function f_winClose() {
+    v_newWin.close();
+  }  
+  //새창 띄우깅
+  var v_newWin;  // 전역변수 선언
+  function f_winOpen() {
+    //두번째 매개변수 name칸 에 이름을 안주면 계속 새 탭이 열림
+    // open은 열린창을 나타내는 값을 리턴해 줌
+    v_newWin = window.open("새창.html","sunju","width=300,height=300,left=-200,top=-500");  
+  }
+</script>    
+
+</body></html>
