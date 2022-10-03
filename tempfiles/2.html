@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-style: none;
+        }
+
+        .child {
+            font-size: 20px;
+            /* position: static;*/
+            /* left , top 안움직임 */
+            /* position: relative;static에 의해 자리잡힌 후에 옮기겠다 left, top 가능 */
+            /* 먼저 자리잡고 그걸 자리를 옮겨주는거 */
+            position: absolute;
+            /*화면 왼쪽 모서리가 기준점이 되어버림 ,layer*/
+            border: 1px solid green;
+            /* static은 포지션 */
+            /*
+            1.position : 기준을 잡는다. 있는 자리에
+            2.relative : 옮긴다. 
+            3.absoulute : 왼쪽 모서리를 기준으로 옮긴다.
+             */
+        }
+
+        .csh {
+            left: 100px;
+            top: 100px;
+            font-weight: bolder;
+            background-color: greenyellow;
+            z-index: 400;
+        }
+
+        .lsh {
+            left: 110px;
+            top: 110px;
+            font-weight: bolder;
+            background-color: green;
+            z-index: 500;
+            /*z-index가 크면 앞으로 간다.  */
+        }
+
+        .ojg {
+            left: 90px;
+            top: 90px;
+            font-weight: bolder;
+            background-color: aqua;
+            z-index: 300;
+            
+        }
+        .cha{
+            left: 50px;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="child lsh">이승연</div>
+        <div class="child cha">이준혁</div>
+        <div class="child csh">최승훈</div>
+        <div class="child ojg">오재경</div>
+    </div>
+    <input type="button" value="누르세요"onclick="f_remove()">
+    <script src="/7.29/js/2.js">
+
+    </script>
+</body>
+
+</html>

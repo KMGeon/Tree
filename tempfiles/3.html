@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #id_ball {
+            transform: :skewX(45deg);
+            transform: rotateX(45deg);
+            position: absolute;
+            top: 50px;
+            width: 100px;
+            height: 100px;
+            background-image: url("../images/aaa.jpg");
+            background-size: 100px 100px;
+            border-radius: 50px 50px;
+        }
+
+        #id_bar {
+            position: absolute;
+            width: 200px;
+            left: 50px;
+            height: 20px;
+            background-color: blue;
+            bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <h1>막대가 공을 튕겨 내기</h1> -->
+    <div id="id_ball"></div>
+    <div id="id_bar" style="left:30px"></div>
+    <input type="button" value="시작" onclick="f_move()">
+
+
+    <script src="../js/3.js"> </script>
+</body>
+
+</html>
