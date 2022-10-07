@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class BookVO implements Serializable {
 	
-    private String booktId;//도서 id
+    private String bookId;//도서 id
     private String name; //도서이름
     private Integer unitPrice;// 가격
     private String description;//설명
@@ -18,18 +18,18 @@ public class BookVO implements Serializable {
 	
     public BookVO() {}
 
-	public BookVO(String booktId, String name, Integer unitPrice) {
-		this.booktId = booktId;
+	public BookVO(String bookId, String name, Integer unitPrice) {
+		this.bookId = bookId;
 		this.name = name;
 		this.unitPrice = unitPrice;
 	}
 
-	public String getBooktId() {
-		return booktId;
+	public String getBookId() {
+		return bookId;
 	}
 
-	public void setBooktId(String booktId) {
-		this.booktId = booktId;
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
 	}
 
 	public String getName() {
@@ -114,7 +114,7 @@ public class BookVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BookVO [booktId=" + booktId + ", name=" + name + ", unitPrice=" + unitPrice + ", description="
+		return "BookVO [bookId=" + bookId + ", name=" + name + ", unitPrice=" + unitPrice + ", description="
 				+ description + ", author=" + author + ", publisher=" + publisher + ", category=" + category
 				+ ", unitsInStock=" + unitsInStock + ", totalPages=" + totalPages + ", releaseDate=" + releaseDate
 				+ ", condition=" + condition + "]";

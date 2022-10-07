@@ -14,9 +14,9 @@
 		<p>비밀번호:<input type="password" name="passwd" /></p>
 		<p>이름:<input type="text" name="name" /></p>
 		<p>연락처:
-			<select name="phone1" disabled>
+			<select name="phone1">
 				<option value="010" selected>010</option>
-				<option value="011">011</option>
+				<option value="011" disabled>011</option>
 				<option value="016">016</option>
 				<option value="017">017</option>
 				<option value="019">019</option>
@@ -24,20 +24,20 @@
 			- <input type="text" maxlength="4" size="4" name="phone2" />
 			- <input type="text" maxlength="4" size="4" name="phone3" />
 		</p>
-		<!-- 여성이 초기값으로 선택되도록 checked 속성을 설정한다 -->
+		<!-- 여성이 초깃값으로 선택되도록 checked 속성을 설정함 -->
 		<p>성별:<input type="radio" name="gender" value="남성" />남성
 			   <input type="radio" name="gender" value="여성" checked />여성
 		</p>
-		<!-- 체크박스를 선택한 경우 on이, 선택하지 않은 경우 null이 전송 된다 -->
+		<!-- 체크박스를 선택한 경우 on이, 선택하지 않은 경우 null이 전송 됨 -->
 		<p>취미:독서<input type="checkbox" name="hobby" value="독서" checked />
-				운동<input type="checkbox" name="hobby" value="운동" />
-				영화<input type="checkbox" name="hobby" value="영화" />
+			     운동<input type="checkbox" name="hobby" value="운동" />
+			     영화<input type="checkbox" name="hobby" value="영화" />
 		</p>
 		<p>
-			<!-- wrap="off" : 줄 바꿈 안한다. soft : 자동 줄 바꿈(기본)
-					hard : 서버 전송 시 캐리지 리턴 문자를 전달한다
+			<!--  wrap="off" : 줄 바꿈 안함. soft : 자동 줄 바꿈(기본)
+					hard : 서버 전송 시 캐리지 리턴 문자를 전달함		
 			 -->
-			<textarea name="comment" rows="3" cols="30" 
+			<textarea name="comment" rows="3" cols="30"
 				placeholder="가입인사를 입력해주세요" wrap="soft"></textarea>
 		</p>
 		<p>
@@ -49,3 +49,10 @@
 	</form>
 </body>
 </html>
+
+
+
+
+
+
+

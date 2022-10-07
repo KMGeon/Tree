@@ -44,4 +44,21 @@ public class BookRepository {
 	public List<BookVO> getAllBooks(){
 		return listOfBooks;
 	}
+	public BookVO getBookById(String bookId) {
+	
+		BookVO bookById = null;
+		
+		for(int i=0; i < listOfBooks.size(); i++) {
+			BookVO vo =listOfBooks.get(i);
+			if(vo != null && bookId != null && bookId.equals(vo.getBookId())) {
+				bookById = vo;
+			}
+			
+		}
+		
+		return bookById;
+	}
+	public void addBook(BookVO bookVO) {
+		listOfBooks.add(bookVO);
+	}
 }

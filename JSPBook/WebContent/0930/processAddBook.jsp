@@ -27,7 +27,7 @@
       BookRepository dao=BookRepository.getInstance();
       
       BookVO addBook =new BookVO();
-    
+      addBook.setBookId(bookId);
       addBook.setName(name);
       addBook.setUnitPrice(unitPirce);
       addBook.setAuthor(author);
@@ -38,7 +38,7 @@
       addBook.setCategory(category);
       addBook.setUnitsInStock(unitsInStock);
       addBook.setCondition(condition);
-     
+      dao.addBook(addBook);
       response.sendRedirect("products.jsp");
       %>
       

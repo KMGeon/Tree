@@ -1,10 +1,7 @@
 package bookRepository;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class BookVO {
-
+	
 	private String bookId; // 도서 아이디
 	private String name; // 도서명
 	private Integer unitPrice; // 가격
@@ -16,22 +13,21 @@ public class BookVO {
 	private long totalPages; // 페이지수
 	private String releaseDate; // 출판일(월/년)
 	private String condition; // 신규 도시 or 중고 도서 or E-Book
-	// ch07에서 추가함
-	private String filename; // 이미지 파일명
-
+	
 	// 기본 생성자
 	public BookVO() {
 
 	}
-
+	
 	public BookVO(String bookId, String name, Integer unitPrice) {
-
+		
 		this.bookId = bookId;
 		this.name = name;
 		this.unitPrice = unitPrice;
-
+		
 	}
-
+	
+	// getter / setter 메소드
 	public String getBookId() {
 		return bookId;
 	}
@@ -120,20 +116,13 @@ public class BookVO {
 		this.condition = condition;
 	}
 
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
 	@Override
 	public String toString() {
-		return String.format(
-				"BookVO [bookId=%s, name=%s, unitPrice=%s, author=%s, description=%s, publisher=%s, category=%s, unitsInStock=%s, totalPages=%s, releaseDate=%s, condition=%s, filename=%s]",
-				bookId, name, unitPrice, author, description, publisher, category, unitsInStock, totalPages,
-				releaseDate, condition, filename);
+		return "BookVO [bookId=" + bookId + ", name=" + name + ", unitPrice=" + unitPrice + ", author=" + author
+				+ ", description=" + description + ", publisher=" + publisher + ", category=" + category
+				+ ", unitsInStock=" + unitsInStock + ", totalPages=" + totalPages + ", releaseDate=" + releaseDate
+				+ ", condition=" + condition + "]";
 	}
-
+	
+	
 }
