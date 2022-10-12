@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   EMP_DETAIL
+   <table border=1>
+       <tr>     
+          <th>사번</th>
+          <th>이름</th>
+          <th>성별</th>
+          <th>주소</th>
+       </tr>
+       <tr>
+          <td>{{ row.e_id }}</td>
+          <td>{{ row.e_name }}</td>
+          <td>{{ row.e_sex }}</td>
+          <td>{{ row.e_addr }}</td>
+       </tr>
+    </table>
+</body>
+</html>

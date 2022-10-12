@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+
+<script src="js/jquery-3.6.1.js"></script>
+</head>
+<body>
+	<div id="v_disp">Good Morning</div>
+	<input type="button" id="btn" value="click" />
+
+	<script>
+    $(document).ready(function(){
+    	 $("#btn").bind("click",function(){
+    		 myclick();
+    	 })
+    	});
+    function myclick() {
+        $("#v_disp").html("Good Change").css("background-color", "green");
+      }
+    </script>
+</body>
+</html>

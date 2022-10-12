@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <style type="text/css">
+      .myit {
+        width: 25px;
+      }
+    </style>
+    <script type="text/javascript">
+      function myclick() {
+        var game = ["가위", "바위", "보"];
+        var mine = document.querySelector("#it_mine");
+        var com = document.querySelector("#it_com");
+        var result = document.querySelector("#it_result");
+        com.value = game[parseInt(Math.random() * 3)];
+        if (mine.value == com.value) {
+          result.value = "무승부";
+        } else if (
+          mine.value == "가위" &&
+          com.value == "보" ||mine.value == "바위"&&com.value =="가위"||mine.value == "보"&&com.value == "바위")
+         {
+          result.value = "승리
+        } else {
+          result.value = "패배";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>나 :</td>
+        <td>
+          <input type="text" class="myit" id="it_mine" />
+        </td>
+      </tr>
+      <tr>
+        <td>컴 :</td>
+        <td>
+          <input type="text" class="myit" id="it_com" />
+        </td>
+      </tr>
+      <tr>
+        <td>결과 :</td>
+        <td>
+          <input type="text" class="myit" id="it_result" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="button" value="게임하기" onclick="myclick()" />
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
