@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!-- 
+    이 페이지는 사용자에게 보여지는 내용은 없음 
+-->
+<script src="../게시판/gesilib.js"></script>
+<script>
+    // 넘어온 값들
+    var v_title = request.getParameter("nm_title");
+    var v_writer = request.getParameter("nm_writer");
+    var v_level = request.getParameter("nm_level");
+    var v_cats = request.getParameterValues("nm_cat");
+    var v_content = request.getParameter("nm_content").replaceAll("+", " ");
+
+    // localStorage에 저장하기
+    var v_tblName = "gesiTB";
+    // 넘어온 값들을 통째로 1개로 묶어서 저장한다.
+    var v_arrTotal= [];
+    var v_pid = 1; // 없을 때 초기값 설정
+    // Primary-Key(검색을 편하게 -> 기본키(식별키))
+    // 값을 맨 처음 넣을 때와 이미 값이 존재하고 있을 때를 구분
+    if(localStorage.getItem(v_tblName)){
+        v_arrTotal = JSON.parse(localStorage.getItem(v_tblName));
+        v_pid = v_arrTotal[v_arrTotal.length-1].pid + 1;
+    }
+    
+    var v_gul = {}; // 묶어주기 위한 빈 객체(name-space로 봐도 무방.)
+    v_gul.pid = v_pid;  // 고유키 만들어주기
+    v_gul.title = v_title;
+    v_gul.writer = v_writer;
+    v_gul.level = v_level;
+    v_gul.cats = v_cats;
+    v_gul.content = v_content;
+    
+    v_arrTotal.push(v_gul); // v_gul 객체를 v_arrTotal 배열에 담음
+
+    localStorage.setItem(v_tblName, JSON.stringify(v_arrTotal));
+
+    // 쓰는 글들이 기존 배열에 추가되어 localStorage에 저장되도록 만들기
+    // 힌트 : localStorage.getItem과 JSON.parse를 함께 잘 사용하기
+    
+    alert("작성 글이 등록되었습니다.");
+    location.replace("list.html");
+</script>
