@@ -24,7 +24,7 @@ public class RegisterController {
             return "redirect:/register/add";
 //              return "redirect:/register/add?msg"+msg; //url 재작성
         }
-        return "registerInfo";
+        return "/WEB-INF/test/registerInfo.jsp";
     }
 
     private boolean isValid(User user) {

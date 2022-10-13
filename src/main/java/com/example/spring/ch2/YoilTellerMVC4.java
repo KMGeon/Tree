@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,7 +17,7 @@ public class YoilTellerMVC4 {
 
         // 2. 유효성 검사
         if(!isValid(date)) {
-            mv.setViewName("yoilError"); // 뷰의 이름을 지정 
+            mv.setViewName("/WEB-INF/test/yoilError.jsp"); // 뷰의 이름을 지정
             return mv;
         }
 
@@ -33,7 +32,7 @@ public class YoilTellerMVC4 {
         mv.addObject("yoil", yoil);
 
         // 5. 작업 결과를 보여줄 뷰의 이름을 지정
-        mv.setViewName("yoil");
+        mv.setViewName("/WEB-INF/test/yoil.jsp");
 
         // 6. ModelAndView를 반환
         return mv;

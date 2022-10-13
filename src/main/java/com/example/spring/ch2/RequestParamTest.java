@@ -1,13 +1,12 @@
 package com.example.spring.ch2;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Controller
 public class RequestParamTest {
@@ -27,7 +26,7 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam?year=   ---->> year=""
 //		http://localhost/ch2/requestParam?year    ---->> year=""
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "/WEB-INF/views/yoil.jsp";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 
 	@RequestMapping("/requestParam2")
@@ -36,7 +35,7 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam2         ---->> year=null
 //		http://localhost/ch2/requestParam2?year    ---->> year=""
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "yoil";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 
 	@RequestMapping("/requestParam3")
@@ -45,7 +44,7 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam3         ---->> year=null   400 Bad Request. required=true라서 
 //		http://localhost/ch2/requestParam3?year    ---->> year=""
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "/WEB-INF/views/yoil.jsp";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 
 	@RequestMapping("/requestParam4")
@@ -53,7 +52,7 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam4         ---->> year=null 
 //		http://localhost/ch2/requestParam4?year    ---->> year=""   
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "yoil";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 
 	@RequestMapping("/requestParam5")
@@ -61,7 +60,7 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam5         ---->> year=1   
 //		http://localhost/ch2/requestParam5?year    ---->> year=1   
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "yoil";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 	
 // =======================================================================
@@ -71,7 +70,7 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam6        ---->> 500 java.lang.IllegalStateException: Optional int parameter 'year' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
 //		http://localhost/ch2/requestParam6?year   ---->> 400 Bad Request, nested exception is java.lang.NumberFormatException: For input string: "" 
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "/WEB-INF/views/yoil.jsp";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 	
 	@RequestMapping("/requestParam7") 
@@ -79,7 +78,7 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam7        ---->> 400 Bad Request, Required int parameter 'year' is not present
 //		http://localhost/ch2/requestParam7?year   ---->> 400 Bad Request, nested exception is java.lang.NumberFormatException: For input string: "" 
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "yoil";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 
 	@RequestMapping("/requestParam8") 
@@ -87,7 +86,7 @@ public class RequestParamTest {
 	//	http://localhost/ch2/requestParam8        ---->> 500 java.lang.IllegalStateException: Optional int parameter 'year' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
 	//	http://localhost/ch2/requestParam8?year   ---->> 400 Bad Request, nested exception is java.lang.NumberFormatException: For input string: "" 
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "/WEB-INF/views/yoil.jsp";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 	
 	@RequestMapping("/requestParam9") 
@@ -95,7 +94,7 @@ public class RequestParamTest {
 	//	http://localhost/ch2/requestParam9        ---->> 400 Bad Request, Required int parameter 'year' is not present
 	//	http://localhost/ch2/requestParam9?year   ---->> 400 Bad Request, nested exception is java.lang.NumberFormatException: For input string: "" 
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "yoil";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 	
 	@RequestMapping("/requestParam10")   
@@ -103,7 +102,7 @@ public class RequestParamTest {
 	//	http://localhost/ch2/requestParam10        ---->> year=1   
 	//	http://localhost/ch2/requestParam10?year   ---->> year=1   
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "yoil";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 
 	@RequestMapping("/requestParam11")   
@@ -111,6 +110,6 @@ public class RequestParamTest {
 //		http://localhost/ch2/requestParam11        ---->> year=1   
 //		http://localhost/ch2/requestParam11?year   ---->> year=1   
 		System.out.printf("[%s]year=[%s]%n", new Date(), year);
-		return "yoil";
+		return "/WEB-INF/test/yoil.jsp";
 	}
 } // class

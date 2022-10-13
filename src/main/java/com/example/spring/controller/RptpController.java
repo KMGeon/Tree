@@ -8,11 +8,7 @@ public class RptpController {
 
     @GetMapping("/register/add")
     public String  ReisterController() {
-        return "registerForm";
-    }
 
-    @GetMapping("/test/add")
-    public String testController(){
-        return "test";
+        return "/registerForm";
     }
 }
