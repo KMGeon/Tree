@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%	//스크립틀릿
 	//1) 폼 페이지에서 전송된 파일을 저장할 서버의 경로를 작성
-	String fileUploadPath = "C:\\app";
+	String fileUploadPath = "C:\\upload";
 	//2) 파일 업로드를 위해 Commons-fileUpload 패키지에 
 	//포함되어 있는 DiskFileUpload 객체를 생성
 	DiskFileUpload upload = new DiskFileUpload();

@@ -13,7 +13,7 @@
 	request.setCharacterEncoding("UTF-8");
 
 	//1)어디에 저장할 것인가?
-	String path = "C:\\app";
+	String path = "D:\\A_TeachingMaterial\\4.MiddleProject\\workspace\\JSPBook\\WebContent\\resources\\images";
 	//2) 파일 업로드 객체 생성
 	DiskFileUpload upload = new DiskFileUpload();
 	//3) 환경설정. bit -> bytes -> kbytes -> Mbytes -> Gbytes
