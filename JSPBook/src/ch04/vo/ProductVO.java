@@ -7,34 +7,37 @@ import java.io.Serializable;
 //자바빈 클래스(멤버변수, 기본 생성자, getter/setter메소드)
 // implements Serializable : 직렬화. 인터페이스를 상속받음(생략 가능)
 public class ProductVO implements Serializable {
-	//생략 가능
-	private static final long serialVersionUID = 
-			-4274700572038677000L;
-	
-	//멤버변수
-	private String productId;	//상품 아이디(PRODUCT테이블의 PRODUCT_ID 컬럼)
-	private String pname;	//상품명
-	private int unitPrice;	//상품가격
-	private String description;	//상품 설명
-	private String manufacturer; //제조사
-	private String category; //분류
-	private int unitsInStock;	//재고수
-	private String condition;	//신상품 or 중고품 or 재생품
-	
-	//ch07에서 추가함
-	private String filename;	//이미지 파일명
-	
-	//기본 생성자
-	public ProductVO() {}
-	
-	//상품 아이디, 상품명, 가격 파라미터들을 매개변수로 받는 생성자 -> 멤버변수에 할당
+	// 생략 가능
+	private static final long serialVersionUID = -4274700572038677000L;
+
+	// 멤버변수
+	private String productId; // 상품 아이디(PRODUCT테이블의 PRODUCT_ID 컬럼)
+	private String pname; // 상품명
+	private int unitPrice; // 상품가격
+	private String description; // 상품 설명
+	private String manufacturer; // 제조사
+	private String category; // 분류
+	private int unitsInStock; // 재고수
+	private String condition; // 신상품 or 중고품 or 재생품
+
+	// ch07에서 추가함
+	private String filename; // 이미지 파일명
+
+	// ch13에서 추가함
+	private int quantity; // 장부바니에 담는 개수
+
+	// 기본 생성자
+	public ProductVO() {
+	}
+
+	// 상품 아이디, 상품명, 가격 파라미터들을 매개변수로 받는 생성자 -> 멤버변수에 할당
 	public ProductVO(String productId, String pname, int unitPrice) {
 		this.productId = productId;
-		this.pname	   = pname;
+		this.pname = pname;
 		this.unitPrice = unitPrice;
 	}
 
-	//getter/setter메소드
+	// getter/setter메소드
 	public String getProductId() {
 		return productId;
 	}
@@ -111,21 +114,20 @@ public class ProductVO implements Serializable {
 		this.filename = filename;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductVO [productId=" + productId + ", pname=" + pname + ", unitPrice=" + unitPrice + ", description="
-				+ description + ", manufacturer=" + manufacturer + ", category=" + category + ", unitsInStock="
-				+ unitsInStock + ", condition=" + condition + ", filename=" + filename + "]";
+	public int getQuantity() {
+		return quantity;
 	}
 
-	
-	
-	
-	
-	
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"ProductVO [productId=%s, pname=%s, unitPrice=%s, description=%s, manufacturer=%s, category=%s, unitsInStock=%s, condition=%s, filename=%s, quantity=%s]",
+				productId, pname, unitPrice, description, manufacturer, category, unitsInStock, condition, filename,
+				quantity);
+	}
+
 }
-
-
-
-
-

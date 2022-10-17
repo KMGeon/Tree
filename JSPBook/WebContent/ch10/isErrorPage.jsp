@@ -18,7 +18,7 @@
   - javax.servlet.error.request_uri : 오류 발생 파일의 URI
 -->
 <%
-ErrorData errorData = pageContext.getErrorData();
+ ErrorData errorData = pageContext.getErrorData();
 Throwable throwable = errorData.getThrowable();
 StackTraceElement[] stackTrace = throwable.getStackTrace();
 %>

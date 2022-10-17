@@ -77,6 +77,10 @@ public class LogFilter implements Filter {
 		//요청 처리 소요 시간(종료 시각 - 시작 시각)
 		writer.println("요청 처리 소요 시간 : " + (end-start) + "ms");
 		writer.println("===================================");
+		
+		System.out.println(currentPath);
+		System.out.println(queryString);
+	
 	}
 
 	@Override
