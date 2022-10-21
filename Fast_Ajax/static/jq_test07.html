@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+   .myit {
+      width: 40px;
+   }
+</style>
+<script src="js/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+   $(document).ready(function () {
+      var game = ["가위", "바위", "보"];
+      $("#itMine").bind("keydown",function(key){
+         if(key.keyCode==13) {
+            $("#itCom").val(game[parseInt(Math.random() * 3)]);
+            if($("#itMine").val() == $("#itCom").val()) {
+               $("#itResult").val("무승부");
+            } else if($("#itMine").val() == "가위" && $("#itCom").val() == "보" ||
+                    $("#itMine").val() == "바위" && $("#itCom").val() == "가위" ||
+                     $("#itMine").val() == "보" && $("#itCom").val() == "바위") {
+               $("#itResult").val("승리");
+            } else {
+               $("#itResult").val("패배");
+            }
+         }
+      });
+      $(document).on("click", "input[name='btn']", function () {
+         $("#itCom").val(game[parseInt(Math.random() * 3)]);
+         if($("#itMine").val() == $("#itCom").val()) {
+            $("#itResult").val("무승부");
+         } else if($("#itMine").val() == "가위" && $("#itCom").val() == "보" ||
+                 $("#itMine").val() == "바위" && $("#itCom").val() == "가위" ||
+                 $("#itMine").val() == "보" && $("#itCom").val() == "바위") {
+            $("#itResult").val("승리");
+         } else {
+            $("#itResult").val("패배");
+         }
+      });
+      
+   });
+</script>
+</head>
+<body>
+   <table border=1>
+      <tr>
+         <td>나 : </td>
+         <td>
+            <input type="text" class="myit" id="itMine">
+         </td>
+      </tr>
+      <tr>
+         <td>컴 : </td>
+         <td>
+            <input type="text" class="myit" id="itCom">
+         </td>
+      </tr>
+      <tr>
+         <td>결과 : </td>
+         <td>
+            <input type="text" class="myit" id="itResult">
+         </td>
+      </tr>
+      <tr>
+         <td colspan=2>
+            <input type="button" name="btn" value="게임하기">
+         </td>
+      </tr>
+   </table>
+</body>
+</html>
