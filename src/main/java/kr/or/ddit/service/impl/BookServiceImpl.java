@@ -11,22 +11,35 @@ import kr.or.ddit.vo.BookVO;
 //프링이가 자바빈으로 등록해줌
 @Service
 public class BookServiceImpl implements BookService {
-	//DI : 의존성 주입
-	//데이터베이스 접근을 위해 BookDao 인스턴스를 주입받자
+	// DI : 의존성 주입
+	// 데이터베이스 접근을 위해 BookDao 인스턴스를 주입받자
 	@Autowired
 	BookDao bookDao;
-	
-	//BOOK 테이블에 insert
-	//메소드 재정의
+
+	// BOOK 테이블에 insert
+	// 메소드 재정의
 	@Override
 	public int insert(BookVO bookVO) {
-		//insert 처리 결과(0 또는 1이상)
+		// insert 처리 결과(0 또는 1이상)
 		return this.bookDao.insert(bookVO);
 	}
+
+	@Override
+	public BookVO select_detail(BookVO bookVO) {
+		return this.bookDao.select_detail(bookVO);
+	}
+
+	@Override
+	public java.util.List<BookVO> list() {
+		return this.bookDao.list();
+	}
+
+	@Override
+	public int update(BookVO bookVO) {
+		return this.bookDao.update(bookVO);
+	}
+	
+	public int delete(int bookId) {
+		return this.bookDao.delete(bookId);
+	}
 }
-
-
-
-
-
-
