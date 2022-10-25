@@ -3,6 +3,7 @@ package kr.or.ddit.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -15,9 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.service.BookService;
 import kr.or.ddit.vo.BookVO;
-import lombok.extern.java.Log;
+
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
+
 
 /*
  * Controller 어노테이션
@@ -33,10 +34,9 @@ public class BookController {
 	private BookService bs;
 
 	// URI => http://localhost/create
-	// Request : client가 server에 URI를 요청
-	// Mapping : create() 메소드를 실행
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
+
 		/*
 		 * 1) Model : return할 데이터(String, int, List, Map, VO..)를 담당 2) View : 화면을
 		 * 담당(뷰(view : JSP)의 경로) ViewResolver => prefix + jsp파일명 + suffix
@@ -57,24 +57,27 @@ public class BookController {
 	// BookVO : {"bookId":0, "title":"개똥이월드", "category":"소설", "price":"10000",
 	// "insertDate",""}
 	// <form action="/create" method="post">
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView createPost(ModelAndView mav, @ModelAttribute BookVO vo) {
-		// bookVO : BookVO [bookId=0, title=개똥이월드, category=소설, price=10000,
-		// insertDate=null]
-		log.info("bookVO : " + vo.toString());
+	/*
+	 * @RequestMapping(value = "/create", method = RequestMethod.POST) public
+	 * ModelAndView createPost(ModelAndView mav, @ModelAttribute BookVO vo) { //
+	 * bookVO : BookVO [bookId=0, title=개똥이월드, category=소설, price=10000, //
+	 * insertDate=null] log.info("bookVO : " + vo.toString());
+	 * 
+	 * int result = this.bs.insert(vo);
+	 * 
+	 * log.info("result : " + result); if (result < 1) { // 등록 실패 // /create(get방식)
+	 * URI를 재요청 // 책 입력 화면으로 이동 mav.setViewName("redirect:/create"); } else { // 등록
+	 * 성공 mav.setViewName("redirect:/detail?bookId=" + vo.getBookId()); }
+	 * 
+	 * 
+	 * return mav; }
+	 */
 
+	@PostMapping("/create")
+	public String createPost(@ModelAttribute BookVO vo) {
 		int result = this.bs.insert(vo);
-
-		log.info("result : " + result);
-		if (result < 1) { // 등록 실패
-			// /create(get방식) URI를 재요청
-			// 책 입력 화면으로 이동
-			mav.setViewName("redirect:/create");
-		} else { // 등록 성공
-			mav.setViewName("redirect:/detail?bookId=" + vo.getBookId());
-		}
-
-		return mav;
+		String resultUrl = (result < 1) ? "redirect:/create" : "redirect:/detail?bookId=" + vo.getBookId();
+		return resultUrl;
 	}
 
 	// 책 상세보기

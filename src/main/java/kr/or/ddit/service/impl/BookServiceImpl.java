@@ -39,6 +39,7 @@ public class BookServiceImpl implements BookService {
 		return this.bookDao.update(bookVO);
 	}
 	
+	@Override
 	public int delete(int bookId) {
 		return this.bookDao.delete(bookId);
 	}

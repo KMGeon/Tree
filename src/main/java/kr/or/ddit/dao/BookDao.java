@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import kr.or.ddit.vo.BookVO;
 
