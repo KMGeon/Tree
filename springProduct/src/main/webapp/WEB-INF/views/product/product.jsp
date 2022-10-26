@@ -47,12 +47,15 @@
 				<p>
 <%-- 				<form name="addForm" action="addCart.jsp?id=${data.productId}" --%>
 <!-- 				method="post"> -->
-				<form name="addForm" method="post">
+				<form name="addForm" action="/addCart" method="post">
+				<input type="text" name="productId" value="${data.productId}">
 					<a href="/update?productId=${data.productId}" class="btn btn-info">상품 수정&raquo;</a>
 					<%-- <a href="/delete?productId=${data.productId}" class="btn btn-warning">상품 삭제&raquo;</a> --%>
 <!-- 					<a href="#" class="btn btn-info">상품 주문&raquo;</a> -->
 <!-- 					<a href="cart.jsp" class="btn btn-warning">장바구니&raquo;</a> -->
 					<a href="/products" class="btn btn-secondary">상품 목록&raquo;</a>
+					<a href="#" class = 'btn btn-info' onclick="addToCart()">상품주문&raquo;</a>
+					<a href="/cart" class = 'btn btn-info' onclick="addToCart()">장바구니&raquo;</a>
 				</form>
 				</p>
 				<p>
