@@ -21,6 +21,7 @@ import kr.or.ddit.service.ProductService;
 import kr.or.ddit.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Controller
 public class ProductController {
@@ -168,8 +169,7 @@ public class ProductController {
 
 		HttpSession session = request.getSession();
 
-		List<ProductVO> list = (ArrayList<ProductVO>) session.getAttribute("cartlist");
-		log.info("asdasdasdasdasdasdasdsaad",session.getAttribute("cartlist"));
+		List<ProductVO> list = (ArrayList<ProductVO>) session.getAttribute("cartlist");//세션에 list는 cartlist라는 세션에 productvo의 여러개를 넣을려고 list
 		
 		
 		if(list==null) {

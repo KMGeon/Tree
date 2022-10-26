@@ -42,7 +42,10 @@
 	<!-- 다국어 처리 끝 -->
 	
 	<context:component-scan base-package="kr.or.ddit" />
-	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+
+
+	</beans:bean>
 	
 	
 </beans:beans>
