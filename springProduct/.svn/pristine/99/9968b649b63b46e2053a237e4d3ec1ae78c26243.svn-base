@@ -419,8 +419,6 @@ public class ProductController {
 		
 		log.info("cartVO : " + cartVO.toString());
 		
-		this.productService.thankCustomer(cartVO);
-		
 		//forwarding
 		return "product/thankCustomer";
 	}
