@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="car" class="com.fastcampus.ch3.Car" scope="prototype"/>
+    <!-- 프로토 타입을 하면 값이 다르다 , 원래는 다 싱글톤임-->
+    <bean id="engine" class="com.fastcampus.ch3.Engine"/>
+    <bean id="door" class="com.fastcampus.ch3.Door" scope="prototype"/>
+
+
+</beans>
