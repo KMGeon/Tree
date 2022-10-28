@@ -4,107 +4,95 @@
 	<!-- PRODUCT 테이블에 insert -->
 	<insert id="insert" parameterType="kr.or.ddit.vo.ProductVO">
 		INSERT INTO PRODUCT(
-		PRODUCT_ID
-		, PNAME
-		, UNIT_PRICE
-		, DESCRIPTION
-		, MANUFACTURER
-		, CATEGORY
-		, UNIT_IN_STOCK
-		, CONDITION)
+			  PRODUCT_ID
+			, PNAME
+			, UNIT_PRICE
+			, DESCRIPTION
+			, MANUFACTURER
+			, CATEGORY
+			, UNIT_IN_STOCK
+			, CONDITION) 
 		VALUES(#{productId}
-		, #{pname}
-		, #{unitPrice}
-		, #{description}
-		, #{manufacturer}
-		, #{category}
-		, #{unitInStock}
-		, #{condition}
-		)
+			, #{pname}
+			, #{unitPrice}
+			, #{description}
+			, #{manufacturer}
+			, #{category}
+			, #{unitInStock}
+			, #{condition}
+			)
 	</insert>
-
+	
 	<!-- 상품 목록 -->
-	<select id="list" parameterType="String" resultType="productVO">
-		SELECT PRODUCT_ID, PNAME, UNIT_PRICE, DESCRIPTION, MANUFACTURER
-		, CATEGORY, UNIT_IN_STOCK, CONDITION, FILENAME
+ 	<select id="list" parameterType="String" resultType="productVO">
+ 		SELECT PRODUCT_ID, PNAME, UNIT_PRICE, DESCRIPTION, MANUFACTURER
+			, CATEGORY, UNIT_IN_STOCK, CONDITION, FILENAME
 		FROM PRODUCT
 		WHERE 1= 1
-		<if test="keyWord!=null and keyWord!=''">
-			AND (PNAME LIKE '%' || #{keyWord} || '%'
-			OR CATEGORY LIKE '%' || #{keyWord} || '%')
-		</if>
+	<if test="keyWord!=null and keyWord!=''">
+		AND (PNAME LIKE '%' || #{keyWord} || '%'
+		OR CATEGORY LIKE '%' || #{keyWord} || '%')
+	</if>
 		ORDER BY PRODUCT_ID DESC
-	</select>
-
-	<!-- ProductVO [productId=P1236, pname=null, unitPrice=0, description=null, 
-		//manufacturer=null, category=null, unitInStock=0, condition=null, filename=null, 
-		quantity=0] -->
-	<select id="select_detail" parameterType="productVO"
-		resultType="productVO">
+ 	</select>
+	
+	<!-- 
+	ProductVO [productId=P1236, pname=null, unitPrice=0, description=null, 
+		//manufacturer=null, category=null, unitInStock=0, condition=null, filename=null, quantity=0]
+	 -->
+	<select id="select_detail" parameterType="productVO" resultType="productVO">
 		SELECT
-		product_id,
-		pname,
-		unit_price,
-		description,
-		manufacturer,
-		category,
-		UNIT_IN_STOCK unit_in_stock,
-		condition,
-		filename
+		    product_id,
+		    pname,
+		    unit_price,
+		    description,
+		    manufacturer,
+		    category,
+		    UNIT_IN_STOCK unit_in_stock,
+		    condition,
+		    filename
 		FROM
-		product
+		    product
 		WHERE
-		product_id = #{productId}
+		    product_id = #{productId}
 	</select>
-
+	
 	<!-- 상품 변경 -->
 	<update id="update" parameterType="productVO">
-		UPDATE PRODUCT
-		SET PNAME = #{pname}
-		, UNIT_PRICE = #{unitPrice}
-		, DESCRIPTION = #{description}
-		, MANUFACTURER = #{manufacturer}
-		, CATEGORY = #{category}
-		, UNIT_IN_STOCK = #{unitInStock}
-		, CONDITION = #{condition}
+		UPDATE PRODUCT 
+		SET   PNAME = #{pname}
+		    , UNIT_PRICE = #{unitPrice}
+		    , DESCRIPTION = #{description}
+		    , MANUFACTURER = #{manufacturer}
+		    , CATEGORY = #{category}
+		    , UNIT_IN_STOCK = #{unitInStock}
+		    , CONDITION = #{condition}
 		WHERE PRODUCT_ID = #{productId}
 	</update>
-
+	
 	<!-- 상품 삭제 -->
 	<!-- String productId -->
 	<delete id="delete" parameterType="string">
-		DELETE FROM PRODUCT
-		WHERE PRODUCT_ID = #{productId}
+	DELETE FROM PRODUCT 
+	WHERE PRODUCT_ID = #{productId}
 	</delete>
-
-
-
-	<!-- cart , cart_det에 insert 드러와 : cartvo 가즈아 : 생략(insert/update/delete는 
-		resultType = "int" -->
-	<insert id="insertCart">
-		INSERT INTO cart (
-		cart_id,
-		name,
-		shipping_date,
-		country,
-		zip_code,
-		address_name,
-		address_detail,
-		regist_dt
-		) 
-		VALUES (
-		#{cartId},
-		#{name},
-		#{shippingDate},
-		#{country},
-		#{zipCode},
-		#{addressName},
-		#{addressDetail},
-		sysdate
-		)
-
-
-	</insert>
+	
+	<!-- ATTACH 테이블에 insert
+   드루와 : List<AttachVO>
+   가즈아 : 생략
+   INSERT ALL
+   INTO ATTACH VALUES(1,'P1238','1',2,'jpeg',sysdate)
+   INTO ATTACH VALUES(2,'P1238','2',2,'jpeg',sysdate)
+   INTO ATTACH VALUES(3,'P1238','3',2,'jpeg',sysdate)
+   SELECT * FROM SYS.DUAL
+    -->
+    <insert id="insertAttach" parameterType="java.util.List">
+       <foreach collection="list" item="attachVO" open="INSERT ALL "
+          close="SELECT * FROM SYS.DUAL" separator=" ">
+          INTO ATTACH VALUES(#{attachVO.seq},#{attachVO.tid},#{attachVO.attachName}
+             ,#{attachVO.attachSize},#{attachVO.attachType},sysdate)
+       </foreach>
+    </insert>
 </mapper>
 
 
