@@ -19,7 +19,7 @@
         INSERT INTO board
             (title, content, writer)
         VALUES
-            (#{title}, #{content}, #{writer})
+          (#{title}, #{content}, #{writer})
     </insert>
 
     <select id="selectAll" resultType="BoardDto">
@@ -63,5 +63,7 @@
         SET   view_cnt = view_cnt + 1
         WHERE bno = #{bno}
     </update>
+
+
 
 </mapper>

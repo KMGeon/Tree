@@ -1,5 +1,6 @@
 package com.fastcampus.ch4.dao;
 
+import com.fastcampus.ch3.User;
 import com.fastcampus.ch4.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,9 +43,9 @@ public class UserDaoImpl implements UserDao {
         try (
                 Connection conn = ds.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery(); //  select
         ){
             pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 user = new User();
