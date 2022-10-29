@@ -1,5 +1,6 @@
 package com.fastcampus.ch4.dao;
 
+import com.fastcampus.ch4.domain.BoardDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,16 @@ public class BoardDaoImplTest {
     @Autowired
     BoardDao boardDao;
 
+    @Autowired
+    BoardDto boardDto;
+
     @Test
     public void select() throws Exception {
-        assertTrue(boardDao !=null);
+      assertTrue(boardDao !=null);
+      boardDto = boardDao.select(1);
         System.out.println(boardDao);
-        boardDao.select(1);
+        System.out.println(boardDto);
+        assertTrue(boardDto.getBno().equals(1));
+
     }
 }

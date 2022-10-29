@@ -9,8 +9,11 @@ import org.springframework.stereotype.Repository;
 public class BoardDaoImpl implements BoardDao {
     @Autowired
     SqlSession session;
-    String namespace = "com.fastcampus.ch4.dao.BoardMapper";
+    String namespace = "com.fastcampus.ch4.dao.BoardMapper.";
     public BoardDto select(int bno) throws  Exception{
         return session.selectOne(namespace+"select",bno);
     }
+
+
+
 }

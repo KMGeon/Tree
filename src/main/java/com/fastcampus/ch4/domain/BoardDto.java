@@ -1,96 +1,24 @@
 package com.fastcampus.ch4.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.Objects;
 
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Component
 public class BoardDto {
     private  Integer bno;
+    //null이 int로 들어가면 변환에러가 발생 integer로 들어오면 변환에러 x
     private  String title , content,writer,view_cnt,comment_cnt;
     private Date reg_date;
 
-    public BoardDto() {
-    }
-
-    public Integer getBno() {
-        return bno;
-    }
-
-    public void setBno(Integer bno) {
-        this.bno = bno;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public String getView_cnt() {
-        return view_cnt;
-    }
-
-    public void setView_cnt(String view_cnt) {
-        this.view_cnt = view_cnt;
-    }
-
-    public String getComment_cnt() {
-        return comment_cnt;
-    }
-
-    public void setComment_cnt(String comment_cnt) {
-        this.comment_cnt = comment_cnt;
-    }
-
-    public Date getReg_date() {
-        return reg_date;
-    }
-
-    public void setReg_date(Date reg_date) {
-        this.reg_date = reg_date;
-    }
-
-    @Override
-    public String toString() {
-        return "BoardDto{" +
-                "bno=" + bno +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", writer='" + writer + '\'' +
-                ", view_cnt='" + view_cnt + '\'' +
-                ", comment_cnt='" + comment_cnt + '\'' +
-                ", reg_date=" + reg_date +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BoardDto boardDto = (BoardDto) o;
-        return Objects.equals(bno, boardDto.bno) && Objects.equals(title, boardDto.title) && Objects.equals(content, boardDto.content) && Objects.equals(writer, boardDto.writer);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bno, title, content, writer);
-    }
 }
