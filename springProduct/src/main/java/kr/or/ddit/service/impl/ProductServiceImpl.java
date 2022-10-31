@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.dao.ProductDao;
 import kr.or.ddit.service.ProductService;
 import kr.or.ddit.util.FileUploadUtil;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.CartVO;
 import kr.or.ddit.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
@@ -20,15 +21,21 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	ProductDao productDao;
 	
+	@Autowired
+	FileUploadUtil fileUploadUtil;
+		
 	//PRODUCT 테이블에 insert
 	@Override
 	public int insertProduct(ProductVO productVO) {	
 		//PRODUCT 테이블에 insert
 		int result = this.productDao.insertProduct(productVO);
 		//ATTACH 테이블에 다중 insert
-		if(result > 0) {//insert 성공 시
-			//파일업로드 및 insert 수행
-			FileUploadUtil.fileUploadAction(productVO.getProductImage(), 
+		if(result > 0) {//insert 성공 시			
+			//파일업로드 및 insert 수행 1)=>실패
+//			FileUploadUtil.fileUploadAction(productVO.getProductImage(), 
+//					productVO.getProductId());
+			//파일업로드 및 insert 수행 2)=>성공
+			fileUploadUtil.fileUploadAction(productVO.getProductImage(), 
 					productVO.getProductId());
 		}
 		
@@ -69,10 +76,27 @@ public class ProductServiceImpl implements ProductService{
 		
 		return 0;
 	}
+	
+	//ATTACH 테이블에 다중 insert
+	@Override
+	public int insertAttach(List<AttachVO> attachVOList) {
+		return this.productDao.insertAttach(attachVOList);
+	}
+	
+	@Override
+	public String getProductId() {
+		//1행 select 
+		return this.productDao.getProductId();
+	}
 }
 
 
 
 
 
+		
+		
+		
+		
+		
 

@@ -1,11 +1,11 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Go</title>
+<title>Home</title>
 </head>
 <body>
-    <h1>하하하0210</h1>
-
+<h1>Home0201</h1>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  version="3.1">
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
@@ -23,6 +23,17 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		
+		<!-- 파일업로드를 위해 추가 -->
+		<!-- web.xml의 설정은 Tomcat 자체 설정일 뿐임
+			multipart-config : 메모리사이즈, 업로드 파일 저장 위치, 최대 크기 설정
+		 -->
+		 <multipart-config>
+		 	<location>c:\\upload</location><!-- 업로드 되는 파일을 저장할 공간 -->
+		 	<max-file-size>20971520</max-file-size><!-- 업로드 파일 최대 크기 1MB * 20 -->
+		 	<max-request-size>4943040</max-request-size><!-- 한 번에 올릴 수 있는 최대 크기 40MB -->
+		 	<file-size-threshold>20971520</file-size-threshold><!-- 메모리 사용 크기 20MB -->
+		 </multipart-config>
 	</servlet>
 		
 	<servlet-mapping>
@@ -30,12 +41,9 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<!-- 인코딩 방식에 대한 필터를 적용해보기로 한다. 인코딩 필터 등록 -->
-   <!-- 스프링이 만들어놓은 필터를 사용하기로 한다. CharacterEncodingFilter -->
-   <!-- 웹 브라우저(크롬)에서 보내는 요청(request)과 응답(response)의 인코딩을
-   		모두 UTF-8로 고정하기 위해 사이에 필터를 끼워보자	
-   	-->
-   <filter>
+	<!-- 인코딩 필터 -->
+	
+	<filter>
    		<filter-name>encodingFilter</filter-name>
    		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
    		
@@ -49,11 +57,5 @@
    		<filter-name>encodingFilter</filter-name>
    		<url-pattern>/*</url-pattern><!--모든 요청에 대해서  -->
    </filter-mapping>
+
 </web-app>
-
-
-
-
-
-
-

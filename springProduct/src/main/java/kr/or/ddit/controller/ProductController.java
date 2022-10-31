@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.service.ProductService;
@@ -26,6 +29,7 @@ import kr.or.ddit.vo.CartDetVO;
 import kr.or.ddit.vo.CartVO;
 import kr.or.ddit.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 @Slf4j
 @Controller
 public class ProductController {
@@ -432,6 +436,18 @@ public class ProductController {
 	public String checkOutCancelled() {
 		//forwarding
 		return "product/checkOutCancelled";
+	}
+	
+	//product테이블 기본키 자동 생성
+	//json타입으로return : {"productID" : "p1234"}
+	@ResponseBody
+	@PostMapping("/getProductId")
+	public Map<String,String> getProductId(){
+		Map<String, String>map = new HashMap<>();
+		String productId = this.productService.getProductId();
+		log.info("#####productId"+productId);
+		map.put("productId", productId);
+		return map;
 	}
 }
 

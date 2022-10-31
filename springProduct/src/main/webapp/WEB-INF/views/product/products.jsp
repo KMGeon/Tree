@@ -40,7 +40,7 @@
 			<!-- 열별 처리 -->
 			<div class="col-md-4">
 				<!-- /images/P1234.jpg -->
-				<img src="/resources/images/${product.filename}"
+				<img src="/resources/upload/${product.filename}"
 				style="width:100%;" alt="${product.pname}" title="${product.pname}" />
 				<h3>${product.pname}</h3>
 				<p>${product.description}</p>

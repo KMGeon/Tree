@@ -58,6 +58,14 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- json데이터 바인딩(메모리에 올림)을 위한 의존 라이브러리 시작 -->
+       <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.13.4.2</version>
+      </dependency>
+       <!-- json데이터 바인딩(메모리에 올림)을 위한 의존 라이브러리 시작 -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -123,7 +131,16 @@
 		    <version>1.18.22</version>
 		    <scope>provided</scope>
 		</dependency>    
-		
+			 
+		 <!-- 파일을 처리하기 위한 라이브러리 의존 관계 정의 시작 -->
+		 <!-- https://mvnrepository.com/artifact/commons-io/commons-io 
+		 오류나면 2.6 버전으로..
+		 -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.11.0</version>
+		</dependency>
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis</artifactId>

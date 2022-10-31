@@ -57,6 +57,18 @@ $(function(){
 		});//end forEach
 	}
 	//이미지 미리보기 끝////////////////////////
+	
+	//product 테이블의 id 자동 생성
+	//아작났어요 피씨다타서
+	$.ajax({
+		url:"/getProductId",
+		type:"post",
+		success:function(result){
+			console.log("result: "+JSON.stringify(result));
+			$("#productId").val(result.productId);
+		}
+	});
+	
 });
 </script>
 </head>
@@ -78,7 +90,7 @@ $(function(){
 			<div class="form-group row">
 				<label class="col-sm-2"><spring:message code="productId"/></label>
 				<div class="col-sm-3">
-					<input type="text" id="productId" name="productId" class="form-control">
+					<input type="text" id="productId" name="productId" class="form-control" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group row">
