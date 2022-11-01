@@ -9,6 +9,6 @@
 </head>
 <body>
 <h1>성공</h1>
-${memVO.getCoin()}
+
 </body>
 </html>
