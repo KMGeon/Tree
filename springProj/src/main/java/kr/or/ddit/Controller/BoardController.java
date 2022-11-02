@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.or.ddit.service.BoardService;
+import kr.or.ddit.vo.BoardVO;
 import kr.or.ddit.vo.BookVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +35,9 @@ public class BoardController {
 	  - 클래스 레벨로 요청 경로를 지정하면 메서드 레벨에서 지정한 경로의 기본 경로로 취급됨
 	  - 클래스 레벨의 요청 경로에 메서드 레벨의 요청 경로를 덧붙인 형태가 최종 경로가 됨
 	 */
+	
+	@Autowired
+	BoardService boardService;
 	//value속성에 요청 경로 값을 입력
 	//요청URL : http://localhost/board/register
 	@RequestMapping(value="/register")
@@ -222,6 +229,22 @@ public class BoardController {
 		
 		return bookVOList;
 	}
+	
+//	@RequestMapping(value="/list", method=RequestMethod.GET)
+//	public ModelAndView list(ModelAndView mav, @RequestParam(value="keyword", required=false) String keyword) {
+//		List<BoardVO> list = this.boardService.list(keyword);
+//		   
+//		for(BoardVO vo : list ) {
+//		log.info("vo : " + vo.toString());
+//		}
+//		   
+//		// forwarding
+//		mav.setViewName("board/list");
+//		// select 결과 목록을 데이터로 넣어줌
+//		mav.addObject("data", list);
+//		   
+//		return mav;
+//	}
 }
 
 
