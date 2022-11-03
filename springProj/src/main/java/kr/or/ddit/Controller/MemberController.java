@@ -191,6 +191,8 @@ public class MemberController {
 		//forwarding
 		return "register/success";
 	}
+	
+	
 }
 
 

@@ -21,7 +21,9 @@
 		         , MEM_ID, MEM_NAME, MEM_JOB, MEM_LIKE, MEM_HP
 		    FROM   MEM
 		    WHERE  1 = 1
-		    <include refid="where"></include>
+		    <if test="keyword!=null and keyword!=''">
+		    	<include refid="where"></include>
+		    </if>
 		)
 		SELECT * FROM T
 		WHERE T.RNUM BETWEEN #{currentPage} * #{show} - (#{show}-1) AND #{currentPage} * #{show}
@@ -37,7 +39,15 @@
    <select id="getTotal" parameterType="hashMap" resultType="int">
    		SELECT COUNT(*) FROM MEM
    		WHERE  1 = 1
-		<include refid="where"></include>
+		<if test="keyword!=null and keyword!=''">
+	    	<include refid="where"></include>
+	    </if>
+   </select>
+   
+   <!-- 아이디 중복체크 -->
+   <!-- parameterType은 String, hashMap, memVO -->
+   <select id="chkDup" parameterType="String" resultType="int">
+   	  SELECT COUNT(*) FROM MEM WHERE MEM_ID = #{memId}
    </select>
 </mapper>
 

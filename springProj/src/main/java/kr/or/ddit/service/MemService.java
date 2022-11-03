@@ -14,6 +14,9 @@ public interface MemService {
 
 	//MEM 테이블의 전체 행 수 구함
 	public int getTotal(Map<String,String> map);
+
+	//아이디 중복체크
+	public int chkDup(String memId);
  	
  	
 }

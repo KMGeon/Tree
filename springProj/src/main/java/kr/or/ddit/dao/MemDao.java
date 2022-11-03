@@ -30,6 +30,11 @@ public class MemDao {
 	public int getTotal(Map<String,String> map) {
 		return this.sqlSessionTemplate.selectOne("mem.getTotal",map);
 	}
+	
+	//아이디 중복체크
+	public int chkDup(String memId) {
+		return this.sqlSessionTemplate.selectOne("mem.chkDup",memId);
+	}
 }
 
 
