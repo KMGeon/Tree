@@ -89,8 +89,7 @@
 	<!-- 회원테이블(MEM) INSERT -->
 	<insert id="insertMem" parameterType="memVO">
 		INSERT INTO MEM(USER_NO,
-		USER_ID, USER_PW, USER_NAME, COIN, REG_DATE,
-		UPD_DATE, ENABLED)
+		USER_ID, USER_PW, USER_NAME, COIN, REG_DATE, UPD_DATE, ENABLED)
 		VALUES(#{userNo},#{userId},#{userPw},#{userName},0,SYSDATE,NULL,1)
 	</insert>
 
@@ -138,8 +137,8 @@
 		)
 		SELECT U.* FROM U
 		WHERE PNUM BETWEEN
-		(#{currentPage} * 10) - (10 - 1) AND (#{currentPage} *
-		10)
+		(#{currentPage} *
+		10) - (10 - 1) AND (#{currentPage} * 10)
 	</select>
 
 	<!-- 회원 전체 수(검색 포함) -->
@@ -162,22 +161,25 @@
 		FROM MEM A, MEM_AUTH B
 		WHERE
 		A.USER_NO = B.USER_NO
-		AND A.USER_NO = #{username}
+		AND A.USER_NO
+		= #{username}
 	</select>
 
-	<!-- 새로운 MEM 테이블에 INSERT -->
+	<!-- 새로운 MEM 테이블에 insert -->
 	<insert id="memInsert" parameterType="memVO">
 		<!-- USER_NO(기본키 생성) -->
 		<selectKey order="BEFORE" keyProperty="userNo"
 			resultType="int">
-			SELECT NVL(MAX(USER_NO), TO_CHAR(SYSDATE, 'YYYYMM"000"'))
-			+1 FROM MEM
-			WHERE TO_CHAR(SYSDATE, 'YYYYMM') = SUBSTR(USER_NO, 1, 6)
+			SELECT NVL(MAX(USER_NO), TO_CHAR(SYSDATE,'YYYYMM"000"')) +
+			1 FROM MEM
+			WHERE
+			TO_CHAR(SYSDATE,'YYYYMM') = SUBSTR(USER_NO,1,6)
 		</selectKey>
 
-		INSERT INTO MEM(USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL,
+		INSERT INTO MEM (USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL,
 		UPD_DATE)
-		VALUES(#{userNo},#{userId},#{userPw},#{userName},#{userEmail},#{updDate})
+		VALUES(#{userNo}, #{userId}, #{userPw}, #{userName},
+		#{userEmail}, #{updDate})
 	</insert>
 
 	<!-- 1 -->
@@ -195,19 +197,69 @@
 		<result property="filename" column="FILENAME" />
 	</resultMap>
 
-	<!-- 새로윤 MEM 테이블 LIST -->
+	<!-- 새로운 MEM 테이블 list -->
 	<select id="memList2" resultMap="memVOMap">
-		SELECT M.USER_NO
-		, M.USER_ID
-		,
+		SELECT M.USER_NO, M.USER_ID,
 		M.USER_NAME
-		, A.SEQ
-		, A.FILENAME
-		FROM MEM M LEFT OUTER JOIN ATTACH A
-		ON(M.USER_ID = A.USER_NO)
+		, A.SEQ, A.FILENAME
+		FROM MEM M LEFT OUTER JOIN ATTACH A ON
+		(M.USER_ID =
+		A.USER_NO)
 	</select>
 
+
+	<!-- 1 -->	 <!-- userNo : 기본키 -->
+	<resultMap type="memVO" id="memVOMap2">
+		<result property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userName" column="USER_NAME" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="coin" column="COIN" />
+		<result property="regDate" column="REG_DATE" />
+		<result property="updDate" column="UPD_DATE" />
+		<result property="enabled" column="ENABLED" />
+		<collection property="attachVOList" resultMap="attachVOMap"></collection>
+	</resultMap>
+
+
+	<!-- 회원 상세 보기 -->
+	<select id="memDetail" parameterType="String"
+		resultMap="memVOMap2">
+		SELECT
+		M.USER_NO,
+		M.USER_ID,
+		M.USER_PW,
+		M.USER_NAME,
+		M.USER_EMAIL,
+		M.COIN,
+		M.REG_DATE,
+		M.UPD_DATE,
+		M.ENABLED,
+		A.FILENAME
+		FROM MEM
+		M, ATTACH A
+		WHERE M.USER_ID = A.USER_NO(+)
+		AND M.USER_NO = #{userNo}
+	</select>
+	<select id="detailPwCheck" parameterType="memVO" resultType="int">
+		SELECT COUNT(*) 
+		FROM MEM 
+		WHERE USER_NO = #{userNo} 
+		AND USER_PW= #{userPw}
+	</select>
+	
+	
+	<update id="memUpdate" parameterType="memVO" >
+	update mem
+    set 
+    user_name = #{userName},
+    USER_EMAIL = #{userEmail},
+    UPD_DATE = sysdate
+    where USER_NO = #{userNo}
+	</update>
 </mapper>
+
 
 
 

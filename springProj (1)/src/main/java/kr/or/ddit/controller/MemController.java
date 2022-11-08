@@ -117,7 +117,7 @@ public class MemController {
 		}
 		
 		// 업로드 될 폴더 설정
-		String uploadFolder = "D:\\A_TeachingMaterial\\06_spring\\springProj\\src\\main\\webapp\\resources\\upload";
+		String uploadFolder = "C:\\eclipse-jee-2020-06-R-win32-x86_64\\workspace\\springSem\\src\\main\\webapp\\resources\\upload";
 		// 연/월/일 폴더 생성
 		String uploadFolderPath = getFolder();
 		// 폴더 생성(계획)
@@ -156,7 +156,7 @@ public class MemController {
 				multipartFile.transferTo(saveFile);
 				
 				AttachVO attachVO = new AttachVO();
-				attachVO.setUserNo(memVO.getUserId());
+//				attachVO.setUserNo(memVO.getUserId());
 				attachVO.setSeq(cnt++);	//1을 attachVO에 setting한 후에 1 증가
 				attachVO.setFilename(memVO.getFilename());
 				//Long.valueOf(multipartFile.getSize()).intValue()

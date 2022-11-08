@@ -8,13 +8,14 @@ id="WebApp_ID" version="3.1">
 web.xml : tomcat서버의 설정
 -->
 
-	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters--> 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml
-		/WEB-INF/spring/security-context.xml
+		<!-- /WEB-INF/spring/security-context.xml -->
 		</param-value>
 	</context-param>
+	
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
@@ -76,7 +77,7 @@ web.xml : tomcat서버의 설정
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 스프링 시큐리티가 제공하는 서블릿 필터 클래스를 서블릿 컨테이너에 등록함 -->
+	<!-- 스프링 시큐리티가 제공하는 서블릿 필터 클래스를 서블릿 컨테이너에 등록함 
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -85,7 +86,7 @@ web.xml : tomcat서버의 설정
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+	-->
 	<!-- 상태 코드를 사용하여 오류 페이지 설정 시작
 	HTTP 오류 코드 정리
 	- 400 : Bad Request. 문법 오류(잘못 입력한 url)

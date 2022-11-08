@@ -18,8 +18,11 @@ public interface MemService {
 	public List<MemVO> memList(Map<String,String> map);
 	//회원 전체 수(검색 포함)
 	public int memTotal(Map<String, String> map);
-	//
+	//회원 등록
 	public int memInsert(MemVO memVO);
-	
+	//새로운 MEM 테이블 list 
 	public List<MemVO> memList2();
+	public MemVO memDetail(String userNo);
+	public int detailPwCheck(MemVO memVO);
+	public int memUpdate(MemVO memVO);
 }

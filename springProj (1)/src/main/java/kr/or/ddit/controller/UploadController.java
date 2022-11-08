@@ -106,7 +106,7 @@ public class UploadController {
 		log.info("uploadFile : " + uploadFile);
 		
 		String uploadFolder 
-			= "D:\\A_TeachingMaterial\\06_spring\\springProj\\src\\main\\webapp\\resources\\upload";
+			= "C:\\eclipse-jee-2020-06-R-win32-x86_64\\workspace\\springSem\\src\\main\\webapp\\resources\\upload";
 		
 		//make folder 시작 ---------------------------
 		File uploadPath = new File(uploadFolder, getFolder());
@@ -216,7 +216,7 @@ public class UploadController {
 		
 		//resource : 다운로드 받을 파일(자원)
 		Resource resource = new FileSystemResource(
-				"C:\\eclipse-jee-2020-06-R-win32-x86_64\\workspace\\springProj (1)\\src\\main\\webapp\\resources\\upload"
+				"C:\\eclipse-jee-2020-06-R-win32-x86_64\\workspace\\springProj\\src\\main\\webapp\\resources\\upload"
 				+fileName
 				);
 		//cd862ebd-10a2-4220-bbbb-5bbf8ffdadd7_phone01.jpg
