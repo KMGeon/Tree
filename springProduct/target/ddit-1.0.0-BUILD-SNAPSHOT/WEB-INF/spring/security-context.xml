@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+	<!-- xmlns : xml namespace의 약자 -->
+	<security:http>
+		<!-- URI 패턴으로 접근 제한을 설정 -->
+		<!-- 누구나 접근 가능 -->
+		<security:intercept-url pattern="/board/list" access="permitAll" />
+		<!-- 회원만 접근 가능 -->
+		<security:intercept-url pattern="/board/register" 
+			access="hasRole('ROLE_MEMBER')" />
+		<!-- 누구나 접근 가능 -->
+		<security:intercept-url pattern="/notice/list" access="permitAll" />
+		<!-- 관리자만 접근 가능 -->
+		<security:intercept-url pattern="/notice/register" 
+			access="hasRole('ROLE_ADMIN')" />
+	
+		<!-- 접근 제한에 걸리면 시큐리티가 기본적으로 제공하는 로그인 페이지로 이동 -->
+		<security:form-login />
+		
+		<!-- 접근 거부 처리자의 URI를 지정함 -->
+		<security:access-denied-handler error-page="/security/accessError" />
+	</security:http>
+	
+	<!-- 인증 매니저(아이디, 비밀번호) -->
+	<!-- noop?
+		스프링 시큐리티 5버전부터는 비밀번호 암호화 처리기를 반드시 이용하도록 변경됨
+		암호화 처리기를 사용하지 않도록 noop 문자열을 비밀번호 앞에 사용함
+	 -->
+	<security:authentication-manager>
+		<!-- 지정된 아이디와 비밀번호로 로그인이 가능하도록 설정 -->
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="member" password="{noop}1234" 
+					authorities="ROLE_MEMBER" />
+				<security:user name="admin" password="{noop}abcd"
+					authorities="ROLE_MEMBER,ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
+
+
+
+
+
+
+

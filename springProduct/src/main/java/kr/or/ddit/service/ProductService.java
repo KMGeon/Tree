@@ -30,6 +30,7 @@ public interface ProductService {
 	//ATTACH 테이블에 다중 insert
 	public int insertAttach(List<AttachVO> attachVOList);
 
+	//PRODUCT테이블의 기본키 자동 생성
 	public String getProductId();
 }
 

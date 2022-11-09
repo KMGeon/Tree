@@ -83,9 +83,9 @@ public class ProductServiceImpl implements ProductService{
 		return this.productDao.insertAttach(attachVOList);
 	}
 	
+	//PRODUCT테이블의 기본키 자동 생성
 	@Override
 	public String getProductId() {
-		//1행 select 
 		return this.productDao.getProductId();
 	}
 }

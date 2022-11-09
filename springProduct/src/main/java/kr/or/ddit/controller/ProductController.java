@@ -29,7 +29,6 @@ import kr.or.ddit.vo.CartDetVO;
 import kr.or.ddit.vo.CartVO;
 import kr.or.ddit.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 @Slf4j
 @Controller
 public class ProductController {
@@ -438,15 +437,19 @@ public class ProductController {
 		return "product/checkOutCancelled";
 	}
 	
-	//product테이블 기본키 자동 생성
-	//json타입으로return : {"productID" : "p1234"}
+	//PRODUCT테이블의 기본키 자동 생성
+	//JSON 데이터로 return : {"productId":"P1236"}
 	@ResponseBody
 	@PostMapping("/getProductId")
 	public Map<String,String> getProductId(){
-		Map<String, String>map = new HashMap<>();
+		Map<String,String> map = new HashMap<String, String>();
+		
 		String productId = this.productService.getProductId();
-		log.info("#####productId"+productId);
+		
+		log.info("productId : " + productId);
+		
 		map.put("productId", productId);
+		
 		return map;
 	}
 }
