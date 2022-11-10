@@ -13,6 +13,7 @@ public class MemberVO {
 	private String memRegno1;
 	private String memRegno2;
 	private Date memBir;
+	private String memZip;
 	private String memAdd1;
 	private String memAdd2;
 	private String memHometel;
@@ -20,14 +21,18 @@ public class MemberVO {
 	private String memHp;
 	private String memMail;
 	private String memJob;
-	private String memZip;
 	private String memLike;
 	private String memMemorial;
-	private String memMemorialday;
+	private Date memMemorialday;
 	private int memMileage;
 	private String memDelete;
 	private String enabled;
-
+	//1:N
 	private List<MemberAuthVO> memberAuthVOList;
-
 }
+
+
+
+
+
+
