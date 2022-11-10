@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -165,21 +166,67 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
             </div>
         </li>
-
+		<!-- 
+		스프링 시큐리티 표현식 : 인증 정보, 권한 정보를 다룰 수 있음. 로그인 한 사용자 정보를 확인.
+		1) 인증 정보
+		 - isAuthenticated() : 로그인 되었다면 true
+		 - isAnonymous() : 로그인 안되었다면 true
+		 - principal : 로그인 한 사용자 정보(UserDetails 인터페이스를 구현한 클래스의 객체)
+		   1(username, password) : N(authorities)
+		2) 권한 정보
+		 - hasRole(role명) : 해당 role이 있으면 true
+		 - hasAnyrole(role명1, role명2) : 여러 role 중 하나라도 해당되는가?
+		 
+		 -->
         <div class="topbar-divider d-none d-sm-block"></div>
-
+        	<sec:authorize access="isAnonymous()">
+			<li class="nav-item dropdown no-arrow">
+	           <a class="nav-link dropdown-toggle" href="#" id="userDropdown2" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	               <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인하세요</span>
+	               <img class="img-profile rounded-circle" src="/resources/sbadmin2/img/undraw_profile.svg">
+	           </a>
+	           <!-- Dropdown - User Information -->
+	           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown2">
+	               <a class="dropdown-item" href="/product/products">
+	                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+	                   	로그인
+	               </a>
+	               <a class="dropdown-item" href="/member/addMember">
+	                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+	                   	회원가입
+	               </a>
+	           </div>
+	       </li>
+			</sec:authorize>
+<%-- 		<c:if test="달러{sessionScope.sessionId.id!=null}"> --%>
+		<!--//////////////// 로그인 된 경우 시작//////////////////// -->
+		<!-- ***
+		isAuthenticated() : 인증된 사용자면 true(로그인 했을 경우)
+		isAnonymous() : 익명의 사용자의 경우 true(로그인 안했을 경우)
+		-->
+		<sec:authorize access="isAuthenticated()">
+		<!-- //로그인 성공 -> session.setAttribute("sessionId", id) -->
+		<!-- 달러{sessionScope.sessionId} => PmemberVO pmemberVO 객체 -->		
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+<!--                 달러{sessionScope.sessionId.name} -->
+				<!-- 
+				principal객체 : 로그인 된 사용자의 사용자 정보를 담고 있는 객체(CustomUser)
+				-->
+					<sec:authentication property="principal.memVO.userName"/>
+                	(<sec:authentication property="principal.username"/>)님
+                </span>
                 <img class="img-profile rounded-circle"
                     src="/resources/sbadmin2/img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/member/detailMember?id=${sessionScope.sessionId.id}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
@@ -192,14 +239,19 @@
                     Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <!-- href="/member/logoutMember -->
+                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
                 </a>
             </div>
         </li>
-
+        </sec:authorize>
+        <!--//////////////// 로그인 된 경우 끝//////////////////// -->
+<%-- 		</c:if> --%>
     </ul>
 
 </nav>
 <!-- End of Topbar -->
+
+

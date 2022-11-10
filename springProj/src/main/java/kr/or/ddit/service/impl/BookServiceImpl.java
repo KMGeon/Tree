@@ -7,37 +7,36 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.dao.BookDao;
 import kr.or.ddit.service.BookService;
-import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookVO;
 
-//"프링아 이 클래스는 서비스 클래스야"라고 스프링에게 알려줌. 
-//프링이가 자바빈으로 등록해줌
+//서비스 클래스 : 비즈니스 로직
+//스프링 MVC 구조에서 Controller와 DAO를 연결하는 역할
+/*
+  스프링 프레임워크는 직접 클래스를 생성하는 것을 지양하고,
+ * 프링은 인터페이스를 좋아해. 자꾸자꾸 좋아지면 Impl은 어떡해
+ 인터페이스를 통해 접근하는 것을 권장하고 있기 때문.(확장성)
+ 그래서 서비스 레이어는 인터페이스(BookService)와 클래스(BookServiceImpl)를 함께 사용함
+ 
+ Impl : implement의 약자
+ */
+//"프링아 이 클래스 서비스 클래야"라고 알려주자. 프링이가 자바빈으로 등록해줌.
 @Service
 public class BookServiceImpl implements BookService {
-	//DI : 의존성 주입
 	//데이터베이스 접근을 위해 BookDao 인스턴스를 주입받자
 	@Autowired
 	BookDao bookDao;
 	
-	//BOOK 테이블에 insert
-	//메소드 재정의
+	//Override어노테이션 : 메소드 재정의
 	@Override
 	public int insert(BookVO bookVO) {
-		//insert 처리 결과(0 또는 1이상)
+		//bookId를 리턴받음
 		return this.bookDao.insert(bookVO);
 	}
 	
-	//책 상세보기
+	//책 상세보기(p.71)
 	@Override
 	public BookVO selectDetail(BookVO bookVO) {
-		//BookVO{"bookId":"1","title":"","category":"","price":0,"insertDate":""}
 		return this.bookDao.selectDetail(bookVO);
-	}
-	
-	//책 목록보기
-	@Override
-	public List<BookVO> list(String keyword){
-		return this.bookDao.list(keyword);
 	}
 	
 	//책 수정하기
@@ -48,25 +47,19 @@ public class BookServiceImpl implements BookService {
 	
 	//책 삭제하기
 	@Override
-	public int delete(int bookId) {
-		return this.bookDao.delete(bookId);
+	public int delete(BookVO bookVO) {
+		return this.bookDao.delete(bookVO);
 	}
 	
-	//ATTACH 테이블에 다중 insert
+	//책 목록보기
 	@Override
-	public int insertAttach(List<AttachVO> attachVOList) {
-		return this.bookDao.insertAttach(attachVOList);
+	public List<BookVO> list(String keyword){
+		return this.bookDao.list(keyword);
 	}
 }
 
-		
-		
-		
-		
-		
-		
-		
-		
+
+
 
 
 

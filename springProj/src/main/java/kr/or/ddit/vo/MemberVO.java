@@ -1,130 +1,45 @@
 package kr.or.ddit.vo;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.Data;
 
 //자바빈 클래스
+//PoJo(Plain oriented Java Object) 역할
+@Data
 public class MemberVO {
-	//회원 아이디
-	private String userId = "gaeddongi";
-	//비밀번호
-	private String password = "java";
-	//보유 코인
-	private int coin = 100;
-	//생일(기본 : 2022/11/01 => 변경 : 20221101 => 변경 : 2022-11-01)
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date birth;
-	//성별
+	private String userId;
+	private String password;
 	private String gender;
-	//국적
 	private String nationality;
-	//보유 자동차들(qm6,volvo)
-	private String[] cars;
-	private String car;
-	//취미들(movie, baseball, basketball)
-	private String[] hobbyList;
-	private String hobby;
-	//결혼유무
-	private boolean marriaged;
-	//중첩된 자바빈(1:1)
-	private AddressVO addressVO;
-	//중첩된 자바빈(1:N)
-	private List<CardVO> cardVOList;
-	//기본 생성자
-	public MemberVO() {}
-	//getter/setter메소드
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public int getCoin() {
-		return coin;
-	}
-	public void setCoin(int coin) {
-		this.coin = coin;
-	}
-	public Date getBirth() {
-		return birth;
-	}
-	public void setBirth(Date birth) {
-		this.birth = birth;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public String getNationality() {
-		return nationality;
-	}
-	public void setNationality(String nationality) {
-		this.nationality = nationality;
-	}
-	public String[] getCars() {
-		return cars;
-	}
-	public void setCars(String[] cars) {
-		this.cars = cars;
-	}
-	public String[] getHobbyList() {
-		return hobbyList;
-	}
-	public void setHobbyList(String[] hobbyList) {
-		this.hobbyList = hobbyList;
-	}
-	public boolean isMarriaged() {
-		return marriaged;
-	}
-	public void setMarriaged(boolean marriaged) {
-		this.marriaged = marriaged;
-	}
-	public AddressVO getAddressVO() {
-		return addressVO;
-	}
-	public void setAddressVO(AddressVO addressVO) {
-		this.addressVO = addressVO;
-	}
-	public List<CardVO> getCardVOList() {
-		return cardVOList;
-	}
-	public void setCardVOList(List<CardVO> cardVOList) {
-		this.cardVOList = cardVOList;
-	}
-	public String getCar() {
-		return car;
-	}
-	public void setCar(String car) {
-		this.car = car;
-	}
-	public String getHobby() {
-		return hobby;
-	}
-	public void setHobby(String hobby) {
-		this.hobby = hobby;
-	}
-	@Override
-	public String toString() {
-		return "MemberVO [userId=" + userId + ", password=" + password + ", coin=" + coin + ", birth=" + birth
-				+ ", gender=" + gender + ", nationality=" + nationality + ", cars=" + Arrays.toString(cars) + ", car="
-				+ car + ", hobbyList=" + Arrays.toString(hobbyList) + ", hobby=" + hobby + ", marriaged=" + marriaged
-				+ ", addressVO=" + addressVO + ", cardVOList=" + cardVOList + "]";
-	}
+	private String[] carArray;
+	//여부를 나타내는 체크박스의 경우 String, boolean으로 받을 수 있음
+	private String developer;
+	private boolean foreigner;
 	
-	
-	
+	private AddressVO address;
+	private List<CardVO> cardList;
+	//MEMBER테이블의 INTRODUCTION 컬럼의 자료형이 CLOB이더라도
+	//String 타입의 멤버변수로 처리하면 됨
+	private String introduction;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date dateOfBirth;
+	private MultipartFile picture;
+	private MultipartFile picture2;
+	/*
+	 <input type="file" name="pictureList[0]" /><br />
+	<input type="file" name="pictureList[1]" /><br />
+	 */
+	private List<MultipartFile> pictureList;
+	//<input type="file" name="pictureMulti" multiple />
+	private List<MultipartFile> pictureMulti;
 }
+
+
 
 
 

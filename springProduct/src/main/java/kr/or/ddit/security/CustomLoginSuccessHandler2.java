@@ -18,35 +18,49 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CustomLoginSuccessHandler2 implements AuthenticationSuccessHandler {
+public class CustomLoginSuccessHandler2 implements 
+		AuthenticationSuccessHandler{
 	private RequestCache requestCache = new HttpSessionRequestCache();
-
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-
-		log.warn("onAuthenticationSuccess에 왔다.");
-
-		User customUser = (User) authentication.getPrincipal();// Principal : 주요한 정보
-		log.info("username" + customUser.getUsername());
-		log.info("password" + customUser.getPassword());
-		
-		clearAuthenticationAttribute(request);
-
-		SavedRequest savedRequest = requestCache.getRequest(request, response);
-		String targetUrl = savedRequest.getRedirectUrl();
-
-		log.warn("login success targetURL" + ":" + targetUrl);
-		response.sendRedirect(targetUrl);
-	}
 	
-	//인증 오류가 세션에 담겨 있다면 인증이 성공했으므로 clear해줘야함
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request
+			, HttpServletResponse response,
+			Authentication auth) throws IOException, ServletException {
+			log.warn("onAuthenticationSuccess에 왔다");
+			
+			User customUser = (User)auth.getPrincipal();
+			
+			log.info("username : " + customUser.getUsername());
+			log.info("password : " + customUser.getPassword());
+			
+			clearAuthenticationAttribute(request);
+			
+			// targetUrl(목적지) : /notice/register를 구함
+			SavedRequest savedRequest = requestCache.getRequest(request, response);
+			String targetUrl = savedRequest.getRedirectUrl();
+			
+			log.warn("Login Success targetUrl : " + targetUrl);
+			
+			response.sendRedirect(targetUrl);
+	}
+	//인증 오류가 세션에 담겨 있다면 인증이 성공했으므로 clear 해줘야 함
 	private void clearAuthenticationAttribute(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-
-		if (session == null) {
+		
+		if(session == null) {
 			return;
 		}
+		
 		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 	}
+	
 }
+
+
+
+
+
+
+
+
+

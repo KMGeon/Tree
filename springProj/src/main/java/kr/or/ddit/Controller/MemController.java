@@ -1,23 +1,27 @@
-package kr.or.ddit.Controller;
+package kr.or.ddit.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
-import org.apache.commons.collections.map.HashedMap;
+import org.apache.velocity.tools.config.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,252 +29,199 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.service.MemService;
 import kr.or.ddit.util.ArticlePage;
-import kr.or.ddit.util.FileUploadUtil;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.MemVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequestMapping("/mem")
 @Controller
 public class MemController {
-	
 	@Autowired
 	MemService memService;
-	//DI
-	@Inject
-	FileUploadUtil fileUplodUtil;
 	
-	//요청 URI : /board/list?currentPage=2&show=10
-	//요청 파라미터 : currentPage=2
-	@RequestMapping(value="/board/list", method=RequestMethod.GET)
-	public ModelAndView list(ModelAndView mav,
-			@RequestParam(defaultValue="1",required=false) int currentPage,
-			@RequestParam Map<String,String> map) {
+	// 요청 URI : /mem/memRegist
+	@GetMapping("/memRegist")
+	public ModelAndView memRegist(MemVO memVO) {
+		memVO.setUserNo(memService.makeUserNo());
 		
-		log.info("currentPage : " + currentPage);
-		// /board/list 이렇게 요청되었을 경우처리
-		String cPage = map.get("currentPage");
-		String show = map.get("show");
-		String keyword = map.get("keyword");
-		if(cPage==null) {
-			map.put("currentPage","1");
-		}
-		if(show==null) {
-			map.put("show","10");
-		}
-		if(keyword==null) {
-			map.put("keyword","");
-		}
-		
-		//map : {show=25, keyword=개똥, currentPage=1}
-		log.info("map : " + map);
-		
-		List<MemVO> list = this.memService.list(map);
-		
-		//MEM 테이블의 전체 행 수 구함
-		//map : {show=25, keyword=개똥, currentPage=1}
-		int total = this.memService.getTotal(map);
-		
-		//한 화면에 보여질 행 수
-		int size = Integer.parseInt(map.get("show"));
-		
-		for(MemVO vo : list) {
-			log.info("vo : " + vo.toString());
-		}
-		mav.setViewName("board/list");
-		//(전체 글 수, 현재페이지, 한 화면에 보여질 행 수, select 결과 list)
-		mav.addObject("data", new ArticlePage<MemVO>(total, currentPage, size, list));
-		return mav;
-	}
-	
-	@RequestMapping(value="/create2", method=RequestMethod.GET)
-	public ModelAndView create2() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/create2");
+		//회원의 번호를 모델에 담아서 jsp로 보냄
+		mav.addObject("userNo", memVO.getUserNo());
+		mav.setViewName("mem/memRegist");
+		
+		//forwarding
 		return mav;
 	}
 	
+	// {"userId":userId}
+	// 요청URI : /mem/dupChk
+	//골뱅이RequestBody : json을 받을 때
+	//골뱅이ResponseBody : json을 보낼 때
+	@ResponseBody
+	@PostMapping("/dupChk")
+	public Map<String,String> dupChk(@RequestBody MemVO memVO) {
+		log.info("memVO : " + memVO.toString());
+		//중복 아이디 체크
+		int cnt = this.memService.dupChk(memVO);
+		
+		Map<String,String> map = new HashMap<String,String>();
+		
+		//1 : 있다 / 0 : 없다
+		if(cnt<1) {
+			map.put("result", "0");
+		}else {
+			map.put("result", "1");
+		}
+		
+		return map;
+	}
 	
-	@RequestMapping(value="/create2", method=RequestMethod.POST)
-	public ModelAndView create2Post(ModelAndView mav, @ModelAttribute MemVO memVO) {
+	//요청 URI : /mem/memRegistPost
+	@PostMapping("/memRegistPost")
+	public String memRegistPost(@Validated MemVO memVO,
+			BindingResult brResult) throws IllegalStateException, IOException {
+		//MemVO(userNo=2022002, userId=b001, userPw=java, userName=개똥이, coin=0
+		//, regDate=null, updDate=null, enabled=null, 
+		//memAuthVOList=[MemAuthVO(userNo=2022002, auth=manager)
+		//, MemAuthVO(userNo=2022002, auth=employee), MemAuthVO(userNo=2022002, auth=employer)])
+		log.info("memVO : " + memVO.toString());
+		//회원등록화면으로 redirect
+		//톰캣 : 헤이, 크롬! /mem/memRegist 다시 요청해달라매?
+		//크롬 : 응, 내가 그랬지.
+		//톰캣 : 그럼 다시 요청해줘. 내가 처리해줄게
+		//크롬 : 응, 알겠어 다시 /mem/memRegist 요청했어. 처리해줘
+		//톰캣 : 응, 나도 처리할게
+		if(brResult.hasErrors()) {	//유효성 검사 결과 오류 발생
+			//검사 결과 오류 확인
+			List<ObjectError> allErrors = brResult.getAllErrors();
+			//객체와 관련된 오류
+			List<ObjectError> globalErrors = brResult.getGlobalErrors();
+			//멤버변수와 관련된 오류
+			List<FieldError> fieldErrors = brResult.getFieldErrors();
+			
+			for(ObjectError objectError : allErrors) {
+				log.info("allError : " + objectError);
+			}
+			
+			for(ObjectError objectError : globalErrors) {
+				log.info("globalError : " + objectError);
+			}
+			
+			for(FieldError fieldError: fieldErrors) {
+				log.info("fieldError : " + fieldError.getDefaultMessage());
+			}
+			
+			//redirect로는 안되고, forwarding만 됨
+			return "mem/memRegist";
+		}
+		
+		// 업로드 될 폴더 설정
+		String uploadFolder = "C:\\eclipse-jee-2020-06-R-win32-x86_64\\workspace\\springSem\\src\\main\\webapp\\resources\\upload";
+		// 연/월/일 폴더 생성
+		String uploadFolderPath = getFolder();
+		// 폴더 생성(계획)
+		File uploadPath = new File(uploadFolder,uploadFolderPath);
+		//계획된 경로에 폴더가 없다면 생성
+		if(uploadPath.exists()==false) {
+			uploadPath.mkdirs();
+		}
+		//memVO 객체로부터 MultipartFile[] 타입의 파일 객체를 꺼내와보자
+		MultipartFile[] uploadFile = memVO.getMemImage();
+		//attach테이블에 입력할 목록을 생성
+		List<AttachVO> attachVOList = new ArrayList<AttachVO>();
+		int cnt = 1;
+		//파일 객체 배열로부터 하나씩 파일객체를 꺼내보자
+			for(MultipartFile multipartFile : uploadFile) {
+				//실제파일명 가져오기
+				String uploadFileName = multipartFile.getOriginalFilename();
+				//IE 처리 => 경로를 제외한 파일명만 추출
+				//c:\\temp\\개똥이.jpg => 개똥이.jpg
+				uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+				//UUID 붙이기
+				UUID uuid = UUID.randomUUID();
+				uploadFileName = uuid.toString() + "_" + uploadFileName;
+						
+				//memVO 객체의 filename 멤버변수에 실제 파일명을 넣어줌
+				//	/2022/08/03   /   UUID_개똥이.jpg
+				memVO.setFilename(uploadFolderPath.replace("\\", "/") + 
+						"/" + uploadFileName);
+				
+				//파일업로드 처리
+				//uploadPath : static폴더및연월일까지
+				//uploadFileName : UUID_실제파일명
+				//계획
+				File saveFile = new File(uploadPath, uploadFileName);
+				//실행
+				multipartFile.transferTo(saveFile);
+				
+				AttachVO attachVO = new AttachVO();
+//				attachVO.setUserNo(memVO.getUserId());
+				attachVO.setSeq(cnt++);	//1을 attachVO에 setting한 후에 1 증가
+				attachVO.setFilename(memVO.getFilename());
+				//Long.valueOf(multipartFile.getSize()).intValue()
+				attachVO.setFilesize((int)multipartFile.getSize());
+				
+				attachVOList.add(attachVO);
+			}
+		//attach테이블에 list형태로 입력하기 위함
+		memVO.setAttachVOList(attachVOList);
+			
+		//회원 및 회원권한 insert
 		int result = this.memService.insert(memVO);
 		
-		if(result < 1) {
-			mav.setViewName("redirect:/create2");
-		} else {
-			mav.setViewName("redirect:/board/list");
+		if(result>0) { //입력 성공
+			return "redirect:/mem/memRegist?result=1";
+		}else {	//입력 실패
+			return "redirect:/mem/memRegist?result=0";
 		}
-		return mav;
 	}
 	
-	//요청URI : /board/chkDup
-	//요청파라미터 : {"memId":"abc001"}
-	//방식 : post
-	//JSON데이터로 리턴. 중복이 있으면{"result":"1"}, 중복이 없으면{"result":"0"}
-	//String memId => 문제 발생
-	//골뱅이RequestParam Map<String,String> map => 문제 발생
-	//결론 : ajax로 요청된 JSON데이터는 무조건 RequestBody로 받자
-	@ResponseBody
-	@PostMapping("/board/chkDup")
-	public Map<String,String> chkDup(
-			@RequestBody Map<String,String> json) {
-		log.info("json : " + json);
+	//날짜 계층형 폴더
+	public String getFolder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Map<String,String> rsltMap = new HashMap<String, String>();
-		
-		int result = this.memService.chkDup(json.get("memId"));
-		
-		rsltMap.put("result", result+"");
-		
-		return rsltMap;
+		Date date = new Date();
+		//str : 2022-08-03
+		String str = sdf.format(date);
+		//2022폴더 > 08폴더 > 03폴더
+		return str.replace("-", File.separator);
 	}
 	
-	/* 8. 파일업로드 폼 방식 요청 처리 
- 		파일업로드 폼 파일<input type="file"... 요소(=태그)값을 
- 		스프링 MVC가 지원하는 MultipartFile 매개변수로 처리함
-	 */
-	@GetMapping("/board/register06")
-	public String register06() {
-		log.info("register06에 왔다");
-		return "/board/register06";
-	}
-	
-	//<input type="file" name="picture" />
-	//MultipartFile			   picture
-	@PostMapping("/board/registerFile01")
-	public String registerFile01Post(MultipartFile picture) {
-		log.info("registerFile01");
-		log.info("originalName : " + picture.getOriginalFilename());
-		log.info("size : " + picture.getSize());
-		log.info("contentType : " + picture.getContentType());
-		
-		//forwarding
-		return "board/success";
-	}
-	
-	//<p>userId : <input type="text" name="userId" value="gaeddongi" /></p>
-	//<p>password : <input type="text" name="password" value="java" /></p>
-	//<input type="file" name="picture" />
-	//MultipartFile			   picture
-	@PostMapping("/board/registerFile02")
-	public String registerFile02Post(String userId,
-			String password,
-			MultipartFile picture) {
-		log.info("registerFile02");
-		log.info("userId : " + userId);
-		log.info("password : " + password);
-		
-		log.info("originalName : " + picture.getOriginalFilename());
-		log.info("size : " + picture.getSize());
-		log.info("contentType : " + picture.getContentType());
-		
-		//forwarding
-		return "board/success";
-	}
-	
-	//<p>userId : <input type="text" name="userId" value="gaeddongi" /></p>
-	//<p>password : <input type="text" name="password" value="java" /></p>
-	//<input type="file" name="picture" />
-	//MultipartFile			   picture
-	@PostMapping("/board/registerFile03")
-	public String registerFile03Post(MemVO memVO,
-			MultipartFile picture) {
-		log.info("registerFile03");
-		log.info("memVO : " + memVO.toString());
-		
-		log.info("originalName : " + picture.getOriginalFilename());
-		log.info("size : " + picture.getSize());
-		log.info("contentType : " + picture.getContentType());
-		
-		//forwarding
-		return "board/success";
-	}
-	//<p>userId : <input type="text" name="userId" value="gaeddongi" /></p>
-	//<p>password : <input type="text" name="password" value="java" /></p>
-	//<input type="file" name="picture" />
-	//<input type="file" name="picture2" />
-	//MultipartFile			   picture
-	@PostMapping("/board/registerFile05")
-	public String registerFile05Post(MemVO memVO,
-			MultipartFile picture,MultipartFile picture2) {
-		log.info("registerFile05");
-		log.info("memVO : " + memVO.toString());
-		
-		log.info("originalName : " + picture.getOriginalFilename());
-		log.info("size : " + picture.getSize());
-		log.info("contentType : " + picture.getContentType());
-		
-		log.info("originalName : " + picture2.getOriginalFilename());
-		log.info("size : " + picture2.getSize());
-		log.info("contentType : " + picture2.getContentType());
-		
-		//forwarding
-		return "board/success";
-	}
-	
-	//<p>userId : <input type="text" name="userId" value="gaeddongi" /></p>
-	//<p>password : <input type="text" name="password" value="java" /></p>
-	//<input type="file" name="pictureList[0]" />
-	//<input type="file" name="pictureList[1]" />
-	//List<MultipartFile>	   pictureList
-	@PostMapping("/board/registerFile06")
-	public String registerFile06Post(MemVO memVO,
-			List<MultipartFile> pictureList) {
-		log.info("registerFile06");
-		log.info("memVO : " + memVO.toString());
-		
-		for(MultipartFile picture : pictureList) {
-			log.info("originalName : " + picture.getOriginalFilename());
-			log.info("size : " + picture.getSize());
-			log.info("contentType : " + picture.getContentType());
+	//요청 URI : /mem/memList
+	//요청 파라미터 : ?size=10&cond=&keyword=2022
+	@GetMapping("/memList")
+	public String memList(Model model, @RequestParam Map<String,String> map
+			, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		//map : {size=10, cond=userName, keyword=127}
+		log.info("map : " + map);
+		if(map==null) {
+			map.put("size","10");
+			map.put("cond",null);
+			map.put("keyword",null);
+			map.put("currentPage","1");
 		}
 		
-		//forwarding
-		return "board/success";
-	}
-	
-	@PostMapping("/board/registerFile07")
-	public String registerFile07Post(MemVO memVO,
-			MultipartFile[] pictures) {
-		log.info("registerFile07");
-		log.info("memVO : " + memVO.toString());
+		map.put("currentPage", currentPage+"");
+		//map : {size=10, cond=userName, keyword=127, currentPage=1}
+		int total = this.memService.memTotal(map);
+		List<MemVO> memVOList = this.memService.memList(map);
 		
-		MultipartFile[] pictureArray = memVO.getPictureArray();
+		//페이징처리(util 패키지의 ArticlePage.java를 통해 페이징 처리해보자)
+		//목록 하단의 페이징은 일단 하지 말고, 한 화면에 10개가 출력되도록 처리
 		
-		for(MultipartFile picture : pictureArray) {
-			log.info("originalName : " + picture.getOriginalFilename());
-			log.info("size : " + picture.getSize());
-			log.info("contentType : " + picture.getContentType());
-		}
+		model.addAttribute("data", new ArticlePage<MemVO>(total, currentPage, 10, memVOList));
+		//요청 파라미터를 받은 map을 model의 속성의 값으로 포함
+		
+		model.addAttribute("map", map);
 		
 		//forwarding
-		return "board/success";
-	}
-	
-	@GetMapping("/board/register07")
-	public String register07Get() {
-		//forwarding
-		return "board/register07";
-	}
-	
-	//요청 URI : /board/uploadAjax
-	//formData.append("file",file);
-	//MultipartFile    file
-	@RequestMapping(value="/board/uploadAjax", method=RequestMethod.POST,
-			produces="text/plain;charset=UTF-8")
-	public ResponseEntity<String> uploadAjax(MultipartFile[] file){
-		String originalFileName = file[0].getOriginalFilename();
-		log.info("originalName : " + originalFileName);
-		ResponseEntity<String> entity = 
-				new ResponseEntity<String>("SUCCESS:"+originalFileName,HttpStatus.OK);
-		
-		UUID uid = UUID.randomUUID();
-		
-		this.fileUplodUtil.fileUploadAction(file, uid.toString());
-		
-		
-		return entity;
+		return "mem/memList";
 	}
 }
+
+
+
 
 
 

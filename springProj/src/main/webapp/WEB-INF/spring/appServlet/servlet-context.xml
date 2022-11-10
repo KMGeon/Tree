@@ -52,14 +52,26 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 	<!-- kr.or.ddit 패키지를 컴포넌트 스캔 대상으로 함 -->
 	<context:component-scan base-package="kr.or.ddit" />
 	
-	<!-- fileupload -->
-	<beans:bean id="multipartResolver" 
-	class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	<!-- 스프링 시큐리티 애너테이션을 활성화
+	 - pre-post-annotations="enabled" -> 골뱅이PreAuthorize, 골뱅이PostAuthorize 활성화
+	   *** PreAuthorize : 특정 메소드를 실행하기 전에 role 체킹
+	   PostAuthorize : 특정 메소드를 실행한 후에 role 체킹
+	 - secured-annotations="enabled" -> 골뱅이Secured를 활성화
+	   Secured : 스프링 시큐리티 모듈을 지원하기 위한 애너테이션
+	 -->
+	<security:global-method-security pre-post-annotations="enabled"
+	 secured-annotations="enabled" />
+	
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+		
 	</beans:bean>
 	
-	
-	
 </beans:beans>
+
+
+
+
 
 
 

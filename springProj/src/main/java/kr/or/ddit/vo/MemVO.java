@@ -1,124 +1,71 @@
 package kr.or.ddit.vo;
 
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.Data;
+
+/* 입력값 검증(서버_비즈니스 로직)
+*  스프링 MVC는 Bean Validation 기능을 이용해 요청 파라미터 값이
+*  바인딩 된 도메인 클래스의 입력값 검증을 함
+*  크롬 -> jsp(post) 요청 -> 자바빈으로 파라미터 매핑 -> 자바빈에서 validation체킹
+*  -> 오류 발생 시 요청된 jsp로 forwarding -> jsp에서 오류 표시
+*/
+/* 입력값 검증 규칙 :입력값 검증 규칙은 Bean Validation이 제공하는 제약 애너테이션으로 설정
+   1. NotNull : 빈 값이 아닌지를 검사
+   2. NotBlank : 문자열이 null이 아니고 trim한 길이가 0 보다는 크다는 것 검사
+   3. Size : 글자 수나 컬렉션의 요소 개수 검사
+   4. Email : 이메일 주소 형신인지 검사
+   5. Past : 과거 날짜인지 검사
+   6. Future : 미래 날짜 인지 검사 
+ */
+//회원정보 자바빈 클래스
+@Data
 public class MemVO {
-	private String memId;
-	private String memName;
-	private String memJob;
-	private String memLike;
-	private String memHp;
-	//MEM테이블에 없어도 사용 가능
+	private int userNo;
+	//필수 입력 검증 규칙 지정 
+	@NotBlank
 	private String userId;
-	private String password;
-	private MultipartFile picture;
-	private MultipartFile picture2;
-	//..name="pictureList[0]"
-	private List<MultipartFile> pictureList;
-	//..name="pictureArray" multiple
-	private MultipartFile[] pictureArray;
+	@NotBlank
+	private String userPw;
+	//문자열이  null이 아니고 trim(공백제거)한 길이가 3보다 작은 것을 검사
+	@NotBlank
+	@Size(max=3)
+	private String userName;
+	@Email
+	private String userEmail;
+	private int coin;
+	@DateTimeFormat(pattern = "yyyyMMdd")
+	private Date regDate;
+	//과거 날짜인지 검사 / 미래날짜 안됌
+	@Past
+	@DateTimeFormat(pattern = "yyyyMMdd")
+	private Date updDate;
+	private String enabled;
+	private String filename;	//첨부파일명
+	//중첩된 자바빈 클래스의 유효성 검사
+	private List<MemAuthVO> memAuthVOList;
+	//첨부파일
+	private MultipartFile[] memImage;
+	//중첩된 자바빈즈 입력값 검증
+	//첨부파일리스트
+	@Valid
+	private List<AttachVO> attachVOList;
+	//행번호
+	private int rnum;
+	//페이지번호
+	private int pnum;
 	
-	public MemVO() {}
-
-	public String getMemId() {
-		return memId;
-	}
-
-	public void setMemId(String memId) {
-		this.memId = memId;
-	}
-
-	public String getMemName() {
-		return memName;
-	}
-
-	public void setMemName(String memName) {
-		this.memName = memName;
-	}
-
-	public String getMemJob() {
-		return memJob;
-	}
-
-	public void setMemJob(String memJob) {
-		this.memJob = memJob;
-	}
-
-	public String getMemLike() {
-		return memLike;
-	}
-
-	public void setMemLike(String memLike) {
-		this.memLike = memLike;
-	}
-
-	public String getMemHp() {
-		return memHp;
-	}
-
-	public void setMemHp(String memHp) {
-		this.memHp = memHp;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public MultipartFile getPicture() {
-		return picture;
-	}
-
-	public void setPicture(MultipartFile picture) {
-		this.picture = picture;
-	}
-
-	public MultipartFile getPicture2() {
-		return picture2;
-	}
-
-	public void setPicture2(MultipartFile picture2) {
-		this.picture2 = picture2;
-	}
-
-	public List<MultipartFile> getPictureList() {
-		return pictureList;
-	}
-
-	public void setPictureList(List<MultipartFile> pictureList) {
-		this.pictureList = pictureList;
-	}
-
-	public MultipartFile[] getPictureArray() {
-		return pictureArray;
-	}
-
-	public void setPictureArray(MultipartFile[] pictureArray) {
-		this.pictureArray = pictureArray;
-	}
-
-	@Override
-	public String toString() {
-		return "MemVO [memId=" + memId + ", memName=" + memName + ", memJob=" + memJob + ", memLike=" + memLike
-				+ ", memHp=" + memHp + ", userId=" + userId + ", password=" + password + ", picture=" + picture
-				+ ", picture2=" + picture2 + ", pictureList=" + pictureList + ", pictureArray="
-				+ Arrays.toString(pictureArray) + "]";
-	}
-
+	
 }
 
 
