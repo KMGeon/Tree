@@ -1,5 +1,6 @@
 package com.example.test.dao;
 
+import com.example.test.dto.LoginMemberDto;
 import com.example.test.dto.TestDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,8 @@ public interface TestMapper {
     List<TestDTO> getList();
 
     public int InsertBook();
+
+    public  int registerCheck(String memId);
+
+
 }
