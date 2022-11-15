@@ -34,12 +34,13 @@
 				</div>
 			</div>
 
-			<div class="card-body">
-				<div class="form-group">
-					<label for="exampleInputEmail1">내용</label> <input type="text"
-						class="form-control" id="content" name="content" placeholder="내용">
-				</div>
-			</div>
+			   <div class="form-group">
+            <label>내용</label>
+            <div class="input-group" id="editor">
+               <textarea id="content" name="content" class="form-control" rows="4"></textarea>
+            </div>
+         </div>
+
 
 
 			<div class="card-body">

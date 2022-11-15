@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="card">
 	<div class="card-header">
 		<h3 class="card-title">DataTable with default features</h3>
@@ -26,10 +27,6 @@
 								<th class="sorting" tabindex="0" aria-controls="example1"
 									rowspan="1" colspan="1"
 									aria-label="Price: activate to sort column ascending">Price</th>
-								<th class="sorting sorting_asc" tabindex="0"
-									aria-controls="example1" rowspan="1" colspan="1"
-									aria-label="content activate to sort column descending"
-									aria-sort="ascending">content</th>
 								<th class="sorting" tabindex="0" aria-controls="example1"
 									rowspan="1" colspan="1"
 									aria-label="Insert Date: activate to sort column ascending">Insert
@@ -49,9 +46,11 @@
 										${bookVO.bookId}</a></td>
 								<td>${bookVO.title}</td>
 								<td>${bookVO.category}</td>
-								<td>${bookVO.price}</td>
-								<td>${bookVO.content}</td>
-								<td>${bookVO.insertDate}</td>
+								<td><fmt:formatNumber value="${bookVO.price}"
+										pattern="#,###" /></td>
+
+								<td><fmt:formatDate value="${bookVO.insertDate}"
+										pattern="yyyy-MM-dd" /></td>
 
 							</c:forEach>
 						</tbody>
@@ -61,7 +60,6 @@
 								<th rowspan="1" colspan="1">Title</th>
 								<th rowspan="1" colspan="1">Category</th>
 								<th rowspan="1" colspan="1">Price</th>
-								<th rowspan="1" colspan="1">content</th>
 								<th rowspan="1" colspan="1">Insert Date</th>
 							</tr>
 						</tfoot>

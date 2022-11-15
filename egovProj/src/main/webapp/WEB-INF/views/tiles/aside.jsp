@@ -71,7 +71,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                	도서관리
+                	이미지갤러리
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -86,6 +86,18 @@
                 <a href="/book/regist" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>도서등록</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/gallery/list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>목록보기</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/book/regist" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>이미지등록</p>
                 </a>
               </li>
             </ul>
@@ -469,7 +481,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/examples/register.html" class="nav-link">
+                    <a href="/book/list" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Register v1</p>
                     </a>

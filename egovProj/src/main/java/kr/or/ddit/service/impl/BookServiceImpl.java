@@ -32,4 +32,6 @@ public class BookServiceImpl implements BookService {
 	public int insert(BookVO bookVO) {
 		return this.bookMapper.insert(bookVO);
 	}
+	
+	
 }
