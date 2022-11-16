@@ -29,29 +29,23 @@
 									aria-label="Price: activate to sort column ascending">Price</th>
 								<th class="sorting" tabindex="0" aria-controls="example1"
 									rowspan="1" colspan="1"
-									aria-label="Insert Date: activate to sort column ascending">Insert
-									Date</th>
+									aria-label="Insert Date: activate to sort column ascending">Insert Date</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="bookVO" items="${bookVOList}" varStatus="stat">
-								<c:if test="${stat.count%2!=0}">
-									<tr class="odd">
-								</c:if>
-								<c:if test="${stat.count%2==0}">
-									<tr class="even">
-								</c:if>
-								<td class="dtr-control sorting_1" tabindex="0"><a
-									href="/book/detail?bookId=${bookVO.bookId}">
-										${bookVO.bookId}</a></td>
-								<td>${bookVO.title}</td>
-								<td>${bookVO.category}</td>
-								<td><fmt:formatNumber value="${bookVO.price}"
-										pattern="#,###" /></td>
-
-								<td><fmt:formatDate value="${bookVO.insertDate}"
-										pattern="yyyy-MM-dd" /></td>
-
+								<c:if test="${stat.count%2!=0}"><tr class="odd"></c:if>
+								<c:if test="${stat.count%2==0}"><tr class="even"></c:if>
+									<td class="dtr-control sorting_1" tabindex="0">${bookVO.bookId}</td>
+									<td><a href="/book/detail?bookId=${bookVO.bookId}">${bookVO.title}</a></td>
+									<td>${bookVO.category}</td>
+									<td><fmt:formatNumber value="${bookVO.price}"
+										pattern="#,###" />
+									</td>
+									<td><fmt:formatDate value="${bookVO.insertDate}"
+										pattern="yyyy-MM-dd" />
+									</td>
+								</tr>
 							</c:forEach>
 						</tbody>
 						<tfoot>
@@ -63,16 +57,24 @@
 								<th rowspan="1" colspan="1">Insert Date</th>
 							</tr>
 						</tfoot>
-
 					</table>
 				</div>
-
-			</div>
-			<div>
-				<input type="button" class="btn btn-block btn-outline-info btn-flat"
-					style="width: 100px; float: right;"
-					onclick="location.href='/book/insert'" value="추가">
 			</div>
 		</div>
 	</div>
+	<div class="card-footer">
+		<div style="float:right;">
+			<a href="/book/insert" class="btn btn-block btn-primary btn-sm">등록</a>
+		</div>
+	</div>
 </div>
+
+
+
+
+
+
+
+
+
+

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookVO;
 
 @Mapper
@@ -14,4 +15,7 @@ public interface GalleryMapper {
 	public BookVO list(BookVO bookVO);
 
 	public List<BookVO> bookList();
+
+	public int updateImg(AttachVO attachVO);
+	public int deletPost(AttachVO attachVO);
 }

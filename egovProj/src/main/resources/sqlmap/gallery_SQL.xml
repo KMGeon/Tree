@@ -38,11 +38,26 @@
 		WHERE
 		B.BOOK_ID=#{bookId}
 	</select>
-	
+
 	<select id="bookList" resultType="bookVO">
-		SELECT BOOK_ID , TITLE , CATEGORY , PRICE , INSERT_DATE , CONTENT
+		SELECT BOOK_ID , TITLE ,
+		CATEGORY , PRICE , INSERT_DATE , CONTENT
 		FROM BOOK ORDER BY TITLE ASC
 	</select>
+
+
+	<!-- 변경된 사진 db에 반영 -->
+	<update id="updateImg" parameterType="attachVO">
+		UPDATE ATTACH
+		SET FILENAME =#{filename}
+		WHERE USER_NO = #{userNo} AND SEQ=#{seq}
+	</update>
+	
+	<!-- 삭제  -->
+	<delete id="deletePost" parameterType="attachVO">
+		delete 
+	
+	</delete>
 
 
 </mapper>
