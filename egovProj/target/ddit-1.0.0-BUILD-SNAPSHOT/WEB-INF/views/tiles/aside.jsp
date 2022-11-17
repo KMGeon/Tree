@@ -83,7 +83,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/book/regist" class="nav-link">
+                <a href="/book/insert" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>도서등록</p>
                 </a>
@@ -91,6 +91,31 @@
             </ul>
           </li>
           <!-- 도서관리 메뉴 끝 -->
+          <!-- 이미지갤러리 메뉴 시작 -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                	이미지갤러리
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/gallery/list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>이미지목록</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/gallery/regist" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>이미지등록</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- 이미지갤러리 메뉴 끝 -->
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

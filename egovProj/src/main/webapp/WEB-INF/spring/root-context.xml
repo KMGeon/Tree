@@ -76,6 +76,9 @@
 	
 	<!-- kr.or.ddit.aop 패키지를 컴포넌트 스캔 대상으로 등록 -->
 	<context:component-scan base-package="kr.or.ddit.aop"></context:component-scan>
+	
+	
+	
 </beans>
 
 

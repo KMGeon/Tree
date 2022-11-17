@@ -28,7 +28,6 @@ public class BookController {
 	@GetMapping("/list")
 	public String list(Model model) {
 
-		
 		List<BookVO> bookVOList = this.bookService.list();
 		log.info("bookVOList : " + bookVOList);
 

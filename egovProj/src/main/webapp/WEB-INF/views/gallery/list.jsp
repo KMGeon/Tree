@@ -55,8 +55,8 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 id="head-title" class="modal-title">Default Modal</h4>
-					<input type="text" id="txtUserNo" name="userNo"> <input
-						type="text" id="txtSeq" name="seq">
+					<input type="hidden" id="txtUserNo" name="userNo"> <input
+						type="hidden" id="txtSeq" name="seq">
 
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
@@ -265,8 +265,12 @@
 					data:JSON.stringify(data),
 					dataType:"json",
 					type:"post",
-					success:function(result){
-						console.log("result"+JSON.stringify(result));
+					success:function(result){	
+						if(result>0){
+							location.href="/gallery/list?bookId=${param.bookId}";
+						}else{
+							alert("오류가 발생을 하였습니다.");
+						}
 					}
 				});
 			});

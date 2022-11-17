@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+<web-app version="3.1" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
@@ -29,6 +29,19 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	
+	<!-- 멀티파트  -->
+	<!-- web.xml의 설정은 WAS(Tomcat) 자체 설정일 뿐임. -->
+      <!-- multipart-config : 메모리사이즈, 업로드 파일 저장 위치, 최대 크기 설정 -->
+      <multipart-config>
+         <location>c:\\upload</location><!-- 업로드 되는 파일을 저장할 공간 -->
+         <max-file-size>20971520</max-file-size><!-- 업로드 파일의 최대 크기 1MB * 20 -->
+         <max-request-size>41943040</max-request-size><!-- 한 번에 올릴 수 있는 최대 크기 40MB -->
+         <file-size-threshold>20971520</file-size-threshold><!-- 메모리 사용 크기 20MB -->
+      </multipart-config>
+	
 	
 	<!-- 한글 처리 -->
 	<filter>

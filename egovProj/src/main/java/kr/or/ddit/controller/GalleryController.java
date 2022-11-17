@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,21 +105,19 @@ public class GalleryController {
 					thumbnail.close();
 				}
 				/*
-				 * UPDATE ATTACH 
-				 * SET FILENAME ='/2022/11/16/asdasdda.jpg'
-				 *  WHERE USER_NO = 3 AND SEQ=5;
+				 * UPDATE ATTACH SET FILENAME ='/2022/11/16/asdasdda.jpg' WHERE USER_NO = 3 AND
+				 * SEQ=5;
 				 */
-				
-				//폴더이름 + 파일이름을 더하고 양식에 맞게 바꾼다.
-				String filename="/"+getFolder().replace("\\", "/")+"/"+uploadFileName;
-				log.info("filename: :"+filename);
-				
+
+				// 폴더이름 + 파일이름을 더하고 양식에 맞게 바꾼다.
+				String filename = "/" + getFolder().replace("\\", "/") + "/" + uploadFileName;
+				log.info("filename: :" + filename);
+
 				attachVO.setFilename(filename);
-				
+
 				int result = this.galleryService.updateImg(attachVO);
-				log.info("result: \\\\\\\\\\"+result);
-				
-				
+				log.info("result: \\\\\\\\\\" + result);
+
 				return attachVO;
 			} catch (IllegalStateException e) {
 				log.error("에러로그", e.getMessage());
@@ -159,20 +159,41 @@ public class GalleryController {
 		// 이 파일이 이미지가 아닐 경우
 		return false;
 	}// end
-	
-	
-	
-	//이미지 삭제
+
+	// @RequestBody : 요청 파라미터 타입/보내는 타입이 content:application/json/
+	// json일때 map또는 vo로 받음 json데이터로 리턴할 때 사용한다.
+	// 이미지 삭제
 	@PostMapping("/deletePost")
-	public @ResponseBody Map<String, String>deletePost(@ModelAttribute AttachVO attachVO){
-		log.info("attachVO"+attachVO);
-		Map<String, String>map = new HashMap<String,String>();
-		
-		//delete from attach where user_no = 3 and seq =9
-		
-		map.put("result", "1");
-		return map;
+	public @ResponseBody String deletePost(@RequestBody AttachVO attachVO) {
+		log.info("attachVO" + attachVO);
+
+		int test = this.galleryService.deletePost(attachVO);
+		// delete from attach where user_no = 3 and seq =9
+		log.info("result" + test);
+		String result = Integer.toString(test);
+		return result;
 	}
+
+	/**
+	 * 22.11.17 이미지 다중 등록 요청 uri :/gallery/regist
+	 */
+
+	@RequestMapping(value = "/regist", method = RequestMethod.GET)
+	public String registGet(Model model, BookVO bookVO) {
 	
+		model.addAttribute("bodyTitle", "이미지등록");
+		
+		return "gallery/regist";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/regist", method = RequestMethod.POST)
+	public List<BookVO> registPost(Model model, @RequestBody BookVO bookVO) {
+		log.info("bookvo"+bookVO);
+		List<BookVO> bookVOList = this.galleryService.searchBook(bookVO);
+		
+		
+		return bookVOList;
+	}
 
 }

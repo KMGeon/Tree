@@ -49,15 +49,32 @@
 	<!-- 변경된 사진 db에 반영 -->
 	<update id="updateImg" parameterType="attachVO">
 		UPDATE ATTACH
-		SET FILENAME =#{filename}
+		SET FILENAME
+		=#{filename}
 		WHERE USER_NO = #{userNo} AND SEQ=#{seq}
 	</update>
-	
-	<!-- 삭제  -->
+
+	<!-- 삭제 -->
 	<delete id="deletePost" parameterType="attachVO">
-		delete 
-	
+		DELETE FROM ATTACH
+		WHERE
+		USER_NO = #{userNo} and SEQ=#{seq}
 	</delete>
+
+	<!-- 선택 -->
+
+	<select id="searchBook" parameterType="attachVO" resultMap="bookMap" >
+		WITH T AS(
+		SELECT B.BOOK_ID, B.TITLE, B.CATEGORY, B.PRICE, B.INSERT_DATE, B.CONTENT
+		,A.USER_NO, A.SEQ, A.FILENAME, A.FILESIZE, A.REGDATE
+		FROM BOOK B LEFT outer join ATTACH A on(B.BOOK_ID = a.USER_NO)
+		)
+		SELECT * FROM T
+		WHERE 1=1
+		AND (TITLE LIKE '%'||#{title}||'%' OR CATEGORY LIKE '%'||#{title}||'%' OR
+		CONTENT LIKE '%'||#{title}||'%')
+
+	</select>
 
 
 </mapper>

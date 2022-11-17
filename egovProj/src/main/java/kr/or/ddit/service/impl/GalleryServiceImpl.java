@@ -29,5 +29,14 @@ public class GalleryServiceImpl implements GalleryService {
 	public int updateImg(AttachVO attachVO) {
 		return this.galleryMapper.updateImg(attachVO);
 	}
+	
+	@Override
+	public int deletePost(AttachVO attachVO) {
+		return this.galleryMapper.deletePost(attachVO);
+	}
 
+	@Override
+	public List<BookVO> searchBook(BookVO bookVO){
+		return this.galleryMapper.searchBook(bookVO);
+	}
 }

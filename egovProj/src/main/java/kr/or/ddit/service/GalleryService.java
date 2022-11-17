@@ -11,4 +11,14 @@ public interface GalleryService {
 	public List<BookVO> bookList();
 
 	public int updateImg(AttachVO attachVO);
+
+	public int deletePost(AttachVO attachVO);
+
+	
+
+	public List<BookVO> searchBook(BookVO bookVO);
+
+	
+
+
 }
