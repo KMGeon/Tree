@@ -16,6 +16,7 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
+
 public class BookVO {
 	private int bookId;
 	private String title;

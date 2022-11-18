@@ -63,18 +63,37 @@
 
 	<!-- 선택 -->
 
-	<select id="searchBook" parameterType="attachVO" resultMap="bookMap" >
+	<select id="searchBook" parameterType="attachVO"
+		resultMap="bookMap">
 		WITH T AS(
-		SELECT B.BOOK_ID, B.TITLE, B.CATEGORY, B.PRICE, B.INSERT_DATE, B.CONTENT
-		,A.USER_NO, A.SEQ, A.FILENAME, A.FILESIZE, A.REGDATE
-		FROM BOOK B LEFT outer join ATTACH A on(B.BOOK_ID = a.USER_NO)
+		SELECT B.BOOK_ID, B.TITLE, B.CATEGORY,
+		B.PRICE, B.INSERT_DATE, B.CONTENT
+		,A.USER_NO, A.SEQ, A.FILENAME,
+		A.FILESIZE, A.REGDATE
+		FROM BOOK B LEFT outer join ATTACH A on(B.BOOK_ID
+		= a.USER_NO)
 		)
 		SELECT * FROM T
 		WHERE 1=1
-		AND (TITLE LIKE '%'||#{title}||'%' OR CATEGORY LIKE '%'||#{title}||'%' OR
-		CONTENT LIKE '%'||#{title}||'%')
+		AND (TITLE LIKE
+		'%'||#{title}||'%' OR CATEGORY LIKE '%'||#{title}||'%' OR
+		CONTENT LIKE
+		'%'||#{title}||'%')
 
 	</select>
-
-
+	<!-- 다중INSERT는 업데이트 사용하자 -->
+	<update id="uploadAjaxAction" parameterType="java.util.List">
+		<foreach collection="list" item="attachVO" open="INSERT ALL"
+			close="SELECT * FROM DUAL" separator=" ">
+			INTO ATTACH(USER_NO,SEQ,FILENAME,FILESIZE,REGDATE)
+			VALUES(#{attachVO.userNo},#{attachVO.seq},#{attachVO.filename},#{attachVO.filesize},SYSDATE)
+		</foreach>
+	</update>
+	<!-- 파라미터 string bookId 
+		책의 이미지인 ATTACH 테이블의 다음 SEQ번호 가져오기 
+	-->
+	
+	<select id="getSeq" parameterType="String" resultType="int">
+	select nvl(max(seq),0)+1 from attach where user_no=#{bookId}
+	</select>
 </mapper>

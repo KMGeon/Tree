@@ -1,5 +1,7 @@
 package kr.or.ddit.vo;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -7,11 +9,12 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @ToString
+@Component
 public class AttachVO {
 	private String userNo;
-	private String seq;
+	private int seq;
 	private String filename;
-	private String filesize;
+	private long filesize;
 	private String regdate;
 	private String tid;
 	private String attachName;

@@ -21,4 +21,9 @@ public interface GalleryMapper {
 	public int deletePost(AttachVO attachVO);
 
 	public List<BookVO> searchBook(BookVO bookVO);
+	//다중 파일 업로드
+	public int uploadAjaxAction(List<AttachVO> attachVOList);
+	//책의 이미지인 attach테이블의 다음 seq번호 가져오기
+
+	public int getSeq(String bookId);
 }

@@ -14,11 +14,13 @@ public interface GalleryService {
 
 	public int deletePost(AttachVO attachVO);
 
-	
-
 	public List<BookVO> searchBook(BookVO bookVO);
 
 	
 
+	
 
+	int uploadAjaxAction(List<AttachVO> attachVOList);
+
+	int getSeq(String bookId);
 }

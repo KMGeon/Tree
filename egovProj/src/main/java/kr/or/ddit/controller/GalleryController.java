@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +37,9 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class GalleryController {
 	@Autowired
 	GalleryService galleryService;
+
+	@Autowired
+	AttachVO attachVO;
 
 	@GetMapping("/list")
 	public String galleryWelcome(@ModelAttribute BookVO bookVO, Model model) {
@@ -60,7 +64,7 @@ public class GalleryController {
 	// 매개변수 multipart의 이름은 list의 이름과 동일하게 해주어야 한다.
 	@ResponseBody
 	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-	public AttachVO updatePost(MultipartFile[] uploadFile, @ModelAttribute AttachVO attachVO) {
+	public AttachVO updatePos2t(MultipartFile[] uploadFile, @ModelAttribute AttachVO attachVO) {
 		log.info("asdadad : " + uploadFile + ", attachVO : " + attachVO);
 
 		// 1. 업로드 폴더 설정
@@ -180,20 +184,96 @@ public class GalleryController {
 
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
 	public String registGet(Model model, BookVO bookVO) {
-	
+
 		model.addAttribute("bodyTitle", "이미지등록");
-		
+
 		return "gallery/regist";
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/regist", method = RequestMethod.POST)
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public List<BookVO> registPost(Model model, @RequestBody BookVO bookVO) {
-		log.info("bookvo"+bookVO);
+		log.info("bookvo" + bookVO);
 		List<BookVO> bookVOList = this.galleryService.searchBook(bookVO);
-		
-		
+
 		return bookVOList;
+	}
+
+	/**
+	 * 요청URI : /gallery/uploadAjaxAction 요청파라미터 : uploadFile[], bookId => 폼으로 오므로
+	 * RequestBody는 안씀 요청 방식 : post 응답데이터 : {"bookId":"3","status":"1"}
+	 */
+	//다중 파일 insert하기=================================================
+	@ResponseBody
+	@PostMapping("/uploadAjaxAction")
+	public Map<String, String> uploadAjaxAction(MultipartFile[] uploadFile, @RequestParam String bookId) {
+		log.info("bookId : " + bookId);
+
+		String uploadFolder = "C:\\eGovFrameDev-3.10.0-64bit\\workspace\\egovProj\\src\\main\\webapp\\resources\\upload";
+
+		File uploadPath = new File(uploadFolder, getFolder());
+		log.info("upload Path : " + uploadPath);
+
+		if (uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+
+		String uploadFileName = "";
+		int seq = this.galleryService.getSeq(bookId);
+
+		List<AttachVO> attachVOList = new ArrayList<AttachVO>();
+
+		for (MultipartFile multipartFile : uploadFile) {
+			AttachVO attachVO = new AttachVO();
+			log.info("-----------------");
+			log.info("upload File Name : " + multipartFile.getOriginalFilename());
+			log.info("upload File Size :" + multipartFile.getSize());
+
+			uploadFileName = multipartFile.getOriginalFilename();
+
+			UUID uuid = UUID.randomUUID();
+
+			uploadFileName = uuid.toString() + "_" + uploadFileName;
+
+			File saveFile = new File(uploadPath, uploadFileName);
+
+			try {
+
+				multipartFile.transferTo(saveFile);
+
+				if (checkImageType(saveFile)) {
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+					thumbnail.close();
+				}
+
+				String filename = "/" + getFolder().replace("\\", "/") + "/" + uploadFileName;
+				log.info("filename : " + filename);
+
+				attachVO.setUserNo(bookId);
+
+				attachVO.setSeq(seq++);
+
+				attachVO.setFilename(filename);
+
+				attachVO.setFilesize(Long.valueOf(multipartFile.getSize()).intValue());
+
+				attachVOList.add(attachVO);
+
+			} catch (Exception e) {
+				log.error(e.getMessage());
+				return null;
+			}
+		}
+		int rslt = this.galleryService.uploadAjaxAction(attachVOList);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("bookId", bookId);
+		map.put("status", rslt + "");
+
+		return map;
+
 	}
 
 }
