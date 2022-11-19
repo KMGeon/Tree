@@ -33,12 +33,12 @@
                     $.each(data, function (index, obj) { // obj={"idx":5,"title":"게시판"~~ }
                         listHtml += "<tr>";
                         listHtml += "<td>" + obj.idx + "</td>";
-                        listHtml += "<td><a href='#'>" + obj.title + "</a></td>";
+                        listHtml += "<td><a href='javascript:goContent()'>" + obj.title + "</a></td>";
                         listHtml += "<td>" + obj.writer + "</td>";
                         listHtml += "<td>" + obj.count + "</td>";
                         listHtml += "</tr>";
                         //================================
-                        listHtml += "<tr style='display: none'>";
+                        listHtml += "<tr id='c'  style='display: none'>";
                         listHtml += "<td>내용</td>";
                         listHtml += "<td colspan='4'>";
                         listHtml += "<textarea>"+obj.content+"</textarea >";
@@ -50,6 +50,9 @@
                     $("#view").html(listHtml);
                 }
             });
+
+        }
+        function goContent(){
 
         }
 

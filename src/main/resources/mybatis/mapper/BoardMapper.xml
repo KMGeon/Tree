@@ -7,7 +7,10 @@
     </select>
 
     <insert id="insertData" parameterType="com.example.test.dto.BoardDto">
+        <selectKey order="BEFORE" keyProperty="idx" resultType="Integer">
+            SELECT NVL(MAX(idx),0)+1 FROM myboard
+        </selectKey>
         insert into myboard(title,content,writer,idx)
-        values(#{title},#{content},#{writer},11)
+        values(#{title},#{content},#{writer},#{idx})
     </insert>
 </mapper>
