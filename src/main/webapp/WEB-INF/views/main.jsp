@@ -69,6 +69,10 @@
                 type:"post",
                data : fData,
                 success: function (data) { //여기서 data는 controller에 list이다.
+                    if(data==1){
+                    location.href="/";
+                    }
+
                     var listHtml = "<table class='table table-bordered'>";
                     listHtml += "<tr>";
                     listHtml += "<td>번호</td>";
@@ -88,7 +92,6 @@
                     listHtml += "</table>";
                     listHtml += "<input type='button' value='추가' id='test' onclick='goAdd()'/>";
                     $("#view").html(listHtml);
-
                     $("#view").css("display", "none");
                     $("#write").css("display", "block");
                 }
