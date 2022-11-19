@@ -33,11 +33,17 @@
                     $.each(data, function (index, obj) { // obj={"idx":5,"title":"게시판"~~ }
                         listHtml += "<tr>";
                         listHtml += "<td>" + obj.idx + "</td>";
-                        listHtml += "<td>" + obj.title + "</td>";
+                        listHtml += "<td><a href='#'>" + obj.title + "</a></td>";
                         listHtml += "<td>" + obj.writer + "</td>";
                         listHtml += "<td>" + obj.count + "</td>";
                         listHtml += "</tr>";
-
+                        //================================
+                        listHtml += "<tr style='display: none'>";
+                        listHtml += "<td>내용</td>";
+                        listHtml += "<td colspan='4'>";
+                        listHtml += "<textarea>"+obj.content+"</textarea >";
+                        listHtml += "</td>";
+                        listHtml += "</tr>";
                     });
                     listHtml += "</table>";
                     listHtml += "<input type='button' value='추가' id='test' onclick='goAdd()'/>";
@@ -56,21 +62,25 @@
         function goList() {
             $("#view").css("display", "block");
             $("#write").css("display", "none");
+            // $("#title").val("");
+            // $("#content").val("");
+            // $("#writer").val("");
+            $("#fclear").trigger("click");
         }
 
-        function goInsert(){
-        // let title = $("#title").val();
-        // let content = $("#content").val();
-        // let writer = $("#writer").val();
-        //폼 안에 데이터를 직렬화 하기
+        function goInsert() {
+            // let title = $("#title").val();
+            // let content = $("#content").val();
+            // let writer = $("#writer").val();
+            //폼 안에 데이터를 직렬화 하기
             let fData = $("#frm").serialize();
             $.ajax({
-                url:"/boardInsert",
-                type:"post",
-               data : fData,
+                url: "/boardInsert",
+                type: "post",
+                data: fData,
                 success: function (data) { //여기서 data는 controller에 list이다.
-                    if(data==1){
-                    location.href="/";
+                    if (data == 1) {
+                        location.href = "/";
                     }
 
                     var listHtml = "<table class='table table-bordered'>";
@@ -83,10 +93,11 @@
                     $.each(data, function (index, obj) { // obj={"idx":5,"title":"게시판"~~ }
                         listHtml += "<tr>";
                         listHtml += "<td>" + obj.idx + "</td>";
-                        listHtml += "<td>" + obj.title + "</td>";
+                        listHtml += "<td><a href='/'>" + obj.title + "</a></td>";
                         listHtml += "<td>" + obj.writer + "</td>";
                         listHtml += "<td>" + obj.count + "</td>";
                         listHtml += "</tr>";
+
 
                     });
                     listHtml += "</table>";
