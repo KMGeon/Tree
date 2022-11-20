@@ -53,12 +53,16 @@
             }
 
         }
+
+
+
+
     </script>
 
 
 </head>
 <body>
-<form action="/login" method="get">
+<form action="/login" id="frm" method="get">
     <div>
         <input type="email" id="email" name="email" value="이메일">
         <input type="button" value="중복버튼" onclick="registerCheck()">
@@ -82,7 +86,7 @@
         <input type="text" id="birth"  name="birth" value="생일">
     </div>
     <div>
-        <input type="submit" value="전송">
+        <input type="submit" id="subBtn" value="전송">
     </div>
 </form>
 
