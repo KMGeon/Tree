@@ -58,19 +58,37 @@
     function  goUpdate(idx){
           $("#txt"+idx).attr("readonly",false);
           let txtNameVal = $("#txt"+idx).text();
-          let newInput = "<input type='text' class='form-control' value='"+txtNameVal+"'/>"
+          let newInput = "<input type='text' id='newTxt"+idx+"' class='form-control' value='"+txtNameVal+"'/>"
         $("#txtName"+ idx).html(newInput);
 
-          let newBtn = "<button class='btn btn-primary btn-sm'>수정2</button>"
+          let newBtn  ="<button class='btn btn-primary btn-sm' onclick='updatePost("+idx+")'>수정2</button>";
+
           $("#newBtn"+idx).html(newBtn);
 
     }
+    function updatePost(idx){
+            alert("되니?");
+            let title = $("#newTxt"+idx).val();
+            let content = $("#txt"+idx).val();
+            $.ajax({
+               url:"updatePost",
+               type:"post",
+               data:{"idx":idx, "title":title, "content":content},
+               success:loadList
+            });
+    }
+
         function goDelete(idx) {
             $.ajax({
                 url: "boardDelete",
-                type: "get",
+                type: "post",
                 data: {"idx": idx},
-                success: loadList
+                success: function (data){
+                    alert("삭제");
+                    if(data==1){
+                        loadList();
+                    }
+                }
             });
         }
 
@@ -106,7 +124,7 @@
             //폼 안에 데이터를 직렬화 하기
             let fData = $("#frm").serialize();
             $.ajax({
-                url: "/boardInsert",
+                url: "boardInsert",
                 type: "post",
                 data: fData,
                 success: function (data) { //여기서 data는 controller에 list이다.

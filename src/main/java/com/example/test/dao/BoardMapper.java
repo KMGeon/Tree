@@ -10,5 +10,5 @@ public interface BoardMapper {
     public List<BoardDto>boardList();
     public int insertData(BoardDto boardDto);
     public int boardDelete(int idx);
-
+    public int boardUpdate(BoardDto boardDto);
 }

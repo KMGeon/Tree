@@ -6,10 +6,8 @@ import com.example.test.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,9 +38,21 @@ public class BoardController {
         return result;
     }
 
-    @RequestMapping(value = "/boardDelete" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/boardDelete" ,method = RequestMethod.POST)
     public @ResponseBody int boardDelete(@RequestParam("idx") int idx){
         int result =this.boardService.boardDelete(idx);
         return  result;
     }
+
+@PostMapping("/updatePost")
+    public @ResponseBody int boardUpdatePost (@RequestParam("idx")int idx,@RequestParam("title")String title, @RequestParam("content") String content,BoardDto boardDto){
+        int result= this.boardService.boardUpdate(boardDto);
+//        model.addAttribute("idx",boardDto.getIdx());
+//        model.addAttribute("title",boardDto.getTitle());
+//        model.addAttribute("content",boardDto.getContent());
+        // let param = {"idx":idx, "title":title,"content":
+        log.info("result"+result);
+        return result;
+    }
+
 }
