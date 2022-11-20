@@ -44,12 +44,12 @@
                 $("#passMessage").html("비밀번호가 서로 일치하지 않습니다.");
                 $("#passMessage").css("color","red");
                 $("#password").attr("value","$#@!");
-
+                return false;
             }
             else{
                 $("#passMessage").html("비밀번호가 서로 같습니다..");
                 $("#passMessage").css("color","blue");
-                $("#password").focus();
+                return true;
             }
 
         }
