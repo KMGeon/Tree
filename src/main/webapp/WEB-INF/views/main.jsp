@@ -33,15 +33,18 @@
                     $.each(data, function (index, obj) { // obj={"idx":5,"title":"게시판"~~ }
                         listHtml += "<tr>";
                         listHtml += "<td>" + obj.idx + "</td>";
-                        listHtml += "<td><a href='javascript:goContent()'>" + obj.title + "</a></td>";
+                        listHtml += "<td id='txtName"+obj.idx+"'><a href='javascript:goContent(" + obj.idx + ")'>" + obj.title + "</a></td>";
                         listHtml += "<td>" + obj.writer + "</td>";
                         listHtml += "<td>" + obj.count + "</td>";
                         listHtml += "</tr>";
                         //================================
-                        listHtml += "<tr id='c'  style='display: none'>";
+                        listHtml += "<tr id='c" + obj.idx + "'  style='display: none'>";
                         listHtml += "<td>내용</td>";
                         listHtml += "<td colspan='4'>";
-                        listHtml += "<textarea>"+obj.content+"</textarea >";
+                        listHtml += "<textarea rows='7' class='class-form-control'   id='txt"+obj.idx+"' readonly>" + obj.content + "</textarea >";
+                        listHtml += "<br/>";
+                        listHtml += "<div id='newBtn"+obj.idx+"'><button id='firstUpdateBtn' onclick='goUpdate(" + obj.idx + ")'>수정1</button></div>&nbsp;";
+                        listHtml += "<button onclick='goDelete(" + obj.idx + ")'>삭제</button>";
                         listHtml += "</td>";
                         listHtml += "</tr>";
                     });
@@ -52,7 +55,32 @@
             });
 
         }
-        function goContent(){
+    function  goUpdate(idx){
+          $("#txt"+idx).attr("readonly",false);
+          let txtNameVal = $("#txt"+idx).text();
+          let newInput = "<input type='text' class='form-control' value='"+txtNameVal+"'/>"
+        $("#txtName"+ idx).html(newInput);
+
+          let newBtn = "<button class='btn btn-primary btn-sm'>수정2</button>"
+          $("#newBtn"+idx).html(newBtn);
+
+    }
+        function goDelete(idx) {
+            $.ajax({
+                url: "boardDelete",
+                type: "get",
+                data: {"idx": idx},
+                success: loadList
+            });
+        }
+
+        function goContent(idx) {
+            if ($("#c" + idx).css("display") == "none") {
+                $("#c" + idx).css("display", "block");
+                $("#txt"+ idx).attr("readonly", true);
+            } else {
+                $("#c" + idx).css("display", "none");
+            }
 
         }
 
@@ -68,7 +96,7 @@
             // $("#title").val("");
             // $("#content").val("");
             // $("#writer").val("");
-            $("#fclear").trigger("click");
+            $("#clearBtn").trigger("click");
         }
 
         function goInsert() {
@@ -85,31 +113,10 @@
                     if (data == 1) {
                         location.href = "/";
                     }
-
-                    var listHtml = "<table class='table table-bordered'>";
-                    listHtml += "<tr>";
-                    listHtml += "<td>번호</td>";
-                    listHtml += "<td>제목</td>";
-                    listHtml += "<td>작성자</td>";
-                    listHtml += "<td>조회수</td>";
-                    listHtml += "</tr>";
-                    $.each(data, function (index, obj) { // obj={"idx":5,"title":"게시판"~~ }
-                        listHtml += "<tr>";
-                        listHtml += "<td>" + obj.idx + "</td>";
-                        listHtml += "<td><a href='/'>" + obj.title + "</a></td>";
-                        listHtml += "<td>" + obj.writer + "</td>";
-                        listHtml += "<td>" + obj.count + "</td>";
-                        listHtml += "</tr>";
-
-
-                    });
-                    listHtml += "</table>";
-                    listHtml += "<input type='button' value='추가' id='test' onclick='goAdd()'/>";
                     $("#view").html(listHtml);
                     $("#view").css("display", "none");
                     $("#write").css("display", "block");
                 }
-
             })
         }
     </script>
@@ -142,7 +149,7 @@
                 </table>
                 <td colspan="2" align="center">
                     <button type="button" class="btn btn-success btn-sm" onclick="goInsert()">등록</button>
-                    <button type="reset" class="btn btn-warning btn-sm" id="fclear">취소</button>
+                    <button type="reset" class="btn btn-warning btn-sm" id="clearBtn">취소</button>
                     <button type="button" class="btn btn-info btn-sm" onclick="goList()">리스트</button>
                 </td>
             </form>

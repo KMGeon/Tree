@@ -21,4 +21,9 @@ public class BoardServiceImpl implements BoardService {
     public int insertData(BoardDto boardDto){
         return this.boardMapper.insertData(boardDto);
     }
+
+    @Override
+    public int boardDelete(int idx) {
+        return this.boardMapper.boardDelete(idx);
+    }
 }

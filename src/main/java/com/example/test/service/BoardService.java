@@ -7,4 +7,5 @@ import java.util.List;
 public interface BoardService {
     public List<BoardDto> boardList();
     public int insertData(BoardDto boardDto);
+    public int boardDelete(int idx);
 }

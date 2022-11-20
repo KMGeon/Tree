@@ -1,5 +1,6 @@
 package com.example.test.controller;
 
+import com.example.test.dao.BoardMapper;
 import com.example.test.dto.BoardDto;
 import com.example.test.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -36,5 +38,11 @@ public class BoardController {
         int result = this.boardService.insertData(boardDto);
         log.info("result = " + result);
         return result;
+    }
+
+    @RequestMapping(value = "/boardDelete" ,method = RequestMethod.GET)
+    public @ResponseBody int boardDelete(@RequestParam("idx") int idx){
+        int result =this.boardService.boardDelete(idx);
+        return  result;
     }
 }
