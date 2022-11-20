@@ -9,4 +9,5 @@ public interface BoardService {
     public int insertData(BoardDto boardDto);
     public int boardDelete(int idx);
     public int boardUpdate(BoardDto boardDto);
+    public int boardCount(int idx);
 }

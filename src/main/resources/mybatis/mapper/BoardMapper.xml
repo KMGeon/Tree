@@ -3,7 +3,9 @@
 <!-- 여기서 namespace는 @mapper가 있는 패키지를 적어야됨-->
 <mapper namespace="com.example.test.dao.BoardMapper">
     <select id="boardList" resultType="com.example.test.dto.BoardDto">
-        select * from myboard order by idx desc
+        select *
+        from myboard
+        order by idx desc
     </select>
 
     <insert id="insertData" parameterType="com.example.test.dto.BoardDto">
@@ -16,11 +18,22 @@
 
 
     <delete id="boardDelete" parameterType="int">
-        delete from myboard where idx=#{idx}
+        delete
+        from myboard
+        where idx = #{idx}
     </delete>
 
-    <update id="boardUpdate"  parameterType="com.example.test.dto.BoardDto">
-        update myboard set title=#{title}, content=#{content}
-        where idx=#{idx}
+    <update id="boardUpdate" parameterType="com.example.test.dto.BoardDto">
+        update myboard
+        set title=#{title},
+            content=#{content}
+        where idx = #{idx}
+    </update>
+
+    <update id="boardCount">
+        update
+            myboard
+        set count = count + 1
+        where idx = #{idx}
     </update>
 </mapper>

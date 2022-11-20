@@ -30,5 +30,9 @@ public class BoardServiceImpl implements BoardService {
     public int boardUpdate(BoardDto boardDto){
         return this.boardMapper.boardUpdate(boardDto);
     }
+    @Override
+    public int boardCount(int idx){
+        return this.boardMapper.boardCount(idx);
+    }
 
 }

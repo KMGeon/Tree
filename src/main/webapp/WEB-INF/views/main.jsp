@@ -35,7 +35,7 @@
                         listHtml += "<td>" + obj.idx + "</td>";
                         listHtml += "<td id='txtName"+obj.idx+"'><a href='javascript:goContent(" + obj.idx + ")'>" + obj.title + "</a></td>";
                         listHtml += "<td>" + obj.writer + "</td>";
-                        listHtml += "<td>" + obj.count + "</td>";
+                        listHtml += "<td id='cnt"+obj.idx+"'>" + obj.count + "</td>";
                         listHtml += "</tr>";
                         //================================
                         listHtml += "<tr id='c" + obj.idx + "'  style='display: none'>";
@@ -98,6 +98,8 @@
                 $("#txt"+ idx).attr("readonly", true);
             } else {
                 $("#c" + idx).css("display", "none");
+                //조회수
+
             }
 
         }

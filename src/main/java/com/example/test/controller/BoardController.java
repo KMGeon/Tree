@@ -55,4 +55,12 @@ public class BoardController {
         return result;
     }
 
+
+    @RequestMapping(value = "/boardCount",method = RequestMethod.GET)
+    public @ResponseBody int boardCount(@RequestParam("idx" ) int idx){
+       int count = this.boardService.boardCount(idx);
+       log.info("result"+count);
+       return  count;
+    }
+
 }
