@@ -31,10 +31,6 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 		<beans:property name="order" value="2" />
 	</beans:bean>
 	
-	
-	
-	
-	
 	<!-- Tiles 설정 시작 -->
 	<beans:bean id="tilesConfigurer" 
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -52,8 +48,7 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 		<beans:property name="order" value="1" />
 	</beans:bean>
 	<!-- Tiles 설정 끝 -->
-	<!-- 멀티파트 설정 -->
-
+	
 	<!-- kr.or.ddit 패키지를 컴포넌트 스캔 대상으로 함 -->
 	<context:component-scan base-package="kr.or.ddit" />
 	
@@ -71,7 +66,6 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 		
 	</beans:bean>
-
 	
 </beans:beans>
 

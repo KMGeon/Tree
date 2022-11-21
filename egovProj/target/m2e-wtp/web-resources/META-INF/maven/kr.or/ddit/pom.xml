@@ -75,18 +75,6 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.6.2</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
-		    <version>${org.springframework-version}</version>
-		</dependency>
 
 		<!-- @Inject -->
 		<dependency>
@@ -306,7 +294,11 @@
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
 		
-		<!-- 스프링 시큐리티 일반 기능 -->
+		<!-- 스프링 시큐리티 일반 기능 
+		1) 인증(athentication) : 로그인  
+		2) 인가(authorization) : 권한(role)
+		 - CSRF(Cross-site request forgery(위조)) 토큰 
+		-->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
@@ -322,7 +314,7 @@
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
 		
-		<!-- 스프링 시큐리티 라이브러리 의존관계 정의 시작 -->
+		<!-- 스프링 시큐리티 라이브러리 의존관계 정의 끝 -->
 		
 		<!-- AOP(Aspect Oriented Programming : 관점 지향 프로그래밍) 시작 
 		1) aspectjrt => 이미 있으므로 생략
@@ -349,17 +341,6 @@
 		    <groupId>com.googlecode.json-simple</groupId>
 		    <artifactId>json-simple</artifactId>
 		    <version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>5.3.9</version>
 		</dependency>
 		
 		<!-- json 사용을 위한 의존관계 정의 끝 -->

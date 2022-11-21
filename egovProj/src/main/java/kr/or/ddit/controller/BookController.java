@@ -3,19 +3,18 @@ package kr.or.ddit.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.service.BookService;
 import kr.or.ddit.vo.BookVO;
+import kr.or.ddit.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Slf4j
 @RequestMapping("/book")
@@ -44,53 +43,65 @@ public class BookController {
 	// 메소드 이름 : detail
 	// 목록에서 title을 클릭 시 상세페이지로 이동
 	// 부트스트랩 : https://adminlte.io/themes/v3/pages/forms/advanced.html
+	// 1) 스프링에서 요청파라미터를 매개변수로 받을 수 있다.
+	// 요청파라미터는 String타입. int형 매개변수로도 받을 수 있음(자동 형변환 가능)
+	// 매개변수 : String bookId / int bookId
+	// 2) Map<String, String> / Map<String,Object> 가능
+	// 3) 골뱅이ModelAttribute BookVO bookVO
+	// 4) 골뱅이RequestParam Map<String, String> / Map<String,Object> 가능
 	@GetMapping("/detail")
-	public String detail(@RequestParam int bookId, Model model) {
-		List<BookVO> bookVO = this.bookService.detail(bookId);
-		log.info("bookId" + bookId);
-		log.info("bookasd" + bookVO.toString());
+	public String detail(int bookId, Model model) {
+		log.info("bookId : " + bookId);
+
+		// 책 상세보기 데이터 가져옴
+		BookVO bookVO = this.bookService.detail(bookId);
+		log.info("bookVO : " + bookVO);
+
+		// 공통 약속
+		model.addAttribute("bodyTitle", "도서 상세");
 		model.addAttribute("bookVO", bookVO);
-		return "book/detail";
+
+		// forwarding
+		return "book/write";
 	}
 
-	@GetMapping("/update")
-	public String updateGet(@RequestParam int bookId, Model model) {
-		List<BookVO> bookVO = this.bookService.detail(bookId);
-		model.addAttribute("bookVO", bookVO);
-		return "book/update";
+	// 요청URI : /book/updatePost
+	@PostMapping("/updatePost")
+	public String updatePost(@ModelAttribute BookVO bookVO) {
+		// BookVO [bookId=2, title=검은개똥이2, category=소설2,
+		// price=12000, insertDate=Fri Nov 11 00:00:00 KST 2022]
+		log.info("bookVO : " + bookVO.toString());
+
+		int result = this.bookService.updatePost(bookVO);
+		log.info("result : " + result);
+
+		return "redirect:/book/detail?bookId=" + bookVO.getBookId();
 	}
 
-	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-	public ModelAndView updatePost(BookVO bookVO, ModelAndView mav) {
-		log.info("bookVO::::::::::::::::::::::::::" + bookVO.toString());
-		int result = this.bookService.update(bookVO);
-		log.info("result: " + result);
-		if (result > 0) {
-			mav.setViewName("redirect:/book/list");
-		} else {
-			mav.setViewName("redirect:/book/list");
-		}
-
-		return mav;
-	}
-
-	// 추가
+	// 요청 URI : /book/insert
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
 	@GetMapping("/insert")
-	public String insertView() {
+	public String insert(Model model ,MemberVO memberVO ) {
+
+		// 공통 약속
+		model.addAttribute("bodyTitle", "도서 입력");
+		model.addAttribute("memid",memberVO.getMemId());
+
+		// forwarding
 		return "book/insert";
 	}
 
-	@PostMapping("/insert")
-	public String insertPost(BookVO bookVO) {
-		int result = this.bookService.insert(bookVO);
-		log.info("result+++++++" + bookVO.toString());
-		String url = "";
-		if (result > 0) {
-			url = "redirect:/book/list";
-		} else {
-			url = "redirect:/book/insert";
-		}
-		return url;
-	}
+	// 요청URI : /book/insertPost
+	@PostMapping("/insertPost")
+	public String insertPost(@ModelAttribute BookVO bookVO) {
+		// BookVO [bookId=0, title=7번방의 개똥이, category=영화, price=12000, insertDate=null]
+		log.info("bookVO : " + bookVO.toString());
 
+		// 도서 입력
+		int result = this.bookService.insertPost(bookVO);
+		log.info("result : " + result);
+
+		// bookVO.getBookId()는 매퍼 xml의 selectKey를 통해 채워질 것임
+		return "redirect:/book/detail?bookId=" + bookVO.getBookId();
+	}
 }
