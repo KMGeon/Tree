@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -78,8 +80,9 @@ public class GalleryController {
 	@ResponseBody
 	@PostMapping("/updatePost")
 	public AttachVO updatePost(MultipartFile[] uploadFile, 
-			@ModelAttribute AttachVO attachVO) {
+			@ModelAttribute AttachVO attachVO , HttpServletRequest req) {
 		log.info("uploadFile : " + uploadFile + ", attachVO : " + attachVO);
+		
 		
 		//업로드 폴더 설정
 		String uploadFolder = 

@@ -257,6 +257,9 @@ $(function(){
  		</form>
  */
 		formData.append("bookId",bookId)
+		//스프링 시큐리티를 위한 토큰 처리(csrf) -> 불토엔 큰 코스로 픽스!
+		
+		
 		
 		//아작났어유 피씨다타써
 		//dataType : 응답 데이터 타입
@@ -270,6 +273,7 @@ $(function(){
 			data:formData,
 			dataType:"json",
 			type:"post",
+			
 			success:function(result){
 				console.log("result : " + JSON.stringify(result));
 								
@@ -298,6 +302,8 @@ $(function(){
 	//ajax 파일 업로드 끝////////////////////////////////// 
 	
 	$("#btnSearch").on("click",function(){
+		let header = "${_csrf.headerName}";
+		let token = "${_csrf.token}";
 		let str = $(".form-control-lg").val();
 		
 		let data = {"title":str};
@@ -312,6 +318,9 @@ $(function(){
 			data:JSON.stringify(data),
 			dataType:"json",
 			type:"post",
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(header,token);
+			},
 			success:function(result){
 // 				console.log("result : " + JSON.stringify(result));
 				//전역 변수에 넣음

@@ -71,11 +71,13 @@ public class BookController {
 		// BookVO [bookId=2, title=검은개똥이2, category=소설2,
 		// price=12000, insertDate=Fri Nov 11 00:00:00 KST 2022]
 		log.info("bookVO : " + bookVO.toString());
-
+		//merge info에 의해 bookId가 변경될것이므로
+		int bookId = bookVO.getBookId();
 		int result = this.bookService.updatePost(bookVO);
+		//updatePost -> InsertPost(bookVO)
 		log.info("result : " + result);
 
-		return "redirect:/book/detail?bookId=" + bookVO.getBookId();
+		return "redirect:/book/detail?bookId=" + bookId;
 	}
 
 	// 요청 URI : /book/insert

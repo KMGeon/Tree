@@ -45,11 +45,9 @@
 		WHERE BOOK_ID = #{bookId}
 	</update>
 	
+
+ 
 	<!-- 
-	before : BookVO [bookId=0, title=7번방의 개똥이, category=영화, price=12000, insertDate=null]
-	after : BookVO [bookId=13, title=7번방의 개똥이, category=영화, price=12000, insertDate=null]
-	 -->
-	<!-- 도서 입력 -->
 	<insert id="insertPost" parameterType="bookVO">
 		<selectKey order="BEFORE" keyProperty="bookId" resultType="int">
 			SELECT NVL(MAX(BOOK_ID),0) + 1 FROM BOOK
@@ -58,6 +56,46 @@
 		INSERT INTO BOOK (BOOK_ID,TITLE,CATEGORY,PRICE,INSERT_DATE,CONTENT) 
 		VALUES (#{bookId},#{title},#{category},#{price},SYSDATE,#{content})
 	</insert>
+	 -->
+	
+	<!-- MERGE를 이용한 조건 INSERT문 
+		UPDATE : BOOKVO.BOOKID가 있음 => controller에서 detail.jsp?bookId=1로 redirect 시 parameter값을 이용해서 
+		INSERT : BOOKVO.BOOKID가 없음
+		그래서 서브쿼리로 작성 INSERT BOOKID를 SELECTKEY 다 넣기
+	-->
+	<!-- 
+   before : BookVO [bookId=0, title=7번방의 개똥이, category=영화, price=12000, insertDate=null]
+   after : BookVO [bookId=13, title=7번방의 개똥이, category=영화, price=12000, insertDate=null]
+    -->
+   <!-- 도서 입력 
+      1) UPDATE => bookVO.bookId => 있음(1) => controller에서 
+            detail.jsp?bookId=1로  리다이렉트 시 parameter값을 이용하기
+            BookVO [bookId=2, title=검은개똥이2, category=소설2, 
+            price=12000, insertDate=Fri Nov 11 00:00:00 KST 2022]
+      2) INSERT => bookVO.bookId => 없음(null)
+            //BookVO [bookId=0, title=7번방의 개똥이, category=영화, 
+            price=12000, insertDate=null]
+   -->
+   <insert id="insertPost" parameterType="bookVO">
+      <selectKey order="AFTER" keyProperty="bookId" resultType="int">
+         SELECT MAX(BOOK_ID) FROM BOOK
+      </selectKey>
+      
+      MERGE INTO BOOK A
+      USING DUAL ON(A.BOOK_ID = #{bookId}) <!-- vo에서 받아온 bookId -->
+      WHEN MATCHED THEN 
+         UPDATE SET TITLE = #{title}
+             ,  CATEGORY = #{category}
+             ,  PRICE = #{price}
+             ,  CONTENT = #{content}
+             ,  INSERT_DATE = SYSDATE
+      WHEN NOT MATCHED THEN 
+         INSERT (BOOK_ID,TITLE,CATEGORY,PRICE,INSERT_DATE,CONTENT) 
+         VALUES ((SELECT NVL(MAX(BOOK_ID),0) + 1 FROM BOOK),#{title}
+         ,#{category},#{price},SYSDATE,#{content})
+   </insert>
+	
+	
 </mapper>
 
 

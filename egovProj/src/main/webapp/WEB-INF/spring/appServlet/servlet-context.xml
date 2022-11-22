@@ -66,6 +66,40 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 		
 	</beans:bean>
+		<beans:bean
+
+		class="org.springframework.mail.javamail.JavaMailSenderImpl"
+
+		id="mailSender">
+
+		<beans:property value="smtp.naver.com" name="host" />
+
+		<beans:property value="456" name="port" />
+
+		<beans:property name="username" value="pos04167" />
+
+		<beans:property name="password" value="ngeon1203!"></beans:property>
+
+		<beans:property value="utf-8" name="defaultEncoding" />
+
+		<beans:property name="javaMailProperties">
+
+			<beans:props>
+
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+
+				<beans:prop key="mail.debug">true</beans:prop>
+
+			</beans:props>
+
+		</beans:property>
+
+	</beans:bean>
+
 	
 </beans:beans>
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 <!-- JSTL format을 이용하여 천단위 구분기호를 적용할 수 있음 -->
@@ -88,6 +89,7 @@
 		</div>
 		<!-- 수정모드 끝 -->
 	</div>
+	<sec:csrfInput/>
 	</form>
 </div>
 <script type="text/javascript">
