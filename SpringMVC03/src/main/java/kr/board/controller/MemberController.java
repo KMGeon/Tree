@@ -39,8 +39,7 @@ public class MemberController {
 		}
 		return 1; //사용가능한 아이디
 	}
-	// 회원가입 처리(요청값에 null인지 판단)
-	//redirectattribute : 리다이렉트 되었을때 값을 전달한다.
+	// 회원가입 처리
 	@RequestMapping("/memRegister.do")
 	public String memRegister(Member m, String memPassword1, String memPassword2,
 			                  RedirectAttributes rttr, HttpSession session) {
@@ -52,27 +51,28 @@ public class MemberController {
 		   m.getMemGender()==null || m.getMemGender().equals("") ||
 		   m.getMemEmail()==null || m.getMemEmail().equals("")) {
 		   // 누락메세지를 가지고 가기? =>객체바인딩(Model, HttpServletRequest, HttpSession)
-		   rttr.addFlashAttribute("msgType", "실패 메세지");//객체 바인딩을 한번만 한다.
+		   rttr.addFlashAttribute("msgType", "실패 메세지");
 		   rttr.addFlashAttribute("msg", "모든 내용을 입력하세요.");
 		   return "redirect:/memJoin.do";  // ${msgType} , ${msg}
 		}
-		//패스워드가 다를때 같을때는 그냥 member에 들어감
 		if(!memPassword1.equals(memPassword2)) {
 		   rttr.addFlashAttribute("msgType", "실패 메세지");
 		   rttr.addFlashAttribute("msg", "비밀번호가 서로 다릅니다.");
 		   return "redirect:/memJoin.do";  // ${msgType} , ${msg}
 		}		
-		//누락이 없으면
+		m.setMemProfile(""); // 사진이미는 없다는 의미 ""
 		// 회원을 테이블에 저장하기
 		int result=memberMapper.register(m);
 		if(result==1) { // 회원가입 성공 메세지
 		   rttr.addFlashAttribute("msgType", "성공 메세지");
 		   rttr.addFlashAttribute("msg", "회원가입에 성공했습니다.");
+		   // 회원가입이 성공하면=>로그인처리하기
+		   session.setAttribute("mvo", m); // ${!empty mvo}
 		   return "redirect:/";
 		}else {
 		   rttr.addFlashAttribute("msgType", "실패 메세지");
 		   rttr.addFlashAttribute("msg", "이미 존재하는 회원입니다.");
-		   return "redirect:/memJoin.do"; 
+		   return "redirect:/memJoin.do";
 		}		
 	}
 	// 로그아웃 처리

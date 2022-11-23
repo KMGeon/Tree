@@ -14,12 +14,11 @@
 		<property name="password" value="hr"/>
     </bean>
 	-->
-	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/world?serverTimezone=UTC"/>
-		<property name="username" value="root"/>
-		<property name="password" value="1234"/>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/com?serverTimezone=UTC"/>
+		<property name="username" value="com"/>
+		<property name="password" value="com01"/>
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" 
@@ -32,7 +31,5 @@
     <bean class="org.mybatis.spring.SqlSessionFactoryBean">
        <property name="dataSource" ref="dataSource" />
     </bean>
-    
-    
     		
 </beans>

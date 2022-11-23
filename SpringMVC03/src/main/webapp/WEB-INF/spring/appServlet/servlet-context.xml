@@ -22,6 +22,5 @@
 	</beans:bean>
 		
 	<context:component-scan base-package="kr.board.controller" />
-	<context:component-scan base-package="kr.board.service" />
 	
 </beans:beans>

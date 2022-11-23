@@ -48,7 +48,14 @@
     		$("#memPassword").val(memPassword1);
     	}   	
     }
-   
+    function goInsert(){
+    	var memAge=$("#memAge").val();
+    	if(memAge==null || memAge=="" || memAge==0){
+    		alert("나이를 입력하세요");
+    		return false;
+    	}
+    	document.frm.submit(); // 전송
+    }
   </script>
 </head>
 <body>
@@ -103,7 +110,7 @@
            </tr>
            <tr>
              <td colspan="3" style="text-align: left;">
-                <span id="passMessage" style="color: red"></span><input type="button" class="btn btn-primary btn-sm pull-right" value="등록" />
+                <span id="passMessage" style="color: red"></span><input type="button" class="btn btn-primary btn-sm pull-right" value="등록" onclick="goInsert()"/>
              </td>             
            </tr>
          </table>

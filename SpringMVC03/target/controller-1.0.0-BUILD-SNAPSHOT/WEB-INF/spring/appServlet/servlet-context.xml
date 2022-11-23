@@ -23,22 +23,4 @@
 		
 	<context:component-scan base-package="kr.board.controller" />
 	
-	
-	<context:component-scan base-package="spring.service" />
-	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<beans:property name="host" value="smtp.gmail.com"/>
-		<beans:property name="port" value="587"/>
-		<beans:property name="defaultEncoding" value="utf-8"/>
-		<beans:property name="username" value="새로만든 구글계정 아이디"/>
-		<beans:property name="password" value="앱키 비밀번호"/>
-		<beans:property name="javaMailProperties">
-			<beans:props>
-				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
-				<beans:prop key="mail.smtp.auth">true</beans:prop> <!-- 2단계본인인증을 했으니 보안적으로 true라고 준다 -->
-				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
-				<beans:prop key="mail.debug">true</beans:prop>
-			</beans:props>
-		</beans:property>
-	</beans:bean>
-	
 </beans:beans>
