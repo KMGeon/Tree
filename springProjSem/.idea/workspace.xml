@@ -51,18 +51,18 @@
     <option name="showVisibilityIcons" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/IdeaProjects/springProjSem/src/main/webapp",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15332031",
-    "project.structure.side.proportion": "0.20287958",
-    "spring.configuration.checksum": "fee13acfc1999c133cf877b502ef096a"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/IdeaProjects/springProjSem/src/main/webapp&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.20287958&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;fee13acfc1999c133cf877b502ef096a&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\IdeaProjects\springProjSem\src\main\webapp\WEB-INF\views\person" />
@@ -177,6 +177,7 @@
       <updated>1669296688869</updated>
       <workItem from="1669296691081" duration="3012000" />
       <workItem from="1669380389673" duration="6489000" />
+      <workItem from="1669389363278" duration="2901000" />
     </task>
     <servers />
   </component>
