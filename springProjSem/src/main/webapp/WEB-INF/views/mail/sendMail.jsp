@@ -7,47 +7,73 @@
     <title>비밀번호 찾기</title>
     <script src="/resources/js/jquery.min.js"></script>
     <script>
-  $(function(){
-      var text2 = $("#text").val();
-      var text3 = $("#emailNum").val();
+        $(function () {
+            let text1 = $("#text").val();
+            let text2=$("#emailNum2").attr("value",text1).val();
+            $("#emailNum2").attr("value",text1);
+            $("#btn").on("click", function () {
+                alert("Click");
 
-      $("#btn").on("click", function(){
-          alert("Click");
-          // document.getElementById('frm').submit();
-          let fData = $("#frm").serialize();
-          $.ajax({
-              url: "/mail/sendMailProcess",
-              type: "post",
-              data: fData,
-              success: function (data) { //여기서 data는 controller에 list이다.
-                  alert("성공");
-              }
-          })
-      })
-      $("#btn2").on("click",function (text44){
-          alert(JSON.stringify(text44));
-         console.log(JSON.stringify(text44));
-      })
-  })
+                let fData = $("#frm").serialize();
+                $.ajax({
+                    url: "/mail/sendMailProcess",
+                    type: "post",
+                    data: fData,
+                    success: function (data) { //여기서 data는 controller에 list이다.
+                        alert("성공");
+                    }
+                })
+            })
+            $("#btn2").on("click", function () {
+                console.log("text2::" + text1);
+                console.log("text5::" + text2);
+                if(text1==text2) {
+                    alert("같다");
+                    location.href="/";
+                }else{
+                    alert("다르다.");
+                }
+                alert("확인");
+            });
+            let pwd1 = $("#newPwd1").val();
+            let pwd2 = $("#newPwd2").val();
 
+
+        })
+
+function chkPwd(){
+            let pwd1 = $("#newPwd1").val();
+            let pwd2 = $("#newPwd2").val();
+            console.log(pwd1 + " " + pwd2);
+            if(pwd1==pwd2){
+                alert("같다.");
+            }else{
+                alert("다르다.");
+            }
+
+}
     </script>
     <title>웹 메일 보내기</title>
 </head>
 <body>
 <h1>이메일 인증</h1>
-${param.text2};
 <div>
     <input type="button" name="btn" id="btn" value="이메일 보내기">
 </div>
+<input type="text" id="emailNum1" name="emailNum1" value="" placeholder="입력하세요">
+<input type="text" id="emailNum2" name="emailNum2" value="" placeholder="입력하세요" style="display: none">
 
 <div id="layer2">
-인증번호를 입력하세요
-    <input type="text" id="emailNum" name="emailNum">
-    <input type="button"  id="btn2" name="btn2" value="인증번호 확인">
+    <input type="button" id="btn2" name="btn2" value="인증번호 확인">
 </div>
 
+<form>
+    <input type="text" id="newPwd1" name="newPwd1" placeholder="새로운 비밀번호">
+    <input type="text" id="newPwd2" name="newPwd2" placeholder="새로운 비밀번호 확인">
+    <input type="button" id="chkBtn" name="chkBtn" value="확인버튼" onclick="chkPwd()">
+</form>
 
-<form action="<%=request.getContextPath()%>/mail/sendMailProcess" id="frm" name="frm" method="post" >
+<form action="<%=request.getContextPath()%>/mail/sendMailProcess" id="frm" name="frm" method="post" style="display: none">
     <div>
         <input type="text" id="from" name="from" placeholder="보재는 사람" value="pos04167@naver.com" readonly>
     </div>
@@ -61,7 +87,8 @@ ${param.text2};
         %>
         <input type="text" id="subject" name="subject"
                placeholder="제목" value="이메일 인증번호" required="required"/>
-        <textarea rows="7" cols="5" id="text" name="text"><%= checkNum%></textarea>
+        <br>
+        <input type="text" id="text" name="text" value="<%=checkNum%>">
     </div>
     <button type="submit">메일 전송하기</button>
 </form>
