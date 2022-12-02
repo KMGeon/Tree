@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -25,13 +23,21 @@ public class MailController {
     public String sendMail() {
         return "mail/sendMail";
     }
+
+    @PostMapping("/sendMail")
+    public String sendMail2() {
+        return "mail/sendMail";
+    }
+
     @PostMapping("/sendMailProcess")
-    public String sendMailProcess(@RequestParam Map<String, String> map) throws MessagingException {
+    public  @ResponseBody  String sendMailProcess(@RequestParam Map<String, String> map  , Model model)  throws MessagingException {
         log.info("map : " + map); // lombok을 사용한 부분
         String subject = map.get("subject");
         String text = map.get("text");
         String from = map.get("from");
         String to = map.get("to");
+
+        model.addAttribute("text2",text);
         try {
             MimeMessage mail = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mail, true,

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ddit:war exploded" />
+      <artifact name="springProjSem:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -52,18 +52,23 @@
     <option name="showVisibilityIcons" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/IdeaProjects/springProjSem/src/main/webapp&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.20287958&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;fee13acfc1999c133cf877b502ef096a&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "E:/IdeaProjects/springProjSem/src/main/webapp",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15332031",
+    "project.structure.side.proportion": "0.20287958",
+    "spring.configuration.checksum": "f3e11358289405063cdc4e2abbc8eb37",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\IdeaProjects\springProjSem\src\main\webapp\WEB-INF\views\person" />
@@ -78,7 +83,7 @@
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="ddit:war exploded">
+        <artifact name="springProjSem:war exploded">
           <settings>
             <option name="CONTEXT_PATH" value="/" />
           </settings>
@@ -160,6 +165,7 @@
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
           <artifact name="ddit:war exploded" />
+          <artifact name="springProjSem:war exploded" />
         </option>
       </method>
     </configuration>
@@ -182,6 +188,9 @@
       <workItem from="1669432053411" duration="953000" />
       <workItem from="1669653545005" duration="2141000" />
       <workItem from="1669655718830" duration="1196000" />
+      <workItem from="1669950374728" duration="16000" />
+      <workItem from="1669951267920" duration="290000" />
+      <workItem from="1669951676463" duration="7718000" />
     </task>
     <servers />
   </component>
