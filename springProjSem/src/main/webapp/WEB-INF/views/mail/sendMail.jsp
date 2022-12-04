@@ -8,9 +8,12 @@
     <script src="/resources/js/jquery.min.js"></script>
     <script>
         $(function () {
+            const randomNumber = Math.floor(Math.random() * 8888)+1;
+            $('input[name=text]').attr('value',randomNumber);
             let text1 = $("#text").val();
-            let text2=$("#emailNum2").attr("value",text1).val();
-            $("#emailNum2").attr("value",text1);
+            // let text1 = randomNumber;
+            let text2;
+
             $("#btn").on("click", function () {
                 alert("Click");
 
@@ -25,15 +28,15 @@
                 })
             })
             $("#btn2").on("click", function () {
+                text2= $("#emailNum1").val();
                 console.log("text2::" + text1);
                 console.log("text5::" + text2);
-                if(text1==text2) {
-                    alert("같다");
+                if(text1==text2){
+                    alert("인증 성공");
                     location.href="/";
                 }else{
-                    alert("다르다.");
+                    alert("인증 실패");
                 }
-                alert("확인");
             });
             let pwd1 = $("#newPwd1").val();
             let pwd2 = $("#newPwd2").val();
@@ -82,13 +85,10 @@ function chkPwd(){
                placeholder="받는 사람" value="pos04167@naver.com" required="required"/>
     </div>
     <div>
-        <% Random random = new Random();
-            int checkNum = random.nextInt(888888) + 111111;
-        %>
         <input type="text" id="subject" name="subject"
                placeholder="제목" value="이메일 인증번호" required="required"/>
         <br>
-        <input type="text" id="text" name="text" value="<%=checkNum%>">
+        <input type="text" id="text" name="text" value=""/>
     </div>
     <button type="submit">메일 전송하기</button>
 </form>
