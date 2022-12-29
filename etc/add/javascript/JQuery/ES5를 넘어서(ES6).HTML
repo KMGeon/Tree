@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<script>
+  // js의 버젼은 ES5,ES6(2015말) 기준으로 크게 나뉨
+  // let,const, template string, arrow function, spread operator
+  // destructuring, promise, async await등등
+  // es6 버젼방식을 많이 쓰는 것이 유리(올해로 IE11 빠빠이)
+
+  // 변수 선언 기존var에 let과 const가 추가됨
+  // var는 function 키워드에 의해서 let은 {}에 의해서 변수영역이 달라짐
+  // 다른 언어들의 변수 선언은 let과 같음, var가 특별함
+
+  //template string
+  let preInsa = "안녕하세요";
+  let guest = "무건은 배가 고프나요?";
+
+  // let munSum = preInsa +""+guest;//문자열 더하기
+  // es6에선 위에꺼 보다는
+  let = munSum = `${preInsa}${guest}`; //나중에 spring배우면 js string template과 spring el(expressiong language)의 문법이 일치
+  //   에러 발생 그럴때는 $에 \를 붙여 줌
+  alert(munSum);
+  const kmg = "김무건";
+
+  const kmgInFo = {
+    name: "김무건",
+    alias: "런닝맨",
+    check: "체크할게요",
+  };
+
+  kmgInFo.check = "체크가 바뀌나요?"; // OK
+
+  kmgInFo = {
+    name: "김진혁",
+  }; //NG
+  //CONST로 객체를 선언한 경우, 객체의 속성은 바쑬 수 있지만 객체 자체는 못바꿈 현실에 비유하면
+  // 박스는 못 바꾸지만 박스안의 내용물은 바꿀 수 있음
+  //kmgInFo = new Object();
+  //kmgInFo.name = "김진혁";
+  const myArr = ["kbg", { name: "무건" }];
+  //   myArr = ["fbi", "sbs"]; //에러 객체를 바꿀려고 해서
+  myArr[1].name = "잠오는 무건";
+</script>
