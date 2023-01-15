@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>
+          <div class="mydiv">__</div>
+        </td>
+        <td>
+          <div class="mydiv">__</div>
+        </td>
+        <td>
+          <div class="mydiv">__</div>
+        </td>
+        <td>
+          <div class="mydiv">__</div>
+        </td>
+        <td>
+          <div class="mydiv">__</div>
+        </td>
+        <td>
+          <div class="mydiv">__</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <input type="button" value="lotto" id="btn" />
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#btn").bind("click", function () {
+          $(function () {
+            var lotto = [6];
+            for (var i = 0; i < 6; i++) {
+              lotto[i] = parseInt(Math.random() * 45) + 1;
+              for (var j = 0; j < i; j++) {
+                if (lotto[i] == lotto[j]) {
+                  i--;
+                  break;
+                }
+              }
+            }
+            var md = document.querySelectorAll(".mydiv");
+            lotto.sort(function (a, b) {
+              if (a > b) return 1;
+              if (a === b) return 0;
+              if (a < b) return -1;
+            });
+            for (var i = 0; i < lotto.length; i++) {
+              md[i].innerHTML = lotto[i];
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

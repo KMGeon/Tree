@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	EMP_DETAIL
+	<form action="emp_mod_act" method="post">
+		<table border=1>
+			<tr>
+				<th>사번</th>
+				<th>이름</th>
+				<th>성별</th>
+				<th>주소</th>
+			</tr>
+			<tr>
+				<td><input type="text" name="e_id" value="{{
+					row.e_id }}"> </td>
+				<td><input type="text" name="e_name" value="e_name">{{
+					row.e_name }}</td>
+				<td><input type="text" name="sex" value="row.sex">{{
+					row.sex }}</td>
+				<td><input type="text" name="addr" value="row.addr">{{
+					row.addr }}</td>
+			</tr>
+			<tr>
+
+				<td colspan="2"><input type="submit"></td>
+			</tr>
+
+
+
+
+		</table>
+	</form>
+</body>
+</html>

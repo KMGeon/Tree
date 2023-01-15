@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Fast_Mem/templates/emp.html&apos; to &apos;member.html&apos;" description="Rename resource &apos;emp.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="templates/emp.html" name="member.html" stamp="1665709223058" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Fast_Mem/templates/member.html&apos; to &apos;mem.html&apos;" description="Rename resource &apos;member.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="templates/member.html" name="mem.html" stamp="1665709318011" updateReferences="true"/>
+</session>

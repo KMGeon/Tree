@@ -1,0 +1,19 @@
+-- VERSION_5
+-- START DISKCACHE_3
+E:\workspace_python\.metadata\.plugins\org.eclipse.core.resources\.projects\Fast_three.js\com.python.pydev.analysis\v2_indexcache
+myThreeJs|1666232538701574800|E:\workspace_python\Fast_three.js\myThreeJs.py
+-- END DISKCACHE
+-- START DICTIONARY
+2
+2=myThreeJs
+1=E:\workspace_python\Fast_three.js\myThreeJs.py
+-- END DICTIONARY
+-- START TREE 1
+3
+app|1|app!1^10#1*19@
+tem|1|templates!1^14#1*19@
+thr|1|threeJs!1^19#11*18@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

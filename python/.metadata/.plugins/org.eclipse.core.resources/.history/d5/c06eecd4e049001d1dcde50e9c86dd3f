@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <style type="text/css">
+      .myit {
+        width: 25px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>나 :</td>
+        <td>
+          <input type="text" class="myit" id="it_mine" />
+        </td>
+      </tr>
+      <tr>
+        <td>컴 :</td>
+        <td>
+          <input type="text" class="myit" id="it_com" />
+        </td>
+      </tr>
+      <tr>
+        <td>결과 :</td>
+        <td>
+          <input type="text" class="myit" id="it_result" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="button" id="btn" value="게임하기" />
+        </td>
+      </tr>
+    </table>
+    <script type="text/javascript">
+      function myclick() {
+        var game = ["홀", "짝"];
+        var mine = document.querySelector("#it_mine");
+        var com = document.querySelector("#it_com");
+        var result = document.querySelector("#it_result");
+        com.value = game[parseInt(Math.random() * 2)];
+        if (mine.value == com.value) {
+          result.value = "승리";
+        } else {
+          result.value = "패배";
+        }
+      }
+
+      $(document).ready(function () {
+        $("#btn").bind("click", function () {
+          myclick();
+        });
+      });
+    </script>
+  </body>
+</html>

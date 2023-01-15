@@ -1,0 +1,45 @@
+-- VERSION_5
+-- START DISKCACHE_3
+E:\workspace_python\.metadata\.plugins\org.eclipse.core.resources\.projects\Fast_SOCKET\com.python.pydev.analysis\v2_indexcache
+mySocket|1666139149674143000|E:\workspace_python\Fast_SOCKET\mySocket.py
+emp_dao|1665112585978000000|E:\workspace_python\Fast_SOCKET\emp_dao.py
+-- END DISKCACHE
+-- START DICTIONARY
+8
+2=mySocket
+6=ConnectionManager
+3=E:\workspace_python\Fast_SOCKET\emp_dao.py
+4=emp_dao
+5=EmpDao
+1=E:\workspace_python\Fast_SOCKET\mySocket.py
+8=EmpDao.__init__
+7=ConnectionManager.__init__
+-- END DICTIONARY
+-- START TREE 1
+10
+app|1|app!1^8#1*19@
+car|1|card!1^40#5*18@
+con|1|ConnectionManager!1^13#7*17@
+ed|1|ed!3^78#5*35@
+emp|1|EmpDao!3^4#7*33@
+man|1|manager!1^32#1*19@
+roo|1|root!1^36#5*18@
+row|1|row!3^79#5*35@
+tem|1|templates!1^10#1*19@
+web|1|websocket_endpoint!1^44#11*18@
+-- END TREE
+-- START TREE 2
+12
+__d|1|__del__!5&3^72#9*34@
+__i|2|__init__!5&3^6#9*34@__init__!6&1^14#9*18@
+act|1|active_connections!7&1^15#9*19@
+bro|1|broadcast!6&1^27#15*18@
+con|2|conn!8&3^8#9*35@connect!6&1^17#15*18@
+cur|1|curs!8&3^10#9*35@
+del|1|delete!5&3^63#9*34@
+dis|1|disconnect!6&1^21#9*18@
+ins|1|insert!5&3^34#9*34@
+sel|2|select!5&3^18#9*34@selects!5&3^12#9*34@
+sen|1|send_personal_message!6&1^24#15*18@
+upd|1|update!5&3^51#9*34@
+-- END TREE

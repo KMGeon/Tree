@@ -1,0 +1,14 @@
+import pymysql
+
+conn = pymysql.connect(host='localhost', port=3305, user='root', passwd='1234', db='python', charset='utf8')
+curs = conn.cursor()
+###########################################
+# statement
+sql = "SELECT * FROM emp"
+# 5. SQL 구문 실행하기
+curs.execute(sql)
+rows = curs.fetchall()
+print(rows)
+###################################
+curs.close()
+conn.close()

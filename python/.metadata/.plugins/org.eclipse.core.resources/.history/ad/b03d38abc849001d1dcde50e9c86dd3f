@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <style type="text/css">
+      .mydisp {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>별찍기</h1>
+
+    <table border="1">
+      <tr>
+        <td>시작갯수</td>
+        <td>
+          2<input type="radio" name="rf" value="2" /> 3<input
+            type="radio"
+            name="rf"
+            value="3"
+          />
+          4<input type="radio" name="rf" value="4" /> 5<input
+            type="radio"
+            name="rf"
+            value="5"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>끝갯수</td>
+        <td>
+          6<input type="radio" name="rl" value="6"  /> 7<input
+            type="radio"
+            name="rl"
+            value="7"
+          />
+          8<input type="radio" name="rl" value="8" /> 9<input
+            type="radio"
+            name="rl"
+            value="9"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <input type="button" value="별출력하기" onclick="f_display()" />
+        </td>
+      </tr>
+
+      <tr>
+        <td class="mydisp" colspan="2">&nbsp;</td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      var firstNum = document.querySelector('input[name="rf"]').value;
+      var lastNum = document.querySelector('input[name="rl"]').value;
+      function f_display() {
+        console.log(firstNum);
+        console.log(lastNum);
+      }
+    </script>
+  </body>
+</html>

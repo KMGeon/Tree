@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function fn_mod() {
+		location.href = "emp_mod?e_id={{ row.e_id }}";
+	}
+</script>
+</head>
+<body>
+	EMP_DETAIL
+	<table border=1>
+		<tr>
+			<th>사번</th>
+			<th>이름</th>
+			<th>성별</th>
+			<th>주소</th>
+		</tr>
+		<tr>
+			<td><input type="text" name="e_id" value="row.e_id"> {{
+				row.e_id }}</td>
+			<td><input type="text" name="e_name" value="e_name">{{ row.e_name }}</td>
+			<td><input type="text" name="sex" value="row.sex">{{ row.sex }}</td>
+			<td><input type="text" name="addr" value="row.addr">{{ row.addr }}</td>
+		</tr>
+
+	</table>
+</body>
+</html>
