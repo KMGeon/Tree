@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ddit.mapper.MemberMapper">
+
+    <select id="registerCheck" resultType="int" parameterType="memVO">
+        select count(*)
+        from mem
+        where mem_email =#{memEmail}
+    </select>
+
+    <insert id="registerMember"  parameterType="memVO">
+        <selectKey order="BEFORE" keyProperty="memNum" resultType="Integer">
+            SELECT NVL(MAX(mem_num),0)+1 FROM mem
+        </selectKey>
+        INSERT INTO mem (
+            mem_num,
+            mem_email,
+            mem_passwd,
+            mem_name,
+            mem_whdrl_whth,
+            mem_phone_number,
+            mem_sgnup_date
+        ) VALUES (
+                    #{memNum},
+                    #{memEmail},
+                    #{memPasswd},
+                    #{memName},
+                    1,
+                    #{memPhoneNumber},
+                     sysdate
+                 )
+    </insert>
+</mapper>
