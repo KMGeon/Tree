@@ -5,10 +5,10 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "xxxx"
-      MYSQL_DATABASE: "xxxx"
-      MYSQL_USER: "xxxx"
-      MYSQL_PASSWORD: "xxx"
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_DATABASE: "geondb"
+      MYSQL_USER: "geon"
+      MYSQL_PASSWORD: "1234"
       TZ: Asia/Seoul
     command:
       - --character-set-server=utf8mb4
