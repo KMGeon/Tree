@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+  vacation-db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "xxxx"
+      MYSQL_DATABASE: "xxxx"
+      MYSQL_USER: "xxxx"
+      MYSQL_PASSWORD: "xxx"
+      TZ: Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - /mnt/c/docker
+    platform: linux/x86_64
+    ports:
+      - 3306:3306
