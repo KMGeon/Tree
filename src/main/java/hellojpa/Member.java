@@ -1,28 +1,36 @@
 package hellojpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
-@Entity//jpa가 인식하여 jpa가 관리해줌
+@Entity
+
 public class Member {
-    @Id//PK를 알려줌
-    private long id;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) //identity : 기본키 생성을 데이터베이스에 위임
+    private Long id;
 
-    public long getId() {
+    @Column(name = "name" , nullable = false)
+    private String userName;
+
+    public Member() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
