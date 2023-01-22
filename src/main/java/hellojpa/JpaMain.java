@@ -18,13 +18,21 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member();
-            member.setUserName("C");
-
-            em.persist(member);
+            Member member1 = new Member();
+            Member member2 = new Member();
+            Member member3 = new Member();
+            member1.setUserName("D");
+            member2.setUserName("D");
+            member3.setUserName("D");
+            System.out.println("===========");
+            em.persist(member1);
+            em.persist(member2);
+            em.persist(member3);
+            System.out.println("===========");
 
             tx.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             tx.rollback();
         } finally {
             em.close();

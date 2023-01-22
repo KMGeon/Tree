@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-
+@SequenceGenerator(name = "Member_seq_generate", sequenceName = "member_seq", initialValue = 1, allocationSize = 50)
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //identity : 기본키 생성을 데이터베이스에 위임
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Member_seq_generate")
     private Long id;
 
-    @Column(name = "name" , nullable = false)
+    @Column(name = "name", nullable = false)
     private String userName;
 
     public Member() {
