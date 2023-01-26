@@ -6,14 +6,25 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-
 public class Member {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //identity : 기본키 생성을 데이터베이스에 위임
+    @Id @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
-
-    @Column(name = "name" , nullable = false)
+    @Column
     private String userName;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+//    @Column
+//    private Long teamId;
 
     public Member() {
     }
@@ -33,4 +44,6 @@ public class Member {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+
 }
