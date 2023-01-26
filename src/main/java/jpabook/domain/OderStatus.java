@@ -1,4 +1,4 @@
-//package jpabook.domain;
-//
-//public enum OderStatus {
-//}
+package jpabook.domain;
+
+public enum OderStatus {
+}
