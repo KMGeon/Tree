@@ -9,32 +9,24 @@ import java.util.Date;
 public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
-    private Long id;
+    private Long memberId;
     @Column
     private String userName;
+
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @JoinColumn(name = "team_id")
     private Team team;
 
-    public Team getTeam() {
-        return team;
+    @OneToOne
+    @JoinColumn(name ="locker_id" )
+    private  Locker locker;
+
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-//    @Column
-//    private Long teamId;
-
-    public Member() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
     }
 
     public String getUserName() {
@@ -45,5 +37,25 @@ public class Member {
         this.userName = userName;
     }
 
+    public Team getTeam() {
+        return team;
+    }
 
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);//현재 나 자신을 넣어주고
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberId=" + memberId +
+                ", userName='" + userName + '\'' +
+                ", team=" + team +
+                '}';
+    }
 }

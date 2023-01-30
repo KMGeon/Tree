@@ -6,17 +6,24 @@ import java.util.List;
 
 @Entity
 public class Team {
+
     @Id@GeneratedValue
     @Column(name = "TEAM_ID")
     private Long id;
 
+    @Column
     private String name;
 
-    @OneToMany(mappedBy = "team")//mappedBy는 나는 누구랑 묶여 있는지 Team team에 team이랑 연관
-    private List<Member>members= new ArrayList<>();
+    @OneToMany(mappedBy = "team")
+    private List<Member>members=new ArrayList<>();
 
     public List<Member> getMembers() {
         return members;
+    }
+
+    public void addMember(Member member) {
+        member.setTeam(this);
+        members.add(member);
     }
 
     public void setMembers(List<Member> members) {
@@ -38,4 +45,7 @@ public class Team {
     public void setName(String name) {
         this.name = name;
     }
+
+
+
 }

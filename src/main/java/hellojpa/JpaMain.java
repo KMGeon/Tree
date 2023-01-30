@@ -14,24 +14,30 @@ public class JpaMain {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
         //JPA의 데이터 변경은 모두 트렌젝션 단위
         EntityManager em = emf.createEntityManager();
-
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+
+
             Team team = new Team();
-            team.setName("TEAMA");
+            team.setName("team1");
             em.persist(team);
 
             Member member = new Member();
-            member.setUserName("MEMBER1");
-            member.setTeam(team);
+            member.setUserName("member1");
+//            member.changeTeam(team);
             em.persist(member);
 
-            Member member1 = em.find(Member.class, member.getId());
-            List<Member> list = member1.getTeam().getMembers();
-            for (Member c:list) {
-                System.out.println(c.getUserName()+"=======================================");
-            }
+            team.addMember(member);
+//            team.getMembers().add(member);// 읽기 전용 그래서
+            em.flush();//디비로 쿼리 날리고
+            em.clear();//캐시 다 삭제
+
+//            Member findMember = em.find(Member.class, member.getMemberId());//여기서 find를 하면 1차 캐시에서 가져옴
+//            Team findTeam = findMember.getTeam();
+
+//            List<Member> members = findMember.getTeam().getMembers();//그 pk의 member에 팀을 접근하고 그 팀의 member를 접근??
+//            members.forEach(c -> System.out.println(c.getTeam().getTeamId() + "================" + c.getUserName()));
 
 
             tx.commit();

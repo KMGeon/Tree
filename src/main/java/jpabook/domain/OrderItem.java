@@ -8,17 +8,22 @@
 //@Entity
 //@Table(name = "ORDERSITEM")
 //public class OrderItem {
-//    @Id @GeneratedValue
+//
+//   @Id@GeneratedValue
 //    @Column(name = "order_item_id")
-//    private  Long id;
+//    private Long id;
 //
-//    @Column(name = "MEMBER_ID")
-//    private Long memberId;
+//   @ManyToOne
+//   @JoinColumn(name = "order_id")
+//   private Order order;
 //
-//    private LocalDateTime orderDate;
+//   @ManyToOne
+//   @JoinColumn(name = "item_id")
+//   private Item item;
 //
-//    @Enumerated(EnumType.STRING)
-//    private OderStatus status;
+//   private int orderPrice;
+//
+//   private int count;
 //
 //    public Long getId() {
 //        return id;
@@ -28,27 +33,35 @@
 //        this.id = id;
 //    }
 //
-//    public Long getMemberId() {
-//        return memberId;
+//    public Order getOrder() {
+//        return order;
 //    }
 //
-//    public void setMemberId(Long memberId) {
-//        this.memberId = memberId;
+//    public void setOrder(Order order) {
+//        this.order = order;
 //    }
 //
-//    public LocalDateTime getOrderDate() {
-//        return orderDate;
+//    public Item getItem() {
+//        return item;
 //    }
 //
-//    public void setOrderDate(LocalDateTime orderDate) {
-//        this.orderDate = orderDate;
+//    public void setItem(Item item) {
+//        this.item = item;
 //    }
 //
-//    public OderStatus getStatus() {
-//        return status;
+//    public int getOrderPrice() {
+//        return orderPrice;
 //    }
 //
-//    public void setStatus(OderStatus status) {
-//        this.status = status;
+//    public void setOrderPrice(int orderPrice) {
+//        this.orderPrice = orderPrice;
+//    }
+//
+//    public int getCount() {
+//        return count;
+//    }
+//
+//    public void setCount(int count) {
+//        this.count = count;
 //    }
 //}
