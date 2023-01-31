@@ -18,23 +18,8 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
             Member member = new Member();
-            member.setUserName("member1");
-            member.setTeam(team);
-            em.persist(member);
-
-            em.flush();
-            em.clear();
-
-            List<Member> list = em.createQuery("select m from Member m", Member.class).getResultList();
-            list.forEach(System.out::println);
-
-
+            member.setUserName("hello");
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();

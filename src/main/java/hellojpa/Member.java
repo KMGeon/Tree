@@ -6,21 +6,16 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-public class Member extends BaseEntity{
+public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
     @Column
     private String userName;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "team_id")
-    private Team team;
-
-//    @OneToOne
-//    @JoinColumn(name ="locker_id" )
-//    private  Locker locker;
-
+    @Embedded
+    private Period workPeriod;
+    @Embedded
+    private Address homeAddress;
 
     public Long getId() {
         return id;
@@ -38,25 +33,19 @@ public class Member extends BaseEntity{
         this.userName = userName;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
-    public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);//현재 나 자신을 넣어주고
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", team=" + team +
-                '}';
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }
