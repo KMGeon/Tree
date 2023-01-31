@@ -1,44 +1,37 @@
 //package jpabook.domain;
 //
-//import org.hibernate.type.OrderedSetType;
+//
+//import jpabook.domain.item.Item;
 //
 //import javax.persistence.*;
-//import java.time.LocalDateTime;
 //
 //@Entity
-//@Table(name = "ORDERSITEM")
+//@Table(name = "ORDER_ITEM")
 //public class OrderItem {
 //
-//   @Id@GeneratedValue
-//    @Column(name = "order_item_id")
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "ORDER_ITEM_ID")
 //    private Long id;
 //
-//   @ManyToOne
-//   @JoinColumn(name = "order_id")
-//   private Order order;
+//    @ManyToOne(fetch = FetchType.LAZY) //**
+//    @JoinColumn(name = "ITEM_ID")
+//    private Item item;      //주문 상품
 //
-//   @ManyToOne
-//   @JoinColumn(name = "item_id")
-//   private Item item;
+//    @ManyToOne(fetch = FetchType.LAZY) //**
+//    @JoinColumn(name = "ORDER_ID")
+//    private Order order;    //주문
 //
-//   private int orderPrice;
+//    private int orderPrice; //주문 가격
+//    private int count;      //주문 수량
 //
-//   private int count;
-//
+//    //Getter, Setter
 //    public Long getId() {
 //        return id;
 //    }
 //
 //    public void setId(Long id) {
 //        this.id = id;
-//    }
-//
-//    public Order getOrder() {
-//        return order;
-//    }
-//
-//    public void setOrder(Order order) {
-//        this.order = order;
 //    }
 //
 //    public Item getItem() {
@@ -49,12 +42,20 @@
 //        this.item = item;
 //    }
 //
+//    public Order getOrder() {
+//        return order;
+//    }
+//
+//    public void setOrder(Order order) {
+//        this.order = order;
+//    }
+//
 //    public int getOrderPrice() {
 //        return orderPrice;
 //    }
 //
-//    public void setOrderPrice(int orderPrice) {
-//        this.orderPrice = orderPrice;
+//    public void setOrderPrice(int buyPrice) {
+//        this.orderPrice = buyPrice;
 //    }
 //
 //    public int getCount() {
@@ -63,5 +64,14 @@
 //
 //    public void setCount(int count) {
 //        this.count = count;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "OrderItem{" +
+//                "id=" + id +
+//                ", buyPrice=" + orderPrice +
+//                ", count=" + count +
+//                '}';
 //    }
 //}
