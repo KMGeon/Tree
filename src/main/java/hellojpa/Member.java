@@ -6,27 +6,28 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity{
     @Id @GeneratedValue
     @Column(name = "member_id")
-    private Long memberId;
+    private Long id;
     @Column
     private String userName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToOne
-    @JoinColumn(name ="locker_id" )
-    private  Locker locker;
+//    @OneToOne
+//    @JoinColumn(name ="locker_id" )
+//    private  Locker locker;
 
-    public Long getMemberId() {
-        return memberId;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -53,7 +54,7 @@ public class Member {
     @Override
     public String toString() {
         return "Member{" +
-                "memberId=" + memberId +
+                "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", team=" + team +
                 '}';
