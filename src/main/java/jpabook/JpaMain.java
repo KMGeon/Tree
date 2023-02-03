@@ -1,5 +1,7 @@
 package jpabook;
 
+import hellojpa.Member;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -13,8 +15,9 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
+        tx.begin();
         try {
-            tx.begin();
+
 
 
             tx.commit();
