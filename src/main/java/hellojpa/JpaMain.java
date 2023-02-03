@@ -2,10 +2,10 @@ package hellojpa;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,7 +19,14 @@ public class JpaMain {
         tx.begin();
         try {
             Member member = new Member();
-            member.setUserName("hello");
+            member.setUserName("김무건");
+            member.setAge(10);
+            em.persist(member);
+
+            List<Member> list = em.createQuery("select m from Member m where m.userName=:username", Member.class)
+                    .getResultList();
+
+
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
