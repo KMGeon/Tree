@@ -1,25 +1,22 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Member {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
     @Column(name = "member_id")
     private Long id;
+
     @Column
     private String userName;
 
-    @Column
-    private int age;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
-    @Embedded
-    private Period workPeriod;
-    @Embedded
-    private Address homeAddress;
 
     public Long getId() {
         return id;
@@ -37,27 +34,12 @@ public class Member {
         this.userName = userName;
     }
 
-    public int getAge() {
-        return age;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Period getWorkPeriod() {
-        return workPeriod;
-    }
-
-    public void setWorkPeriod(Period workPeriod) {
-        this.workPeriod = workPeriod;
-    }
-
-    public Address getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
+    public void changTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
     }
 }

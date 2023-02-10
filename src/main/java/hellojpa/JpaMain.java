@@ -1,12 +1,6 @@
 package hellojpa;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -20,15 +14,22 @@ public class JpaMain {
         try {
             Member member = new Member();
             member.setUserName("김무건");
-            member.setAge(10);
             em.persist(member);
 
-            List<Member> list = em.createQuery("select m from Member m where m.userName=:username", Member.class)
+            Team team = new Team();
+            team.setName("김무건");
+            em.persist(team);
+
+            member.changTeam(team);
+
+            em.flush();
+            em.clear();
+
+            List<Member> query = em.createQuery("select m from Member m join fetch m.team", Member.class)
                     .getResultList();
-
-
             tx.commit();
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             e.printStackTrace();
             tx.rollback();
         } finally {
