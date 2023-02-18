@@ -9,7 +9,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>인덱스</th>
                 <th>#</th>
                 <th>이름</th>
                 <th>도시</th>
@@ -18,8 +17,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="member , index : ${members}">
-                <td th:text="${index.count}"></td>
+            <tr th:each="member : ${members}">
                 <td th:text="${member.id}"></td>
                 <td th:text="${member.name}"></td>
                 <td th:text="${member.address?.city}"></td>

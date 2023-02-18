@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter @Setter
@@ -33,8 +33,10 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
-    public void setChildCategory(Category child){
+    //==연관관계 메서드==//
+    public void addChildCategory(Category child) {
         this.child.add(child);
         child.setParent(this);
     }
+
 }
