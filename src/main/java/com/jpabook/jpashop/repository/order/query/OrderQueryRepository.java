@@ -22,11 +22,11 @@ public class OrderQueryRepository {
      */
     public List<OrderQueryDto> findOrderQueryDtos() {
         //루트 조회(toOne 코드를 모두 한번에 조회)
-        List<OrderQueryDto> result = findOrders();
+        List<OrderQueryDto> result = findOrders(); //query 1번 N개
 
         //루프를 돌면서 컬렉션 추가(추가 쿼리 실행)
         result.forEach(o -> {
-            List<OrderItemQueryDto> orderItems = findOrderItems(o.getOrderId());
+            List<OrderItemQueryDto> orderItems = findOrderItems(o.getOrderId()); //query N개 -> N+1 문제 발생
             o.setOrderItems(orderItems);
         });
         return result;

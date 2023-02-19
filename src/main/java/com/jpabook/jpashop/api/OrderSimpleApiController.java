@@ -54,11 +54,16 @@ public class OrderSimpleApiController {
     public List<SimpleOrderDto> ordersV2() {
         List<Order> orders = orderRepository.findAll();
         List<SimpleOrderDto> result = orders.stream()
-                .map(o -> new SimpleOrderDto(o))
+                .map(SimpleOrderDto::new)
                 .collect(toList());
 
         return result;
     }
+
+    /**
+     *
+     */
+
 
 
 
