@@ -57,6 +57,18 @@ public class OrderQueryRepository {
                 .getResultList();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 최적화
      * Query: 루트 1번, 컬렉션 1번
@@ -72,6 +84,7 @@ public class OrderQueryRepository {
         Map<Long, List<OrderItemQueryDto>> orderItemMap = findOrderItemMap(toOrderIds(result));
 
         //루프를 돌면서 컬렉션 추가(추가 쿼리 실행X)
+        // orderItemMap
         result.forEach(o -> o.setOrderItems(orderItemMap.get(o.getOrderId())));
 
         return result;
@@ -92,13 +105,33 @@ public class OrderQueryRepository {
                 .setParameter("orderIds", orderIds)
                 .getResultList();
 
-        return orderItems.stream()
+        Map<Long, List<OrderItemQueryDto>> collect = orderItems.stream()
                 .collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId));
+        return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                collect;//map으로 변경
     }
+
 
     public List<OrderFlatDto> findAllByDto_flat() {
         return em.createQuery(
-                "select new com.jpabook.jpashop.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +
+                "select distinct new com.jpabook.jpashop.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +
                         " from Order o" +
                         " join o.member m" +
                         " join o.delivery d" +
