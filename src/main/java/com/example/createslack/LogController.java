@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-public class TestController {
+public class LogController {
 
     @GetMapping("/")
-    public String fail() {
+    public String fail() throws Exception {
         final String message = "failed request";
-        log.error(message);
-        return message;
+        throw new Exception();
     }
 }
