@@ -8,6 +8,7 @@ class QuerydslApplicationTests {
 
     @Test
     void contextLoads() {
+        new QuerydslApplication().toString();
     }
 
 }
