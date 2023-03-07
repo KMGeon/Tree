@@ -1,4 +1,4 @@
-package com.project.blog;
+package com.project.blog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.blog.domain.Post;
@@ -72,7 +72,7 @@ class PostControllerTest {
                 )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("400"))
-                .andExpect(jsonPath("$.message").value("잘못된 요청입니다."))
+                .andExpect(jsonPath("$.message").value("잘못된 에러입니다."))
                 .andDo(print());
         //when
 
@@ -95,7 +95,7 @@ class PostControllerTest {
     public void getTestValid() throws Exception{
         //given
         Post post = Post.builder()
-                .title("title")
+                .title("12345678901234")
                 .content("content")
                 .build();
         postRepository.save(post);
@@ -104,9 +104,34 @@ class PostControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(post.getId()))
-                .andExpect(jsonPath("$.title").value(post.getTitle()))
+                .andExpect(jsonPath("$.title").value("1234567890"))
                 .andExpect(jsonPath("$.content").value(post.getContent()))
                 .andDo(print());
+        //Then
+    }
+
+    @Test
+    @DisplayName("/posts 여러 개 조회")
+    public void getList() throws Exception{
+        //given
+        Post post1 = Post.builder()
+                .title("12345678901234")
+                .content("content")
+                .build();
+        postRepository.save(post1);
+
+        Post post2 = Post.builder()
+                .title("asdfgbnmhh")
+                .content("content")
+                .build();
+        postRepository.save(post2);
+        mockMvc.perform(get("/posts")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(post1.getId()))
+                .andDo(print());
+        //when
+
         //Then
     }
 }
