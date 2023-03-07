@@ -20,4 +20,8 @@ public class Post {
         this.title = title;
         this.content = content;
     }
+
+    public String getTitle(){
+        return this.title.substring(0,10);
+    }
 }

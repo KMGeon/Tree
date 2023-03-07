@@ -1,14 +1,14 @@
 package com.project.blog.controller;
 
-import com.project.blog.domain.Post;
 import com.project.blog.dto.PostCreate;
+import com.project.blog.dto.PostResponse;
 import com.project.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Map;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,9 +25,13 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public Post getId(@PathVariable Long postId){
+    public PostResponse getId(@PathVariable Long postId){
         return postService.get(postId);
     }
 
+    @GetMapping("/posts")
+    public List<PostResponse> getList(){
+        return postService.getList();
+    }
 
 }
