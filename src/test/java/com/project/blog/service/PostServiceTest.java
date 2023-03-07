@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,21 +80,22 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("글 여러개 조회/post")
-    public void test3() throws Exception {
+    @DisplayName("글 1페이지 조회")
+    public void test3() {
         //given
+        List<Post> requestPosts = IntStream.of(0, 30)
+                .mapToObj(i -> Post.builder()
+                            .title("김무건 제목" + i)
+                            .content("컨텐츠" + i)
+                            .build())
+                .collect(Collectors.toList());
 
-        postRepository.saveAll(List.of(Post.builder()
-                .title("foo1")
-                .content("bar1")
-                .build(), Post.builder()
-                        .title("foo2")
-                        .content("bar2")
-                        .build()));
+        postRepository.saveAll(requestPosts);
         //when
-        List<PostResponse> posts = postService.getList();
-
+        List<PostResponse> posts = postService.getList(1);
         //Then
         assertEquals(2L, posts.size());
     }
+
+
 }
