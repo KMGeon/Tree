@@ -1,6 +1,7 @@
 package com.project.blog.service;
 
 import com.project.blog.domain.Post;
+import com.project.blog.domain.PostEditor;
 import com.project.blog.dto.PostCreate;
 import com.project.blog.dto.PostEdit;
 import com.project.blog.dto.PostResponse;
@@ -49,10 +50,16 @@ public class PostService {
 
     @Transactional
     public void edit(Long id, PostEdit postEdit) {
-        //given
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하는 않는 글입니다."));
-        post.edit(postEdit.getTitle() , post.getContent());
+                .orElseThrow(()->new IllegalArgumentException("오류"));
+
+        PostEditor.PostEditorBuilder editorBuilder = post.toEditor();
+
+        PostEditor postEditor = editorBuilder.title(postEdit.getTitle())
+                .content(postEdit.getContent())
+                .build();
+
+        post.edit(postEditor);
     }
 
     public void delete(Long id) {

@@ -23,6 +23,7 @@ public class PostController {
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public void post(@RequestBody @Valid PostCreate PostCreate){
+        System.out.println("PostCreate = " + PostCreate.getTitle());
         postService.write(PostCreate);
     }
 
@@ -37,8 +38,8 @@ public class PostController {
     }
 
     @PatchMapping("/posts/{postId}")
-    public void edit(@PathVariable Long postId , @RequestBody @Valid PostEdit postEdit){
-        postService.edit(postId , postEdit);
+    public void edit(@PathVariable Long postId, @RequestBody @Valid PostEdit request) {
+        postService.edit(postId, request);
     }
 
     @DeleteMapping("/posts/{postId}")
