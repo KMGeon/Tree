@@ -2,24 +2,25 @@ package com.project.blog.service;
 
 import com.project.blog.domain.Post;
 import com.project.blog.dto.PostCreate;
+import com.project.blog.dto.PostEdit;
 import com.project.blog.dto.PostResponse;
+import com.project.blog.dto.PostSearch;
 import com.project.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
-
 
 
     public void write(PostCreate postCreate) {
@@ -29,6 +30,7 @@ public class PostService {
                 .build());
     }
 
+    @Transactional(readOnly = true)
     public PostResponse get(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
         PostResponse response = PostResponse.builder()
@@ -38,11 +40,25 @@ public class PostService {
                 .build();
         return response;
     }
-
-    public List<PostResponse> getList(int page) {
-        Pageable pageable = PageRequest.of(page , 5);
-        return postRepository.findAll(pageable).stream()
+    @Transactional(readOnly = true)
+    public List<PostResponse> getList(PostSearch postSearch) {
+        return postRepository.getList(postSearch).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void edit(Long id, PostEdit postEdit) {
+        //given
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하는 않는 글입니다."));
+        post.edit(postEdit.getTitle() , post.getContent());
+    }
+
+    public void delete(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+
+        postRepository.delete(post);
     }
 }

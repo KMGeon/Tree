@@ -1,6 +1,9 @@
 package com.project.blog.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -21,4 +24,19 @@ public class Post {
         this.content = content;
     }
 
+//    public void change(String title , String content){
+//        this.title = title;
+//        this.content = content;
+//    }
+
+    public PostEditor.PostEditorBuilder toEditor(){
+        return PostEditor.builder()
+                .title(title)
+                .content(content);
+    }
+
+    public void edit(String title , String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

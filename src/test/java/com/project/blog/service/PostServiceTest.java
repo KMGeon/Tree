@@ -2,7 +2,9 @@ package com.project.blog.service;
 
 import com.project.blog.domain.Post;
 import com.project.blog.dto.PostCreate;
+import com.project.blog.dto.PostEdit;
 import com.project.blog.dto.PostResponse;
+import com.project.blog.dto.PostSearch;
 import com.project.blog.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -28,6 +31,10 @@ class PostServiceTest {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    EntityManager entityManager;
+
 
     @Test
     @DisplayName("글 작성")
@@ -80,21 +87,71 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("글 1페이지 조회")
-    public void test3() {
-        //given
-        List<Post> requestPosts = IntStream.of(0, 30)
+    @DisplayName("글 여러개 조회")
+    void test3() {
+        // given
+        List<Post> requestPosts = IntStream.range(0, 20)
                 .mapToObj(i -> Post.builder()
-                            .title("김무건 제목" + i)
-                            .content("컨텐츠" + i)
-                            .build())
+                        .title("title" + i)
+                        .content("content" + i)
+                        .build())
                 .collect(Collectors.toList());
 
         postRepository.saveAll(requestPosts);
+
+
+        PostSearch postSearch = PostSearch.builder()
+                .page(1)
+                .size(10)
+                .build();
+
+        // when
+        List<PostResponse> posts = postService.getList(postSearch);
+
+        // then
+        assertEquals(10L , posts.size());
+        assertEquals("title19" , posts.get(0).getTitle());
+
+    }
+
+    @Test
+    @DisplayName("patch/posts{id}{edit} 수정 조회 -> 글 제목 수정")
+    public void test4() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("김무건")
+                .content("제목")
+                .build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("건무김")
+                .content("제목")
+                .build();
         //when
-        List<PostResponse> posts = postService.getList(1);
+        postService.edit(post.getId(),postEdit);
         //Then
-        assertEquals(2L, posts.size());
+        Post changePost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("수정을 하던 도중에 오류가 생겼습니다." + post.getId()));
+
+        assertThat(changePost.getTitle()).isEqualTo("건무김");
+        assertThat(changePost.getContent()).isEqualTo("제목");
+    }
+
+    @Test
+    @DisplayName("게시글 삭제 - 존재하지 않는 글")
+    void test8() {
+        // given
+        Post post = Post.builder()
+                .title("김무건")
+                .content("content")
+                .build();
+        postRepository.save(post);
+
+        postService.delete(post.getId());
+
+        // expected
+        assertThat(postRepository.count()).isEqualTo(0);
     }
 
 

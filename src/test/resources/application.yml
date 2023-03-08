@@ -11,6 +11,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 5
+
+
 logging:
   level:
     org.hibernate.SQL: debug
