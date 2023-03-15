@@ -1,7 +1,7 @@
 package com.project.blog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.blog.dto.PostCreate;
+import com.project.blog.dto.request.PostCreate;
 import com.project.blog.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

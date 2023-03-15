@@ -12,12 +12,15 @@ spring:
         #       show_sql: true
         format_sql: true
         default_batch_fetch_size: 100
-
+    defer-datasource-initialization: true
   data:
     web:
       pageable:
         one-indexed-parameters: true
         default-page-size: 5
+  sql:
+    init:
+      mode: always
 
 logging.level:
   org.hibernate.SQL: debug

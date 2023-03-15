@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,6 +28,21 @@ public class ExceptionHandler {
         for (FieldError fieldError : e.getFieldErrors())
             errorResponse.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
         return errorResponse;
+    }
+
+    @ResponseBody
+    @org.springframework.web.bind.annotation.ExceptionHandler(HodologException.class)
+    public ResponseEntity<ErrorResponse> hodologException(HodologException e) {
+        int statusCode = e.getStatusCode();
+
+        ErrorResponse body = ErrorResponse.builder()
+                .code(String.valueOf(statusCode))
+                .message(e.getMessage())
+                .validation(e.getValidation())
+                .build();
+
+        return ResponseEntity.status(statusCode)
+                .body(body);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

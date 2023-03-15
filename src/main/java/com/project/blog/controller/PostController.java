@@ -1,7 +1,8 @@
 package com.project.blog.controller;
 
-import com.project.blog.dto.PostCreate;
-import com.project.blog.dto.PostEdit;
+import com.project.blog.config.data.UserSession;
+import com.project.blog.dto.request.PostCreate;
+import com.project.blog.dto.request.PostEdit;
 import com.project.blog.dto.PostResponse;
 import com.project.blog.dto.PostSearch;
 import com.project.blog.service.PostService;
@@ -20,20 +21,31 @@ public class PostController {
 
     private final PostService postService;
 
+    @GetMapping("/foo")
+    public Long foo(UserSession userSession){
+        log.info(">>>:{}"+userSession.id);
+        return userSession.id;
+    }
+    @GetMapping("/boo")
+    public String boo(){
+        return "userSession.name";
+    }
+
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
-    public void post(@RequestBody @Valid PostCreate PostCreate){
-        System.out.println("PostCreate = " + PostCreate.getTitle());
-        postService.write(PostCreate);
+    public void post(@RequestBody @Valid PostCreate PostCreate, @RequestHeader("authorization") String authorization) {
+        if (authorization.equals("hodolman")) {
+            postService.write(PostCreate);
+        }
     }
 
     @GetMapping("/posts/{postId}")
-    public PostResponse getId(@PathVariable Long postId){
+    public PostResponse getId(@PathVariable Long postId) {
         return postService.get(postId);
     }
 
     @GetMapping("/posts")
-    public List<PostResponse> getList(@ModelAttribute PostSearch postSearch){
+    public List<PostResponse> getList(@ModelAttribute PostSearch postSearch) {
         return postService.getList(postSearch);
     }
 

@@ -3,8 +3,8 @@ package com.project.blog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.blog.domain.Post;
-import com.project.blog.dto.PostCreate;
-import com.project.blog.dto.PostEdit;
+import com.project.blog.dto.request.PostCreate;
+import com.project.blog.dto.request.PostEdit;
 import com.project.blog.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,11 +18,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -43,7 +45,7 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("/posts 요청시 Hello World를 출력한다.")
+    @DisplayName("인증을 넣는다. get방식")
     void test() throws Exception {
         // given
         PostCreate request = PostCreate.builder()
@@ -54,13 +56,19 @@ class PostControllerTest {
         String json = objectMapper.writeValueAsString(request);
 
         // expected
-        mockMvc.perform(post("/posts")
+        mockMvc.perform(post("/posts?authorization=hodolman")
                         .contentType(APPLICATION_JSON)
                         .content(json))
-                .andExpect(status().isOk())
-                .andExpect(content().string(""))
+                .andExpect(status().isCreated())
                 .andDo(print());
+
+        Post post = postRepository.findAll().get(0);
+        assertThat(post.getContent()).isEqualTo("내용입니다.");
+        assertThat(post.getTitle()).isEqualTo("제목입니다.");
+
     }
+
+
 
     @Test
     @DisplayName("/posts 요청시 title값은 필수다.")
@@ -79,7 +87,7 @@ class PostControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("400"))
                 .andExpect(jsonPath("$.message").value("잘못된 에러입니다."))
-                .andExpect(jsonPath("$.validation.title").value("타이틀을 입력하세요."))
+                .andExpect(jsonPath("$.validation.title").value("타이틀을 입력하세요"))
                 .andDo(print());
     }
 
