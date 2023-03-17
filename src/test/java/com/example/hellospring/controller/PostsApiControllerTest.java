@@ -1,41 +1,39 @@
 package com.example.hellospring.controller;
 
+import com.example.hellospring.domain.posts.Posts;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+
 @SpringBootTest
 @AutoConfigureMockMvc
-class PostsApiControllerTest {
+public class PostsApiControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mockMvc;
 
     @Test
-    public void hello가_리턴된다() throws Exception {
-        String hello = "hello";
-
-        mvc.perform(get("/hello"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(hello));
-    }
-
-    @Test
-    public void helloDto() throws Exception {
-        //given
-        String name = "hello";
-        int amount = 10000;
-        //when
-        mvc.perform(get("/hello/dto")
-                .param("name",name)
-                .param("param",String.valueOf(amount)))
-                .andExpect(status().isOk());
-        //Then
+    public void testOAuth2Login() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/login/oauth2/code/828626328216-390lvvehgtfge0p9mg3n8m90457rshcm.apps.googleusercontent.com", "google"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrlPattern("https://accounts.google.com/o/oauth2/auth*"));
     }
 
 

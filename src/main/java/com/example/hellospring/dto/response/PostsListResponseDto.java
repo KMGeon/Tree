@@ -1,4 +1,4 @@
-package com.example.hellospring.dto;
+package com.example.hellospring.dto.response;
 
 import com.example.hellospring.domain.posts.Posts;
 import lombok.Getter;
@@ -19,3 +19,4 @@ public class PostsListResponseDto {
         this.modifiedDate = entity.getModifiedDate();
     }
 }
+
