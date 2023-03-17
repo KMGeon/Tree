@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter@Setter
 @ToString(of = {"id","username","age"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
