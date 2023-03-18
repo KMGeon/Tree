@@ -300,13 +300,13 @@ public class QueryDSLbasicTest {
     @Test
     public void subquery() throws Exception{
         //given
-//        QMember membersub = new QMember("ma");
-//
-//        List<Member> fetch = queryFactory
-//                .selectFrom(member)
-//                .where(member.age.eq(JPAExpressions.select(membersub.age.max())
-//                        .from(membersub)))
-//                .fetch();
+        QMember membersub = new QMember("ma");
+
+        List<Member> fetch = queryFactory
+                .selectFrom(member)
+                .where(member.age.eq(JPAExpressions.select(membersub.age.max())
+                        .from(membersub)))
+                .fetch();
 
 
         //when
