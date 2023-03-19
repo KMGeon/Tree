@@ -1,5 +1,8 @@
 package com.project.blog.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,6 +12,9 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Builder
+@AllArgsConstructor
 @Table(name = "USERS")
 public class User {
 
@@ -26,11 +32,15 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Session> sessions = new ArrayList<>();
 
-    public void addSession() {
-        sessions.add(Session.builder()
-                .user(this)
-                .build());
 
+    public Session addSession() {
+        Session session = Session.builder()
+                .user(this)
+                .build();
+        sessions.add(session);
+
+        return session;
     }
+
 
 }

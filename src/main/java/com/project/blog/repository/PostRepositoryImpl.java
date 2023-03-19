@@ -1,7 +1,7 @@
 package com.project.blog.repository;
 
 import com.project.blog.domain.Post;
-import com.project.blog.dto.PostSearch;
+import com.project.blog.dto.response.PostSearch;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 

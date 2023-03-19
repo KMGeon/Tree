@@ -1,4 +1,4 @@
-package com.project.blog.dto;
+package com.project.blog.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

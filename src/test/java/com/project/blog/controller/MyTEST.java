@@ -3,7 +3,7 @@ package com.project.blog.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.blog.dto.request.PostCreate;
 import com.project.blog.dto.request.PostEdit;
-import com.project.blog.dto.PostResponse;
+import com.project.blog.dto.response.PostResponse;
 import com.project.blog.service.PostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
