@@ -1,4 +1,4 @@
-package com.example.coupon.domain.coupon.exception;
+package com.example.coupon.global.exception;
 
 public class NotFoundIdException extends RuntimeException {
 

@@ -1,7 +1,7 @@
-package com.example.coupon.domain.coupon.controller;
+package com.example.coupon.global.exception;
 
 import com.example.coupon.domain.coupon.dto.response.ErrorResponse;
-import com.example.coupon.domain.coupon.exception.NotFoundIdException;
+import com.example.coupon.global.exception.NotFoundIdException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
