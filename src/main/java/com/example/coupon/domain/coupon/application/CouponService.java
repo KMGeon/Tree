@@ -3,7 +3,7 @@ package com.example.coupon.domain.coupon.application;
 import com.example.coupon.domain.coupon.dto.request.RequestDto;
 import com.example.coupon.domain.coupon.domain.Coupon;
 import com.example.coupon.domain.coupon.dto.response.CouponResponse;
-import com.example.coupon.domain.coupon.exception.NotFoundIdException;
+import com.example.coupon.global.exception.NotFoundIdException;
 import com.example.coupon.domain.coupon.repository.CouponRepository;
 import java.util.List;
 import java.util.stream.Collectors;

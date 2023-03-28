@@ -1,8 +1,10 @@
 package com.example.coupon.domain.coupon.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -12,6 +14,7 @@ import com.example.coupon.domain.coupon.application.CouponService;
 import com.example.coupon.domain.coupon.dto.request.RequestDto;
 import com.example.coupon.domain.coupon.dto.response.CouponResponse;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,6 +45,10 @@ class CouponControllerTest {
         .endDate(now.plusHours(1))
         .build();
     given(couponService.createCoupon(any(RequestDto.class))).willReturn(requestDto);
+
+    given(couponService.getCoupons()).willReturn(List.of(requestDto));
+
+    given(couponService.getCoupon(1L)).willReturn(requestDto);
   }
 
   @DisplayName("생성 테스트")
@@ -60,5 +67,38 @@ class CouponControllerTest {
     verify(couponService).createCoupon(any(RequestDto.class));
   }
 
+  @DisplayName("쿠폰 findall()")
+  @Test
+  void Get_getCoupons_findCouponWithValid() throws Exception {
+    //given
+
+    // when
+    mockMvc.perform(
+            get("/coupon/getCoupons")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+        .andExpect(status().isOk())
+        .andDo(print());
+    //then
+    //verify()
+  }
+
+  @DisplayName("getCoupon")
+  @Test
+  void GET_getcoupon_findByIdWithValid() throws Exception {
+    //given
+
+    // when
+    mockMvc.perform(
+            get("/coupon/getCoupon/1")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.name").value("쿠폰1"))
+        .andExpect(jsonPath("$.amount").value(1000))
+        .andDo(print());
+    //then
+    verify(couponService).getCoupon(eq(1L));
+  }
 
 }
