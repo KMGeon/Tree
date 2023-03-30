@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -26,6 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 @WebMvcTest(CouponController.class)
+@AutoConfigureRestDocs
 class CouponControllerTest {
 
   @Autowired
@@ -62,7 +65,7 @@ class CouponControllerTest {
         )
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.name").value("쿠폰1"))
-        .andDo(print());
+        .andDo(document("get-product"));
     //then
     verify(couponService).createCoupon(any(RequestDto.class));
   }

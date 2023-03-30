@@ -63,8 +63,7 @@ public class CouponService {
    * @throws NotFoundIdException
    */
   public CouponResponse updateCoupon(Long id, RequestDto requestDto) {
-    Coupon coupon = couponRepository.findById(id)
-        .orElseThrow(() -> new NotFoundIdException(id));
+    Coupon coupon = couponFindWithId(id);
     coupon.updateCoupon(requestDto);
     return CouponResponse.convertCouponData(coupon);
   }
@@ -76,10 +75,14 @@ public class CouponService {
    * @throws NotFoundIdException
    */
   public void deleteCoupon(Long id) {
-    Coupon coupon = couponRepository.findById(id)
-        .orElseThrow(() -> new NotFoundIdException(id));
+    Coupon coupon = couponFindWithId(id);
     coupon.destroy();
   }
 
+  private Coupon couponFindWithId(Long id) {
+    Coupon coupon = couponRepository.findById(id)
+            .orElseThrow(() -> new NotFoundIdException(id));
+    return coupon;
+  }
 
 }

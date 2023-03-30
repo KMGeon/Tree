@@ -39,6 +39,12 @@ public class Coupon {
     useCoupon = true;
   }
 
+  @Override
+  public String toString() {
+    return String.format("Coupon{useCoupon=%s}", useCoupon);
+  }
+
+
   public void updateCoupon(RequestDto requestDto){
     this.name = requestDto.getName();
     this.amount = requestDto.getAmount();
