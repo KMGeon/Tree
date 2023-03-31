@@ -1,7 +1,6 @@
-server:
-  port: 8787
-
 spring:
+  profiles:
+    active: local
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa
@@ -14,8 +13,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-  profiles:
-    include: oauth
 
 logging.level:
   org.hibernate.SQL: debug

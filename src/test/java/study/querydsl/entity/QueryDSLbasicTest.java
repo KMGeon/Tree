@@ -1,9 +1,12 @@
 package study.querydsl.entity;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -491,7 +494,7 @@ public class QueryDSLbasicTest {
                 .from(member)
                 .fetch();
         //when
-        fetch.forEach(member->{
+        fetch.forEach(member -> {
             System.out.println("member = " + member);
         });
     }
@@ -507,7 +510,7 @@ public class QueryDSLbasicTest {
                 .from(member)
                 .fetch();
         //when
-        fetch.forEach(member->{
+        fetch.forEach(member -> {
             System.out.println("member = " + member);
         });
     }
@@ -533,28 +536,85 @@ public class QueryDSLbasicTest {
                         member.username.as("username"),
                         ExpressionUtils.as(
                                 JPAExpressions.select(memberSub.age.max())
-                                        .from(memberSub),"age"
+                                        .from(memberSub), "age"
                         )))
                 .from(member)
                 .fetch();
 
-        fetch.forEach(project->{
+        fetch.forEach(project -> {
             System.out.println("project = " + project);
         });
     }
 
     @Test
     @DisplayName("QueryProjections")
-    public void QueryProjections() throws Exception{
+    public void QueryProjections() throws Exception {
         //when
         List<MemberDto> fetch = queryFactory
                 .select(new QMemberDto(member.username, member.age))
                 .from(member)
                 .fetch();
         //Then
-        fetch.forEach(memberDto->{
+        fetch.forEach(memberDto -> {
             System.out.println("memberDto = " + memberDto);
         });
+    }
+
+    @Test
+    @DisplayName("booleanBuilder")
+    public void booleanBuilder() throws Exception {
+        String usernameParam = "member1";
+        Integer ageParam = 10;
+
+        List<Member> result = searchMember(usernameParam, ageParam);
+        result.forEach(member1 -> {
+            System.out.println("member1 = " + member1);
+        });
+    }
+
+    private List<Member> searchMember(String usernameParam, Integer ageParam) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (usernameParam != null) {
+            builder.and(member.username.eq(usernameParam));
+        }
+        if (ageParam != null) {
+            builder.and(member.age.eq(ageParam));
+        }
+        return queryFactory
+                .selectFrom(member)
+                .where(builder)
+                .fetch();
+    }
+
+    @Test
+    public void dynamicQuery() {
+        String username = "member1";
+        Integer age = 10;
+
+        List<Member> result = searchMember2(username, age);
+
+        //Then
+        //Assertions.assertThat().isEqualTo();
+    }
+
+    private List<Member> searchMember2(String username, Integer age) {
+        return queryFactory
+                .selectFrom(member)
+//                .where(usernameEq(username), ageEq(age))
+                .where(allEq(username, age))
+                .fetch();
+    }
+
+    private BooleanExpression ageEq(Integer age) {
+        return age != null ? member.age.eq(age) : null;
+    }
+
+    private BooleanExpression usernameEq(String username) {
+        return username != null ? member.username.eq(username) : null;
+    }
+
+    private Predicate allEq(String username, Integer age) {
+        return usernameEq(username).and(ageEq(age));
     }
 }
 
