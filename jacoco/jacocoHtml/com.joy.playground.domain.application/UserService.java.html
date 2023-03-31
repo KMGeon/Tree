@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PlayGround</a> &gt; <a href="index.source.html" class="el_package">com.joy.playground.domain.application</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.joy.playground.domain.application;
+
+import com.joy.playground.domain.domain.User;
+import com.joy.playground.domain.dto.request.UserRequest;
+import com.joy.playground.domain.dto.response.UserResponse;
+import com.joy.playground.domain.repository.UserRepository;
+import com.joy.playground.global.exception.UserEmailDuplicationException;
+import com.joy.playground.global.exception.UserNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(readOnly = true)
+<span class="fc" id="L15">@RequiredArgsConstructor</span>
+public class UserService {
+
+    private final UserRepository userRepository;
+
+    @Transactional
+    public UserResponse create(UserRequest userRequest) {
+<span class="fc" id="L22">        String email = userRequest.getEmail();</span>
+
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        if (userRepository.existsByEmail(email)) {</span>
+<span class="nc" id="L25">            throw new UserEmailDuplicationException(email);</span>
+        }
+
+<span class="fc" id="L28">        User user = userRepository.save(userRequest.from());</span>
+<span class="fc" id="L29">        return UserResponse.convertData(user);</span>
+    }
+
+    @Transactional
+    public UserResponse updateUser(Long id, UserRequest userRequest) {
+<span class="fc" id="L34">        User user = findByUser(id);</span>
+
+<span class="fc" id="L36">        user.updateUser(userRequest);</span>
+<span class="fc" id="L37">        return UserResponse.convertData(user);</span>
+    }
+
+    @Transactional
+    public User deleteUser(Long id){
+<span class="fc" id="L42">        User user = findByUser(id);</span>
+<span class="fc" id="L43">        user.destroy();</span>
+<span class="fc" id="L44">        return user;</span>
+    }
+
+
+    private User findByUser(Long id) {
+<span class="fc" id="L49">        return userRepository.findByIdAndDeletedIsFalse(id)</span>
+<span class="pc" id="L50">                .orElseThrow(() -&gt; new UserNotFoundException(id));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
