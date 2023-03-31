@@ -19,6 +19,12 @@ src
 │   └── Reply
 └── validations
 ```
+# Tech Stacks
+- ### Spring Boot 2.7.10
+- ### Data JPA, QeuryDSL
+- ### H2 DataBase
+- ### Rest Docs
+- ### git, Slack
 
 
 ### 개발 필수요건
@@ -42,10 +48,4 @@ src
 - [x] 예외처리
 - [x] SLACK을 통한 에러 모니터링
 
-# Tech Stacks
-- ### Spring Boot 2.7.10
-- ### Data JPA, QeuryDSL
-- ### H2 DataBase
-- ### Rest Docs
-- ### git, Slack
 
