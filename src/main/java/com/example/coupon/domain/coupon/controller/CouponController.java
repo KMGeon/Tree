@@ -9,15 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -49,8 +41,8 @@ public class CouponController {
    */
   @GetMapping("/getCoupons")
   @ResponseStatus(HttpStatus.OK)
-  public List<CouponResponse> getCoupons() {
-    return couponService.getCoupons();
+  public List<CouponResponse> getCoupons(@RequestParam String codeType) {
+    return couponService.getCoupons(codeType);
   }
 
   /**
@@ -75,7 +67,7 @@ public class CouponController {
    * @Valid name, amount
    * @return
    */
-  @PatchMapping("{id}")
+  @PatchMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public CouponResponse updateCoupon(
       @PathVariable Long id,
