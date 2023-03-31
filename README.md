@@ -1,13 +1,13 @@
 # Description
 
-### 백엔드 연습
+### 백엔드 연습 프로젝트
 
 ### 개발 필수요건
 
 ### USER
-- [ ] 회원가입
-- [ ] 회원 수정
-- [ ] 회원 삭제
+- [x] 회원가입
+- [x] 회원 수정
+- [x] 회원 삭제
 
 ### Board
 - [ ] 게시글 작성
@@ -20,13 +20,15 @@
 - [ ] Spring Security
 - [ ] 단위 테스트
 - [ ] 테스트 커버리지 100%
-- [ ] 예외처리
-- [ ] SLACK을 통한 에러 모니터링
+- [x] 예외처리
+- [x] SLACK을 통한 에러 모니터링
 
 # Tech Stacks
 - ### Spring Boot 2.7.10
+- ### Data JPA, QeuryDSL
 - ### H2 DataBase
 - ### Rest Docs
+- ### git, Slack
 
 
 # Project Sturucture
