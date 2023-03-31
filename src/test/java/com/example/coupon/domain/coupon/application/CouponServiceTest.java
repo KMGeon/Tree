@@ -146,6 +146,6 @@ class CouponServiceTest {
         Coupon coupon1 = couponRepository.findById(1L)
                 .orElseThrow(NoRouteToHostException::new);
 
-        assertThat(coupon1.toString()).as("쿠폰 사용").isEqualTo("Coupon{useCoupon=true}");
+        assertThat(coupon1.isUseCoupon()).isTrue();
     }
 }
