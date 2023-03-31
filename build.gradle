@@ -6,14 +6,21 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'jacoco'
     id 'org.springframework.boot' version '2.7.10'
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
 group = 'com.joy'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
 
 
 
@@ -40,10 +47,51 @@ dependencies {
     //lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    //slack
+    implementation("com.slack.api:bolt:1.18.0")
+    implementation("com.slack.api:bolt-servlet:1.18.0")
+    implementation("com.slack.api:bolt-jetty:1.18.0")
+    implementation "com.github.maricn:logback-slack-appender:1.4.0"
 }
 
-tasks.named('test') {
+
+jacocoTestReport {
+    reports {
+        xml.required = false
+        csv.required = false
+        html.required = true
+    }
+}
+test {
     useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled false
+        csv.enabled false
+
+// 리포트의 저장 경로를 설정합니다.
+        html.destination file("jacoco/jacocoHtml")
+        xml.destination file("jacoco/jacoco.xml")
+    }
+}
+
+jacocoTestCoverageVerification {
+
+    violationRules { // 커버리지의 범위와 퍼센테이지를 설정합니다.
+        rule {
+            element = 'CLASS'
+
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.90
+            }
+        }
+    }
 }
 
 def querydslDir = "$buildDir/generated/querydsl"
