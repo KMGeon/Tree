@@ -2,6 +2,25 @@
 
 ### 백엔드 연습 프로젝트
 
+
+### Project Sturucture
+
+```bash
+src
+├── global 
+│   ├── exception
+│   ├── config
+│   ├── interceptor
+│   └── jwt
+│  
+├── domain
+│   ├── user
+│   ├── board
+│   └── Reply
+└── validations
+```
+
+
 ### 개발 필수요건
 
 ### USER
@@ -30,20 +49,3 @@
 - ### Rest Docs
 - ### git, Slack
 
-
-# Project Sturucture
-
-```bash
-src
-├── global 
-│   ├── exception
-│   ├── config
-│   ├── interceptor
-│   └── jwt
-│  
-├── domain
-│   ├── user
-│   ├── board
-│   └── Reply
-└── validations
-```
