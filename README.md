@@ -4,7 +4,6 @@
 
 
 ### Project Sturucture
-
 ```bash
 src
 ├── global 
@@ -19,7 +18,8 @@ src
 │   └── Reply
 └── validations
 ```
-# Tech Stacks
+
+### Tech Stacks
 - ### Spring Boot 2.7.10
 - ### Data JPA, QeuryDSL
 - ### H2 DataBase
@@ -27,7 +27,7 @@ src
 - ### git, Slack
 
 
-### 개발 필수요건
+## 개발 필수요건
 
 ### USER
 - [x] 회원가입
