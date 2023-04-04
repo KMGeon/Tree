@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity // Database Table과 맵핑하는 객체.
-@Table(name="member") // Database 테이블 이름 user3 와 User라는 객체가 맵핑.
+@Entity
+@Table(name="member")
 @Getter
 @Builder
 @AllArgsConstructor
 public class Member {
-    @Id // 이 필드가 Table의 PK.
+    @Id
     @Column(name="member_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // userId는 자동으로 생성되도록 한다. 1,2,3,4
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
     @Column(length = 255)
@@ -61,4 +61,3 @@ public class Member {
     }
 }
 
-// User -----> Role
