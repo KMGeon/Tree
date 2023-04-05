@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
+import study.querydsl.study.entity.Member;
+import study.querydsl.study.entity.Team;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -43,7 +45,7 @@ class MemberTest {
         em.flush();
         em.clear();
         //Then
-        List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
+        List<Member> members = em.createQuery("select m from User m", Member.class).getResultList();
 
         members.forEach(System.out::println);
     }

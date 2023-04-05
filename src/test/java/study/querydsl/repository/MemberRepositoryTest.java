@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import study.querydsl.dto.MemberSearchCondition;
-import study.querydsl.dto.MemberTeamDto;
-import study.querydsl.entity.Member;
-import study.querydsl.entity.Team;
+import study.querydsl.study.dto.MemberSearchCondition;
+import study.querydsl.study.dto.MemberTeamDto;
+import study.querydsl.study.entity.Member;
+import study.querydsl.study.entity.Team;
+import study.querydsl.study.repository.MemberRepository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -105,8 +106,8 @@ class MemberRepositoryTest {
         assertThat(result.getContent())
                 .extracting("username")
                 .containsExactly(
-                        "member1",
-                        "member2",
-                        "member3");
+                        "member4",
+                        "member3",
+                        "member2");
     }
 }

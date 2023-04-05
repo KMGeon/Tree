@@ -1,10 +1,12 @@
-package study.querydsl;
+package study.querydsl.study;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import study.querydsl.entity.Member;
-import study.querydsl.entity.Team;
+import study.querydsl.HAHA.domain.Board;
+import study.querydsl.HAHA.domain.User;
+import study.querydsl.study.entity.Member;
+import study.querydsl.study.entity.Team;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -30,16 +32,28 @@ public class InitMember {
 
         @Transactional
         public void init() {
-            Team teamA = new Team("teamA");
-            Team teamB = new Team("teamB");
+            User teamA = new User("teamA");
+            User teamB = new User("teamB");
             em.persist(teamA);
             em.persist(teamB);
 
             for (int i = 0; i < 100; i++) {
-                Team selectedTeam = i % 2 == 0 ? teamA : teamB;
-                em.persist(new Member("member" + i, i, selectedTeam));
+                User selectedTeam = i % 2 == 0 ? teamA : teamB;
+                em.persist(new Board("board"+i,selectedTeam));
             }
         }
+//        @Transactional
+//        public void init() {
+//            Team teamA = new Team("teamA");
+//            Team teamB = new Team("teamB");
+//            em.persist(teamA);
+//            em.persist(teamB);
+//
+//            for (int i = 0; i < 100; i++) {
+//                Team selectedTeam = i % 2 == 0 ? teamA : teamB;
+//                em.persist(new Member("member" + i, i, selectedTeam));
+//            }
+//        }
 
     }
 

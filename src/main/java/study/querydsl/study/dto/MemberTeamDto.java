@@ -1,4 +1,4 @@
-package study.querydsl.dto;
+package study.querydsl.study.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
@@ -10,6 +10,9 @@ public class MemberTeamDto {
     private int age;
     private Long teamId;
     private String teamName;
+
+
+
 
     @QueryProjection
     public MemberTeamDto(Long memberId, String username, int age, Long teamId, String teamName) {

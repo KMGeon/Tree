@@ -1,4 +1,4 @@
-package study.querydsl.dto;
+package study.querydsl.study.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;

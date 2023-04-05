@@ -1,4 +1,4 @@
-package study.querydsl.repository;
+package study.querydsl.study.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -9,15 +9,16 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
-import study.querydsl.dto.MemberSearchCondition;
-import study.querydsl.dto.MemberTeamDto;
-import study.querydsl.dto.QMemberTeamDto;
-import study.querydsl.entity.Member;
+import study.querydsl.study.dto.MemberSearchCondition;
+import study.querydsl.study.dto.MemberTeamDto;
+import study.querydsl.study.dto.QMemberTeamDto;
+import study.querydsl.study.entity.Member;
 
 import java.util.List;
 
-import static study.querydsl.entity.QMember.member;
-import static study.querydsl.entity.QTeam.team;
+import static study.querydsl.study.entity.QMember.member;
+import static study.querydsl.study.entity.QTeam.team;
+
 
 public class MemberRepositoryImpl implements MemberRepositoryCustom {
 
@@ -108,6 +109,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
 
 
     //todo:==================================================================================
+
     private BooleanExpression usernameEq(String username) {
         return StringUtils.hasText(username) ? member.username.eq(username) : null;
     }

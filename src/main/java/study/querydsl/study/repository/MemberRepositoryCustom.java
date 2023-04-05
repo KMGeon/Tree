@@ -1,9 +1,9 @@
-package study.querydsl.repository;
+package study.querydsl.study.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import study.querydsl.dto.MemberSearchCondition;
-import study.querydsl.dto.MemberTeamDto;
+import study.querydsl.study.dto.MemberSearchCondition;
+import study.querydsl.study.dto.MemberTeamDto;
 
 import java.util.List;
 
