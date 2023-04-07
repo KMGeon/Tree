@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Coupon {
 
@@ -52,12 +52,12 @@ public class Coupon {
     this.endDate = requestDto.getEndDate();
   }
 
-  public CouponResponse convertCouponData(Coupon coupon) {
+  public static CouponResponse convertCouponData(Coupon coupon) {
     return CouponResponse.builder()
-        .name(coupon.getName())
-        .amount(coupon.getAmount())
-        .startDate(coupon.getStartDate())
-        .endDate(coupon.getEndDate())
-        .build();
+            .name(coupon.getName())
+            .amount(coupon.getAmount())
+            .startDate(coupon.getStartDate())
+            .endDate(coupon.getEndDate())
+            .build();
   }
 }

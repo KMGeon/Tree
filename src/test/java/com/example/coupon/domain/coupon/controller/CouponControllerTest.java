@@ -7,6 +7,7 @@ import com.example.coupon.domain.coupon.dto.response.CouponResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -54,7 +55,7 @@ class CouponControllerTest {
                 .build();
         given(couponService.createCoupon(any(RequestDto.class))).willReturn(requestDto);
 
-        given(couponService.getCoupons()).willReturn(List.of(requestDto));
+        given(couponService.getCoupons(codeType)).willReturn(List.of(requestDto));
 
         given(couponService.getCoupon(1L)).willReturn(requestDto);
 
@@ -69,6 +70,7 @@ class CouponControllerTest {
                             .build();
                 });
     }
+
 
     @DisplayName("생성 테스트")
     @Test
@@ -127,7 +129,7 @@ class CouponControllerTest {
         Long id = 1L;
         // when
         mockMvc.perform(
-                        patch("/coupon/{id}",id)
+                        patch("/coupon/{id}", id)
                                 .contentType(APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(Coupon.builder()
                                         .id(1L)
@@ -142,7 +144,7 @@ class CouponControllerTest {
                 .andExpect(jsonPath("$.amount").value(20000))
                 .andDo(print());
         //then
-        verify(couponService).updateCoupon(eq(1L),any(RequestDto.class));
+        verify(couponService).updateCoupon(eq(1L), any(RequestDto.class));
     }
 
     @DisplayName("delete")
@@ -152,8 +154,8 @@ class CouponControllerTest {
         Long id = 1L;
         // when
         mockMvc.perform(
-                        delete("/coupon/{id}",id)
-                        .contentType(APPLICATION_JSON)
+                        delete("/coupon/{id}", id)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isNoContent())
                 .andDo(print());
