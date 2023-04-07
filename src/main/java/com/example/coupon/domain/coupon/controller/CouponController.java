@@ -40,8 +40,12 @@ public class CouponController {
 
     @GetMapping("/queryDSL")
     @ResponseStatus(HttpStatus.OK)
-    public Page<CouponResponse> searchQueryDsl(RequestDto requestDto, Pageable pageable) {
-        return this.couponService.searchQueryDsl(requestDto, pageable);
+    public Page<CouponResponse> searchQueryDsl(
+            RequestDto requestDto,
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "3", required = false) int size
+    ) {
+        return this.couponService.searchQueryDsl(requestDto, page,size);
     }
 
     /**

@@ -11,9 +11,12 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @Transactional
@@ -23,7 +26,11 @@ public class CouponService {
     private final CouponRepository couponRepository;
 
 
-    public Page<CouponResponse> searchQueryDsl(RequestDto requestDto, Pageable pageable) {
+    public Page<CouponResponse> searchQueryDsl(RequestDto requestDto,
+                                               @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                                               @RequestParam(value = "size", defaultValue = "3", required = false) int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
         return couponRepository.searchPage(requestDto, pageable);
     }
 
