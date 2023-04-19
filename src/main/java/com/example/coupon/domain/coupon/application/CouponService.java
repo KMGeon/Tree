@@ -74,7 +74,7 @@ public class CouponService {
      */
     @Transactional(readOnly = true)
     public CouponResponse getCoupon(Long id) {
-        Coupon coupon = couponRepository.findByIdFalse(id)
+        Coupon coupon = couponRepository.findById(id)
                 .orElseThrow(() -> new NotFoundIdException(id));
         return CouponResponse.convertCouponData(coupon);
     }

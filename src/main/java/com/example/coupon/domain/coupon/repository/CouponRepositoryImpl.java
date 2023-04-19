@@ -1,11 +1,9 @@
 package com.example.coupon.domain.coupon.repository;
 
 import com.example.coupon.domain.coupon.domain.Coupon;
-import com.example.coupon.domain.coupon.domain.QCoupon;
 import com.example.coupon.domain.coupon.dto.request.RequestDto;
 import com.example.coupon.domain.coupon.dto.response.CouponResponse;
 import com.example.coupon.domain.coupon.dto.response.QCouponResponse;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
