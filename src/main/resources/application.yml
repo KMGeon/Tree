@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://{mysql-instacne IP}:9898/post
+    url: jdbc:mysql://13.209.121.180:9898/post
     username: root
     password: 1234
   jpa:
