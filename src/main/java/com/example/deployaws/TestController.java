@@ -11,4 +11,9 @@ public class TestController {
         return "hello World";
     }
 
+    @GetMapping("/test2")
+    public String test2() {
+        return "Jenkins CI/CD Test";
+    }
+
 }
