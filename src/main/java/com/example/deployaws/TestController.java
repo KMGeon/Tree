@@ -18,6 +18,11 @@ public class TestController {
         return postRepository.save(post);
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
     @GetMapping("/posts")
     public List<Post> getPostList() {
         return postRepository.findAll();
