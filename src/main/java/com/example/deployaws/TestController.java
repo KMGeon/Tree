@@ -8,24 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 public class TestController {
-    public final PostRepository postRepository;
-
-    @PostMapping
-    public Post createPost(@RequestBody Post post) {
-        return postRepository.save(post);
-    }
-
     @GetMapping("/test")
     public String test() {
         return "test";
     }
 
-    @GetMapping("/posts")
-    public List<Post> getPostList() {
-        return postRepository.findAll();
-    }
 
 }
