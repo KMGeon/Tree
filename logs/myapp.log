@@ -1,0 +1,18 @@
+ERROR c.g.b.global.filter.logbackFilter - >요청 URL
+ERROR c.g.b.global.filter.logbackFilter - http://localhost:8080/api/signup
+ERROR c.g.b.global.filter.logbackFilter - >발생시간
+ERROR c.g.b.global.filter.logbackFilter - 2023-05-06T00:14:16.610008
+ERROR c.g.b.global.filter.logbackFilter - >HTTP Header 정보
+ERROR c.g.b.global.filter.logbackFilter - {
+ERROR c.g.b.global.filter.logbackFilter -    content-type:application/json
+ERROR c.g.b.global.filter.logbackFilter -    user-agent:PostmanRuntime/7.32.2
+ERROR c.g.b.global.filter.logbackFilter -    accept:*/*
+ERROR c.g.b.global.filter.logbackFilter -    postman-token:3b12f5f5-0bc1-40aa-9855-0a62731ffdf7
+ERROR c.g.b.global.filter.logbackFilter -    host:localhost:8080
+ERROR c.g.b.global.filter.logbackFilter -    accept-encoding:gzip, deflate, br
+ERROR c.g.b.global.filter.logbackFilter -    connection:keep-alive
+ERROR c.g.b.global.filter.logbackFilter -    content-length:91
+ERROR c.g.b.global.filter.logbackFilter - }
+ERROR c.g.b.global.filter.logbackFilter - >사용자 환경 정보
+ERROR c.g.b.global.filter.logbackFilter -   User-Agent: PostmanRuntime/7.32.2
+ERROR c.g.b.global.filter.logbackFilter -   Client-IP: 127.0.0.1
