@@ -5,7 +5,9 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/103854287/235309250-b7006f41-c3ac-4338-93b1-ab52073d96f4.png" style="width: 50%; height: 40%;" />
 </p>
-![111](https://user-images.githubusercontent.com/103854287/236692726-ef791702-fb85-42bc-934d-fbebfd761a81.png)
+
+![111](https://user-images.githubusercontent.com/103854287/236692739-a1d0ce86-1c39-4124-adcf-06b82dfb6755.png)
+
 
 
 # 🐣 Project Setup
