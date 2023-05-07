@@ -1,6 +1,4 @@
-# 기깔나는 사람들(코딩 테스트)
 
-## 신입 백엔드 개발자 - 김무건(Back End Developer)
 
 ---
 ## Project Setup(Back End)
