@@ -1,20 +1,20 @@
-package com.giggal.board.domain.role.enums;
+package com.giggal.board.domain.post.enums;
 
 import lombok.Getter;
 
 @Getter
-public enum RoleEnum {
+public enum BadTitle {
 
-    CREW("ROLE_CREW"),
-    TLeader("ROLE_TLeader"),
-    PM("ROLE_PM"),
-    ADMIN("ROLE_ADMIN");
+    dog("나쁜말1"),
+    ssibal("나쁜말2"),
+    joy("나쁜말3"),
+    reload("나쁜말4");
 
-    private String roleName;
+    private final String titleName;
 
 
-    RoleEnum(String roleName) {
-        this.roleName = roleName;
+    BadTitle(String titleName) {
+        this.titleName = titleName;
     }
 
 }

@@ -1,20 +1,23 @@
-package com.challenge.studytime.domain.refreshToken.entity;
+package com.giggal.board.domain.refresh.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "refresh_token")
-@NoArgsConstructor
-@Setter
 @Getter
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long memberId;
     private String value;
+
+    @Builder
+    public RefreshToken(Long id, Long memberId, String value) {
+        this.id = id;
+        this.memberId = memberId;
+        this.value = value;
+    }
 }

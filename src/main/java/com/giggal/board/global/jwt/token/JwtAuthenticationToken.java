@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.jwt.token;
+package com.giggal.board.global.jwt.token;
 
 import lombok.Getter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

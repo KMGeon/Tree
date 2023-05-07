@@ -1,10 +1,11 @@
-package com.giggal.board.domain.refresh.service.impl;
+package com.giggal.board.domain.refresh.application.impl;
 
 import com.giggal.board.domain.member.dto.response.MemberLoginResponse;
 import com.giggal.board.domain.member.entity.Member;
 import com.giggal.board.domain.member.repository.MemberRepository;
 import com.giggal.board.domain.refresh.dto.request.RefreshTokenDto;
-import com.giggal.board.domain.refresh.service.RefreshTokenService;
+import com.giggal.board.domain.refresh.application.RefreshTokenService;
+import com.giggal.board.global.exception.member.NotFoundMemberId;
 import com.giggal.board.global.jwt.util.JwtTokenizer;
 import com.giggal.board.global.redis.RedisService;
 import io.jsonwebtoken.Claims;
@@ -35,13 +36,14 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public MemberLoginResponse AccessTokenWithRefreshToken(RefreshTokenDto refreshTokenDto) {
+
         String refreshToken = redisService.getValues(refreshTokenDto.getRefreshToken());
 
         Claims claims = jwtTokenizer.parseRefreshToken(refreshToken);
         Long userId = Long.valueOf((Integer) claims.get("memberId"));
 
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("userId"));
+                .orElseThrow(() -> new NotFoundMemberId(userId));
 
         List roles = claims.get("roles", List.class);
         String email = claims.getSubject();

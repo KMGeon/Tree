@@ -1,10 +1,8 @@
-package com.schedule.todo.domain.admin.application;
+package com.giggal.board.domain.admin.application;
 
-import com.schedule.todo.domain.admin.dto.MemberSignResponse;
 
-import java.net.InetAddress;
+import com.giggal.board.domain.admin.dto.request.AdminRequestDto;
 
 public interface AdminService {
-    void blockAccessCountry(InetAddress ipAddress);
-    MemberSignResponse findMemberAll();
+    void blockAccessCountry(AdminRequestDto adminRequestDto);
 }

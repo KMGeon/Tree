@@ -5,7 +5,7 @@
     <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
         <webhookUri>${SLACK_WEBHOOK_URI}</webhookUri>
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg %n</pattern>
+            <pattern>%msg %n</pattern>
         </layout>
         <username>PlayGround_Error</username>
         <iconEmoji>:stuck_out_tongue_winking_eye:</iconEmoji>
@@ -15,7 +15,7 @@
     <!-- Console appender 설정 -->
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <Pattern>%d %-5level %logger{35} - %msg%n</Pattern>
+            <Pattern>%msg%n</Pattern>
         </encoder>
     </appender>
 
@@ -27,10 +27,10 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <Pattern>%d %-5level %logger{35} - %msg%n</Pattern>
+            <Pattern>%-5level %logger{35} - %msg%n</Pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>WARN</level>
+            <level>ERROR</level>
         </filter>
     </appender>
 

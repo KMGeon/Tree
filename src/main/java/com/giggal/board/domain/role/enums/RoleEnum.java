@@ -1,16 +1,16 @@
-package com.challenge.studytime.domain.role.enums;
+package com.giggal.board.domain.role.enums;
 
 import lombok.Getter;
 
 @Getter
 public enum RoleEnum {
 
-    ROLE_CUSTOMER("ROLE_CUSTOMER"),
-    ROLE_USER("ROLE_USER"),
-    ROLE_STUDY_LEADER("ROLE_STUDY_LEADER"),
-    ROLE_STUDY_MEMBER("ROLE_STUDY_USER");
+    CREW("ROLE_CREW"),
+    TLeader("ROLE_TLeader"),
+    PM("ROLE_PM"),
+    ADMIN("ROLE_ADMIN");
 
-    private String roleName;
+    private final String roleName;
 
 
     RoleEnum(String roleName) {

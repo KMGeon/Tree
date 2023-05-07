@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.jwt.exception;
+package com.giggal.board.global.jwt.exception;
 
 import lombok.Getter;
 
@@ -12,10 +12,10 @@ public enum JwtExceptionCode {
 
 
     @Getter
-    private String code;
+    private final String code;
 
     @Getter
-    private String message;
+    private final String message;
 
     JwtExceptionCode(String code, String message) {
         this.code = code;

@@ -1,10 +1,9 @@
-package com.challenge.studytime.global.jwt.provider;
+package com.giggal.board.global.jwt.provider;
 
 
-import com.challenge.studytime.global.jwt.token.JwtAuthenticationToken;
-import com.challenge.studytime.global.jwt.util.JwtTokenizer;
-
-import com.challenge.studytime.global.util.LoginInfoDto;
+import com.giggal.board.global.jwt.token.JwtAuthenticationToken;
+import com.giggal.board.global.jwt.util.JwtTokenizer;
+import com.giggal.board.global.util.LoginInfoDto;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;

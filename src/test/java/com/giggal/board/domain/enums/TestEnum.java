@@ -1,20 +1,24 @@
-package com.giggal.board.domain.role.enums;
-
-import lombok.Getter;
-
-@Getter
-public enum RoleEnum {
-
-    CREW("ROLE_CREW"),
-    TLeader("ROLE_TLeader"),
-    PM("ROLE_PM"),
-    ADMIN("ROLE_ADMIN");
-
-    private final String roleName;
+package com.giggal.board.domain.enums;
 
 
-    RoleEnum(String roleName) {
-        this.roleName = roleName;
+public enum TestEnum {
+
+    VALID_EMAIL("validEmail@email.com"),
+    VALID_PASSWORD("test123!"),
+    DUPLICATE_EMAIL("duplicate@email.com"),
+    INVALID_EMAIL("Invalid"),
+    INVALID_PASSWORD("test123"),
+    NAME("김무건");
+
+
+    private final String name;
+
+
+    TestEnum(String name) {
+        this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 }

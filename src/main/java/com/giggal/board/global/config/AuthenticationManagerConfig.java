@@ -1,8 +1,8 @@
-package com.challenge.studytime.global.config;
+package com.giggal.board.global.config;
 
 
-import com.challenge.studytime.global.jwt.filter.JwtAuthenticationFilter;
-import com.challenge.studytime.global.jwt.provider.JwtAuthenticationProvider;
+import com.giggal.board.global.jwt.filter.JwtAuthenticationFilter;
+import com.giggal.board.global.jwt.provider.JwtAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

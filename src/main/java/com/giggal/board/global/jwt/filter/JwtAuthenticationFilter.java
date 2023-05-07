@@ -1,8 +1,8 @@
-package com.challenge.studytime.global.jwt.filter;
+package com.giggal.board.global.jwt.filter;
 
 
-import com.challenge.studytime.global.jwt.exception.JwtExceptionCode;
-import com.challenge.studytime.global.jwt.token.JwtAuthenticationToken;
+import com.giggal.board.global.jwt.exception.JwtExceptionCode;
+import com.giggal.board.global.jwt.token.JwtAuthenticationToken;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;

@@ -1,6 +1,6 @@
-package com.challenge.studytime.domain.role.repositry;
+package com.giggal.board.domain.role.repositry;
 
-import com.challenge.studytime.domain.role.entity.Role;
+import com.giggal.board.domain.role.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

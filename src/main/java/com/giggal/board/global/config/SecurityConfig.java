@@ -1,7 +1,7 @@
-package com.challenge.studytime.global.config;
+package com.giggal.board.global.config;
 
 
-import com.challenge.studytime.global.jwt.exception.CustomAuthenticationEntryPoint;
+import com.giggal.board.global.jwt.exception.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsUtils;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -37,8 +35,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .mvcMatchers("/api/members/signup", "/api/members/login", "/api/customers/signup",
-                        "/api/members/logout", "/api/members/refreshToken").permitAll()
+                .mvcMatchers("/api/signup","/api/login","/api/logout").permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)

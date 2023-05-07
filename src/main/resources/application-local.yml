@@ -1,4 +1,7 @@
 spring:
+  config:
+    activate:
+      on-profile: local
   redis:
     host: localhost
     port: 6379
@@ -26,11 +29,14 @@ jwt:
   secretKey: 12345678901234567890123456789012
   refreshKey: 12345678901234567890123456789012
 
-#logging:
-#  slack:
-#    webhook-uri: https://hooks.slack.com/services/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
+logging:
+  slack:
+    webhook-uri: https://hooks.slack.com/services/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
+  config: classpath:log4j2.xml
 
-#  config: classpath:logback-spring.xml
+discord:
+  bot:
+    token: "MTEwMTgyMjA5NzQwMTA3MzcwNA.GUMEzx.YkQdyY4rxClog65lL5jpMVnqy0sP-5aiAhPIrY"
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

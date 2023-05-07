@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.util;
+package com.giggal.board.global.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class LoginUserDto {
     private Long memberId;
+
+    @Builder.Default
     private List<String> roles = new ArrayList<>();
 
     public void addRole(String role) {

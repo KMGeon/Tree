@@ -1,6 +1,6 @@
-package com.challenge.studytime.global.util;
+package com.giggal.board.global.util;
 
-import com.challenge.studytime.global.jwt.token.JwtAuthenticationToken;
+import com.giggal.board.global.jwt.token.JwtAuthenticationToken;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,9 +11,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.util.Collection;
-import java.util.Iterator;
 
-//컨트롤러 파라미터를 보고 값을 넣어준다. filter가 인증 정보를 담고 augument가 인증 정보를 가져와서 컨트롤러에 넣어준다.
 public class IfLoginArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
@@ -38,7 +36,7 @@ public class IfLoginArgumentResolver implements HandlerMethodArgumentResolver {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
         LoginUserDto loginUserDto = new LoginUserDto();
 
-        Object principal = jwtAuthenticationToken.getPrincipal(); // LoginInfoDto
+        Object principal = jwtAuthenticationToken.getPrincipal();
         if (principal == null)
             return null;
 

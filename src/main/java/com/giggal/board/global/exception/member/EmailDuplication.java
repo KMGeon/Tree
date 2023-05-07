@@ -1,15 +1,8 @@
-package com.giggal.board.global.exception.member.extend;
+package com.giggal.board.global.exception.member;
 
-import com.giggal.board.global.exception.member.MemberException;
-
-public class EmailDuplication extends MemberException {
+public class EmailDuplication extends RuntimeException {
 
     public EmailDuplication(String message) {
         super("User email is already existed:" + message);
-    }
-
-    @Override
-    public int getStatusCode() {
-        return 400;
     }
 }

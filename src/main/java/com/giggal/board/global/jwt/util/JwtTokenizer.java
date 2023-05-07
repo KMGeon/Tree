@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.jwt.util;
+package com.giggal.board.global.jwt.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

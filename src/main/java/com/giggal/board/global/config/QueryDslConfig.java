@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.config;
+package com.giggal.board.global.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;

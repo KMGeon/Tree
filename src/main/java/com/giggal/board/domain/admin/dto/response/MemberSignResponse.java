@@ -1,4 +1,4 @@
-package com.giggal.board.domain.admin.dto;
+package com.giggal.board.domain.admin.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

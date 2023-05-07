@@ -1,20 +1,17 @@
-package com.giggal.board.domain.post.enums;
+package com.giggal.board.global.exception.enums;
 
 import lombok.Getter;
 
 @Getter
-public enum BadTitle {
+public enum ErrorCode {
 
-    dog("개새끼"),
-    ssibal("씨발"),
-    joy("놀이터"),
-    reload("무료충전");
+    BAD_REQUEST("400");
 
-    private String roleName;
+    private final String errorCode;
 
 
-    BadTitle(String roleName) {
-        this.roleName = roleName;
+    ErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.util;
+package com.giggal.board.global.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

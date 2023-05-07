@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.redis;
+package com.giggal.board.global.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

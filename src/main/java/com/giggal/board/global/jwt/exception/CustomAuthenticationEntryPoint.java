@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.jwt.exception;
+package com.giggal.board.global.jwt.exception;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -17,32 +17,54 @@ import java.util.HashMap;
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        String exception = (String) request.getAttribute("exception");
-        log.error("Commence Get Exception : {}", exception);
+    public void commence(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException authException
+    ) throws IOException, ServletException {
+
+        String exception = String.valueOf(request.getAttribute("exception"));
 
         if(exception == null) {
             log.error("entry point >> exception is null");
-            setResponse(response, JwtExceptionCode.NOT_FOUND_TOKEN);
+            setResponse(
+                    response,
+                    JwtExceptionCode.NOT_FOUND_TOKEN
+            );
         }
         else if(exception.equals(JwtExceptionCode.INVALID_TOKEN.getCode())) {
             log.error("잘못된 토큰인 경우");
-            setResponse(response, JwtExceptionCode.INVALID_TOKEN);
+            setResponse(
+                    response,
+                    JwtExceptionCode.INVALID_TOKEN
+            );
         }
         else if(exception.equals(JwtExceptionCode.EXPIRED_TOKEN.getCode())) {
             log.error("토큰 만료된 경우");
-            setResponse(response, JwtExceptionCode.EXPIRED_TOKEN);
+            setResponse(
+                    response,
+                    JwtExceptionCode.EXPIRED_TOKEN
+            );
         }
         else if(exception.equals(JwtExceptionCode.UNSUPPORTED_TOKEN.getCode())) {
             log.error("지원되지 않는 토큰인 경우");
-            setResponse(response, JwtExceptionCode.UNSUPPORTED_TOKEN);
+            setResponse(
+                    response,
+                    JwtExceptionCode.UNSUPPORTED_TOKEN
+            );
         }
         else if (exception.equals(JwtExceptionCode.NOT_FOUND_TOKEN.getCode())) {
             log.error("Headers에 토큰 형식의 값 찾을 수 없음");
-            setResponse(response, JwtExceptionCode.NOT_FOUND_TOKEN);
+            setResponse(
+                    response,
+                    JwtExceptionCode.NOT_FOUND_TOKEN
+            );
         }
         else {
-            setResponse(response, JwtExceptionCode.UNKNOWN_ERROR);
+            setResponse(
+                    response,
+                    JwtExceptionCode.UNKNOWN_ERROR
+            );
         }
     }
 
@@ -53,8 +75,11 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         HashMap<String, Object> errorInfo = new HashMap<>();
         errorInfo.put("message", exceptionCode.getMessage());
         errorInfo.put("code", exceptionCode.getCode());
+
         Gson gson = new Gson();
+
         String responseJson = gson.toJson(errorInfo);
+
         response.getWriter().print(responseJson);
     }
 }

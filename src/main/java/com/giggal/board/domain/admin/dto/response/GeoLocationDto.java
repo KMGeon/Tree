@@ -1,9 +1,11 @@
-package com.giggal.board.domain.admin.dto;
+package com.giggal.board.domain.admin.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 @AllArgsConstructor
 public class GeoLocationDto {
     private String subdivisionName;

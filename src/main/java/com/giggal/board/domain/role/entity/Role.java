@@ -1,4 +1,4 @@
-package com.challenge.studytime.domain.role.entity;
+package com.giggal.board.domain.role.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.challenge.studytime.global.config;
+package com.giggal.board.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

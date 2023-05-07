@@ -1,8 +1,8 @@
-package com.challenge.studytime.global.initializer;
+package com.giggal.board.global.initializer;
 
-import com.challenge.studytime.domain.role.entity.Role;
-import com.challenge.studytime.domain.role.enums.RoleEnum;
-import com.challenge.studytime.domain.role.repositry.RoleRepository;
+import com.giggal.board.domain.role.entity.Role;
+import com.giggal.board.domain.role.enums.RoleEnum;
+import com.giggal.board.domain.role.repositry.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,30 +14,30 @@ public class RoleInitializer {
     public CommandLineRunner initRoles(RoleRepository roleRepository) {
         return args -> {
             if (roleRepository.count() == 0) {
-                Role userRole = Role.builder()
+                Role CREW = Role.builder()
                         .roleId(1L)
-                        .name(RoleEnum.ROLE_USER.getRoleName())
+                        .name(RoleEnum.CREW.getRoleName())
                         .build();
 
-                Role customerRole = Role.builder()
+                Role TLeader = Role.builder()
                         .roleId(2L)
-                        .name(RoleEnum.ROLE_CUSTOMER.getRoleName())
+                        .name(RoleEnum.TLeader.getRoleName())
                         .build();
 
-                Role studyLeader = Role.builder()
+                Role PM = Role.builder()
                         .roleId(3L)
-                        .name(RoleEnum.ROLE_STUDY_LEADER.getRoleName())
+                        .name(RoleEnum.PM.getRoleName())
                         .build();
 
-                Role studyMember = Role.builder()
+                Role ADMIN = Role.builder()
                         .roleId(4L)
-                        .name(RoleEnum.ROLE_STUDY_MEMBER.getRoleName())
+                        .name(RoleEnum.ADMIN.getRoleName())
                         .build();
 
-                roleRepository.save(userRole);
-                roleRepository.save(customerRole);
-                roleRepository.save(studyLeader);
-                roleRepository.save(studyMember);
+                roleRepository.save(CREW);
+                roleRepository.save(TLeader);
+                roleRepository.save(PM);
+                roleRepository.save(ADMIN);
             }
         };
     }
