@@ -6,25 +6,11 @@
 <img src="https://user-images.githubusercontent.com/103854287/235309250-b7006f41-c3ac-4338-93b1-ab52073d96f4.png" style="width: 50%; height: 40%;" />
 </p>
 
+![111](https://user-images.githubusercontent.com/103854287/236692739-a1d0ce86-1c39-4124-adcf-06b82dfb6755.png)
+
 
 # 🐣 Project Setup
-### Receive Redis Image
-```
- docker image pull redis
-```
-### Receive Redis Create
-```
- docker network create redis-network
-```
-### Running the Redis server
-```
- docker run --name local-redis -p 6379:6379 --network redis-network -v redis_temp:/data -d redis:latest redis-server --appendonly yes
-```
-### Redis-cli access
-```
- docker run -it --network redis-network --rm redis:latest redis-cli -h local-redis
-```
----
+- 외부로 IP 접근하기 (Local로 접근 x) - nGrok
 ### ngrok install
 ```
  npm install -g ngrok
@@ -64,7 +50,6 @@ src
              └── service # 도메인 서비스, 도메인 이벤트 핸들러
 ```
 
-<br>
 <br>
 
 ## 👨‍기술 스택
@@ -131,71 +116,5 @@ src
 <img src="https://img.shields.io/badge/Postman-FF6C37.svg?style=for-the-badge&logo=Postman&logoColor=white"/>
 
 </p>
-
-
-<br>
-
-<br>
-<br>
-
-# 🐌Git Commit Convention
-<table>
-  <tr>
-    <td>
-         ✨feat
-    </td>
-     <td>
-        새로운 기능과 관련된 것을 의미
-    </td>
-  </tr>
-  <tr>
-    <td>
-         🐛fix
-    </td>
-     <td>
-        오류와 같은 것을 수정을 하였을 때 사용
-    </td>
-  </tr>
-   <tr>
-    <td>
-         ✅test
-    </td>
-     <td>
-        테스트를 추가하거나 수정
-    </td>
-  </tr>
-  <tr>
-    <td>
-         📝docs
-    </td>
-     <td>
-        문서와 관련하여 수정한 부분이 있을 때 사용
-    </td>
-  </tr>
-    <tr>
-    <td>
-         🔥move
-    </td>
-     <td>
-        파일, 코드의 이동
-    </td>
-  </tr>
-    <tr>
-    <td>
-         💚build
-    </td>
-     <td>
-         빌드 관련 파일을 수정
-    </td>
-  </tr>
-    <tr>
-    <td>
-         ♻️refactor
-    </td>
-     <td>
-       코드의 리팩토링을 의미
-    </td>
-  </tr>
-</table>
 
 <br>
