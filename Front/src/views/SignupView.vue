@@ -24,6 +24,5 @@ body {
 
 input {
     border-style: groove;
-    margin-top: 100px;
 }
 </style>

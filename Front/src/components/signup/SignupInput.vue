@@ -1,22 +1,19 @@
 <template>
-    <div id="app">
+    <div id="app" class="mt-6">
         <h3>회원가입</h3>
         <label>
-            <span>이메일</span>&nbsp;
-            <input type="email" v-model="email" placeholder="정규식에 맞게 입력하세요">
+            <el-input type="email" v-model="email" placeholder="이메일을 입력하세요."/>
         </label>
         <br/>
         <label>
-            <span>비밀번호</span>&nbsp;
-            <input type="password" v-model="password">
+            <el-input type="password" v-model="password" placeholder="비밀번호를 입력하세요."/>
         </label>
         <br/>
         <label>
-            <span>이름</span>&nbsp;
-            <input type="text" v-model="memName">
+            <el-input type="text" v-model="memName" placeholder="이름을 입력하세요."/>
         </label>
         <div>
-            <button v-on:click="addTodo">확인</button>
+            <el-button class="el-button--primary" v-on:click="addTodo">확인</el-button>
         </div>
     </div>
 </template>
@@ -35,9 +32,9 @@ export default {
     },
     methods: {
 
-        addTodo: function() {
+        addTodo: function () {
             axios
-                .post('http://localhost:8080/api/signup',{
+                .post('http://localhost:8080/api/signup', {
                     email: this.email,
                     password: this.password,
                     name: this.memName
@@ -48,8 +45,7 @@ export default {
                     router.push("/login")
                 })
                 .catch(error => {
-                    console.error(error);
-                    console.log("..................")
+                    console.log("error message" + error)
                 });
         },
         clearInput: function () {
@@ -62,6 +58,7 @@ export default {
 </script>
 
 <style scoped>
-
-
+ .el-input{
+    width: 300px;
+}
 </style>

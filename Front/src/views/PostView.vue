@@ -1,33 +1,22 @@
 <template>
     <div id="app">
-        <Header></Header>
+        <LogoutHeader></LogoutHeader>
         <PostInput></PostInput>
-        <Footer></Footer>
+        <PostList></PostList>
     </div>
 </template>
 
 <script>
 import Header from "../components/common/Header.vue";
-import Footer from "../components/common/Footer.vue";
 import PostInput from "../components/post/PostInput.vue";
+import PostList from "@/components/post/PostList.vue";
+import LogoutHeader from "@/components/common/LogoutHeader.vue";
 
 export default {
-    components: {Header, Footer, PostInput},
+    components: {LogoutHeader, PostList, Header, PostInput},
 }
 </script>
 
 <style>
-body {
-    text-align: center;
-    background-color: #f2f2f2;
-}
 
-input {
-    border-style: groove;
-    width: 200px;
-}
-
-button {
-    border-style: groove;
-}
 </style>
