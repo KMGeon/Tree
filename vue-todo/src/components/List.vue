@@ -1,13 +1,14 @@
 <template>
     <div id="todoList" class="mt-5">
-        <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem">
-            <span>
-                <el-button class="el-button--primary" v-on:click="toggleComplete">완료</el-button>
+        <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item">
+            <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
+               v-on:click="toggleComplete(todoItem,index)"></i>
+            <span v-bind:class="{textCompleted:todoItem.completed}">
+                {{ todoItem.item }}
             </span>
-            {{ todoItem }}
-            <span class="m-5">
-                <el-button class="el-button--small" v-on:click="removeTodo(todoItem,index)">삭제</el-button>
-            </span>
+            <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+          <i class="removeBtn fas fa-trash-alt"></i>
+        </span>
         </li>
     </div>
 </template>
@@ -22,7 +23,8 @@ export default {
     created: function () {
         if (localStorage.length > 0) {
             for (var i = 0; i < localStorage.length; i++) {
-                this.todoItems.push(localStorage.key(i));
+                // this.todoItems.push(localStorage.key(i));
+                this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
             }
         }
     },
@@ -31,8 +33,10 @@ export default {
             localStorage.removeItem(todoItem);
             this.todoItems.splice(index, 1);//기존 배열을 변경해서 저장한다.
         },
-        toggleComplete: function () {
-
+        toggleComplete: function (todoItem, index) {
+            todoItem.completed = !todoItem.completed;
+            localStorage.removeItem(todoItem.item);
+            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
         },
 
     }
@@ -42,7 +46,57 @@ export default {
 
 <style>
 
-#todoList {
-    text-align: center;
+
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 0;
+    text-align: left;
+}
+
+li {
+    display: flex;
+    min-height: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0.5rem 0;
+    padding: 0 0.9rem;
+    background: white;
+    border-radius: 5px;
+}
+
+.checkBtn {
+    line-height: 45px;
+    color: #62acde;
+    margin-right: 5px;
+}
+
+.checkBtnCompleted {
+    color: #b3adad;
+}
+
+.textCompleted {
+    text-decoration: line-through;
+    color: #b3adad;
+}
+
+.removeBtn {
+    margin-left: auto;
+    color: #de4343;
+}
+
+/* 리스트 아이템 트랜지션 효과 */
+.list-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.list-enter-active, .list-leave-active {
+    transition: all 1s;
+}
+
+.list-enter, .list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
 }
 </style>
