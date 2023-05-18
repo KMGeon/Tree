@@ -1,9 +1,9 @@
 <template>
-    <el-header class="header" id="app">
+    <el-header class="header">
         <el-menu mode="horizontal" router justify-center>
-            <div id="hello" class="el-text el-text--primary mx-1">
-                Todo List
-            </div>
+            <div id="hello" class="el-text el-text--primary">Todo List</div>
+            <el-menu-item index="/">Original TodoList</el-menu-item>
+            <el-menu-item index="/refactor">Refactor TodoList</el-menu-item>
         </el-menu>
     </el-header>
 </template>
