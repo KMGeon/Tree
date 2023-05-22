@@ -1,68 +1,56 @@
 <template>
-  <section>
-    <ul>
-      <li v-for="(todoItem, index) in propsdata" className="shadow" v-bind:key="todoItem.item">
-        <i className="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
-           v-on:click="toggleComplete(todoItem, index)"></i>
-        <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
-        <span className="removeBtn" v-on:click="removeTodo(todoItem, index)">
-          <i className="removeBtn fas fa-trash-alt"></i>
-        </span>
-      </li>
-    </ul>
-  </section>
+  <div class="inputBox shadow">
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+    <span class="addContainer" v-on:click="addTodo">
+      <i class="addBtn fas fa-plus" aria-hidden="true"></i>
+    </span>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ['propsdata'],
+  data: function() {
+    return {
+      newTodoItem: ''
+    }
+  },
   methods: {
-    removeTodo: function (todoItem, index) {
-      this.$emit('removeItem', todoItem, index);
+    addTodo: function() {
+      if (this.newTodoItem !== '') {
+        this.$emit('addItem', this.newTodoItem);
+        this.clearInput();
+      }
     },
-    toggleComplete: function (todoItem, index) {
-      this.$emit('toggleItem', todoItem, index);
+    clearInput: function() {
+      this.newTodoItem = '';
     }
   }
 }
 </script>
 
 <style scoped>
-ul {
-  list-style-type: none;
-  padding-left: 0px;
-  margin-top: 0;
-  text-align: left;
+input:focus {
+  outline: none;
 }
-
-li {
-  display: flex;
-  min-height: 50px;
+.inputBox {
+  background: white;
   height: 50px;
   line-height: 50px;
-  margin: 0.5rem 0;
-  padding: 0 0.9rem;
-  background: white;
   border-radius: 5px;
 }
-
-.checkBtn {
-  line-height: 45px;
-  color: #62acde;
-  margin-right: 5px;
+.inputBox input {
+  border-style: none;
+  font-size: 0.9rem;
 }
-
-.checkBtnCompleted {
-  color: #b3adad;
+.addContainer {
+  float: right;
+  background: linear-gradient(to right, #6478FB, #8763FB);
+  display: block;
+  width: 3rem;
+  border-radius: 0 5px 5px 0;
 }
-
-.textCompleted {
-  text-decoration: line-through;
-  color: #b3adad;
-}
-
-.removeBtn {
-  margin-left: auto;
-  color: #de4343;
+.addBtn {
+  color: white;
+  vertical-align: middle;
 }
 </style>
