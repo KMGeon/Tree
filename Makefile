@@ -3,3 +3,7 @@ db-up:
 
 db-down:
 	docker-compose down -v
+
+
+ chmod 755 db/conf.d/my.cnf
+

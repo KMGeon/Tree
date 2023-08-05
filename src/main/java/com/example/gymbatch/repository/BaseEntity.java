@@ -9,12 +9,12 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass // 상속받은 entity에서 아래 필드들을 컬럼으로 사용할 수 있습니다.
+@EntityListeners(AuditingEntityListener.class) // Auditing 정보를 캡처하는 Listener입니다.
 public abstract class BaseEntity {
-    @CreatedDate
-    @Column(updatable = false, nullable = false)
+    @CreatedDate // 생성 일시를 생성합니다.
+    @Column(updatable = false, nullable = false) // 업데이트를 하지 않도록, null이 되지 않도록 명시합니다.
     private LocalDateTime createdAt;
-    @LastModifiedDate
+    @LastModifiedDate // 마지막 수정 일시를 생성합니다.
     private LocalDateTime modifiedAt;
 }
