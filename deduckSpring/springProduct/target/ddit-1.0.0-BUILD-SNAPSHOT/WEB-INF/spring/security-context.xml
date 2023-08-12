@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- customAccessDenied 처리 -->
+	<bean id="customAccessDenied"
+		class="kr.or.ddit.security.CustomAccessDeniedHandler"></bean>
+	<!-- 로그인 성공 처리자 -->
+	<bean id="customLoginSuccess"
+		class="kr.or.ddit.security.CustomLoginSuccessHandler"></bean>
+	<!-- 사용자가 정의한 비밀번호 암호화 처리기를 빈으로 등록 -->
+	<bean id="customPasswordEncoder"
+		class="kr.or.ddit.security.CustomNoOpPasswordEncoder"></bean>
+	<!-- 스프링 시큐리티의 UserDetails를 구현한 클래스를 빈으로 등록. 
+	우리들 테이블로써 인증/인가 처리하기 위함 -->
+	<bean id="customUserDetailsService" 
+		class="kr.or.ddit.security.CustomUserDetailsService">
+	
+	</bean>
+	
+	<!-- xmlns : xml namespace의 약자 -->
+	<security:http>
+		<!-- URI 패턴으로 접근 제한을 설정 -->
+		<!-- 누구나 접근 가능 -->
+		<security:intercept-url pattern="/board/list" access="permitAll" />
+		<!-- 회원만 접근 가능 -->
+		<security:intercept-url pattern="/board/register" 
+			access="hasRole('ROLE_MEMBER')" />
+		<!-- 누구나 접근 가능 -->
+		<security:intercept-url pattern="/notice/list" access="permitAll" />
+		<!-- 관리자만 접근 가능 -->
+		<security:intercept-url pattern="/notice/register" 
+			access="hasRole('ROLE_ADMIN')" />
+		<!-- 관리자만 상품 등록 화면으로 접근 가능 -->
+		<security:intercept-url pattern="/addProduct" 
+			access="hasRole('ROLE_ADMIN')" />
+	
+		<!-- 접근 제한에 걸리면 시큐리티가 기본적으로 제공하는 로그인 페이지로 이동 -->
+<!-- 		<security:form-login /> -->
+		<!-- 사용자가 정의한 로그인 페이지의 URI를 지정함, 
+			customLoginSuccess : 로그인 성공 처리자로 지정 -->
+		<security:form-login login-page="/security/login"
+			authentication-success-handler-ref="customLoginSuccess" />		
+		
+		<!-- 접근 거부 처리자의 URI를 지정함 -->
+<!-- 		<security:access-denied-handler error-page="/security/accessError" /> -->
+		<security:access-denied-handler ref="customAccessDenied" />
+		
+		<!-- 데이터소스를 지정하고 테이블을 이용해서 기존 로그인 정보를 기록함(PERSISTENT_LOGINS 테이블) -->
+		<!-- 쿠키의 유효시간을 지정함(604800초 : 7일) -->
+		<security:remember-me data-source-ref="dataSource" 
+			token-validity-seconds="604800" />
+		
+		<!-- 로그아웃 처리를 위한 URI를 지정하고, 로그아웃 한 후의 세션을 무효화 함(session.invalidate()) -->
+		<security:logout logout-url="/logout" invalidate-session="true" 
+			delete-cookies="remember-me,JSESSION_ID" />
+	</security:http>
+	
+	<!-- 인증 매니저(아이디, 비밀번호) -->
+	<!-- noop?
+		스프링 시큐리티 5버전부터는 비밀번호 암호화 처리기를 반드시 이용하도록 변경됨
+		암호화 처리기를 사용하지 않도록 noop 문자열을 비밀번호 앞에 사용함
+	 -->
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<!-- 데이터 소스(root-context.xml)를 지정함
+			users-by-username-query : 인증할 때 필요한 쿼리
+			authorities-by-username-query : 권한을 확인할 때 필요한 쿼리
+			 -->
+<!-- 			<security:jdbc-user-service data-source-ref="dataSource" -->
+<!-- 			users-by-username-query="SELECT MEM_ID, MEM_PASS, ENABLED FROM MEMBER WHERE  MEM_ID = ?"  -->
+<!-- 			authorities-by-username-query="SELECT M.MEM_ID, MA.AUTH FROM MEMBER M, MEMBER_AUTH MA WHERE M.MEM_ID = MA.MEM_ID AND M.MEM_ID = ?" -->
+<!-- 			/> -->
+			<!-- 사용자가 정의한 비밀번호 암호화 처리기를 지정함 -->
+			<security:password-encoder ref="customPasswordEncoder" />
+		<!-- 지정된 아이디와 비밀번호로 로그인이 가능하도록 설정 -->
+<!-- 			<security:user-service> -->
+<!-- 				<security:user name="member" password="{noop}1234"  -->
+<!-- 					authorities="ROLE_MEMBER" /> -->
+<!-- 				<security:user name="admin" password="{noop}abcd" -->
+<!-- 					authorities="ROLE_MEMBER,ROLE_ADMIN" /> -->
+<!-- 			</security:user-service> -->
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
+
+
+
+
+
+
+

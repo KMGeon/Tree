@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : xml파일은 여러개일 수 있음. 
+이를 구별하기 위한 식별 용도로 사용 -->
+<mapper namespace="kr.or.ddit.mapper.GalleryMapper">
+	
+	<resultMap type="bookVO" id="bookMap">
+		<id property="bookId" column="BOOK_ID" />
+		<result property="title" column="TITLE" />
+		<result property="category" column="CATEGORY" />
+		<result property="price" column="PRICE" />
+		<result property="insertDate" column="INSERT_DATE" />
+		<result property="content" column="CONTENT"
+			jdbcType="CLOB"	javaType="java.lang.String" />
+		<collection property="attachVOList" resultMap="attachMap"></collection>
+	</resultMap>
+	
+	<resultMap type="attachVO" id="attachMap">
+		<result property="userNo" column="USER_NO" />
+		<result property="seq" column="SEQ" />
+		<result property="filename" column="FILENAME" />
+		<result property="filesize" column="FILESIZE" />
+		<result property="regdate" column="REGDATE" />
+	</resultMap>
+	
+	<!-- 이미지 목록 -->
+	<select id="list" parameterType="bookVO" resultMap="bookMap">
+		SELECT A.BOOK_ID, A.TITLE, A.CATEGORY, A.PRICE, A.INSERT_DATE, A.CONTENT
+		     , B.USER_NO, B.SEQ, B.FILENAME, B.FILESIZE, B.REGDATE
+		FROM   BOOK A INNER JOIN ATTACH B ON(A.BOOK_ID = B.USER_NO)
+		WHERE  A.BOOK_ID = #{bookId}
+	</select>
+	
+	<!-- 도서 목록 가져와서 select에 추가하기 -->
+	<select id="bookList" resultType="bookVO">
+		SELECT BOOK_ID, TITLE, CATEGORY, PRICE, INSERT_DATE, CONTENT
+		FROM   BOOK
+		ORDER BY TITLE ASC
+	</select>
+	
+	<!-- 변경된 사진 db에 반영 -->
+	<update id="updatePost" parameterType="attachVO">
+		UPDATE ATTACH
+		SET    FILENAME = #{filename}
+		WHERE  USER_NO = #{userNo} AND SEQ = #{seq}
+	</update>
+	
+	<!-- 갤러리 사진 삭제 -->
+	<delete id="deletePost" parameterType="attachVO">
+		DELETE FROM ATTACH
+		WHERE  USER_NO = #{userNo} AND SEQ = #{seq}
+	</delete>
+	
+	<!-- 도서 검색 -->
+	<select id="searchBook" parameterType="bookVO" resultMap="bookMap">
+		WITH T AS(
+		    SELECT A.BOOK_ID, A.TITLE, A.CATEGORY, A.PRICE, A.INSERT_DATE, A.CONTENT
+		         , B.USER_NO, B.SEQ, B.FILENAME, B.FILESIZE, B.REGDATE
+		    FROM   BOOK A LEFT OUTER JOIN ATTACH B ON(A.BOOK_ID = B.USER_NO)
+		)
+		SELECT * FROM T
+		WHERE 1=1
+		AND  (TITLE LIKE '%' || #{title} || '%' 
+				OR CATEGORY LIKE '%' || #{title} || '%' 
+				OR CONTENT LIKE '%' || #{title} || '%')
+	</select>
+	
+	<!-- 다중 insert 시 update 태그를 사용하자 
+		드루와 : List<AttachVO> attachVOList
+		가즈아 : insert, update, delete의 경우 resultType은 생략
+	-->
+	<update id="uploadAjaxAction" parameterType="java.util.List">
+		<foreach collection="list" item="attachVO" 
+			open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+			INTO ATTACH(USER_NO, SEQ, FILENAME, FILESIZE, REGDATE)
+			 VALUES(#{attachVO.userNo},#{attachVO.seq},#{attachVO.filename}
+			 	,#{attachVO.filesize},SYSDATE)
+		</foreach>
+	</update>
+	<!-- 파라미터 : String bookId
+		책의 이미지인 ATTACH 테이블의 다음 seq번호 가져오기
+	 -->
+	<select id="getSeq" parameterType="String" resultType="int">
+		SELECT NVL(MAX(SEQ),0)+1 FROM ATTACH WHERE USER_NO = #{bookId}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
