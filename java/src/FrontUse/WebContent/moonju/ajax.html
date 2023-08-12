@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
+</head>
+<body>
+    <div id="id_disp"></div>
+    <input type="text" id="mj1" name="mj" value="good"><br>
+    <input type="button" value="누르시오" onclick="f_getAjax()">
+    <input type="button" value="누르시오" onclick="f_postAjax()">
+    <input type="button" value="내서버를통해우회" onclick="f_crossAjax()">
+<script>
+	//Cross-origin resource sharing 중요
+	//xml은 다루기가 힘들어서 xml문자열을 json으로 바꿔주는 변환기가 있으면 좋을것 같다.(스프링에선 jackson)
+	var x2js = new X2JS();
+	function f_crossAjax() {
+		let l_mj = document.querySelector("#mj1");
+	    let l_ajax = new XMLHttpRequest();
+	    l_ajax.open( "get", "/FrontUse/CrossOrigin?lmj="+l_mj.value, true);
+	    l_ajax.onreadystatechange = function() {
+	        if(l_ajax.readyState == 4 && l_ajax.status == 200){
+	        	var jsonObj = x2js.xml_str2json(l_ajax.responseText);
+	            //console.log(jsonObj); // 변환된 내용 확인
+				var newsArr = jsonObj.rss.channel.item;
+				// console.log(newsArr);
+				var v_tbkStr = "<table border=2>";
+				v_tbkStr += "<tr><th>제목</th><th>발행일</th><tr>";
+				for(let i = 0; i < newsArr.length; i++) {
+					v_tbkStr += "<tr>";
+					v_tbkStr += "<td><a href='" + newsArr[i].link + "'>" + newsArr[i].title + "</td>";
+					v_tbkStr += "<td>" + newsArr[i].pubDate + "</td>";
+					v_tbkStr += "</tr>";	
+				}
+				v_tbkStr += "</table>";
+				id_disp.innerHTML = v_tbkStr;
+	        }
+	    }
+	    l_ajax.send();
+	}
+	
+	function f_getAjax() {
+		$.ajax({
+		    type: "get",
+		    url: "/FrontUse/ju",
+		    data: "fbi="+ mj1.value,
+		    dataType: "json", // 돌려 받을 값에 JSON.parse를 적용할 지 여부 선택
+		    success:function(p_rslt){
+		        console.log("잘 이해되시나요?", p_rslt);
+		        // console.log(`잘 이해되시나요? ${p_rslt}`); 왜 안나오는지 
+		        id_disp.innerHTML += p_rslt.name + "님 하이루<br>";
+		    }
+		})
+	}
+	
+	function f_postAjax() {
+		$.ajax({
+		    type: "post",
+		    url: "/FrontUse/ju",
+		    data: "friend="+ mj1.value,
+		    dataType: "text", // 돌려 받을 값에 JSON.parse를 적용할 지 여부 선택
+		    success:function(p_rslt){
+		        console.log("잘 이해되시나요?", p_rslt);
+		        // console.log(`잘 이해되시나요? ${p_rslt}`); 왜 안나오는지 
+		        id_disp.innerHTML += p_rslt;
+		    }
+		})
+	}
+
+
+	let $ = {};
+	$.ajax = function(p_set) { // 빈 객체에 메소드 추가
+	    let l_ajax = new XMLHttpRequest();
+	    if(p_set.type=="get"){
+	        l_ajax.open(p_set.type, p_set.url + "?" + p_set.data, true);
+	    }else {
+	        l_ajax.open(p_set.type, p_set.url, true);
+	    }
+	
+	    l_ajax.onreadystatechange = function() {
+	        if(l_ajax.readyState == 4 && l_ajax.status == 200){
+	            if(p_set.dataType == "json"){
+	            	console.log("넘어온 값 : ", l_ajax.responseText);
+	                p_set.success(JSON.parse(l_ajax.responseText)); //결과처리
+	            }else if(p_set.dataType == "text"){
+	                p_set.success(l_ajax.responseText)
+	            }
+	        }
+	    }
+	    if(p_set.type == "get"){
+	        l_ajax.send();
+	    }else {
+	        l_ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+	        l_ajax.send(p_set.data); // post방식 일 때는 send()안에 data
+	    }
+	}
+	/*
+	
+	$.ajax({
+	    type: "get",
+	    url: "7.JSON기초.json",
+	    data: "",
+	    dataType: "json", // 돌려 받을 값에 JSON.parse를 적용할 지 여부 선택
+	    success:function(p_rslt){
+	        console.log("잘 이해되시나요?", p_rslt);
+	        // console.log(`잘 이해되시나요? ${p_rslt}`); 왜 안나오는지 
+	    }
+	})
+	
+	*/
+
+/*
+    function f_gatAjax() {
+    	let l_val = document.querySelector("input[name=mj]").value;
+        let l_ajax = new XMLHttpRequest();
+        // 요청 url이 어제와 달리 서버프로그램이 실행되는 URL임
+        // 그 결과가 돌아오게 됨
+        l_ajax.open("get","/FrontUse/ju?fbi=" + l_val, true);
+        l_ajax.onreadystatechange = function() {
+            if(l_ajax.readyState == 4 && l_ajax.status == 200){
+            	console.log(`서버가 돌려준값: ${l_ajax.responseText}`);
+                id_disp.innerHTML += l_ajax.responseText;
+            }
+        }
+        l_ajax.send();
+    }
+
+    function f_postAjax() {
+        let l_val = document.querySelector("input[name=mj]").value;
+        let l_ajax = new XMLHttpRequest();
+
+        l_ajax.open("post","/FrontUse/ju", true);
+        l_ajax.onreadystatechange = function() {
+            if(l_ajax.readyState == 4 && l_ajax.status == 200){
+            	console.log(`서버가 돌려준값: ${l_ajax.responseText}`);
+                id_disp.innerHTML += l_ajax.responseText;
+            }
+        }
+        // post 방식일 경우 Header 세팅이 필요
+        l_ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        l_ajax.send("friend="+l_val); // post방식은 데이터전송을 send메소드 안에 
+    }
+*/
+
+</script>
+</body>
+</html>

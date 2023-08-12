@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 페이지 나누기 연습용 더미 데이터 만들기
+    var v_dummyData = [];
+    var v_level = ["chunjae", "sujae", "youngjae", "hojae"];
+    var v_cats = ["js", "html", "css", "jsp"];
+
+    function f_ranCat(){
+        var v_cnt = Math.ceil(Math.random()*v_cats.length);
+        var v_rslt = [];
+        for(var i=0;i<v_cnt;i++){ // 중복체크가 필요하지만 일단 무시
+            var v_ransu = Math.floor(Math.random()*v_cats.length);
+            v_rslt.push(v_cats[v_ransu]);
+        }
+        return v_rslt;
+    }
+
+    for(var i=1; i<=108; i++){
+        var v_gul = {}; // 빈(empty) 객체 생성
+        v_gul.pid = i;
+        v_gul.title = "제목" + i;
+        v_gul.writer = "글쓰기" + i;
+        v_gul.content = "내용" + i + "입니다.";
+        v_gul.level = v_level[Math.floor(Math.random()*v_level.length)];
+        v_gul.cats = f_ranCat();
+        v_dummyData.push(v_gul); // 배열에 담기
+    }
+
+    // 배열을 localStorage에 저장
+    localStorage.setItem("gesiTB", JSON.stringify(v_dummyData));
+</script>
