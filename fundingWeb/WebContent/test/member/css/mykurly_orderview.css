@@ -1,0 +1,268 @@
+html body #container #content .section_orderview .link_type {
+    position: relative;
+    padding: 0 0 21px;
+}
+
+.section_orderview .head_section .tit {
+    font-size: 20px;
+    color: #333;
+    letter-spacing: -.4px;
+}
+
+.page_aticle .head_section .tit {
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.section_orderview .link_type .link {
+    position: absolute;
+    right: 1px;
+    top: 5px;
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+}
+
+.section_orderview .link_type .link a {
+    padding-right: 11px;
+    background: url(https://res.kurly.com/pc/ico/2011/ico_outlink.svg) no-repeat 100% 50%;
+    background-size: 6px 9px;
+    font-size: 12px;
+    color: #5f0080;
+    line-height: 22px;
+}
+
+.section_orderview .tbl_type1 {
+    border-top: 2px solid #333;
+}
+
+.page_aticle .tbl {
+    width: 100%;
+}
+
+
+
+.section_orderview .tbl_type1 .thumb {
+    padding: 25px 0 24px;
+}
+
+.section_orderview .tbl_type1 td {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.section_orderview .tbl_type1 .thumb a {
+    display: block;
+    overflow: hidden;
+    width: 60px;
+    height: 78px;
+    background-color: #f4f4f4;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+.section_orderview .tbl_type1 .info {
+    padding: 20px 0;
+}
+
+.section_orderview .tbl_type1 .name .link {
+    font-weight: 700;
+    font-size: 16px;
+    color: #333;
+    line-height: 24px;
+}
+
+.section_orderview .tbl_type1 .name_package {
+    padding-top: 7px;
+}
+
+.section_orderview .tbl_type1 .name_package .link {
+    font-size: 14px;
+    color: #999;
+    line-height: 22px;
+}
+
+.section_orderview .tbl_type1 .desc {
+    padding-top: 9px;
+    line-height: 20px;
+}
+
+.section_orderview .tbl_type1 .price {
+    padding-right: 5px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #333;
+}
+
+.section_orderview .tbl_type1 .ea {
+    font-size: 14px;
+    color: #333;
+}
+
+.section_orderview .tbl_type1 .ea:before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    margin-right: 8px;
+    background-color: #ddd;
+    vertical-align: -2px;
+}
+
+.section_orderview .tbl_type1 .progress {
+    font-weight: 700;
+    font-size: 16px;
+    color: #5f0080;
+    line-height: 24px;
+    text-align: right;
+}
+
+.section_orderview .tbl_type1 .progress .end, .section_orderview .tbl_type1 .progress.end {
+    color: #333;
+}
+
+.section_orderview .tbl_type1 .progress span {
+    font-weight: 700;
+}
+
+.section_orderview .tbl_type1 .progress {
+    font-weight: 700;
+    font-size: 16px;
+    color: #5f0080;
+    line-height: 24px;
+    text-align: right;
+}
+
+.section_orderview .tbl_type1 .action {
+    padding-left: 40px;
+}
+
+.section_orderview .tbl_type1 .btn_cart {
+    border: 1px solid #5f0080;
+    color: #5f0080;
+}
+
+.section_orderview .tbl_type1 .btn:first-child {
+    margin-top: 0;
+}
+
+.section_orderview .tbl_type1 .btn {
+    display: block;
+    width: 96px;
+    height: 36px;
+    border-radius: 3px;
+    background-color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.section_orderview .btn_cancel{
+    margin-top: 10px;
+}
+
+.section_orderview .order_cancel {
+    padding: 25px 0 0;
+    text-align: center;
+}
+
+.section_orderview .order_cancel .cancel_notice {
+    padding-top: 39px;
+    font-size: 16px;
+    color: #666;
+    line-height: 20px;
+}
+
+.section_orderview .order_delivery {
+    padding-top: 65px;
+}
+
+.section_orderview .order_delivery .tit {
+    font-weight: 700;
+    font-size: 20px;
+    color: #333;
+}
+
+.section_orderview .order_delivery .list_status {
+    margin-top: 24px;
+    border-top: 2px solid #333;
+}
+
+.section_orderview .order_delivery li {
+    overflow: hidden;
+    padding: 12px 0;
+    font-size: 16px;
+    color: #333;
+    line-height: 24px;
+}
+
+.section_orderview .order_delivery .subject {
+    float: left;
+    width: 160px;
+}
+
+.section_orderview .order_delivery .type {
+    color: #666;
+}
+
+.section_orderview .order_delivery .detail {
+    float: right;
+    max-width: 172px;
+}
+
+.section_orderview .order_delivery .detail .maker {
+    float: left;
+    width: 100px;
+    color: #999;
+    text-align: right;
+}
+
+.section_orderview .order_delivery .detail .search {
+    float: right;
+    padding-left: 13px;
+    color: #5f0080;
+    text-decoration: underline;
+}
+
+.section_orderview .order_delivery li:last-child {
+    padding-bottom: 28px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.section_orderview .head_section {
+    padding: 63px 0 22px;
+}
+
+.page_aticle .tbl_type2 {
+    border-top: 2px solid #333;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.section_orderview .tbl_type2 tr:first-child th, .section_orderview .tbl_type2 tr:first-child td {
+    padding-top: 24px;
+}
+
+.section_orderview .tbl_type2 th {
+    padding-bottom: 24px;
+    font-size: 16px;
+    color: #666;
+    line-height: 24px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.section_orderview .tbl_type3 td {
+    text-align: right;
+}
+
+.section_orderview .tbl_type2 td {
+    font-size: 16px;
+    color: #333;
+    line-height: 24px;
+    vertical-align: top;
+}
+
+#paper_settlement, .section_orderview .tbl_type2 td .emph {
+    font-weight: 700;
+}

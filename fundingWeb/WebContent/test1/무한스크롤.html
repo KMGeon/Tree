@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>무한스크롤</title>
+</head>
+<body>
+     <!-- 상대 경로 -->
+     <img src="./img/favicon.png" width="100" height="100">
+     <!-- 절대 경로  /으로 시작, 주소표시줄에서 서버명 뒤의 /부터 가져옴 -->
+     <img src="/test/img/favicon.png" width="100" height="100">
+
+
+    <!--모바일 쪽에서 많이 사용됨-->
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+    <h1>지현이 많이자</h1>
+<script>
+    // 스크롤 이벤트
+    window.onscroll = function(){
+        // 문서(document)의 실시간 바뀌는 정보를 가진 document.documentElement
+        // const docElem = document.documentElement; // 줄여쓰기 용도
+        // 크롬에서 스크롤바 움직이는데 문제가 있다. 그래서 시간을 약간 줘야함
+        // setTimeout(()=>{
+        //     window.scrollTo(0,0); // 스크롤바 맨 위로 올리기
+        // },50);
+
+        let docElem = document.documentElement; // 줄여쓰기 용도
+
+        // 스크롤이 끝까지 갔다면
+        let tunning = 50;
+        if((docElem.scrollTop + docElem.clientHeight) >= (docElem.scrollHeight - tunning)){
+            // alert("스크롤 다 내렸어 그럼 올라가");
+            // 보통 여기에 AJAX를 이용해서 서버에서 데이터를 가져와서 추가해줌
+            for(var i=1; i<=10; i++){
+                let h1 = document.createElement("h1");
+                let ranNum = Math.ceil(Math.random()*100);
+                h1.innerHTML = "태훈이는 잘도 잔다." + ranNum + "번 그렇다";
+                document.body.appendChild(h1);
+            }
+        }
+        /* 눈으로 값 확인하는 방법
+        console.log("스크롤높이: " +  document.documentElement.scrollTop);
+        console.log("보이는 화면높이:" + document.documentElement.clientHeight);
+        console.log("실제문서 높이:" + document.documentElement.scrollHeight);
+        console.log("====================================");
+        */
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pyHis">
+	
+	<resultMap type="kr.or.funding.pyHis.vo.PyHisVO" id="pyHisMap">
+	<result property="pyNum"   column="PY_NUM"/>
+	<result property="ptNum"   column="PT_NUM"/>
+	<result property="mbsNum"   column="MBS_NUM"/>
+	<result property="pyAm"   column="PY_AM"/>
+	<result property="commi"   column="COMMI"/>
+	<result property="pyQty"   column="PY_QTY"/>
+	<result property="pyDt"   column="PY_DT"/>
+	</resultMap>
+	
+	<insert id="insertPyHis" parameterType="kr.or.funding.pyHis.vo.PyHisVO">
+	
+	INSERT INTO py_his (
+    py_num,
+    pt_num,
+    mbs_num,
+    py_am,
+    commi,
+    py_qty,
+    py_dt
+	) VALUES (
+    py_his_seq.nextVal,
+    #{ptNum},
+    #{mbsNum},
+    #{pyAm},
+    #{commi},
+    1,
+    sysdate
+	)
+	
+	</insert>
+	
+	<select id="getMinePyHis" parameterType="int" resultMap="pyHisMap">
+	
+	select * 
+	from PYHIS
+	where MBS_NUM = #{mbsNum} 
+	
+	</select>	
+	
+	 
+	<!--  결재 목록
+	select * from PY_HIS a, PT_IMFOR b where a.PT_NUM = B.PT_NUM and a.MBS_NUM =301;
+	-->
+	 
+	<!-- 
+	update PT_IMFOR set
+	py_qty = ( select py_qty from PT_IMFOR where pt_num = 121 )-1
+	where pt_num = 121;
+	-->
+
+</mapper>
