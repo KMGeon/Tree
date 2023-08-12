@@ -1,0 +1,26 @@
+차트 사이트 : https://c3js.org/
+
+    canvas 태그
+     그래픽용으로, 브라우져 기반 게임개발하는 회사나
+
+      예쁜 브라우져용 웹 컴포넌트를 만드는 회사에서 주로 사용
+
+       일반적인 웹프로그램 개발자와는 조금 거리가 있음
+
+      그래픽 엔진으로 유명한 건 마이크로 소프트의 Direct-X가 있고
+
+      canvas는 오픈소스인 webGL (web Graphic Library)를 사용함
+
+
+        //만든 데이타를 차트에 주기
+
+        //차트를 다시 그려야 함! - ***
+        
+       
+       myChart.update(); // Chart.js에서 젤 중요한 메소등, 잊지말길
+
+
+
+22.9.2일
+
+json구조 , update , call , apply , bind 

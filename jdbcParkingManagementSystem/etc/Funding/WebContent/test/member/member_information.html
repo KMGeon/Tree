@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이컬리- 개인정보수정</title>
+    <link rel="stylesheet" href="../main/css/reset.css">
+    <link rel="stylesheet" href="../main/css/common.css">
+    <link rel="stylesheet" href="./css/mykurly_order_list.css">
+    <link rel="stylesheet" href="./css/mykurly_information.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="../main/js/common.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div id="main">
+            <div id="content">
+                <div id="myPageTop" class="page_aticle mypage_top">
+                    <h2 class="blind">마이페이지</h2>
+                    <div class="mypagetop_user">
+                        <div class="inner_mypagetop">
+
+                            <div class="grade_user">
+                                <div class="grade">
+                                    <span class="blind">등급</span>
+                                    <span class="ico_grade class0">
+                                        <span class="inner_grade">
+                                            <span class="in_grade">일반</span>
+                                        </span>
+                                    </span>
+                                    <div class="grade_bnenfit">
+                                        <div class="user">
+                                            <strong class="name">멋쟁이</strong>
+                                            <span class="txt">님</span>
+                                        </div>
+                                        <div class="benefit">
+                                            <strong class="tit"></strong>
+                                            적립 0.5%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="next">
+                                    <a href="#" class="total_grade">전체등급 보기</a>
+                                    <a href="#" class="next_month">다음 달 예상등급 보기</a>
+                                </div>
+                            </div>
+
+                            <ul class="list_mypage">
+                                <li class="user_reserve">
+                                    <div class="link">
+                                        <div class="tit">
+                                            적립금
+                                        </div>
+                                        <a href="#" class="info">
+                                            999,999,999 원
+                                            <img src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png"
+                                                alt="자세히보기">
+                                            <span class="date">소멸 예정 0원</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="user_coupon">
+                                    <div class="link">
+                                        <div class="tit">
+                                            쿠폰
+                                        </div>
+                                        <a href="#" class="info">
+                                            1123354 개
+                                            <img src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png"
+                                                alt="자세히 보기">
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="user_kurlypass">
+                                    <div class="link">
+                                        <div class="tit">
+                                            컬리패스
+                                        </div>
+                                        <a href="#" class="info info_link">
+                                            알아보기
+                                            <img src="https://res.kurly.com/pc/service/common/1905/ico_arrow_56x56.png"
+                                                alt="자세히 보기">
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="bnr_event"
+                            style="background-image: url(https://img-cf.kurly.com/shop/data/skin/designgj/img/banner/bb20c3b9d5542cfdfec3ef5bfefcafa5.jpg);">
+                        </a>
+                    </div>
+                </div>
+                <div class="page_aticle aticle_type2">
+                    <div id="snb" class="snb_my">
+                        <h2 class="tit_snb">마이컬리</h2>
+                        <div class="inner_sub">
+                            <ul class="list_menu">
+                                <li>
+                                    <a href="#">주문내역</a>
+                                </li>
+                                <li>
+                                    <a href="#">배송지 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">상품 후기</a>
+                                </li>
+                                <li class="on">
+                                    <a href="#">개인 정보 수정</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="link_inquire">
+                            <span class="emph">도움이 필요하신가요?</span>
+                            1:1 문의하기
+                        </a>
+                    </div>
+
+                    <div class="page_section section_myinfo">
+                        <div class="head_aticle">
+                            <h2 class="tit">개인 정보 수정</h2>
+                        </div>
+
+                        <div class="type_form member_join member_pw">
+                            <div class="field_pw">
+                                <h3 class="tit">비밀번호 재확인</h3>
+                                <p class="sub">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</p>
+
+                                <form name="contirmForm" action="post">
+                                    <table class="tbl_comm">
+                                        <tbody>
+                                            <tr class="fst">
+                                                <th>아이디</th>
+                                                <td>
+                                                    <input type="text" value="siwha9808" readonly="" class="inp_read">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>
+                                                    비밀번호
+                                                    <span class="ico">
+                                                        *
+                                                        <span class="blind">필수항목</span>
+                                                    </span>
+                                                </th>
+
+                                                <td>
+                                                    <input type="hidden" name="mode" id="mode" value="confirmPassword">
+                                                    <input type="password" name="confirm_password" id="confirm_password"
+                                                        class="inp_pw">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <button type="submit" class="btn active">확인</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

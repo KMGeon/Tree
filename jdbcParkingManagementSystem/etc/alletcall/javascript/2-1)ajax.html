@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <div id="id_disp"></div>
+    <input type="text" id="taehun" name="taehun" value="Merong" />
+    <br />
+    <input type="button" value="누르사암" onclick="f_getAjax()" />
+    <input type="button" value="누르사암" onclick="f_postAjax()" />
+    <script>
+      function f_getAjax() {
+        $.ajax({
+          type: "get",
+          url: "/FrontUse/Dongmin",
+          data: "fbi=" + taehun.value,
+          dataType: "text", //돌려받은 값에 JSOB.parse를 적용할지 여부 선택
+          success: function (p_rslt) {
+            console.log("자알 이해되죵?", p_rslt);
+            id_disp.innerHTML += p_rslt;
+          },
+        });
+      }
+
+      function f_postAjax() {
+        $.ajax({
+          type: "post",
+          url: "/FrontUse/Dongmin",
+          data: "namchin=" + taehun.value,
+          dataType: "text", //돌려받은 값에 JSOB.parse를 적용할지 여부 선택
+          success: function (p_rslt) {
+            console.log("자일리톨?", p_rslt);
+            id_disp.innerHTML += p_rslt;
+          },
+        });
+      }
+
+      var $ = {}; //빈 객체
+      $.ajax = function (p_set) {
+        //빈객체에 메소드 추가
+        var v_ajax = new XMLHttpRequest();
+        if (p_set.type == "get") {
+          v_ajax.open(p_set.type, p_set.url + "?" + p_set.data, true);
+        } else {
+          v_ajax.open(p_set.type, p_set.url, true);
+        }
+
+        v_ajax.onreadystatechange = function () {
+          if (v_ajax.readyState == 4 && v_ajax.status) {
+            if (p_set.dataType == "json") {
+              p_set.success(JSON.parse(v_ajax.responseText)); //  결과 처리
+            } else if (p_set.dataType == "text") {
+              p_set.success(v_ajax.responseText); //  결과 처리
+            }
+          }
+        };
+        if (p_set.type == "get") {
+          v_ajax.send();
+        } else {
+          v_ajax.setRequestHeader(
+            "Content-Type",
+            "application/x-www-form-urlencoded;charset=utf-8"
+          );
+          v_ajax.send(p_set.data); // post방식 일 때는 send()안에 data
+        }
+      };
+
+      /*
+    function f_postAjax(){
+        var v_val = document.querySelector("input[name=taehun]").value;
+        var v_ajax = new XMLHttpRequest();
+  
+        v_ajax.open("post","/FrontUse/Dongmin",true);
+        v_ajax.onreadystatechange = function(){
+            if(v_ajax.readyState == 4 && v_ajax.status == 200){
+            	console.log("서버가 돌려준값: ",v_ajax.responseText);
+                id_disp.innerHTML += v_ajax.responseText;
+            }
+        }
+        //post방식일 경우 Header 세팅이 필요
+        v_ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded;charset=utf-8");
+        v_ajax.send("namchin="+v_val); // psot방식은 데이타전송을 send메소드 안에
+    }
+
+    function f_getAjax(){
+        var v_val = document.querySelector("input[name=taehun]").value;
+        var v_ajax = new XMLHttpRequest();
+        //요청 url이 어제와 달리 서버프로그램이 실행되는 URL임
+        //그 결과가 돌아오게 됨
+        v_ajax.open("get","/FrontUse/Dongmin?fbi="+v_val,true);
+        v_ajax.onreadystatechange = function(){
+            if(v_ajax.readyState == 4 && v_ajax.status == 200){
+            	console.log("서버가 돌려준값: ",v_ajax.responseText);
+                id_disp.innerHTML += v_ajax.responseText;
+            }
+        }
+        v_ajax.send();
+    }
+*/
+    </script>
+  </body>
+</html>

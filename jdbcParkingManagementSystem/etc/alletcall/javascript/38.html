@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://192.168.142.3/jsstudy/%ec%83%88%ec%b0%bd.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+</head>
+<body>
+    <h1>열린 창</h1>
+    <textarea id="new_text" onkeydown="f_keyCheck()">동민이졸령?</textarea>
+    <input type="button" value="나 버튼이얌" id="new_btn" onclick="f_check()">
+<script>
+    function f_keyCheck() {
+        //alert(event.keyCode); // event는 이벤트정보객체
+        if(event.keyCode == 13){ // 엔터키를 눌렀다면 그렇다면
+            f_check();
+        }
+    }
+
+    var v_newTxt = document.querySelector("#new_text");
+    // 열린창에서 열어준 창을 의미하는 키워드 등장   opener
+    // 곧 여기서는 opener가 오픈. html 파일을 열고 있는 window를 가리킴
+    function f_check(){
+        opener.document.querySelector("#old_text").value = 
+                                   v_newTxt.value;
+    }
+</script>        
+
+</body></html>

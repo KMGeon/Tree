@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://192.168.142.3/jsstudy/%eb%a1%9c%eb%98%90.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<script src="./42_files/mylib.js.다운로드"></script>
+</head>
+<body>
+    <h1>로또번호맹글기, 중복체크로직은 아주 중요</h1>
+    <input type="button" value="번호 쌩썽" onclick="f_lotto()">
+    <div id="id_disp" style="border:1px solid pink"></div>
+<script>
+    var v_disp = document.querySelector("#id_disp");
+    //개발자는 중복을 싫어행, 
+    //처음 결과를 얻기위해 짠 내용을 다시 깔끔하고 매끄럽게 
+    //정리하는 것을 Refactoring이라고 함
+    //실제로는 정리하는 중에 코드가 더 깔끔해지고, 성능이 좋아지는 부분이 
+    //있어서 refactoring이라고 부름
+    function f_repeat(p_arr,p_val){
+        for(var i=0; i<p_arr.length; i++){
+            if(p_arr[i] == p_val){
+                return true;   // 같은 게 있음               
+            }
+        }
+        return false;   // 같은 게 없음
+        //refactoring을 시도했더니, 의외로 소스가 더 간단해짐 
+    }
+
+    function f_lotto(){
+        var v_lottoNums =[]; // 번호 담을 배열
+        for(;"몇번만에 6개가 될지 알수 없엉";){  // 무겐루프
+            var v_ranNum = f_ranNum(1,45);
+
+            //중복 체크 발생한 번호가 배열에 이미 있는지(true) 없는지(false)
+            //개별 비교가 아닌 전체 루프 뒤에 넣을지 안 넣을지를 결정해야 함
+            /*
+            var v_isExist = false; // 없다고 가정  -> 아주 중요
+            for(var i=0; i<v_lottoNums.length; i++){
+                if(v_lottoNums[i] == v_ranNum){
+                    v_isExist = true; // 없다고 가정했는데 있음
+                    break;  // 더 돌 필요가 없음
+                }
+            }
+
+            // 이제 결정할 수 있음 넣을지 안 넣을지
+            if(!v_isExist){
+                v_lottoNums.push(v_ranNum);
+            }
+            */
+
+            if(!f_repeat(v_lottoNums,v_ranNum)){
+                v_lottoNums.push(v_ranNum);
+            }
+
+            //무한루프는 항상 빠져 나갈 조건을 먼저 생각하고 정의한당
+            if(v_lottoNums.length == 6){
+                v_disp.innerHTML += "<h1>"+v_lottoNums+"</h1>"; //출력
+                break;
+            }
+        }
+    }
+</script>    
+
+</body></html>

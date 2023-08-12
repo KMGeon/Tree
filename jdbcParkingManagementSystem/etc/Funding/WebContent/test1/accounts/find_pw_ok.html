@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../main/css/reset.css">
+    <link rel="stylesheet" href="../main/css/common.css">     
+    <link rel="stylesheet" href="css/login.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="../main/js/common.js"></script>
+</head>
+<body>
+    <div id="content">
+    <div class="section_login">
+        <h3 class="tit_login"></h3>
+        <div class="write_form find_view">
+            <form name="certForm" method="post" action="">
+                <input type="hidden" name="token" value="27e99dff05d0c922be84f3422296380b5cb760d6417757e17bfc78cb42845db9">
+                <input type="hidden" name="m_id" value="{{username}}"/>
+                <!-- {{username}} -->
+                <input type="hidden" name="otp" value>
+                <img class="thumb" src="https://res.kurly.com/mobile/service/member/1908/img_pw_find_email.png" alt="이메일 찾기">
+                <p class="desc">
+                    {{username}}님, 이메일로 인증 완료후
+                    <br>
+                    비밀번호를 재발급 받으세요!
+                </p>
+                <p class="info">
+                    입력하신 {{email}}으로 인증번호가 발송되며, 인증 후 비밀번호가 재발급됩니다. 전송량이 많은 경우 이메일 전송이 지연될 수 있습니다.
+                </p>
+                <a href="{% url 'accounts:findpwemail' email %}" class="btn_type1">
+                    <span class="txt_type">인증번호 받기</span></a>
+            </form>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
+
+

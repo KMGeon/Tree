@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://192.168.142.3/jsstudy/CSS%ec%84%a0%ed%83%9d%ec%9e%90.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>CSS Selector</title>
+<style>
+
+    /* CSS 선택자 */
+    /* 태그 선택자 */
+    div {  /* div 태그 전부 선택 */
+        color:yellow;
+        background-color: black;
+    }
+    /* id 접근자 */
+    #hj {
+        font-size: 50px;
+        color:blue;
+    }
+    /* class 접근자 */
+    div.dy {  /* div 태그이면서 class가 dy인 것만, 빈 공백없으면 and로 연산 */ 
+        color:white;
+        background-color: magenta;
+    }
+    #merong.aaa {  /* id가 merong이면서 class가 aaa 인것*/
+        font-size:100px;
+    }
+</style>
+</head>
+<body>
+    <div class="dy">마징가</div>
+    <div id="hj">태권브이</div>
+    <div>그랜다이저</div>
+    <p class="dy">난 P태그</p>
+    <div id="merong" class="aaa">손오공</div>
+    <div class="dy">완다</div>
+
+</body></html>

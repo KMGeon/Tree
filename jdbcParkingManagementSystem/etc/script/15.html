@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)http://192.168.142.3/jsstudy/%ec%a1%b0%ea%b1%b4%eb%ac%b8%eb%b0%98%eb%b3%b5%eb%ac%b8.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+//조건 반복문 문법은 자바와 거의 같음.. C-언어에서 가져옴
+//문자열은 ""만 false로 형변환되고 나머진 true로 형변환된다
+//숫자는 0만 false로 형변환되고 나머진 true로 형변환된다
+// true로 쓰면 4자 !0로 쓰면 2자 2자 절약!
+/*
+if(!0){
+    alert("그렇당!");
+}else {
+    alert("아니아니그렇지않당");
+}
+*/
+//switch문은 firmware(hw 구동프로그램 driver)쪽에서 많이 사용
+//for문으로 할 수 있는 건 while문으로도 할 수 있고, 역도 성립
+// 반복문이 애매한 코드인 경우 꼭 다른 팀원을 위해 주석을
+
+var v_sum=0;
+for(var i=0;i<10;i=i+2){
+    alert(i);
+    if(i==2) continue;  // 만나면 아래 안함 
+
+    v_sum += i;
+    alert(v_sum);
+    if(v_num == 5){ // 무한루핑에는 항상 빠져나갈 조건을 먼저 준당
+        break; // 밖으로 뻗어서 처음 만나는 반복문을 빠져나간당(for,while)
+    }
+}
+
+/*
+var v_inc =1;
+var v_val = 10;
+
+//v_val = v_inc++;  // 후치연산
+v_val = v_inc;    // v_val =1;
+v_inc = v_inc+1; // v_inc = 2; 
+
+alert(v_val); //? 1
+
+//v_val = ++v_inc;  // 전치연산
+v_inc = v_inc+1;   //v_inc = 3
+v_val = v_inc;   // v_val =3
+
+alert(v_val); //? 3
+*/
+</script></head><body></body></html>

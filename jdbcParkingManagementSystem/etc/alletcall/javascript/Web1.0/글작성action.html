@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!--이 페이지는 사용자에게 보여지는 내용은 없음
+    지금부터 하는 내용은 사실 사기에 가까움 왜 그런지 생각해 보삼
+-->
+<script src="./gesilib.js"></script>
+<script>
+    // 넘어 온 값들
+    var v_title = request.getParameter("nm_title");
+    var v_writer = request.getParameter("nm_writer");
+    var v_level = request.getParameter("nm_level");
+    var v_cats = request.getParameterValues("nm_cat");
+    var v_content = request.getParameter("nm_content"); 
+    
+    //localStorage에 저장하깅
+
+    var v_arrTotal =[];
+    var v_pid = 1;        // 없을 때 초기값 설정
+    // Primary-Key(껌색을 뼌하겡 -> 기본키(식별키))
+    //값을 맨처음 넣을 때와 이미 값이 존재하고 있을 때를 구분
+    if(localStorage.getItem(v_tblName)){
+        v_arrTotal =JSON.parse(localStorage.getItem(v_tblName));
+        v_pid = v_arrTotal[v_arrTotal.length-1].pid + 1;
+    }
+
+    var v_gul = {}; // 묶어주기 위한 빈 객체(name-space로 봐도 무방)
+    v_gul.pid = v_pid;          // 고유키를 한개 맹글어 주 고파용
+    v_gul.title = v_title;
+    v_gul.writer = v_writer;
+    v_gul.level = v_level;
+    v_gul.cats = v_cats;
+    v_gul.content = v_content;  
+    v_arrTotal.push(v_gul);  // v_gul 객체를 v_arrTotal 배열에 담음
+
+    localStorage.setItem(v_tblName,JSON.stringify(v_arrTotal));
+    
+    //쓰는 것까정 확인, 이제 오데로?
+    //일단 괜히 사용자에게 잘 써졌다고 알려줌
+    alert("그리 잘 등록 되었어용^-^ 목 녹이러 갈계용");
+    location.replace("/02_ImageSlider/메인/리스트.html");
+</script>
