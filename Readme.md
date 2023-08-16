@@ -135,3 +135,5 @@ https://youtu.be/18110EaCV94
 ```
 
 ## 6.API 명세(request/response 포함)
+
+https://documenter.getpostman.com/view/23650109/2s9Xy6rqJZ
