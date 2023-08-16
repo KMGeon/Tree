@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  study-database:
+    container_name: study-database
+    build:
+      dockerfile: Dockerfile
+      context: ./database
+    image: immunogen/study-database
+    environment:
+      - MYSQL_DATABASE=CStudy
+      - MYSQL_ROOT_PASSWORD=1234
+    volumes:
+      - ./database/config:/etc/mysql/conf.d
+    ports:
+      - "3306:3306"
+  study-app:
+    container_name: study-app
+    build: .
+    depends_on: # DB, REDIS 컨테이너가 실행된 다음 WEB을 실행시킨다.
+      - study-database
+    image: immunogen/study-app
+    environment:
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+    ports:
+      - "80:8080"
+    restart: always
