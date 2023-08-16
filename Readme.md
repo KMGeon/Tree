@@ -27,8 +27,7 @@ Mysql : 8.0.22
 ```
 3.92.120.176
 ```
-
-![image](https://github.com/KMGeon/wanted-pre-onboarding-backend/assets/103854287/de7e2de7-03e5-4c9c-8d74-bcb4654b7fb9)
+![image](https://github.com/KMGeon/wanted-pre-onboarding-backend/assets/103854287/3024a22e-293d-4a3f-8a1b-094f99630446)
 
 
 
