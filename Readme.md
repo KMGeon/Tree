@@ -22,6 +22,10 @@ Mysql : 8.0.22
 - [x] docker-compose
 - [x] Controller, Service Layer Unit Test (JUnit5, Mockito)
 - [x] Postman API 문서
+- [x] EC2 인스턴스 생성 및 고정 IP를 이용한 클라우드 서비스 배포 (docker-compose)
+- IP : 3.92.120.176
+![image](https://github.com/KMGeon/wanted-pre-onboarding-backend/assets/103854287/de7e2de7-03e5-4c9c-8d74-bcb4654b7fb9)
+
 
 
 ## 2. 애플리케이션의 실행 방법
