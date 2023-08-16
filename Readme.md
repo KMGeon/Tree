@@ -5,9 +5,24 @@
 
 Java : 11
 
-Spring Boot : 2.7.10
+Spring Boot : 2.7.14
 
 Mysql : 8.0.22
+
+### API
+- [x] 회원가입
+- [x] 로그인
+- [x] 게시글 목록 조회 페이징
+- [x] 특정 게시글 조회
+- [x] 게시글 작성
+- [x] 게시글 수정 - AOP 권한 체크
+- [x] 게시글 삭제 - AOP 권한 체크
+
+### 추가 사항
+- [x] docker-compose
+- [x] Controller, Service Layer Unit Test (JUnit5, Mockito)
+- [x] Postman API 문서
+
 
 ## 2. 애플리케이션의 실행 방법
 
