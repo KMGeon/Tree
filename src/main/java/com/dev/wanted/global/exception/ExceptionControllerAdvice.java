@@ -2,7 +2,6 @@ package com.dev.wanted.global.exception;
 
 import com.dev.wanted.global.exception.todo.TodoAbstractException;
 import com.dev.wanted.global.exception.user.UserAbstractException;
-import com.dev.wanted.global.exception.verify.VerifyAbstractException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,21 +46,6 @@ public class ExceptionControllerAdvice {
                 .body(body).getBody();
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(VerifyAbstractException.class)
-    public ErrorResponse verifyAbstractException(VerifyAbstractException e) {
-        int statusCode = e.getStatusCode();
-
-        ErrorResponse body = ErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .build();
-
-        body.addValidation("VerifyException", "인증 관련 Exception");
-
-        return ResponseEntity.status(statusCode)
-                .body(body).getBody();
-    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(TodoAbstractException.class)

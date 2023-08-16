@@ -71,6 +71,13 @@ public class UserServiceImpl implements UserService {
         return createToken(response, user);
     }
 
+    private void passwordNotMatched(LoginRequestDto loginRequestDto, User user) {
+        Optional.of(!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword()))
+                .filter(passwordNotMatched -> passwordNotMatched)
+                .ifPresent(passwordNotMatched -> {
+                    throw new InvalidPassword(loginRequestDto.getPassword());
+                });
+    }
 
 
     private UserLoginResponseDto createToken(HttpServletResponse response, User user) {
@@ -111,13 +118,6 @@ public class UserServiceImpl implements UserService {
         response.addCookie(cookie);
     }
 
-    private void passwordNotMatched(LoginRequestDto loginRequestDto, User user) {
-        Optional.of(!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword()))
-                .filter(passwordNotMatched -> passwordNotMatched)
-                .ifPresent(passwordNotMatched -> {
-                    throw new InvalidPassword(loginRequestDto.getPassword());
-                });
-    }
 
     public static String getRefreshToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();

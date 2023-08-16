@@ -33,24 +33,54 @@ docker-compose -f docker-compose.local.yml up
 
 
 ## 4. 구현한 API의 동작을 촬영한 데모 영상 링크
-
+https://youtu.be/18110EaCV94
 
 ## 5. 구현 방법 및 이유에 대한 간략한 설명
 
 ### 1. 회원가입
 - 유효성 체크를 하여 유효성 체크 , 정합성
+```java
+{
+    "code": "400",
+    "message": "정규식에 적합하지 않습니다.",
+    "validation": {
+        "account": "유효한 이메일 주소를 입력하세요"
+    }
+}
 
+
+{
+    "code": "400",
+    "message": "정규식에 적합하지 않습니다.",
+    "validation": {
+        "password": "비밀번호는 8자 이상 20자 이하로 입력하세요"
+    }
+}
+```
 ### 2. 로그인
 - 유효성 체크를 하여 데이터의 정합성
 - 인증에 성공하면 JWT 생성
 - Refresh Token은 Cookie에 저장하고 ``XSS``, ``CSRF`` 공격을 대비하여 ``HttpOnly``, ```SameSite```
+
+```json
+> JWT Decoded
+{
+  "sub": "test1234@test.com",
+  "userId": 3,
+  "roles": [
+    "ROLE_USER"
+  ],
+  "iat": 1692171872,
+  "exp": 1692173672
+}
+```
 
 ### 3.게시글 페이징
 - 페이징 처리
 - 한 페이지에 5개씩 보여준다.
 
 ### 4. 게시글 수정, 삭제 
-- 특정 회원을 검증하는 횡단 관심사 분리
+- 특정 회원을 검증하는 횡단 관심사 AOP 분리
 ```java
   @Around("@annotation(todoAuthCheck)")
     public Object checkTodoAuthority(ProceedingJoinPoint joinPoint, TodoAuthCheck todoAuthCheck) throws Throwable {
@@ -79,7 +109,14 @@ docker-compose -f docker-compose.local.yml up
         return joinPoint.proceed();
     }
 ```
-
-
+```java
+{
+    "code": "2001",
+    "message": "해당 회원이 작성한 Todo가 아닙니다. 2",
+    "validation": {
+        "UserException": "회원 관련 Exception"
+    }
+}
+```
 
 ## 6.API 명세(request/response 포함)

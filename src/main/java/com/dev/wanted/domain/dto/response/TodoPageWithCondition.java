@@ -9,10 +9,12 @@ import java.time.LocalDateTime;
 public class TodoPageWithCondition {
     private Long id;
     private String name;
+    private String description;
 
     @QueryProjection
-    public TodoPageWithCondition(Long id, String name) {
+    public TodoPageWithCondition(Long id, String name, String description) {
         this.id = id;
         this.name = name;
+        this.description = description;
     }
 }
