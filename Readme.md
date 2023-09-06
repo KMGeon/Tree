@@ -156,5 +156,6 @@ public void 회원_주문목록_조회_성공() throws Exception{
 <br/>
 
 ## ERD
+![image](https://github.com/KMGeon/Aswemake/assets/103854287/31bbf9ad-c1ea-4e35-9eb7-fc9a1bc6d2d1)
 
 <br/>
