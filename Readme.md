@@ -38,7 +38,7 @@ src
          │        └── exceptionHandler # RestControllerAdvice
          └── entity # 엔티티
          └── service #  application
-         └── repostiory # 도메인 오브젝트
+         └── repostiory # repository
 ```
 
 ---
