@@ -122,8 +122,6 @@ Controller 테스트
 ==========================================================================================
 @Test
 public void 회원_주문목록_조회_성공() throws Exception{
-
-        given(orderService.getOrderInfo(any(LoginUserDto.class))).willReturn(orderPayInfoResponse);
         ApiResponse<OrderPayInfoResponse> response = orderMockApiCaller.getOrderInfoValid();
 
 
