@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/KMG?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+    hikari:
+      connectionTimeout: 30000
+      maximumPoolSize: 20
+      maxLifetime: 295000
+      poolName: HikariCP
+      readOnly: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+
+jwt:
+  secretKey: "0123456789012345678901234567890123456789"
+  refreshKey: "0123456789012345678901234567890123456789"
