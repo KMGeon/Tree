@@ -97,7 +97,7 @@ $ docker-compose -f docker-compose-local.yml up
 ###  리펙토링 테스트 코드 (Stub과 반환을 분리하여 Controller)
 ```java
 ==========================================================================================
-apiCaller (Stub과 End Point Mapping)
+apiCaller
 ==========================================================================================
     
 public ApiResponse<OrderPayInfoResponse> getOrderInfoValid() throws Exception {
@@ -118,7 +118,7 @@ public ApiResponse<OrderPayInfoResponse> getOrderInfoValid() throws Exception {
 
 
 ==========================================================================================
-Controller 테스트
+Controller
 ==========================================================================================
 @Test
 public void 회원_주문목록_조회_성공() throws Exception{
