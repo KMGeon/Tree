@@ -4,8 +4,10 @@ import dev.test.aswemake.domain.controller.dto.request.product.ProductUpdateRequ
 import dev.test.aswemake.domain.entity.BaseTimeStamp;
 import dev.test.aswemake.domain.entity.order.OrderItem;
 import dev.test.aswemake.global.exception.product.NotFullYetAbouotQuantity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends BaseTimeStamp {
 
     //******************************* PK 필드 *********************************/
@@ -53,11 +56,8 @@ public class Product extends BaseTimeStamp {
 
 
     /********************************* 생성자 *********************************/
-    public Product() {
-    }
-
     @Builder
-    public Product(String name, int price, int productQuantity, boolean couponUseStatus) {
+    protected Product(String name, int price, int productQuantity, boolean couponUseStatus) {
         this.name = name;
         this.price = price;
         this.productQuantity = productQuantity;
@@ -73,8 +73,7 @@ public class Product extends BaseTimeStamp {
     public void isCouponApplicableToProduct() {
         couponUseStatus = true;
     }
-
-    public void removeProductQuantity(int count) {
+    public void declineProductQuantity(int count) {
         int quantity = this.productQuantity - count;
         if (quantity < 0) {
             throw new NotFullYetAbouotQuantity(quantity);

@@ -1,14 +1,17 @@
 package dev.test.aswemake.domain.entity.order;
 
 import dev.test.aswemake.domain.entity.product.Product;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
 @Table(name = "ORDER_ITEM")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
     //******************************* PK 필드 *********************************/
     @Id
@@ -22,7 +25,7 @@ public class OrderItem {
     private int productCount;
 
     /********************************* 연관관계 매핑 *********************************/
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "order_id")
     private Order order;
 
@@ -34,12 +37,10 @@ public class OrderItem {
         this.order = order;
     }
 
-    /********************************* 생성자 *********************************/
-    protected OrderItem() {
-    }
+    /********************************* Builder *********************************/
 
     @Builder
-    public OrderItem(Long id, int orderPrice, int productCount, Order order, Product product) {
+    protected OrderItem(Long id, int orderPrice, int productCount, Order order, Product product) {
         this.id = id;
         this.orderPrice = orderPrice;
         this.productCount = productCount;
@@ -55,9 +56,12 @@ public class OrderItem {
                 .productCount(count)
                 .build();
 
-        product.removeProductQuantity(count);
+        product.declineProductQuantity(count);
         return orderItem;
     }
+
+
+    /********************************* public 인터페이스 *********************************/
 
     public void setOrderPrice(int orderPrice) {
         this.orderPrice = orderPrice;

@@ -1,6 +1,6 @@
 package dev.test.aswemake.domain.entity.product;
 
-import dev.test.aswemake.domain.entity.BaseTimeStamp;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PriceHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class PriceHistory {
     private Product product;
 
     @Builder
-    public PriceHistory(Long id, int productPrice, LocalDateTime targetTime, Product product) {
+    protected PriceHistory(Long id, int productPrice, LocalDateTime targetTime, Product product) {
         this.id = id;
         this.productPrice = productPrice;
         this.targetTime = targetTime;

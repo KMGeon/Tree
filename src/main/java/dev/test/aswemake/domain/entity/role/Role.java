@@ -1,6 +1,6 @@
 package dev.test.aswemake.domain.entity.role;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Role {
 
     //******************************* PK 필드 *********************************/
@@ -23,9 +24,6 @@ public class Role {
     private String name;
 
     /********************************* 생성자 *********************************/
-    protected Role() {
-    }
-
     protected Role(Long roleId, String name) {
         this.roleId = roleId;
         this.name = name;

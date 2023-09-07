@@ -1,9 +1,10 @@
 package dev.test.aswemake.domain.entity.order;
 
-import dev.test.aswemake.domain.entity.enums.CouponSaleStrategy;
 import dev.test.aswemake.domain.entity.enums.OrderStatus;
 import dev.test.aswemake.domain.entity.member.Member;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "ORDERS")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     //******************************* PK 필드 *********************************/
     @Id
@@ -28,7 +30,6 @@ public class Order {
     private OrderStatus orderStatus = OrderStatus.WAITING;
 
 
-
     /********************************* 연관관계 매핑 *********************************/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -40,7 +41,9 @@ public class Order {
     )
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    private void addMappingMember(Member member) {
+    /********************************* public 인터페이스 *********************************/
+
+    public void addMappingMember(Member member) {
         this.member = member;
         member.getOrders().add(this);
     }
@@ -59,9 +62,6 @@ public class Order {
     }
 
     /********************************* 생성자 *********************************/
-
-    protected Order() {
-    }
 
     protected Order(Long id, int totalCost, int deliveryFee, Member member, List<OrderItem> orderItems) {
         this.id = id;
