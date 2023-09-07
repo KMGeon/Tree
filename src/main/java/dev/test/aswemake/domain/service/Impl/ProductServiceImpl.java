@@ -11,12 +11,12 @@ import dev.test.aswemake.domain.repository.ProductRepository;
 import dev.test.aswemake.domain.service.PriceHistoryService;
 import dev.test.aswemake.domain.service.ProductService;
 import dev.test.aswemake.global.exception.product.NotFoundProductId;
+import dev.test.aswemake.global.exception.product.NotFullYetAboutQuantity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -36,19 +36,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void createProduct(ProductCreateRequest productCreateRequest) {
-
-        Product product = Product.builder()
+        productRepository.save(Product.builder()
                 .name(productCreateRequest.getName())
                 .price(productCreateRequest.getPrice())
                 .productQuantity(productCreateRequest.getProductQuantity())
-                .build();
-
-        //couponUseStatus는 NULLABLE 하게 VALID를 지정을 했다. 왜냐하면 DEFAULT로 FALSE로 지정을 하였다.
-        //만약에 couponUseStatus에 데이터가 들어가게 된다면 TRUE로 설정이 된다.
-        Optional.ofNullable(productCreateRequest.getCouponUseStatus())
-                .ifPresent(couponUseStatus -> product.isCouponApplicableToProduct());
-
-        productRepository.save(product);
+                .productStrategy(productCreateRequest.getProductStrategy())
+                .build());
     }
 
     @Override
@@ -82,17 +75,15 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(productId);
     }
 
-    /**
-     * 쿠폰을 사용하여 결제를 하였을 때
-     *
-     * @param orderItems
-     */
     @Override
-    @Transactional
     public void declineProductQuantity(List<OrderItem> orderItems) {
         for (OrderItem orderItem : orderItems) {
             Product product = orderItem.getProduct();
             int quantity = orderItem.getProductCount();
+
+            if (product.getProductQuantity() < quantity) {
+                throw new NotFullYetAboutQuantity(quantity);
+            }
             productRepository.declineProductQuantity(product.getId(), quantity);
         }
     }

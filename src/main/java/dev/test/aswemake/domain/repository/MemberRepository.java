@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
 
-    @Query("SELECT DISTINCT m" +
+    @Query("SELECT DISTINCT m, o" +
             " FROM Member m " +
             "LEFT JOIN FETCH m.orders o " +
             "WHERE m.id = :memberId")
