@@ -13,6 +13,6 @@ public class NotFoundMemberEmail extends MemberAbstractException {
 
     @Override
     public int getStatusCode() {
-        return ErrorCustomEnum.NotFoundMemberId.getErrorCode();
+        return ErrorCustomEnum.NotFoundMemberEmail.getErrorCode();
     }
 }

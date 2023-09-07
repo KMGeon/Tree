@@ -14,6 +14,6 @@ public class NotFoundOrderId extends CouponAbstractException {
 
     @Override
     public int getStatusCode() {
-        return ErrorCustomEnum.NotFoundMemberId.getErrorCode();
+        return ErrorCustomEnum.NotFoundOrderId.getErrorCode();
     }
 }
