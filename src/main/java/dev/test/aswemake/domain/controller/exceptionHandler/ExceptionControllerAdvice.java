@@ -1,7 +1,9 @@
 package dev.test.aswemake.domain.controller.exceptionHandler;
 
 import dev.test.aswemake.global.exception.ErrorResponse;
+import dev.test.aswemake.global.exception.coupon.CouponAbstractException;
 import dev.test.aswemake.global.exception.member.MemberAbstractException;
+import dev.test.aswemake.global.exception.order.OrderAbstractException;
 import dev.test.aswemake.global.exception.product.ProductAbstractException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -91,4 +93,35 @@ public class ExceptionControllerAdvice {
                 .body(body).getBody();
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(CouponAbstractException.class)
+    public ErrorResponse CouponAbstractException(CouponAbstractException e) {
+        int statusCode = e.getStatusCode();
+
+        ErrorResponse body = ErrorResponse.builder()
+                .code(String.valueOf(statusCode))
+                .message(e.getMessage())
+                .build();
+
+        body.addDetailMessage("CouponAbstractException", "쿠폰 관련 Exception");
+
+        return ResponseEntity.status(statusCode)
+                .body(body).getBody();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(OrderAbstractException.class)
+    public ErrorResponse OrderAbstractException(OrderAbstractException e) {
+        int statusCode = e.getStatusCode();
+
+        ErrorResponse body = ErrorResponse.builder()
+                .code(String.valueOf(statusCode))
+                .message(e.getMessage())
+                .build();
+
+        body.addDetailMessage("OrderAbstractException", "주문 관련 Exception");
+
+        return ResponseEntity.status(statusCode)
+                .body(body).getBody();
+    }
 }
