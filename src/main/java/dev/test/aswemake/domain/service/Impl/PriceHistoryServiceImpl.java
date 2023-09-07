@@ -3,12 +3,12 @@ package dev.test.aswemake.domain.service.Impl;
 import dev.test.aswemake.domain.entity.product.PriceHistory;
 import dev.test.aswemake.domain.entity.product.Product;
 import dev.test.aswemake.domain.repository.PriceHistoryRepository;
-import dev.test.aswemake.domain.service.PriceHistroyService;
+import dev.test.aswemake.domain.service.PriceHistoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PriceHistoryServiceImpl implements PriceHistroyService {
+public class PriceHistoryServiceImpl implements PriceHistoryService {
 
     private final PriceHistoryRepository priceHistoryRepository;
 
@@ -16,11 +16,18 @@ public class PriceHistoryServiceImpl implements PriceHistroyService {
         this.priceHistoryRepository = priceHistoryRepository;
     }
 
+    /**
+     * ProductServiceImpl - {updateProduct}
+     * - 상품의 가격이 변경을 한다면 PriceHistory는 변경한다.
+     * @param productPrice 변경된 제품의 가격
+     * @param product Product
+     */
     @Override
     @Transactional
-    public void savePriceHistoryForProduct(Product product) {
+    public void savePriceHistoryForProduct(int productPrice,Product product) {
         priceHistoryRepository.save(PriceHistory.builder()
-                .productPrice(product.getPrice())
+                .productPrice(productPrice)
+                .targetTime(product.getModifiedDate())
                 .product(product)
                 .build());
     }

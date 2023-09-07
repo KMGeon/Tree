@@ -1,4 +1,4 @@
-package dev.test.aswemake.domain.service.Impl.coupon;
+package dev.test.aswemake.domain.service;
 
 import dev.test.aswemake.domain.entity.coupon.Coupon;
 import dev.test.aswemake.domain.entity.enums.CouponSaleStrategy;

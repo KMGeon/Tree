@@ -10,7 +10,4 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-    @Modifying
-    @Query("UPDATE OrderItem oi SET oi.orderPrice = :orderPrice WHERE oi.product = :product")
-    void updateOrderItemsByProduct(@Param("orderPrice") int orderPrice, @Param("product") Product product);
 }

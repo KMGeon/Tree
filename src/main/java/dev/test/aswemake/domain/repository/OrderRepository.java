@@ -1,14 +1,16 @@
 package dev.test.aswemake.domain.repository;
 
 import dev.test.aswemake.domain.entity.order.Order;
-import dev.test.aswemake.domain.entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Modifying
-    @Query("UPDATE Order o SET o.totalCost = :totalCost WHERE o.id IN (SELECT oi.order.id FROM OrderItem oi WHERE oi.product = :product)")
-    void updateOrdersByProduct(@Param("totalCost") int totalCost, @Param("product") Product product);
+    @Query("SELECT DISTINCT o FROM Order o " +
+            "LEFT JOIN FETCH o.orderItems oi " +
+            "LEFT JOIN FETCH oi.product " +
+            "WHERE o.id = :orderId")
+    Optional<Order> findOrderWithItemsAndProducts(@Param("orderId") Long orderId);
 }

@@ -7,6 +7,7 @@ import dev.test.aswemake.domain.entity.enums.CouponSaleStrategy;
 import dev.test.aswemake.domain.service.CouponService;
 import dev.test.aswemake.global.argument.IfLogin;
 import dev.test.aswemake.global.argument.LoginUserDto;
+import dev.test.aswemake.global.exception.coupon.RateTooHighException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,8 +34,11 @@ public class CouponController {
                              @IfLogin LoginUserDto loginUserDto) {
 
         Optional.of(request)
-                .filter(req -> req.getCouponSaleStrategy() == CouponSaleStrategy.RATE && req.getSalePrice() > 100)
-                .ifPresent(req -> {throw new RuntimeException("런타임");});
+                .filter(couponCreateRequest -> couponCreateRequest.getCouponSaleStrategy() == CouponSaleStrategy.RATE
+                        && couponCreateRequest.getSalePrice() > 100)
+                .ifPresent(req -> {
+                    throw new RateTooHighException(request.getSalePrice());
+                });
 
         couponService.createCoupon(loginUserDto, request);
     }
@@ -44,7 +48,7 @@ public class CouponController {
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_MARKET')")
     public PayCouponInfoResponse payProductWithCoupon(@IfLogin LoginUserDto loginUserDto,
                                                       @RequestBody PayProductRequest payProductRequest) {
-        return couponService.payProduct(loginUserDto, payProductRequest);
+        return couponService.processPaymentWithCoupon(loginUserDto, payProductRequest);
     }
 
 

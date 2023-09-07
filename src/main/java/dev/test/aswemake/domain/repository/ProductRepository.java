@@ -6,8 +6,22 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    @Query("SELECT DISTINCT p FROM Product p " +
+            "LEFT JOIN FETCH p.priceHistories ph " +
+            "WHERE p.id = :productId " +
+            "AND ph.targetTime <= :timestamp " +
+            "ORDER BY ph.targetTime DESC")
+    Optional<Product> findProductWithRecentPriceHistory(@Param("productId") Long productId,
+                                                        @Param("timestamp") LocalDateTime timestamp);
+
+    @Modifying
+    @Query("UPDATE Product p " +
+            " SET p.productQuantity " +
+            " = p.productQuantity - :quantity " +
+            " WHERE p.id = :productId ")
+    void declineProductQuantity(@Param("productId") Long productId, @Param("quantity") int quantity);
 }

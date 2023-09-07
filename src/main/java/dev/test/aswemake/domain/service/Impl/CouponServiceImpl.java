@@ -1,4 +1,4 @@
-package dev.test.aswemake.domain.service.Impl.coupon;
+package dev.test.aswemake.domain.service.Impl;
 
 import dev.test.aswemake.domain.controller.dto.request.PayProductRequest;
 import dev.test.aswemake.domain.controller.dto.request.coupon.CouponCreateRequest;
@@ -12,13 +12,19 @@ import dev.test.aswemake.domain.entity.order.OrderItem;
 import dev.test.aswemake.domain.entity.product.Product;
 import dev.test.aswemake.domain.repository.CouponRepository;
 import dev.test.aswemake.domain.repository.MemberRepository;
+import dev.test.aswemake.domain.repository.ProductRepository;
 import dev.test.aswemake.domain.service.CouponService;
+import dev.test.aswemake.domain.service.OrderCalculatorWithCoupon;
+import dev.test.aswemake.domain.service.ProductService;
 import dev.test.aswemake.global.argument.LoginUserDto;
+import dev.test.aswemake.global.exception.coupon.NotFoundCouponId;
 import dev.test.aswemake.global.exception.member.NotFoundMemberId;
+import dev.test.aswemake.global.exception.order.NotFoundOrderId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,23 +32,35 @@ public class CouponServiceImpl implements CouponService {
 
     private final CouponRepository couponRepository;
     private final MemberRepository memberRepository;
+    private final ProductService productService;
     private final OrderCalculatorWithCoupon orderCalculatorWithCoupon;
 
     public CouponServiceImpl(
             CouponRepository couponRepository,
             MemberRepository memberRepository,
+            ProductService productService,
             OrderCalculatorWithCoupon orderCalculatorWithCoupon
     ) {
         this.couponRepository = couponRepository;
         this.memberRepository = memberRepository;
+        this.productService = productService;
         this.orderCalculatorWithCoupon = orderCalculatorWithCoupon;
     }
 
+    /**
+     * 쿠폰을 생성한다.
+     * 실제 서비스를 생각하면 관리자 또는 마켓의 권한을 가지는 유저가 생성을 하는게 맞다.
+     * 하지만 이렇게 하면 추가적인 단계가 필요하기 때문에 테스트의 편의성을 위해서 USER, MARKET 모두 쿠폰이 생성이 가능하다.
+     *
+     * @param loginUserDto        로그인 회원의 정보
+     * @param couponCreateRequest 쿠폰 이름, 가격, 전략을 입력한다.
+     * @throws NotFoundMemberId loginUserDto.getMemberId()
+     */
     @Override
     @Transactional
     public void createCoupon(LoginUserDto loginUserDto, CouponCreateRequest couponCreateRequest) {
         Member member = memberRepository.findById(loginUserDto.getMemberId())
-                .orElseThrow(()->new NotFoundMemberId(loginUserDto.getMemberId()));
+                .orElseThrow(() -> new NotFoundMemberId(loginUserDto.getMemberId()));
 
         couponRepository.save(Coupon.builder()
                 .couponName(couponCreateRequest.getCouponName())
@@ -53,43 +71,50 @@ public class CouponServiceImpl implements CouponService {
     }
 
 
+    /**
+     * 주문을 쿠폰을 이용하여 결제한다.
+     * 주문의 상태를 COMPLETE로 변경하며 상품의 수량은 감소한다.
+     * 이때 Dirty Checking을 하면 N+1 문제가 발생을 한다. -> Modifying
+     * @param loginUserDto 로그인 사용자 정보
+     * @param payProductRequest 쿠폰 아이디, 주문 아이디
+     * @return PayCouponInfoResponse
+     * @throws NotFoundMemberId
+     * @throws NotFoundCouponId
+     * @throws NotFoundOrderId
+     *
+     */
     @Override
     @Transactional
-    public PayCouponInfoResponse payProduct(LoginUserDto loginUserDto, PayProductRequest payProductRequest) {
+    public PayCouponInfoResponse processPaymentWithCoupon(LoginUserDto loginUserDto, PayProductRequest payProductRequest) {
+        Member member = memberRepository.findByIdWithCoupon(loginUserDto.getMemberId())
+                .orElseThrow(() -> new NotFoundMemberId(loginUserDto.getMemberId()));
 
-        Member member = memberRepository.findById(loginUserDto.getMemberId())
-                .orElseThrow();
-
-        Coupon coupon = couponRepository.findById(payProductRequest.getCouponId())
-                .orElseThrow();
+        Coupon coupon = member.getCoupons().stream()
+                .filter(c -> Objects.equals(c.getId(), payProductRequest.getCouponId()))
+                .findAny().orElseThrow(() -> new NotFoundCouponId(payProductRequest.getCouponId()));
 
         Order orders = member.getOrders().stream()
                 .filter(order -> order.getId().equals(payProductRequest.getOrderId()))
-                .findAny().orElseThrow();
+                .findAny().orElseThrow(() -> new NotFoundOrderId(payProductRequest.getOrderId()));
+
+        List<OrderItem> orderItems = orders.getOrderItems();
 
         // 특정 상품
-        List<Product> productList = orders.getOrderItems().stream()
+        List<Product> productList = orderItems.stream()
                 .map(OrderItem::getProduct)
                 .filter(Product::isCouponUseStatus)
                 .collect(Collectors.toList());
 
-        List<ProductOrderResponse> productOrderResponses = orders.getOrderItems().stream()
+        List<ProductOrderResponse> productOrderResponses = orderItems.stream()
                 .map(ProductOrderResponse::createProductOrderResponse)
                 .collect(Collectors.toList());
 
         orders.setOrderStatus(OrderStatus.COMPLETE);
 
-        //todo : 상품 감소 로직
-        // 관심사에 따른 분리가 필요 , 지금 엄청 코드가 더러움
+        // Modifying 처리
+        productService.declineProductQuantity(orderItems);
 
-        /**
-         * orderCalculatorWithCoupon 계산 로직을 개별 Component로 분리한 이유
-         * - 처음에 PayCouponInfoResponse Dto에서 값을 처리를 했다.
-         * - 하지만 비즈니스 로직을 Dto에서 처리하기 보다는 Service Layer에 위치를 하는게 좋다고 생각을 했다.
-         * - 해당 로직은 프로젝트의 기능이 추가되면 자주 사용되는 기능 -> 계산 로직 (개별 컴포넌트 관리)
-         *
-         * - 해당 Data를 별도로 나눈 이유는 PayCouponInfoResponse에 Inline을 하게 된다면 가독성을 저하.
-         */
+
         int calculateSpecificTotalPrice = orderCalculatorWithCoupon.calculateSpecificTotalPrice(orders, coupon);
         int calculateTotalPrice = orderCalculatorWithCoupon.calculateTotalPrice(orders, coupon);
 

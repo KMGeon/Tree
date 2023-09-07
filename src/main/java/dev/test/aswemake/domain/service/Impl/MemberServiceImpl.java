@@ -42,17 +42,32 @@ public class MemberServiceImpl implements MemberService {
         this.jwtTokenizer = jwtTokenizer;
     }
 
+    /**
+     * 회원가입
+     * 회원을 REQUEST에 맞게 USER 권한을 추가하여 생성한다.
+     *
+     * @param memberSignupRequest 이메일, 비밀번호
+     */
     @Override
     @Transactional
     public void signup(MemberSignupRequest memberSignupRequest) {
         Member member = Member.signupMember(memberSignupRequest, passwordEncoder);
 
         roleRepository.findByName(RoleEnum.USER.getRoleName())
-                                    .ifPresent(member::changeRole);
+                .ifPresent(member::changeRole);
 
         memberRepository.save(member);
     }
 
+    /**
+     * 로그인
+     * 회원의 아이디를 찾아서 비밀번호의 일치를 판단하여 JWT 토큰을 반환한다.
+     *
+     * @param memberLoginRequest 이메일, 비밀번호
+     * @param response           Cookie를 위한 ServletResponse
+     * @return access, refresh Token
+     * @throws NotMatchMemberPassword 비밀번호가 일치하지 않습니다.
+     */
     @Override
     @Transactional
     public MemberLoginResponse login(MemberLoginRequest memberLoginRequest, HttpServletResponse response) {
@@ -62,11 +77,21 @@ public class MemberServiceImpl implements MemberService {
 
         Optional.of(!passwordEncoder.matches(memberLoginRequest.getPassword(), member.getPassword()))
                 .filter(passwordNotMatched -> passwordNotMatched)
-                .ifPresent(passwordNotMatched -> {throw new NotMatchMemberPassword(memberLoginRequest.getPassword());});
+                .ifPresent(passwordNotMatched -> {
+                    throw new NotMatchMemberPassword(memberLoginRequest.getPassword());
+                });
 
         return createToken(response, member);
     }
 
+
+    /**
+     * 로그아웃
+     * 쿠키의 refresh Token을 삭제한다. 실제로 로그아웃을 구현을 하려면 End Point에서 accessToken을 삭제한다.
+     * refreshToken을 기반으로 accessToken 재발급은 생략
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     */
     @Override
     @Transactional
     public void logout(HttpServletRequest request, HttpServletResponse response) {
