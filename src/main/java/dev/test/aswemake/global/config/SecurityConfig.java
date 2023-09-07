@@ -37,18 +37,24 @@ public class SecurityConfig {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 
                 //MemberController
-                .antMatchers(HttpMethod.POST, "/api/member").permitAll()//회원가입
-                .antMatchers(HttpMethod.POST, "/api/member/login").permitAll()// 로그인
-                .antMatchers(HttpMethod.DELETE, "/api/member").authenticated()// 로그아웃
+                .antMatchers(HttpMethod.POST, "/api/member").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/member/login").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/member").authenticated()
 
                 //ProductController
-                .antMatchers(HttpMethod.POST, "/api/product").authenticated()//
-                .antMatchers(HttpMethod.PUT, "/api/product/**").authenticated()//
-                .antMatchers(HttpMethod.DELETE, "/api/product/**").authenticated()//
+                .antMatchers(HttpMethod.GET, "/api/product/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/product").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/product/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/product/**").authenticated()
 
                 //OrderController
-                .antMatchers(HttpMethod.GET, "/api/order").authenticated()//
-                .antMatchers(HttpMethod.POST, "/api/order").authenticated()//
+                .antMatchers(HttpMethod.POST, "/api/order").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/order").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/order/**").authenticated()
+
+                //CouponController
+                .antMatchers(HttpMethod.POST, "/api/coupon").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/coupon/pay").authenticated()
 
 
                 .and()

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('ROLE_MARKET')")
-    public void createProduct(@RequestBody ProductCreateRequest request) {
+    public void createProduct(@RequestBody @Valid ProductCreateRequest request) {
         log.info("product Name:{}, Price:{}", request.getName(), request.getPrice());
         productService.createProduct(request);
     }
@@ -34,7 +35,7 @@ public class ProductController {
     @PutMapping("{productId}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyAuthority('ROLE_MARKET')")
-    public void updateProduct(@RequestBody ProductUpdateRequest productUpdateRequest,
+    public void updateProduct(@RequestBody @Valid ProductUpdateRequest productUpdateRequest,
                               @PathVariable Long productId) {
         LocalDateTime now = LocalDateTime.now();
         productService.updateProduct(productUpdateRequest, productId, now);

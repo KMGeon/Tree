@@ -46,9 +46,10 @@ public class CouponController {
     @PostMapping("/pay")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_MARKET')")
-    public PayCouponInfoResponse payProductWithCoupon(@IfLogin LoginUserDto loginUserDto,
-                                                      @RequestBody PayProductRequest payProductRequest) {
-        return couponService.processPaymentWithCoupon(loginUserDto, payProductRequest);
+    public PayCouponInfoResponse payProductWithCoupon(@Valid @RequestBody PayProductRequest request,
+                                                      @IfLogin LoginUserDto loginUserDto
+    ) {
+        return couponService.processPaymentWithCoupon(loginUserDto, request);
     }
 
 

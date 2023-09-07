@@ -13,6 +13,6 @@ public class RateTooHighException extends CouponAbstractException {
 
     @Override
     public int getStatusCode() {
-        return ErrorCustomEnum.NotFoundMemberId.getErrorCode();
+        return ErrorCustomEnum.RateTooHighException.getErrorCode();
     }
 }

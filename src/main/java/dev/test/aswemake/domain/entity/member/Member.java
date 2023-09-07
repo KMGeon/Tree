@@ -5,6 +5,7 @@ import dev.test.aswemake.domain.entity.coupon.Coupon;
 import dev.test.aswemake.domain.entity.order.Order;
 import dev.test.aswemake.domain.entity.role.Role;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -66,6 +67,14 @@ public class Member {
     public Member(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    @Builder
+    protected Member(Long id, String email, String password, Set<Role> roles) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
     /********************************* 비즈니스 로직 *********************************/
