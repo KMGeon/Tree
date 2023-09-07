@@ -16,12 +16,12 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 public class CouponCreateRequest {
 
-    @NotBlank(message = "Coupon name cannot be blank")
+    @NotBlank(message = "쿠폰 이름을 입력하세요.")
     private String couponName;
 
-    @Positive(message = "Sale price must be a positive integer")
+    @Positive(message = "쿠폰 할인가를 입력하세요.")
     private int salePrice;
 
-    @NotNull(message = "Coupon sale strategy must be specified")
+    @NotNull(message = "RATE, FIX를 선택하세요.")
     private CouponSaleStrategy couponSaleStrategy;
 }
