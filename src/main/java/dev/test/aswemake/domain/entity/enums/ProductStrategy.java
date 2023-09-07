@@ -3,7 +3,7 @@ package dev.test.aswemake.domain.entity.enums;
 import lombok.Getter;
 
 @Getter
-public enum CouponStrategy {
+public enum ProductStrategy {
 
     TOTAL("TOTAL"),
     SPECIFIC("SPECIFIC");
@@ -11,7 +11,7 @@ public enum CouponStrategy {
     private final String strategy;
 
 
-    CouponStrategy(String strategy) {
+    ProductStrategy(String strategy) {
         this.strategy = strategy;
     }
 }

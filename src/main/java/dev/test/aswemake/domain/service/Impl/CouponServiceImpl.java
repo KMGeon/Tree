@@ -3,18 +3,17 @@ package dev.test.aswemake.domain.service.Impl;
 import dev.test.aswemake.domain.controller.dto.request.PayProductRequest;
 import dev.test.aswemake.domain.controller.dto.request.coupon.CouponCreateRequest;
 import dev.test.aswemake.domain.controller.dto.response.PayCouponInfoResponse;
-import dev.test.aswemake.domain.controller.dto.response.product.ProductOrderResponse;
 import dev.test.aswemake.domain.entity.coupon.Coupon;
 import dev.test.aswemake.domain.entity.enums.OrderStatus;
+import dev.test.aswemake.domain.entity.enums.ProductStrategy;
 import dev.test.aswemake.domain.entity.member.Member;
 import dev.test.aswemake.domain.entity.order.Order;
 import dev.test.aswemake.domain.entity.order.OrderItem;
 import dev.test.aswemake.domain.entity.product.Product;
 import dev.test.aswemake.domain.repository.CouponRepository;
 import dev.test.aswemake.domain.repository.MemberRepository;
-import dev.test.aswemake.domain.repository.ProductRepository;
+import dev.test.aswemake.domain.repository.OrderRepository;
 import dev.test.aswemake.domain.service.CouponService;
-import dev.test.aswemake.domain.service.OrderCalculatorWithCoupon;
 import dev.test.aswemake.domain.service.ProductService;
 import dev.test.aswemake.global.argument.LoginUserDto;
 import dev.test.aswemake.global.exception.coupon.NotFoundCouponId;
@@ -23,7 +22,9 @@ import dev.test.aswemake.global.exception.order.NotFoundOrderId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,18 +34,13 @@ public class CouponServiceImpl implements CouponService {
     private final CouponRepository couponRepository;
     private final MemberRepository memberRepository;
     private final ProductService productService;
-    private final OrderCalculatorWithCoupon orderCalculatorWithCoupon;
+    private final OrderRepository orderRepository;
 
-    public CouponServiceImpl(
-            CouponRepository couponRepository,
-            MemberRepository memberRepository,
-            ProductService productService,
-            OrderCalculatorWithCoupon orderCalculatorWithCoupon
-    ) {
+    public CouponServiceImpl(CouponRepository couponRepository, MemberRepository memberRepository, ProductService productService, OrderRepository orderRepository) {
         this.couponRepository = couponRepository;
         this.memberRepository = memberRepository;
         this.productService = productService;
-        this.orderCalculatorWithCoupon = orderCalculatorWithCoupon;
+        this.orderRepository = orderRepository;
     }
 
     /**
@@ -75,66 +71,56 @@ public class CouponServiceImpl implements CouponService {
      * 주문을 쿠폰을 이용하여 결제한다.
      * 주문의 상태를 COMPLETE로 변경하며 상품의 수량은 감소한다.
      * 이때 Dirty Checking을 하면 N+1 문제가 발생을 한다. -> Modifying
-     * @param loginUserDto 로그인 사용자 정보
-     * @param payProductRequest 쿠폰 아이디, 주문 아이디
-     * @return PayCouponInfoResponse
-     * @throws NotFoundMemberId
-     * @throws NotFoundCouponId
-     * @throws NotFoundOrderId
-     *
      */
     @Override
     @Transactional
     public PayCouponInfoResponse processPaymentWithCoupon(LoginUserDto loginUserDto, PayProductRequest payProductRequest) {
-        Member member = memberRepository.findByIdWithCoupon(loginUserDto.getMemberId())
-                .orElseThrow(() -> new NotFoundMemberId(loginUserDto.getMemberId()));
 
-        Coupon coupon = member.getCoupons().stream()
-                .filter(c -> Objects.equals(c.getId(), payProductRequest.getCouponId()))
-                .findAny().orElseThrow(() -> new NotFoundCouponId(payProductRequest.getCouponId()));
+        Member member = getMemberById(loginUserDto);
 
-        Order orders = member.getOrders().stream()
-                .filter(order -> order.getId().equals(payProductRequest.getOrderId()))
-                .findAny().orElseThrow(() -> new NotFoundOrderId(payProductRequest.getOrderId()));
+        Coupon coupon = getCouponByIdEqualsWithRequestId(payProductRequest, member);
 
-        List<OrderItem> orderItems = orders.getOrderItems();
+        Order order = getOrderByIdEqualsRequestId(payProductRequest);
 
-        // 특정 상품
-        List<Product> productList = orderItems.stream()
-                .map(OrderItem::getProduct)
-                .filter(Product::isCouponUseStatus)
-                .collect(Collectors.toList());
+        // Bulk update를 하기 위해서 Modifying
+        productService.declineProductQuantity(order.getOrderItems());
 
-        List<ProductOrderResponse> productOrderResponses = orderItems.stream()
-                .map(ProductOrderResponse::createProductOrderResponse)
-                .collect(Collectors.toList());
+        order.setOrderStatus(OrderStatus.COMPLETE);
 
-        orders.setOrderStatus(OrderStatus.COMPLETE);
+        couponRepository.deleteById(coupon.getId());
 
-        // Modifying 처리
-        productService.declineProductQuantity(orderItems);
-
-
-        int calculateSpecificTotalPrice = orderCalculatorWithCoupon.calculateSpecificTotalPrice(orders, coupon);
-        int calculateTotalPrice = orderCalculatorWithCoupon.calculateTotalPrice(orders, coupon);
-
-        /**
-         *  if (!productList.isEmpty()) : 특정 상품에 대한 로직을 처리한다. 이때 Coupon의 전략에 따라서 값을 처리한다.
-         *  1. 고정
-         *  - 특정 상품에 쿠폰의 할인 Price를 적용하여 전체적인 로직을 처리한다.
-         *  2. 비율
-         *  - 특정 상품을 제외하고 일반 상품에 대해서 비율로 할인가를 처리한다.
-         *
-         *  else : 장바구니에 특정 상품이 없는 경우를 처리한다.
-         *  1. 고정
-         *  - 전체 상품의 금액에 - price를 하여 로직을 처리한다. 이때 배달비는 별로도 할인가를 적용하지 않는다.
-         *  2. 비율
-         *  - 전체 상품에 비율로 할인가를 계산한다.
-         */
-        if (!productList.isEmpty()) {
-            return PayCouponInfoResponse.SPECIFIC(productOrderResponses, calculateSpecificTotalPrice, coupon);
+        if (getSpecificProductList(order).isEmpty()) {
+            return PayCouponInfoResponse.TOTAL(order, coupon);
         } else {
-            return PayCouponInfoResponse.TOTAL(productOrderResponses, calculateTotalPrice, coupon);
+            return PayCouponInfoResponse.SPECIFIC(order, coupon);
         }
     }
+
+    private Order getOrderByIdEqualsRequestId(PayProductRequest payProductRequest) {
+        Order order = orderRepository.findOrderWithItemsAndProducts(payProductRequest.getOrderId())
+                .orElseThrow(() -> new NotFoundOrderId(payProductRequest.getCouponId()));
+        return order;
+    }
+
+    private static Coupon getCouponByIdEqualsWithRequestId(PayProductRequest payProductRequest, Member member) {
+        Coupon coupon = member.getCoupons().stream()
+                .filter(coupon1 -> Objects.equals(coupon1.getId(), payProductRequest.getCouponId()))
+                .findAny()
+                .orElseThrow(() -> new NotFoundCouponId(payProductRequest.getCouponId()));
+        return coupon;
+    }
+
+    private Member getMemberById(LoginUserDto loginUserDto) {
+        Member member = memberRepository.findByIdWithCoupon(loginUserDto.getMemberId())
+                .orElseThrow(() -> new NotFoundOrderId(loginUserDto.getMemberId()));
+        return member;
+    }
+
+    private List<Product> getSpecificProductList(Order order) {
+        return order.getOrderItems().stream()
+                .map(OrderItem::getProduct)
+                .filter(product -> product.getProductStrategy() == ProductStrategy.SPECIFIC)
+                .collect(Collectors.toList());
+    }
+
 }

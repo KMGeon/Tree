@@ -2,8 +2,8 @@ package dev.test.aswemake.domain.entity.product;
 
 import dev.test.aswemake.domain.controller.dto.request.product.ProductUpdateRequest;
 import dev.test.aswemake.domain.entity.BaseTimeStamp;
+import dev.test.aswemake.domain.entity.enums.ProductStrategy;
 import dev.test.aswemake.domain.entity.order.OrderItem;
-import dev.test.aswemake.global.exception.product.NotFullYetAboutQuantity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,8 +36,9 @@ public class Product extends BaseTimeStamp {
      * false는 주문 전체에 쿠폰을 사용할 수 있다.
      * true는 특정 상품 한정으로 쿠폰을 사용할 수 있다.
      */
-    private boolean couponUseStatus = false;
 
+    @Enumerated(EnumType.STRING)
+    private ProductStrategy productStrategy;
 
     /********************************* 연관관계 매핑 *********************************/
 
@@ -57,11 +58,11 @@ public class Product extends BaseTimeStamp {
 
     /********************************* 생성자 *********************************/
     @Builder
-    protected Product(String name, int price, int productQuantity, boolean couponUseStatus) {
+    protected Product(String name, int price, int productQuantity, ProductStrategy productStrategy) {
         this.name = name;
         this.price = price;
         this.productQuantity = productQuantity;
-        this.couponUseStatus = couponUseStatus;
+        this.productStrategy = productStrategy;
     }
 
     /********************************* 비즈니스 로직 *********************************/
@@ -70,14 +71,4 @@ public class Product extends BaseTimeStamp {
         this.price = productUpdateRequest.getPrice();
     }
 
-    public void isCouponApplicableToProduct() {
-        couponUseStatus = true;
-    }
-    public void declineProductQuantity(int count) {
-        int quantity = this.productQuantity - count;
-        if (quantity < 0) {
-            throw new NotFullYetAboutQuantity(quantity);
-        }
-        this.productQuantity = quantity;
-    }
 }

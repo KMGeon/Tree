@@ -2,8 +2,10 @@ package dev.test.aswemake.domain.controller.dto.response.order;
 
 import dev.test.aswemake.domain.controller.dto.response.product.ProductOrderResponse;
 import dev.test.aswemake.domain.entity.enums.OrderStatus;
+import dev.test.aswemake.domain.entity.enums.ProductStrategy;
 import dev.test.aswemake.domain.entity.order.Order;
 import dev.test.aswemake.domain.entity.order.OrderItem;
+import dev.test.aswemake.domain.entity.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,9 +23,9 @@ public class OrderPayInfoResponse {
 
     private List<ProductOrderResponse> productOrderResponses = new ArrayList<>();
     private int totalCost;
-    private String couponStatus;
+    private ProductStrategy productStrategy;
 
-    public static OrderPayInfoResponse of(List<List<OrderItem>> memberOrders, String couponStatus, List<Order> orders) {
+    public static OrderPayInfoResponse of(List<List<OrderItem>> orderItemList, List<Order> orders) {
         return OrderPayInfoResponse.builder()
                 .productOrderResponses(orders.stream()
                         .filter(order -> order.getOrderStatus() != OrderStatus.COMPLETE)
@@ -31,11 +33,17 @@ public class OrderPayInfoResponse {
                         .flatMap(order -> order.getOrderItems().stream())
                         .map(ProductOrderResponse::createProductOrderResponse)
                         .collect(Collectors.toList()))
-                .totalCost(calculateOrderItemListCost(memberOrders) + (orders.stream()
-                        .filter(order -> order.getOrderStatus() != OrderStatus.COMPLETE)
-                        .mapToInt(Order::getDeliveryFee)
-                        .sum()))
-                .couponStatus(couponStatus)
+                .totalCost((int) (calculateOrderItemListCost(orderItemList) + (5000* orders.stream()
+                        .map(Order::getOrderItems)
+                        .count())))
+                .productStrategy(getSelectedStrategy(orders.stream()
+                        .filter(order1 -> order1.getOrderStatus() != OrderStatus.COMPLETE)
+                        .collect(Collectors.toList()).stream()
+                        .flatMap(order1 -> order1.getOrderItems().stream())
+                        .map(OrderItem::getProduct)
+                        .collect(Collectors.toList()).stream()
+                        .map(Product::getProductStrategy)
+                        .collect(Collectors.toList())))
                 .build();
     }
 
@@ -44,6 +52,14 @@ public class OrderPayInfoResponse {
                 .flatMap(List::stream)
                 .mapToInt(orderItem -> orderItem.getOrderPrice() * orderItem.getProductCount())
                 .sum();
+    }
+
+    private static ProductStrategy getSelectedStrategy(List<ProductStrategy> productStrategy) {
+        if (productStrategy.stream().anyMatch(strategy -> "SPECIFIC".equalsIgnoreCase(strategy.getStrategy()))) {
+            return ProductStrategy.SPECIFIC;
+        } else {
+            return ProductStrategy.TOTAL;
+        }
     }
 
 }

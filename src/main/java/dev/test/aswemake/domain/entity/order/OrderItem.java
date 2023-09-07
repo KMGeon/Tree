@@ -50,14 +50,11 @@ public class OrderItem {
 
     /********************************* 비즈니스 로직 *********************************/
     public static OrderItem createOrderItem(Product product, int orderPrice, int count) {
-        OrderItem orderItem = OrderItem.builder()
+        return OrderItem.builder()
                 .product(product)
                 .orderPrice(orderPrice)
                 .productCount(count)
                 .build();
-
-        product.declineProductQuantity(count);
-        return orderItem;
     }
 
 

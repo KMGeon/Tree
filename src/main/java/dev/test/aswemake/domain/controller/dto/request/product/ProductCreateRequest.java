@@ -1,11 +1,10 @@
 package dev.test.aswemake.domain.controller.dto.request.product;
 
-import dev.test.aswemake.domain.entity.enums.CouponStrategy;
+import dev.test.aswemake.domain.entity.enums.ProductStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -27,10 +26,7 @@ public class ProductCreateRequest {
     @Positive(message = "제품 수량은 양수여야 합니다.")
     private Integer productQuantity;
 
-    @NotNull(message = "쿠폰 전략을 선택하세요.")
-    private CouponStrategy couponStrategy;
-
-    @Nullable
-    private String couponUseStatus;
+    @NotNull(message = "상품의 전략을 선택하세요. TOTAL, SPECIFIC")
+    private ProductStrategy productStrategy;
 
 }
