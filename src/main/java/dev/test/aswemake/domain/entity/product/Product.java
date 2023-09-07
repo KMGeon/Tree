@@ -3,7 +3,7 @@ package dev.test.aswemake.domain.entity.product;
 import dev.test.aswemake.domain.controller.dto.request.product.ProductUpdateRequest;
 import dev.test.aswemake.domain.entity.BaseTimeStamp;
 import dev.test.aswemake.domain.entity.order.OrderItem;
-import dev.test.aswemake.global.exception.product.NotFullYetAbouotQuantity;
+import dev.test.aswemake.global.exception.product.NotFullYetAboutQuantity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -76,7 +76,7 @@ public class Product extends BaseTimeStamp {
     public void declineProductQuantity(int count) {
         int quantity = this.productQuantity - count;
         if (quantity < 0) {
-            throw new NotFullYetAbouotQuantity(quantity);
+            throw new NotFullYetAboutQuantity(quantity);
         }
         this.productQuantity = quantity;
     }
