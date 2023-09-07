@@ -4,8 +4,6 @@ import dev.test.aswemake.domain.controller.dto.request.product.ProductCreateRequ
 import dev.test.aswemake.domain.controller.dto.request.product.ProductUpdateRequest;
 import dev.test.aswemake.domain.controller.dto.response.product.ProductTimeResponse;
 import dev.test.aswemake.domain.service.ProductService;
-import dev.test.aswemake.global.argument.IfLogin;
-import dev.test.aswemake.global.argument.LoginUserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -28,11 +26,9 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('ROLE_MARKET')")
-    public void createProduct(@RequestBody ProductCreateRequest request,
-                              @IfLogin LoginUserDto loginUserDto) {
-        log.info("product Name:{}, Price:{} / memberId : {}"
-                , request.getName(), request.getPrice(), loginUserDto.getMemberId());
-        productService.createProduct(request, loginUserDto);
+    public void createProduct(@RequestBody ProductCreateRequest request) {
+        log.info("product Name:{}, Price:{}", request.getName(), request.getPrice());
+        productService.createProduct(request);
     }
 
     @PutMapping("{productId}")
@@ -58,7 +54,9 @@ public class ProductController {
     public ProductTimeResponse getProductPriceAtTimestamp(@PathVariable Long productId,
                                                           @RequestParam(name = "timestamp", required = false)
                                                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime timestamp) {
-        return productService.getProductInfoWhenTargetDate(productId, Optional.ofNullable(timestamp).orElse(LocalDateTime.now()));
+        timestamp = Optional.ofNullable(timestamp).orElse(LocalDateTime.now());
+        return productService.getProductInfoWhenTargetDate(productId, timestamp);
     }
+
 
 }
