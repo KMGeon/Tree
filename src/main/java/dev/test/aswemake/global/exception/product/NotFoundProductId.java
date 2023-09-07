@@ -16,6 +16,6 @@ public class NotFoundProductId extends MemberAbstractException {
 
     @Override
     public int getStatusCode() {
-        return ErrorCustomEnum.NotMatchMemberPassword.getErrorCode();
+        return ErrorCustomEnum.NotFoundProductId.getErrorCode();
     }
 }
