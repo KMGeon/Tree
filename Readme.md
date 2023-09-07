@@ -70,16 +70,12 @@ $ docker-compose -f docker-compose-local.yml up
 
 ### 테스트 코드
 - 테스트 코드는 비즈니스 로직의 안전성을 검증하는 기능 이외에 다른 사람들에게 **코드를 설명하는 부분이라고 생각합니다**.
+- ``Controller``에서 제일 중요한 포인트는 End Point의 데이터를 검증을 하는것이라고 생각합니다.
+- 기존의 ```Controller```에서 HTTP 요청과 End Point의 데이터를 하나의 로직에서 관리를 하였습니다.
+- 하지만 가독성, 재사용, SRP를 생각을 한다면 분리를 하는게 맞다고 생각을 하여서  ``MockMvcRequestBuilders ``(HTTP요청)와 End Point를 분리를 하여 Controller에서 가장
+중요한 End Point를 확인이 가능하게 ```apiCaller```, ```Controller```를 분리를 하였습니다.
 
 <br/>
-
-- 코드의 속도, 유지보수를 위해서 Context를 재활용, 코드의 가독성을 위해서 Controller에서 Stub과 반환 값을 Mapping을 분리하여  실제 Controller 테스트에서는 가독성 높게 End Point만 관리를 하도록 리펙토링
-
-<br/>
-
-### Controller
-
-- Controller는 Mock을 통하여 테스트를 진행을 하였습니다.
 
 >**1. Application Context 재활용**
 - 각각의 테스트 코드에 ```@SpringBootTest```를 붙이기 보다는 하나의 ```ControllerTest```를 만들어서 공유
@@ -88,66 +84,10 @@ $ docker-compose -f docker-compose-local.yml up
 
 <br/>
 
-> **2. Stub, End Point 분리**
+> **2. HTTP, 응답 분리**
+- ```Controller```에서 주요 관심사는 End Point라고 생각을 합니다.
+-  가독성, 재사용, SRP를 생각을 한다면 분리
 
-- Controller Test에서 제일 중요한 부분은 Stub 보다는 End Point를 관리를 하는거라고 생각을 합니다.
-- 그러면 제일 주요한 관심하는 End Point라고 생각하여 Stub과 End Point Mapping을 분리를 하였습니다.
-
-
-
-###  리펙토링 테스트 코드 (Stub과 반환을 분리하여 Controller)
-```java
-==========================================================================================
-apiCaller
-==========================================================================================
-    
-public ApiResponse<OrderPayInfoResponse> getOrderInfoValid() throws Exception {
-
-    MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/api/order")
-            .contentType(MediaType.APPLICATION_JSON)
-            .header("Authorization", "Bearer " + USER_TOKEN);
-
-    MockHttpServletResponse response = mockMvc.perform(builder)
-            .andReturn()
-            .getResponse();
-
-    OrderPayInfoResponse orderPayInfoResponse =
-            objectMapper.readValue(response.getContentAsString(StandardCharsets.UTF_8), OrderPayInfoResponse.class);
-
-    return new ApiResponse<>(response.getStatus(), orderPayInfoResponse);
-}
-
-
-==========================================================================================
-Controller
-==========================================================================================
-@Test
-public void 회원_주문목록_조회_성공() throws Exception{
-        ApiResponse<OrderPayInfoResponse> response = orderMockApiCaller.getOrderInfoValid();
-
-
-        // 상품 목록 검증
-        List<ProductOrderResponse> actualProducts = response.getBody().getProductOrderResponses();
-        assertThat(actualProducts).hasSize(4);
-
-        // 응답 데이터 검증
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(response.getBody().getTotalCost()).isEqualTo(30000);
-        assertThat(response.getBody().getCouponStatus()).isEqualTo(TOTAL);
-
-
-        // 각 상품별 검증
-        assertAll(
-        () -> assertThat(actualProducts.get(0).getProductId()).isEqualTo(1L),
-        () -> assertThat(actualProducts.get(0).getProductName()).isEqualTo("사과"),
-        () -> assertThat(actualProducts.get(0).getProductPrice()).isEqualTo(5000),
-        () -> assertThat(actualProducts.get(0).getOrderProductQuantity()).isEqualTo(4)
-        );
-
-        ... 생략
-
-    }
-```
 
 
  
