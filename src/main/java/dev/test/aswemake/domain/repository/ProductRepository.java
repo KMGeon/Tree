@@ -24,4 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             " = p.productQuantity - :quantity " +
             " WHERE p.id = :productId ")
     void declineProductQuantity(@Param("productId") Long productId, @Param("quantity") int quantity);
+
+    @Query("SELECT p FROM Product p WHERE p.name = :name")
+    Optional<Product> findByName(@Param("name") String name);
 }
