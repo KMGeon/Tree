@@ -1,3 +1,4 @@
+
 ## 애즈위메이크 백엔드 신입 개발자 채용 - 김무건
 
 ## 기술 스택
@@ -38,7 +39,7 @@ src
          │        └── exceptionHandler # RestControllerAdvice
          └── entity # 엔티티
          └── service #  application
-         └── repostiory # 도메인 오브젝트
+         └── repostiory # repository
 ```
 
 ---
@@ -97,7 +98,7 @@ $ docker-compose -f docker-compose-local.yml up
 ###  리펙토링 테스트 코드 (Stub과 반환을 분리하여 Controller)
 ```java
 ==========================================================================================
-apiCaller (Stub과 End Point Mapping)
+apiCaller
 ==========================================================================================
     
 public ApiResponse<OrderPayInfoResponse> getOrderInfoValid() throws Exception {
@@ -118,12 +119,10 @@ public ApiResponse<OrderPayInfoResponse> getOrderInfoValid() throws Exception {
 
 
 ==========================================================================================
-Controller 테스트
+Controller
 ==========================================================================================
 @Test
 public void 회원_주문목록_조회_성공() throws Exception{
-
-        given(orderService.getOrderInfo(any(LoginUserDto.class))).willReturn(orderPayInfoResponse);
         ApiResponse<OrderPayInfoResponse> response = orderMockApiCaller.getOrderInfoValid();
 
 
@@ -156,5 +155,6 @@ public void 회원_주문목록_조회_성공() throws Exception{
 <br/>
 
 ## ERD
+![image](https://github.com/KMGeon/Aswemake/assets/103854287/31bbf9ad-c1ea-4e35-9eb7-fc9a1bc6d2d1)
 
 <br/>
