@@ -1,15 +1,17 @@
 package dev.test.aswemake.domain.entity.coupon;
 
 import dev.test.aswemake.domain.entity.enums.CouponSaleStrategy;
-import dev.test.aswemake.domain.entity.enums.CouponStrategy;
 import dev.test.aswemake.domain.entity.member.Member;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Coupon {
     //******************************* PK 필드 *********************************/
     @Id
@@ -29,16 +31,8 @@ public class Coupon {
     @JoinColumn(name = "member_id")
     private Member member;
 
-
-    /********************************* 생성자 *********************************/
-
-    public Coupon() {
-    }
-
-
     @Builder
-    public Coupon(Long id, String couponName, int salePrice, CouponSaleStrategy couponSaleStrategy, Member member) {
-        this.id = id;
+    protected Coupon(String couponName, int salePrice, CouponSaleStrategy couponSaleStrategy, Member member) {
         this.couponName = couponName;
         this.salePrice = salePrice;
         this.couponSaleStrategy = couponSaleStrategy;
