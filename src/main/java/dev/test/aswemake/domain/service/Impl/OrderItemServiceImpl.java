@@ -20,7 +20,6 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     /**
      * orderServiceImpl에 createOrder에 사용한다.
-     * @param orderItems List
      */
     @Override
     @Transactional

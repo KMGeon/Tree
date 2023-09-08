@@ -50,10 +50,6 @@ public class CouponServiceImpl implements CouponService {
      * 쿠폰을 생성한다.
      * 실제 서비스를 생각하면 관리자 또는 마켓의 권한을 가지는 유저가 생성을 하는게 맞다.
      * 하지만 이렇게 하면 추가적인 단계가 필요하기 때문에 테스트의 편의성을 위해서 USER, MARKET 모두 쿠폰이 생성이 가능하다.
-     *
-     * @param loginUserDto        로그인 회원의 정보
-     * @param couponCreateRequest 쿠폰 이름, 가격, 전략을 입력한다.
-     * @throws NotFoundMemberId loginUserDto.getMemberId()
      */
     @Override
     @Transactional

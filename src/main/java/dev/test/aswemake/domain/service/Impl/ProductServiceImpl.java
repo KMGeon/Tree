@@ -33,6 +33,10 @@ public class ProductServiceImpl implements ProductService {
         this.priceHistoryService = priceHistoryService;
     }
 
+    /**
+     * 상품을 생성을 한다.
+     * 전략에 따라서 쿠폰의 결제 로직이 변경이 된다.
+     */
     @Override
     @Transactional
     public void createProduct(ProductCreateRequest productCreateRequest) {
@@ -44,6 +48,11 @@ public class ProductServiceImpl implements ProductService {
                 .build());
     }
 
+    /**
+     * 상품의 가격을 변경을 합니다.
+     * PriceHistory에 기존의 가격과 변경 시간이 저장
+     * 가격이 변경이 되면서 개별 주문 단가, 총합이 변경
+     */
     @Override
     @Transactional
     public void updateProduct(ProductUpdateRequest productUpdateRequest, Long productId, LocalDateTime now) {
@@ -69,12 +78,19 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * 삭제
+     */
     @Override
     @Transactional
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }
 
+    /**
+     * @Modifying을 통하여 Bulk Update를 하였을 때 N+1 문제 해결
+     * 쿠폰을 사용을 하였을 때 상품의 개수 감소
+     */
     @Override
     public void declineProductQuantity(List<OrderItem> orderItems) {
         for (OrderItem orderItem : orderItems) {
@@ -88,6 +104,9 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * 특정 시간을 조회 만약에 LocalDateTime이 처음에 없으면 Now로 주입
+     */
     @Override
     @Transactional(readOnly = true)
     public ProductTimeResponse getProductInfoWhenTargetDate(Long productId, LocalDateTime targetDateTime) {
