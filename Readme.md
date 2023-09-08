@@ -211,6 +211,7 @@ $ docker-compose -f docker-compose-local.yml up
 
 
 ## ERD
-![image](https://github.com/KMGeon/Aswemake/assets/103854287/31bbf9ad-c1ea-4e35-9eb7-fc9a1bc6d2d1)
+![image](https://github.com/KMGeon/Aswemake/assets/103854287/d156edc6-26b9-43d0-9a57-3069045bfea5)
+
 
 <br/>
