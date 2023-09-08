@@ -19,8 +19,6 @@ public class PriceHistoryServiceImpl implements PriceHistoryService {
     /**
      * ProductServiceImpl - {updateProduct}
      * - 상품의 가격이 변경을 한다면 PriceHistory는 변경한다.
-     * @param productPrice 변경된 제품의 가격
-     * @param product Product
      */
     @Override
     @Transactional
