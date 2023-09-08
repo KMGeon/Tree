@@ -1,4 +1,3 @@
-![image](https://github.com/KMGeon/Aswemake/assets/103854287/dc0da13d-3fe1-47bd-a42e-8a793aea1625)
 ## 애즈위메이크 백엔드 신입 개발자 채용 - 김무건
 
 ## 기술 스택
@@ -211,7 +210,8 @@ $ docker-compose -f docker-compose-local.yml up
 
 
 ## ERD
-![image](https://github.com/KMGeon/Aswemake/assets/103854287/d156edc6-26b9-43d0-9a57-3069045bfea5)
+![image](https://github.com/KMGeon/Aswemake/assets/103854287/8d2c424c-a512-43f5-83d7-0e2e6715bd66)
+
 
 
 <br/>
