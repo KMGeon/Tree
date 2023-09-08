@@ -74,7 +74,7 @@ $ docker-compose -f docker-compose-local.yml up
 | id | email                  | password                                                     | ROLE        |
 |----|------------------------|--------------------------------------------------------------|-------------|
 | 1  | market@market.com      | market@market.com                                                          | ROLE_MARKET |
-| 2  | test1234@test.com      | market1234! | ROLE_USER   |
+| 2  | test1234@test.com      | test1234! | ROLE_USER   |
 
 > Coupon
 
