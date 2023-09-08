@@ -26,7 +26,6 @@ public class Initializer {
             RoleRepository roleRepository,
             MemberRepository memberRepository,
             ProductRepository productRepository,
-            PriceHistoryRepository priceHistoryRepository,
             CouponRepository couponRepository,
             PasswordEncoder passwordEncoder
     ) {
@@ -100,15 +99,15 @@ public class Initializer {
                         .build();
 
                 Coupon userCoupon1 = Coupon.builder()
-                        .couponName("고정 500원")
-                        .salePrice(500)
+                        .couponName("고정 1000원")
+                        .salePrice(1000)
                         .couponSaleStrategy(CouponSaleStrategy.FIX)
                         .member(user)
                         .build();
 
                 Coupon userCoupon2 = Coupon.builder()
-                        .couponName("비율 20%")
-                        .salePrice(20)
+                        .couponName("비율 30%")
+                        .salePrice(30)
                         .couponSaleStrategy(CouponSaleStrategy.RATE)
                         .member(user)
                         .build();
@@ -153,32 +152,6 @@ public class Initializer {
                         .productQuantity(10)
                         .productStrategy(ProductStrategy.SPECIFIC)
                         .build());
-            }
-
-            Product apple = productRepository.findByName("사과")
-                    .orElseThrow(() -> new RuntimeException("Product not found"));
-
-            if (priceHistoryRepository.count() == 0) {
-                PriceHistory priceHistory1 = PriceHistory.builder()
-                        .productPrice(1111)
-                        .targetTime(LocalDateTime.of(2023, 9, 4, 10, 11, 11))
-                        .product(apple)
-                        .build();
-
-                PriceHistory priceHistory2 = PriceHistory.builder()
-                        .productPrice(2222)
-                        .targetTime(LocalDateTime.of(2023, 8, 5, 7, 24, 11))
-                        .product(apple)
-                        .build();
-                PriceHistory priceHistory3 = PriceHistory.builder()
-                        .productPrice(3333)
-                        .targetTime(LocalDateTime.of(2023, 9, 5, 5, 30, 0))
-                        .product(apple)
-                        .build();
-
-                priceHistoryRepository.save(priceHistory1);
-                priceHistoryRepository.save(priceHistory2);
-                priceHistoryRepository.save(priceHistory3);
             }
         };
     }
