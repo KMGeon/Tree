@@ -161,18 +161,18 @@ public class Initializer {
             if (priceHistoryRepository.count() == 0) {
                 PriceHistory priceHistory1 = PriceHistory.builder()
                         .productPrice(1111)
-                        .targetTime(LocalDateTime.of(2023, 9, 4, 10, 11, 11)) // Replace with your desired date and time
+                        .targetTime(LocalDateTime.of(2023, 9, 4, 10, 11, 11))
                         .product(apple)
                         .build();
 
                 PriceHistory priceHistory2 = PriceHistory.builder()
                         .productPrice(2222)
-                        .targetTime(LocalDateTime.of(2023, 8, 5, 7, 24, 11)) // Replace with your desired date and time
+                        .targetTime(LocalDateTime.of(2023, 8, 5, 7, 24, 11))
                         .product(apple)
                         .build();
                 PriceHistory priceHistory3 = PriceHistory.builder()
                         .productPrice(3333)
-                        .targetTime(LocalDateTime.of(2023, 9, 5, 5, 30, 0)) // Replace with your desired date and time
+                        .targetTime(LocalDateTime.of(2023, 9, 5, 5, 30, 0))
                         .product(apple)
                         .build();
 
