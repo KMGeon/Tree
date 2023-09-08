@@ -62,7 +62,7 @@ $ docker-compose -f docker-compose-local.yml up
 <br/>
 
 ## API 명세서
-- [Postman API 명세서 Link]()
+- [Postman API 명세서 Link](https://documenter.getpostman.com/view/23650109/2s9YBz3vJA)
 
 <br/>
 
