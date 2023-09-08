@@ -3,9 +3,10 @@
 ## 기술 스택
 
 1. Spring Boot 2.7.15
-2. JPA
-3. MySQL 8.0.22
-4. JUnit5, Mockito
+2. Java 11
+3. JPA
+4. MySQL 8.0.22
+5. JUnit5, Mockito
 
 ---
 
