@@ -50,10 +50,6 @@ class MemberControllerTest extends ControllerTest {
                 .build());
     }
 
-    @AfterEach
-    void cleanUp() {
-        super.cleanup();
-    }
 
     @DisplayName("POST /api/member 회원가입")
     @Nested

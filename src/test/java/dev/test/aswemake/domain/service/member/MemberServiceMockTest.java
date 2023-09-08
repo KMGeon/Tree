@@ -1,4 +1,4 @@
-package dev.test.aswemake.domain.service;
+package dev.test.aswemake.domain.service.member;
 
 import dev.test.aswemake.domain.controller.dto.request.member.MemberLoginRequest;
 import dev.test.aswemake.domain.controller.dto.request.member.MemberSignupRequest;

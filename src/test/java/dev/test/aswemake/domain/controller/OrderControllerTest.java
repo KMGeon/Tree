@@ -6,6 +6,7 @@ import dev.test.aswemake.domain.controller.dto.request.order.OrderCreateListRequ
 import dev.test.aswemake.domain.controller.dto.request.order.OrderCreateRequest;
 import dev.test.aswemake.domain.controller.dto.response.order.OrderPayInfoResponse;
 import dev.test.aswemake.domain.controller.dto.response.product.ProductOrderResponse;
+import dev.test.aswemake.domain.entity.enums.ProductStrategy;
 import dev.test.aswemake.global.argument.LoginUserDto;
 import dev.test.aswemake.global.exception.ErrorResponse;
 import org.junit.jupiter.api.*;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static dev.test.aswemake.domain.service.Impl.OrderServiceImpl.TOTAL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
@@ -55,7 +55,7 @@ class OrderControllerTest extends ControllerTest {
             orderPayInfoResponse = OrderPayInfoResponse.builder()
                     .productOrderResponses(productOrderResponses)
                     .totalCost(30000)
-                    .couponStatus(TOTAL)
+                    .productStrategy(ProductStrategy.TOTAL)
                     .build();
         }
 
@@ -73,7 +73,7 @@ class OrderControllerTest extends ControllerTest {
             // 응답 데이터 검증
             assertThat(response.getStatus()).isEqualTo(200);
             assertThat(response.getBody().getTotalCost()).isEqualTo(30000);
-            assertThat(response.getBody().getCouponStatus()).isEqualTo(TOTAL);
+            assertThat(response.getBody().getProductStrategy()).isEqualTo(ProductStrategy.TOTAL);
 
 
             // 각 상품별 검증
