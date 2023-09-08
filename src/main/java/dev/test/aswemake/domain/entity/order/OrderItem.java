@@ -1,6 +1,7 @@
 package dev.test.aswemake.domain.entity.order;
 
 import dev.test.aswemake.domain.entity.product.Product;
+import dev.test.aswemake.global.exception.product.NotFullYetAboutQuantity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,6 +51,9 @@ public class OrderItem {
 
     /********************************* 비즈니스 로직 *********************************/
     public static OrderItem createOrderItem(Product product, int orderPrice, int count) {
+        if (product.getProductQuantity() < count) {
+            throw new NotFullYetAboutQuantity(count);
+        }
         return OrderItem.builder()
                 .product(product)
                 .orderPrice(orderPrice)
