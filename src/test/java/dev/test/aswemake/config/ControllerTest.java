@@ -83,7 +83,7 @@ public abstract class ControllerTest {
     }
 
     protected void cleanup() {
-        memberRepository.deleteAll();
+//        memberRepository.deleteAll();
     }
 
 }

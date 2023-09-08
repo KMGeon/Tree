@@ -5,7 +5,7 @@ import dev.test.aswemake.domain.controller.dto.ApiResponse;
 import dev.test.aswemake.domain.controller.dto.request.product.ProductCreateRequest;
 import dev.test.aswemake.domain.controller.dto.request.product.ProductUpdateRequest;
 import dev.test.aswemake.domain.controller.dto.response.product.ProductTimeResponse;
-import dev.test.aswemake.domain.entity.enums.CouponStrategy;
+import dev.test.aswemake.domain.entity.enums.ProductStrategy;
 import dev.test.aswemake.global.exception.ErrorResponse;
 import org.junit.jupiter.api.*;
 
@@ -69,8 +69,7 @@ class ProductControllerTest extends ControllerTest {
                     .name("귤")
                     .price(1000)
                     .productQuantity(20)
-                    .couponStrategy(CouponStrategy.TOTAL)
-                    .couponUseStatus("FIX")
+                    .productStrategy(ProductStrategy.TOTAL)
                     .build();
             //when
             ApiResponse<Integer> response = productMockApiCaller.createProduct(request);
@@ -86,8 +85,7 @@ class ProductControllerTest extends ControllerTest {
             ProductCreateRequest request = ProductCreateRequest.builder()
                     .price(1000)
                     .productQuantity(20)
-                    .couponStrategy(CouponStrategy.TOTAL)
-                    .couponUseStatus("FIX")
+                    .productStrategy(ProductStrategy.TOTAL)
                     .build();
             //when
             ApiResponse<ErrorResponse> response = productMockApiCaller.createProductArgumentNotValid(request);
@@ -107,8 +105,7 @@ class ProductControllerTest extends ControllerTest {
             ProductCreateRequest request = ProductCreateRequest.builder()
                     .name("귤")
                     .productQuantity(20)
-                    .couponStrategy(CouponStrategy.TOTAL)
-                    .couponUseStatus("FIX")
+                    .productStrategy(ProductStrategy.TOTAL)
                     .build();
             //when
             ApiResponse<ErrorResponse> response = productMockApiCaller.createProductArgumentNotValid(request);
@@ -127,10 +124,9 @@ class ProductControllerTest extends ControllerTest {
             //given
             ProductCreateRequest request = ProductCreateRequest.builder()
                     .name("귤")
-                    .price(-1)
+                    .price(-1000)
                     .productQuantity(20)
-                    .couponStrategy(CouponStrategy.TOTAL)
-                    .couponUseStatus("FIX")
+                    .productStrategy(ProductStrategy.TOTAL)
                     .build();
             //when
             ApiResponse<ErrorResponse> response = productMockApiCaller.createProductArgumentNotValid(request);
@@ -151,8 +147,7 @@ class ProductControllerTest extends ControllerTest {
             ProductCreateRequest request = ProductCreateRequest.builder()
                     .name("귤")
                     .price(1000)
-                    .couponStrategy(CouponStrategy.TOTAL)
-                    .couponUseStatus("FIX")
+                    .productStrategy(ProductStrategy.TOTAL)
                     .build();
             //when
             ApiResponse<ErrorResponse> response = productMockApiCaller.createProductArgumentNotValid(request);
@@ -173,8 +168,7 @@ class ProductControllerTest extends ControllerTest {
                     .name("귤")
                     .price(1000)
                     .productQuantity(-20)
-                    .couponStrategy(CouponStrategy.TOTAL)
-                    .couponUseStatus("FIX")
+                    .productStrategy(ProductStrategy.TOTAL)
                     .build();
             //when
             ApiResponse<ErrorResponse> response = productMockApiCaller.createProductArgumentNotValid(request);
@@ -196,7 +190,6 @@ class ProductControllerTest extends ControllerTest {
                     .name("귤")
                     .price(1000)
                     .productQuantity(20)
-                    .couponUseStatus("FIX")
                     .build();
             //when
             ApiResponse<ErrorResponse> response = productMockApiCaller.createProductArgumentNotValid(request);
@@ -206,7 +199,7 @@ class ProductControllerTest extends ControllerTest {
                     () -> assertThat(response.getStatus()).isEqualTo(400),
                     () -> assertThat(response.getBody().getCode()).isEqualTo("400"),
                     () -> assertThat(response.getBody().getMessage()).isEqualTo("정규식에 적합하지 않습니다."),
-                    () -> assertThat(response.getBody().getDetailMessage().get("couponStrategy")).isEqualTo("쿠폰 전략을 선택하세요.")
+                    () -> assertThat(response.getBody().getDetailMessage().get("productStrategy")).isEqualTo("상품의 전략을 선택하세요. TOTAL, SPECIFIC")
             );
         }
     }

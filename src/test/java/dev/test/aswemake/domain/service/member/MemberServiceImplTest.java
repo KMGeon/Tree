@@ -1,4 +1,4 @@
-package dev.test.aswemake.domain.service;
+package dev.test.aswemake.domain.service.member;
 
 import dev.test.aswemake.config.ApplicationTestBase;
 import dev.test.aswemake.domain.controller.dto.request.member.MemberLoginRequest;
@@ -7,6 +7,9 @@ import dev.test.aswemake.domain.controller.dto.response.member.MemberLoginRespon
 import dev.test.aswemake.domain.entity.member.Member;
 import dev.test.aswemake.enums.MemberTestEnum;
 import dev.test.aswemake.global.exception.member.NotFoundMemberEmail;
+import dev.test.aswemake.global.exception.member.NotMatchMemberPassword;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,6 +72,21 @@ class MemberServiceImplTest extends ApplicationTestBase {
         //Then
         assertThat(login.getAccessToken()).isNotNull();
         assertThat(login.getRefreshToken()).isNotNull();
+    }
+
+    @Test
+    public void 로그인_비밀번호_불일치() {
+        //given
+        MemberLoginRequest loginRequest = MemberLoginRequest.builder()
+                .email("test1234@test.com")
+                .password(MemberTestEnum.INVALID_PASSWORD.getMessage())
+                .build();
+
+        HttpServletResponse response = new MockHttpServletResponse();
+        //Then
+        Assertions.assertThatThrownBy(() -> memberService.login(loginRequest,response))
+                .isInstanceOf(NotMatchMemberPassword.class)
+                .hasMessage("비밀번호가 일치하지 않습니다.error1234!");
     }
 
 }
