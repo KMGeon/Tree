@@ -22,9 +22,7 @@ import dev.test.aswemake.global.exception.order.NotFoundOrderId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -36,7 +34,12 @@ public class CouponServiceImpl implements CouponService {
     private final ProductService productService;
     private final OrderRepository orderRepository;
 
-    public CouponServiceImpl(CouponRepository couponRepository, MemberRepository memberRepository, ProductService productService, OrderRepository orderRepository) {
+    public CouponServiceImpl(
+            CouponRepository couponRepository,
+            MemberRepository memberRepository,
+            ProductService productService,
+            OrderRepository orderRepository
+    ) {
         this.couponRepository = couponRepository;
         this.memberRepository = memberRepository;
         this.productService = productService;
