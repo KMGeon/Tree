@@ -7,30 +7,16 @@
 
 ```git
 $git init
-```
-```git
 $git clone 새로 저장소.git
-```
-```git
 $git remote add 이름 old파일.git
 $git remote -v
-```
-```git
 git subtree add --prefix 폴더명 이름(3번에 이름) 브랜치명
-```
-```git
 $git push
 ```
 
-> 만약에 push를 하였을 때 오류가 발생을 하면
-```
- ! [rejected]        master -> master (fetch first)
-error: failed to push some refs to 'git@github.com:zapnaa/abcappp.git'
-```
-![image](https://github.com/KMGeon/Tree/assets/103854287/e321b241-0760-41a9-9591-b68ef7ae62d4)
 
 ### C
-- [] 학과에서 진행한 C언어 자료
+- 학과에서 진행한 C언어 자료
 - 오목
 - 비행기 게임
 
