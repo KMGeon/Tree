@@ -54,3 +54,13 @@ $git push
 
 ### 코드숨
 > 코드숨을 학습하면서 진행한 TDD 자료
+
+### ETC
+> 기타 자료
+- JavaScript
+- Obsidian
+- Spring
+- 도커
+- 자바
+- Youtube
+
