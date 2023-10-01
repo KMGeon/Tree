@@ -67,6 +67,11 @@ jobs:
 
       - name: Start MySQL Container
         run: |
+          MYSQL_NETWORK=$(docker network ls --filter name=db_network --format '{{.Name}}')
+          if [ -z "$MYSQL_NETWORK" ]; then
+            docker network create db_network
+          fi
+
           docker run -d \
             --name mysql \
             -e MYSQL_DATABASE=goorm \
