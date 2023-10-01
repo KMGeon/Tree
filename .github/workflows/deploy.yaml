@@ -1,22 +1,18 @@
 name: CI-CD
 
-# main 브랜치에 push를 하면
 on:
   push:
     branches:
       - main
 
-# ENV 파일에 변수 선언
 env:
   S3_BUCKET_NAME: s3-mugeon
   RESOURCE_PATH: ./src/main/resources/application.yml
   CODE_DEPLOY_APPLICATION_NAME: CODE-DEPLOY-MUGEON
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CODE-DEPLOY-GROUP
 
-
 jobs:
   build:
-    # 실제 서버의 os와 맞게
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +28,7 @@ jobs:
         uses: microsoft/variable-substitution@v1
         with:
           files: ${{ env.RESOURCE_PATH }}
+          GITHUB_SHA: $GITHUB_SHA
         env:
           URL: ${{ secrets.URL }}
           USERNAME: ${{ secrets.USERNAME }}
@@ -45,7 +42,6 @@ jobs:
         run: ./gradlew build
         shell: bash
 
-      # build 결과를 하나의 zip 파일로 올림
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA .
         shell: bash
@@ -67,3 +63,4 @@ jobs:
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
+
