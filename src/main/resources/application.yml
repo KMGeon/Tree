@@ -1,1 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/CStudy?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+    hikari:
+      connectionTimeout: 30000
+      maximumPoolSize: 20
+      maxLifetime: 295000
+      poolName: HikariCP
+      readOnly: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
