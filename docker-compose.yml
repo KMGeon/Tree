@@ -1,16 +1,14 @@
 version: "3.8"
+
 services:
   study-database:
+    image: mysql:latest
     container_name: study-database
-    build:
-      dockerfile: Dockerfile
-      context: ./infra/database
-    image: immunogen/study-database
     environment:
-      - MYSQL_DATABASE=CStudy
-      - MYSQL_ROOT_PASSWORD=1234
-    volumes:
-      - ./infra/database/config:/etc/mysql/conf.d
+      MYSQL_DATABASE: CStudy
+      MYSQL_ROOT_PASSWORD: 1234
     ports:
       - "3306:3306"
-    restart: always
+    volumes:
+      - ./infra/database/data:/var/lib/mysql
+      - ./infra/database/config:/etc/mysql/conf.d

@@ -14,8 +14,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     services:
-      mysql:
+      study-database:
         image: mysql:latest
         env:
           MYSQL_DATABASE: CStudy
@@ -23,7 +24,6 @@ jobs:
         ports:
           - "3306:3306"
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
 
     steps:
       - name: Checkout
@@ -34,7 +34,9 @@ jobs:
         with:
           java-version: 11
 
-
+      - name: Start MySQL
+        run: docker-compose up -d study-database
+        working-directory: ./path/to/your/project
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
@@ -66,3 +68,6 @@ jobs:
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
 
+      - name: Stop MySQL
+        run: docker-compose down
+        working-directory: ./path/to/your/project
