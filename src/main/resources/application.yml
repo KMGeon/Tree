@@ -1,10 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: {{URL}}
+    url: jdbc:mysql://database-1.cf9uueuu4tes.ap-northeast-2.rds.amazonaws.com:3306/mugeon
 
-    username: {{USERNAME}}
-    password: {{PASSWORD}}
+    username: admin
+    password: geon1203!
     hikari:
       connectionTimeout: 30000
       maximumPoolSize: 20
@@ -18,3 +18,4 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
