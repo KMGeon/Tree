@@ -1,9 +1,16 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${spring.datasource.url}
-    username: ${spring.datasource.username}
-    password: ${spring.datasource.password}
+    url: jdbc:mysql://database-1.cf9uueuu4tes.ap-northeast-2.rds.amazonaws.com:3306/mugeon
+
+    username: admin
+    password: geon1203!
+    hikari:
+      connectionTimeout: 30000
+      maximumPoolSize: 20
+      maxLifetime: 295000
+      poolName: HikariCP
+      readOnly: false
   jpa:
     hibernate:
       ddl-auto: create
@@ -11,4 +18,4 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-      github_sha: $GITHUB_SHA
+
