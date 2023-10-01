@@ -1,14 +1,28 @@
-version: "3.8"
-
+version: "3"
 services:
-  study-database:
-    container_name: study-database
-    image: immunogen/study-database
+  database:
+    container_name: mysql
+    image: mysql/mysql-server:latest
     environment:
-      - MYSQL_DATABASE=mugeon
-      - MYSQL_ROOT_PASSWORD=1234
-    volumes:
-      - ./infra/database/config:/etc/mysql/conf.d
+      MYSQL_DATABASE: goorm
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: rootpwd
+    command:
+      - --default-authentication-plugin=mysql_native_password
     ports:
-      - "3306:3306"
+      - 3305:3306
+    networks:
+      - db_network
     restart: always
+  goorm:
+    build: .
+    expose:
+      - 8080
+    depends_on:
+      - database
+
+networks:
+  db_network:
+    driver: bridge
