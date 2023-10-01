@@ -70,4 +70,3 @@ jobs:
 
       - name: Stop MySQL
         run: docker-compose down
-        working-directory: ./path/to/your/project
