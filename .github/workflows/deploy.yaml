@@ -24,22 +24,15 @@ jobs:
         with:
           java-version: 11
 
-      - name: Make application.yml
-        run: |
-          cd ./src/main/resources
-          touch ./application.yml
-          echo "${{ secrets.APPLICATION }}" > ./application.yml
-        shell: bash
+
 
 #      - name: Set yaml file
 #        uses: microsoft/variable-substitution@v1
 #        with:
 #          files: ${{ env.RESOURCE_PATH }}
-#          GITHUB_SHA: $GITHUB_SHA
 #        env:
-#          spring.datasource.url: ${{ secrets.URL }}
-#          spring.datasource.username: ${{ secrets.USERNAME }}
-#          spring.datasource.password: ${{ secrets.PASSWORD }}
+#          APPLICATION_SECRET: ${{ secrets.APPLICATION }}
+
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
