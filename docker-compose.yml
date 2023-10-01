@@ -1,28 +1,16 @@
-version: "3"
+version: "3.8"
 services:
-  database:
-    container_name: mysql
-    image: mysql/mysql-server:latest
+  study-database:
+    container_name: study-database
+    build:
+      dockerfile: Dockerfile
+      context: ./infra/database
+    image: immunogen/study-database
     environment:
-      MYSQL_DATABASE: goorm
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: 1234
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_PASSWORD: rootpwd
-    command:
-      - --default-authentication-plugin=mysql_native_password
+      - MYSQL_DATABASE=CStudy
+      - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+    volumes:
+      - ./infra/database/config:/etc/mysql/conf.d
     ports:
-      - 3305:3306
-    networks:
-      - db_network
+      - "3306:3306"
     restart: always
-  goorm:
-    build: .
-    expose:
-      - 8080
-    depends_on:
-      - database
-
-networks:
-  db_network:
-    driver: bridge
