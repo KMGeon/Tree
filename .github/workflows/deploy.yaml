@@ -65,6 +65,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Start MySQL Container
+        run: |
+          docker run -d \
+            --name mysql \
+            -e MYSQL_DATABASE=goorm \
+            -e MYSQL_USER=admin \
+            -e MYSQL_PASSWORD=1234 \
+            -e MYSQL_ROOT_HOST='%' \
+            -e MYSQL_ROOT_PASSWORD=rootpwd \
+            -p 3305:3306 \
+            --network db_network \
+            --restart always \
+            mysql/mysql-server:latest
+
       - name: Make application.yml
         run: |
           cd ./src/main/resources
@@ -96,5 +110,5 @@ jobs:
             docker stop goorm
             docker rm goorm
             sudo docker pull ${{ secrets.DOCKER_REPO }}/goorm
-            docker run -d --name goorm -p 8080:8080 ${{ secrets.DOCKER_REPO }}/goorm
+            docker run -d --name goorm -p 8080:8080 --network db_network ${{ secrets.DOCKER_REPO }}/goorm
             docker rmi -f $(docker images -f "dangling=true" -q)
