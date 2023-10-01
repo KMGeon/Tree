@@ -28,14 +28,14 @@ jobs:
         with:
           java-version: 11
 
-      - name: Set yaml file
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: ${{ env.RESOURCE_PATH }}
-        env:
-          URL: ${{ secrets.URL }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+#      - name: Set yaml file
+#        uses: microsoft/variable-substitution@v1
+#        with:
+#          files: ${{ env.RESOURCE_PATH }}
+#        env:
+#          URL: ${{ secrets.URL }}
+#          USERNAME: ${{ secrets.USERNAME }}
+#          PASSWORD: ${{ secrets.PASSWORD }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
