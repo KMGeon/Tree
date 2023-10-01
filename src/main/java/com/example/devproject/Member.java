@@ -23,6 +23,7 @@ public class Member {
         this.name = name;
     }
 
+
     protected Member() {
 
     }
