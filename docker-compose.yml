@@ -1,28 +1,14 @@
 version: "3.8"
+
 services:
   study-database:
     container_name: study-database
-    build:
-      dockerfile: Dockerfile
-      context: ./infra/database
     image: immunogen/study-database
     environment:
-      - MYSQL_DATABASE=CStudy
-      - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - MYSQL_DATABASE=mugeon
+      - MYSQL_ROOT_PASSWORD=1234
     volumes:
       - ./infra/database/config:/etc/mysql/conf.d
     ports:
       - "3306:3306"
-  study-app:
-    container_name: study-app
-    build: .
-    depends_on:
-      - study-database
-    image: immunogen/study-app
-    environment:
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
-    ports:
-      - "80:8080"
     restart: always

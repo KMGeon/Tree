@@ -1,23 +1,26 @@
 name: CI-CD
 
-# main 브랜치에 push를 하면
 on:
   push:
     branches:
       - main
 
-# ENV 파일에 변수 선언
 env:
   S3_BUCKET_NAME: s3-mugeon
   RESOURCE_PATH: ./src/main/resources/application.yml
   CODE_DEPLOY_APPLICATION_NAME: CODE-DEPLOY-MUGEON
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CODE-DEPLOY-GROUP
 
-
 jobs:
   build:
-    # 실제 서버의 os와 맞게
     runs-on: ubuntu-latest
+
+    services:
+      study-database:
+        image: immunogen/study-database:latest
+        ports:
+          - "3306:3306"
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout
@@ -28,14 +31,12 @@ jobs:
         with:
           java-version: 11
 
-#      - name: Set yaml file
-#        uses: microsoft/variable-substitution@v1
-#        with:
-#          files: ${{ env.RESOURCE_PATH }}
-#        env:
-#          URL: ${{ secrets.URL }}
-#          USERNAME: ${{ secrets.USERNAME }}
-#          PASSWORD: ${{ secrets.PASSWORD }}
+      - name: Make application.yml
+        run: |
+          cd ./src/main/resources
+          touch ./application.yml
+          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
+        shell: bash
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
@@ -45,7 +46,6 @@ jobs:
         run: ./gradlew build
         shell: bash
 
-      # build 결과를 하나의 zip 파일로 올림
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA .
         shell: bash
