@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-1.cf9uueuu4tes.ap-northeast-2.rds.amazonaws.com:3306/mugeon
-    username: admin
-    password: geon1203!
+    url: ${url}
+    username: ${username}
+    password: ${password}
     hikari:
       connectionTimeout: 30000
       maximumPoolSize: 20
