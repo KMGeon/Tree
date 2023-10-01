@@ -12,17 +12,7 @@ java {
 }
 
 jar {
-    manifest {
-        attributes(
-                'Main-Class': 'com.example.devproject.DevProjectApplication'
-        )
-    }
-}
-
-
-jar {
     enabled = true
-    archiveFileName = 'app.jar' // 여기서 JAR 파일 이름 설정
 }
 configurations {
     compileOnly {
