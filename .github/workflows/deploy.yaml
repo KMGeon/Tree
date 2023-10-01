@@ -1,119 +1,69 @@
-name: CI/CD Pipeline
+name: CI-CD
 
+# main 브랜치에 push를 하면
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
-permissions:
-  write-all
+# ENV 파일에 변수 선언
+env:
+  S3_BUCKET_NAME: s3-mugeon
+  RESOURCE_PATH: ./src/main/resources/application.yml
+  CODE_DEPLOY_APPLICATION_NAME: CODE-DEPLOY-MUGEON
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CODE-DEPLOY-GROUP
+
 
 jobs:
   build:
+    # 실제 서버의 os와 맞게
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Set up JDK 11
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v1
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          java-version: 11
 
-      - name: Gradle Caching
-        uses: actions/cache@v3
+      - name: Set yaml file
+        uses: microsoft/variable-substitution@v1
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Grant Execute Permission For Gradlew
-        run: chmod +x gradlew
-
-      - name: Build With Gradle
-        run: ./gradlew build -x test
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-
-      - name: Gradle Caching
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Start MySQL Container
-        run: |
-          MYSQL_NETWORK=$(docker network ls --filter name=db_network --format '{{.Name}}')
-          if [ -z "$MYSQL_NETWORK" ]; then
-            docker network create db_network
-          fi
-
-          docker run -d \
-            --name mysql \
-            -e MYSQL_DATABASE=goorm \
-            -e MYSQL_USER=admin \
-            -e MYSQL_PASSWORD=1234 \
-            -e MYSQL_ROOT_HOST='%' \
-            -e MYSQL_ROOT_PASSWORD=rootpwd \
-            -p 3305:3306 \
-            --network db_network \
-            --restart always \
-            mysql/mysql-server:latest
-
-      - name: Make application.yml
-        run: |
-          cd ./src/main/resources
-          touch ./application.yml
-          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
-        shell: bash
+          files: ${{ env.RESOURCE_PATH }}
+        env:
+          URL: ${{ secrets.URL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash
 
-      - name: Build With Gradle
-        run: ./gradlew build -x test
+      - name: Build with Gradle
+        run: ./gradlew build
+        shell: bash
 
-      - name: Docker build & Push
-        run: |
-          docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/goorm .
-          docker push ${{ secrets.DOCKER_REPO }}/goorm
+      # build 결과를 하나의 zip 파일로 올림
+      - name: Make zip file
+        run: zip -r ./$GITHUB_SHA .
+        shell: bash
 
-      - name: Deploy to Prod
-        uses: appleboy/ssh-action@master
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          envs: GITHUB_SHA
-          script: |
-            docker stop goorm
-            docker rm goorm
-            sudo docker pull ${{ secrets.DOCKER_REPO }}/goorm
-            docker run -d --name goorm -p 8080:8080 --network db_network ${{ secrets.DOCKER_REPO }}/goorm
-            docker rmi -f $(docker images -f "dangling=true" -q)
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+
+      - name: Code Deploy
+        run: |
+          aws deploy create-deployment \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
