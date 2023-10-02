@@ -6,6 +6,8 @@
 
 [기존의 젠킨스에서 Git Action으로 변경](https://github.com/CS-tudy/CStudy_BackEnd)
 
+<br/>
+
 # 정렬 알고리즘
 - 관련 Youtube : 엔지니어 대한민국
 
@@ -17,6 +19,8 @@
 
 ### 선택 정렬
 
+<br/>
+
 # Git Squash
 
 ---
@@ -25,8 +29,6 @@
 
 ## Merge (Fast-Forward)
 ![image](https://github.com/KMGeon/devProject/assets/103854287/678c8a5d-ffe2-4916-887a-ffeb8d813879)
-
-<br/>
 
 ## Merge (Recursive)
 ![image](https://github.com/KMGeon/devProject/assets/103854287/41cdba9c-9f30-4c4a-ac2b-39493c1a454b)
