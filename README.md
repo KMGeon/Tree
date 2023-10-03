@@ -6,6 +6,8 @@
 
 [기존의 젠킨스에서 Git Action으로 변경](https://github.com/CS-tudy/CStudy_BackEnd)
 
+[] NGinx 무중단 배포
+
 <br/>
 
 # 정렬 알고리즘
