@@ -1,6 +1,0 @@
-구조
-
-메인함수에서 GameManager를 생성해서 매 시간마다 GameManager.tick함수를 호출함. 이 함수에서 모든 연산이 시작됨
-
-
-Enemy, Player, Bullet는 GameObject를 상속받음

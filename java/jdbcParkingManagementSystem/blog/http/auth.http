@@ -1,8 +1,0 @@
-POST http://localhost:8888/auth/login
-Content-Type: application/json
-
-{
-  "email": "test@naver.com",
-  "password": "1234"
-}
-###"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.i1JxwdjGy01hlNJf3fE8o2O42zUAOjn8iiDy265pcYg"

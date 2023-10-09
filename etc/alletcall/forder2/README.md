@@ -1,2 +1,0 @@
-# delete
-JSP WEB Programming

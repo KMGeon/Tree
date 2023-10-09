@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-C:\eclipse-jee-2020-06-R-win32-x86_64\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3466990565.index
-\springProj\src\main\java

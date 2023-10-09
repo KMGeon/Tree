@@ -1,7 +1,0 @@
-server:
-  port: 8888
-
-logging:
-  slack:
-    webhook-uri: https://hooks.slack.com/services/xxxx
-  config: classpath:logback-spring.xml

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;Fast_Ajax/static/jq_test2.html&apos; to &apos;jq_test01.html&apos;" description="Rename resource &apos;jq_test2.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="static/jq_test2.html" name="jq_test01.html" stamp="1665544244674" updateReferences="true"/>
-</session>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;Fast_three.js/static/examples/exe3.html&apos; to &apos;exe03.html&apos;" description="Rename resource &apos;exe3.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="static/examples/exe3.html" name="exe03.html" stamp="1666236574491" updateReferences="true"/>
-</session>

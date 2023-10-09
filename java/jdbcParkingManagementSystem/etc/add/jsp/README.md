@@ -1,2 +1,0 @@
-# JspStudy
-JspProject
