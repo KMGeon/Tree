@@ -1,5 +1,9 @@
 # 성장하는 나무:deciduous_tree:
 ---
+
+![image](https://github.com/KMGeon/Tree/assets/103854287/016c98e4-d100-48a9-9595-838a1f31038c)
+
+
 ```git
 $git init
 $git clone 새로 저장소.git
