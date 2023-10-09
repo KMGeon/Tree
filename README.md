@@ -11,25 +11,26 @@ $git push
 
 ## 2017
 
--[X]  C언어 - 오목
+- [x] C, C++
 
 ## 2022
-[x] Java
-[x] Python
-[x] C#
-[x] Servlet
-[x] Javascript
-[x] JQuery
-[x] Fast API
-[x] Spring
+- [x] Java
+- [x] Python
+- [x] C#
+- [x] Servlet
+- [x] Javascript
+- [x] JQuery
+- [x] Fast API
+- [x] Spring
+- [x] Mybatis 
 
 ## 2023
-[x] 스터디
-[x] 코드숨
-[x] 인프런 JPA
-[x] 인프런 QueryDSL
-[x] JUnit, Mockito 테스트 코드
-[x] AWS, Docker 학습
-[x] Redis, MongoDB 학습
-[x] JWT, ArgumentResolver
-[x] TDD
+- [x] 스터디
+- [x] 코드숨
+- [x] 인프런 JPA
+- [x] 인프런 QueryDSL
+- [x] JUnit, Mockito 테스트 코드
+- [x] AWS, Docker 학습
+- [x] Redis, MongoDB 학습
+- [x] JWT, ArgumentResolver
+- [x] TDD
