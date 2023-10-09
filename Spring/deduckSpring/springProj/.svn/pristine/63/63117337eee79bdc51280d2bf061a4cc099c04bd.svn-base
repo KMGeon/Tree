@@ -1,0 +1,75 @@
+package kr.or.ddit.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import kr.or.ddit.mapper.MemMapper;
+import kr.or.ddit.service.MemService;
+import kr.or.ddit.vo.AttachVO;
+import kr.or.ddit.vo.MemVO;
+
+@Service
+public class MemServiceImpl implements MemService {
+	@Autowired
+	MemMapper memMapper;
+	
+	//회원번호 생성
+	@Override
+	public int makeUserNo() {
+		return this.memMapper.makeUserNo();
+	}
+	
+	//중복 아이디 체크
+	@Override
+	public int dupChk(MemVO memVO) {
+		return this.memMapper.dupChk(memVO);
+	}
+	
+	//회원 및 회원권한 insert. 스프링이 알아서 트랜잭션 처리를 해줌
+	@Transactional
+	@Override
+	public int insert(MemVO memVO) {
+		//하나의 트랜잭션에 여러개의 SQL이 실행되고 있음
+		//회원테이블(MEM) INSERT
+		this.memMapper.insertMem(memVO);
+		//첨부파일이 있을 때에만 실행
+		if(memVO.getAttachVOList()!=null) {
+			//첨부테이블(ATTACH) INSERT (List<AttachVO>) => 선택
+			this.memMapper.insertAttach(memVO.getAttachVOList());
+		}
+		
+		//회원 권한 테이블(MEM_AUTH) INSERT => 필수
+		return this.memMapper.insertMemAuth(memVO.getMemAuthVOList());
+	}
+	
+	//회원 목록
+	@Override
+	public List<MemVO> memList(Map<String,String> map){
+		return this.memMapper.memList(map);
+	}
+	
+	//회원 전체 수(검색 포함)
+	@Override
+	public int memTotal(Map<String,String> map){
+		return this.memMapper.memTotal(map);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

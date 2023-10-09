@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+	<!-- PRODUCT 테이블에 insert -->
+	<insert id="insert" parameterType="kr.or.ddit.vo.ProductVO">
+		INSERT INTO PRODUCT(
+			  PRODUCT_ID
+			, PNAME
+			, UNIT_PRICE
+			, DESCRIPTION
+			, MANUFACTURER
+			, CATEGORY
+			, UNITS_IN_STOCK
+			, CONDITION) 
+		VALUES(#{productId}
+			, #{pname}
+			, #{unitPrice}
+			, #{description}
+			, #{manufacturer}
+			, #{category}
+			, #{unitInStock}
+			, #{condition}
+			)
+	</insert>
+	
+	<!-- 상품 목록 -->
+ 	<select id="list" parameterType="String" resultType="productVO">
+ 		SELECT PRODUCT_ID, PNAME, UNIT_PRICE, DESCRIPTION, MANUFACTURER
+			, CATEGORY, UNITS_IN_STOCK, CONDITION, FILENAME
+		FROM PRODUCT
+		WHERE 1= 1
+	<if test="keyWord!=null and keyWord!=''">
+		AND (PNAME LIKE '%' || #{keyWord} || '%'
+		OR CATEGORY LIKE '%' || #{keyWord} || '%')
+	</if>
+		ORDER BY PRODUCT_ID DESC
+ 	</select>
+	
+	<!-- 
+	ProductVO [productId=P1236, pname=null, unitPrice=0, description=null, 
+		//manufacturer=null, category=null, unitInStock=0, condition=null, filename=null, quantity=0]
+	 -->
+	<select id="select_detail" parameterType="productVO" resultType="productVO">
+		SELECT
+		    product_id,
+		    pname,
+		    unit_price,
+		    description,
+		    manufacturer,
+		    category,
+		    units_in_stock unit_in_stock,
+		    condition,
+		    filename
+		FROM
+		    product
+		WHERE
+		    product_id = #{productId}
+	</select>
+	
+	<!-- 상품 변경 -->
+	<update id="update" parameterType="productVO">
+		UPDATE PRODUCT 
+		SET   PNAME = #{pname}
+		    , UNIT_PRICE = #{unitPrice}
+		    , DESCRIPTION = #{description}
+		    , MANUFACTURER = #{manufacturer}
+		    , CATEGORY = #{category}
+		    , UNITS_IN_STOCK = #{unitInStock}
+		    , CONDITION = #{condition}
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<!-- String productId -->
+	<delete id="delete" parameterType="string">
+	DELETE FROM PRODUCT 
+	WHERE PRODUCT_ID = #{productId}
+	</delete>
+</mapper>
+
+
+
+
+
+
+

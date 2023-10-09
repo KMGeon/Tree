@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)http://192.168.142.3/jsstudy/%ed%95%98%ed%8a%b8%eb%a7%b9%ea%b8%80%ea%b8%b0.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<style>
+    #heart {
+        position: absolute;
+        left:100px; top:100px;
+        width:300px;
+        height:300px;
+       /* border:1px solid black; */
+        overflow: hidden;
+        transform: rotate(45deg);
+    }
+    .common {
+        position:absolute;
+        border-radius: 50%;  /*모서리 둥글게 둥글게 똥그라미 */
+        background-color: red;
+        width:100%;  /* 부모기준으로 따라감 */
+        height:100%; /* 부모기준 */
+    }
+    #circle1 {
+        left: 150px;
+    }
+    #circle2 {
+        top:150px;
+    }
+    #point {
+        position: absolute;
+        width:10px;
+        height:10px;
+        left:300px;
+        top:300px;
+        background-color: black;
+    }
+    #bar {
+        position: absolute;
+        width:50px;
+        height:300px;
+        background-color: blue;
+        left:230px;
+    }
+    #wrapper {
+        width:500px;
+        height:500px;
+        position:relative;
+        left: 300px;
+        top:300px;
+        border:1px solid magenta;
+    }
+</style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="bar"></div>
+        <div id="heart">
+            <div id="circle1" class="common"></div>
+            <div id="circle2" class="common"></div>
+        </div>     
+    </div>
+<script>
+    var v_wrapper = document.querySelector("#wrapper");
+    var v_gak =0;
+    function f_rotate(){
+        v_gak = v_gak + 10;
+        v_wrapper.style.transform = "rotate(" + v_gak + "deg)";
+        setTimeout(f_rotate,150);
+    }
+   f_rotate(); 
+</script>   
+
+</body></html>

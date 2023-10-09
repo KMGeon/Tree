@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : xml파일은 여러개일 수 있으므로
+	이를 구별하기 위한 식별 용도로 사용
+ -->
+<mapper namespace="book">
+	<!--  MyBatis에서 제공해주는 데이터 입력을 나타내는 태그
+		1) 드루와 : Dao 객체가 던진 데이터타입(String, int, hashMap, VO, List)
+		          parameterType만 씀
+		          BookVO [bookId=0, title=개똥이 월드, category=소설
+					     , price=10000, insertDate=null]
+		2) 가즈아 : Dao 객체의 메소드 쪽으로 리턴할 타입
+				- resultType : String, int, VO, hashMap
+				- resultMap : MyBatis의 resultMap 태그를 사용
+		3) insert, update, delete 태그의 resultType은 생략=>0 또는 반영된 개수
+		
+		bookVO(전)=>[bookId=0, title=개똥이 월드, category=소설
+					     , price=10000, insertDate=null]
+		bookVO(후)=>[bookId=1, title=개똥이 월드, category=소설
+					     , price=10000, insertDate=null]
+	-->
+	<!-- BOOK 테이블에 insert -->
+	<insert id="insert" parameterType="kr.or.ddit.vo.BookVO">
+		<selectKey order="BEFORE" resultType="integer" keyProperty="bookId">
+			SELECT NVL(MAX(BOOK_ID),0)+1 FROM BOOK
+		</selectKey>
+	
+		INSERT INTO BOOK(BOOK_ID, TITLE, CATEGORY, PRICE, INSERT_DATE)
+		VALUES(#{bookId},#{title},#{category},#{price},SYSDATE)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)http://192.168.142.3/jsstudy/%ea%bb%98%ec%8b%9c%ed%8c%8c%ec%95%88/read.html -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Document</title>
+    <script src="/게시판 2/gesilib.js"></script>
+</head>
+
+<body>
+    <h1>뽈뿜없는 게시판 읽기</h1>
+    <form id="id_rform" action="/게시판 2/update_action.html" method="get">
+        <!--굳이 사용자에게 보여 줄 필요는 없는 데 프로그램적으로 필요한 
+        값을 폼 안에 숨겨서 보낼 때 사용, 그저 안 보이는 텍스트박스 -->
+        <input type="hidden" name="nm_gnum" value="">
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>글제목</td>
+                    <td><input type="text" name="nm_title" value=""></td>
+                </tr>
+                <tr>
+                    <td>글쓰니</td>
+                    <!-- readOnly vs disabled  readOnly는 서버에 전송가능, disabled는 안됨-->
+                    <td><input type="text" name="nm_writer" value="" disabled=""></td>
+                </tr>
+                <tr>
+                    <td>글쓰니 레벨</td>
+                    <td>
+                        <select name="nm_level">
+                            <option value="chunjae">천재</option>
+                            <option value="sujae">수재</option>
+                            <option value="youngjae">영재</option>
+                            <option value="roze" selected="">로제</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>카타꼬리</td>
+                    <td>
+                        JS<input type="checkbox" name="nm_cat" value="js">
+                        HTML<input type="checkbox" name="nm_cat" value="html">
+                        CSS<input type="checkbox" name="nm_cat" value="css">
+                        JSP<input type="checkbox" name="nm_cat" value="jsp">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        내용<br>
+                        <textarea name="nm_content" rows="10" cols="50" required=""></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="쑤우정">
+                        <input type="button" value="삭젱" id="id_del">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <script>
+        var v_form = document.querySelector("#id_rform");
+        var v_delBtn = document.querySelector("#id_del");
+        function f_del() {
+            v_form.action = "delete_action.html";
+            v_form.submit();  // 뽐나게 쩐송
+        }
+        v_delBtn.addEventListener("click", f_del);
+
+
+        var v_titleText = v_form.nm_title;
+        var v_writerText = v_form.nm_writer;
+        var v_contentText = v_form.nm_content;
+        var v_levelSelect = v_form.nm_level; // 이거슨 select
+
+        //주소표시줄에서 글넘버 잡아오깅
+        var v_gnum = request.getParameter("gnum");
+
+        // 번호에 해당하는 글을 localstorage에서 찾아야 함
+        var v_dataArr = JSON.parse(localStorage.getItem(v_tblName));
+        var v_schGul;  // 찾은 글을 연결 시킬 변수 
+        for (var i = 0; i < v_dataArr.length; i++) {
+            if (v_dataArr[i].pid == v_gnum) {  // 일치하는 글을 찾았다면
+                v_schGul = v_dataArr[i];
+                break;                       // 더 찾을 필요없음
+            }
+        }
+        // 찾았으니 해당 값을 화면에 표시
+        v_titleText.value = v_schGul.title;
+        v_writerText.value = v_schGul.writer;
+        v_contentText.value = v_schGul.content;
+        v_levelSelect.value = v_schGul.level;
+        //v_form.nm_gnum.value = v_schGul.pid;
+        v_form.nm_gnum.value = v_gnum;
+
+    // select의 value의 값을 주면, option의 같은 value값이 자동으로 선택됨 
+
+
+    </script>
+
+</body>
+
+</html>

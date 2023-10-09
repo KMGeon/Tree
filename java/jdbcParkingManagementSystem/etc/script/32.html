@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://192.168.142.3/jsstudy/%eb%b3%80%ec%88%98%eb%b2%94%ec%9c%84(scope).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //간략 계산기 함수 (4칙 연산 각각 함수를 리턴)
+    
+       //222 + 333 - 111
+    var v_plusResult = f_cal("+")(222,333);
+    alert(f_cal("-")(v_plusResult,111));
+
+    // alert(f_cal("+")(111,222));
+    //  alert(f_cal("-")(333,222));
+    //  alert(f_cal("*")(1,222));
+    //  alert(f_cal("/")(111,11));
+    
+    function f_cal(p_operator){
+        if(p_operator == "+"){
+            return function(p_a,p_b){ // 함수 안에 함수라니 ㅠㅠ 별거 아니넹
+                return p_a + p_b;
+            }
+        }
+        
+        if(p_operator == "-"){
+            return function(p_a,p_b){
+                return p_a - p_b;
+            }
+        }
+
+        if(p_operator == "*"){
+            return function(p_a,p_b){
+                return p_a * p_b;
+            }
+        }
+
+        if(p_operator == "/"){
+            return function(p_a,p_b){
+                return p_a / p_b;
+            }
+        }
+
+    }
+
+    //전역변수 -> 페이지 전체 어디에서든 접근할 수 있는 변수
+    // function 안에서 선언되었는가, 밖에서 선언되었는갸가 관건
+    /*
+    var v_myName="김태훈";  // 전역변수
+    function f_merong(){
+        for(var i=10; i<111; i++){
+            console.log("귀요미 태훈님 얼마?");
+        }
+        alert(i); //? function 안에서 계속 살아있음
+        
+        var v_myName = "김태훈2222";  // 지역변수
+        alert(v_myName); //?
+    }
+    f_merong();
+    */
+    //alert(v_merong2); //?
+</script>    
+
+</body></html>

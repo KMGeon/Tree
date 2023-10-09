@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)http://192.168.142.3/jsstudy/%eb%a1%9c%eb%98%90%ec%a0%95%eb%a6%ac.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<script src="./41_files/mylib.js.다운로드"></script>
+</head>
+<body>
+    <h1>로또번호맹글기, 중복체크로직은 아주 중요</h1>
+    <input type="button" value="번호 쌩썽" onclick="f_lotto()">
+    <div id="id_disp" style="border:1px solid pink"></div>
+<script>
+    var v_disp = document.querySelector("#id_disp");
+    //배열객체의 indexOf 메소드는 찾으면 해당 index, 못 찾으면 -1 리턴
+    function f_repeat(p_arr,p_val){
+        for(var i=0; i<p_arr.length; i++){
+            if(p_arr[i] == p_val){
+                return true;   // 같은 게 있음               
+            }
+        }
+        return false;   // 같은 게 없음
+    }
+
+    function f_lotto(){
+        var v_lottoNums =[]; // 번호 담을 배열
+        for(;"몇번만에 6개가 될지 알수 없엉";){  // 무겐루프
+            var v_ranNum = f_ranNum(1,45);
+
+            /*
+            if(!f_repeat(v_lottoNums,v_ranNum)){
+                v_lottoNums.push(v_ranNum);
+            }
+            */
+            if(v_lottoNums.indexOf(v_ranNum) == -1){
+                v_lottoNums.push(v_ranNum);
+            }
+
+            if(v_lottoNums.length == 6){
+                v_disp.innerHTML += "<h1>"+v_lottoNums+"</h1>"; //출력
+                break;
+            }
+        }
+    }
+</script>    
+
+</body></html>

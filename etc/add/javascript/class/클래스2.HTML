@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+
+  <script>
+    var p_arg;
+    function f_check(p_arg) {
+      alert(p_arg); //undifined 선언만 하고 초기화를 하지 않으면 undifined
+    }
+    f_check();
+
+    var v_testArr = [33, 22, 88, 44, 66, 77, 55];
+    v_testArr.sort(function (a, b) {
+      return a - b;
+    });
+    console.log("geon", v_testArr);
+
+    // 배열 클래스 만들어 보기
+    function Myarr() {
+      this.length = 0;
+      return this;
+    }
+
+    // 메소드 추가 PROTOTYPE 방식으로
+    Myarr.prototype.push = function (a1) {
+      this[this.length] = a1; // == this[0].length = a1;
+      this.length++;
+    };
+
+    Myarr.prototype.min = function () {
+      var v_min = this[0];
+      for (var i = 1; i < this.length; i++) {
+        if (v_min > this[i]) {
+          v_min = this[i];
+        }
+      }
+      return v_min;
+    };
+
+    // foreach 도 가능한다.
+    Myarr.prototype.foreach = function (p_cb) {
+      for (var i = 0; i < this.length; i++) {
+        // 함수.call(this세팅값,매개변수값1,매개변수값2)
+
+        p_cb.call(this, this[i], i); //콜백에 최소한 한개의 값은 넘겨야딤 //처음this는 생성된 객체 자신을 의미함
+        // p_cb다음에 ()를 붙여서 꼭 위에 함수에 p_cb쪽에 함수를 넣어야됨
+      }
+    };
+
+    // sort메서드
+    Myarr.prototype.sort = function () {
+      for (var i = 0; i < this.length; i++) {}
+    };
+
+    var v_arr = new Myarr();
+    v_arr.push(3);
+    v_arr.push(2);
+    v_arr.push(1);
+
+    // foreach가 항상 for문을 돌려주고 있어서 개별 값 처리만 callback함수에서 처리하면 됨
+    v_arr.foreach(function (p_arg, p_index) {
+      console.log("넘어온 값: " + p_arg, p_index, this);
+      if (p_arg == 1) {
+        alert("1입니다.");
+        this[p_index] = 5 * p_arg; //위에서 바꾸면 이렇게 사용가능함 *****
+
+        //    this는 지금 window인데 이걸 v_arr를 가리키게 할려면
+      }
+
+      if (p_index == 2) {
+        this[p_index] = p_arg * 30;
+      }
+    });
+  </script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)http://192.168.142.3/jsstudy/%ec%9d%b4%eb%b2%a4%ed%8a%b8%eb%b2%84%eb%b8%94%eb%a7%81.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<style>
+    div {
+        position: relative;
+        border: 2px solid black;
+    }
+    #mom {
+        left:30px; top:30px;
+    }
+    #na {
+        left:10px;top:10px;        
+    }
+</style>
+</head>
+<body>
+    <div onclick="f_hal()" id="halmoney" style="width:300px;height:300px;">
+        할모닝
+        <div onclick="f_mom()" id="mom" style="width:200px;height:200px;">
+            옴마
+            <div onclick="f_na()" id="na" style="width:100px;height:100px;">
+                나
+            </div>
+        </div>
+    </div>
+<script>
+    //이벤트 버블링이 Default인 것이 짜증남, 모두 마이크로소프트 때문
+    function f_hal(){
+        alert("나 노발대발");
+    }
+    function f_mom(){
+         event.stopPropagation();
+         alert("엄마는 외계인");
+    }
+    function f_na(){
+        event.stopPropagation(); // 사생활을 지키장, 이벤트 capturing
+        alert("난 내일 토요일 zzz");
+    }
+</script>    
+
+</body></html>

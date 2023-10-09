@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<friends>
+
+    <friend>
+    <name>심성보</name>
+    <age>20</age>
+    <alias>오랫만</alias>
+    </friend>
+
+    <friend>
+    <name>길선주</name>
+    <age>21</age>
+    <alias>오랫만1</alias>
+    </friend>
+
+    <friend>
+    <name>우민호</name>
+    <age>22</age>
+    <alias>오랫만2</alias>
+    </friend>
+
+    <friend>
+    <name>김무건</name>
+    <age>23</age>
+    <alias>오랫만3</alias>
+    </friend>
+
+</friends>

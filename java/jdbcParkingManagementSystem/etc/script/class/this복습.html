@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+
+  <script>
+    // 1번
+    function f_this() {
+      console.log(this); // ->window를 가르친다.
+    }
+
+    window.f_this();
+
+    var v_hjn = { name: "김무건", age: "26" }; //객체 생성
+    v_hjn.operation = f_this; //operation은 f_this를 참조 , 곧 같은 곳을 가리키는 값 , operation부르면 f_this가 실행된다.
+    v_hjn.operation(); // this
+
+    var v_roze = { name: "우민호" };
+    f_this.call(v_roze); //this-> v_roze
+    v_roze.operation = f_this;
+  </script>
+</html>

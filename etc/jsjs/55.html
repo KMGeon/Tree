@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://192.168.142.3/jsstudy/%ed%94%8c%eb%a6%ac%ec%bb%a4%eb%9e%91API.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<script>
+    // 외부에 자신들의 서비스 사용법을 알려준다고 해서 Open API 라고 부름
+    // API(Application Program Interface)
+    // 데이타를 많이 가진 회사들은 다 이 서비스로 돈을 벌고 있음
+    function jsonFlickrFeed(p_arg){
+        var v_items = p_arg.items;
+        v_disp.innerHTML =""; // 이전 내용 지우깅        
+        for(var i=0; i < v_items.length; i++){
+            var v_img = document.createElement("img");
+            v_img.src = v_items[i].media.m;
+            v_disp.appendChild(v_img);
+
+            //console.log(v_items[i].media.m); // 플리커가 준 이미지 URL 화긴
+        } 
+    }
+</script>
+</head>
+<body>
+    <input type="text" id="id_schWord" value="">
+    <input type="button" value="이미지껌쌕" id="id_schBtn">
+    <div id="id_disp"></div>
+<script>
+    //뜬금없이 또 하나로 유지하는 문제 head사이의 script태그를 1개로 유지하시옹
+    // 없으면 말고 있으면 지우고, 스크립트 태그 추가 로직, 100초
+    // 엔터키 치면 버튼 클릭한 것 처럼 동작
+    var v_schWord = document.querySelector("#id_schWord");//text box
+    var v_schBtn = document.querySelector("#id_schBtn"); // button
+    var v_disp = document.querySelector("#id_disp");  // 출력 div
+    var v_preURL = "https://www.flickr.com/services/feeds/photos_public.gne?tags=";
+    var v_postURL = "&format=json";
+
+    //후다닥 엔터키를 초리 하시옹
+    v_schWord.addEventListener("keydown",function(){
+          if(event.keyCode == 13){
+            f_search();
+          }
+    })
+     
+    function f_search(){
+        var v_targetURL = v_preURL + v_schWord.value + v_postURL;
+
+        var v_script = document.querySelector("#flickr");
+        if(v_script){                            // 있다면
+            document.head.removeChild(v_script); // 삭제
+        }
+
+        v_script = document.createElement("script");
+        v_script.id = "flickr";
+        v_script.src = v_targetURL;
+        document.head.appendChild(v_script); // head 태그내에 붙이기
+    }
+    v_schBtn.onclick = f_search;
+</script>
+<script src="./55_files/photos_public.gne"></script></body></html>

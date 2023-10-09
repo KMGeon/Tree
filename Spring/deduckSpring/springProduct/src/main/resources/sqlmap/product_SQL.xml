@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+	<!-- PRODUCT 테이블에 insert -->
+	<insert id="insert" parameterType="productVO">
+		<!-- BEFORE : insert 문을 실행하기전에 수행
+			AFTER : insert 문을 실행한 후에 수행
+		 -->
+		<selectKey order="BEFORE" keyProperty="productId"
+			 resultType="String">
+			SELECT SUBSTR(MAX(PRODUCT_ID),0,1)
+			     || TRIM((SUBSTR(MAX(PRODUCT_ID),2)+1))
+			FROM   PRODUCT
+		</selectKey>
+		INSERT INTO PRODUCT(
+			  PRODUCT_ID
+			, PNAME
+			, UNIT_PRICE
+			, DESCRIPTION
+			, MANUFACTURER
+			, CATEGORY
+			, UNIT_IN_STOCK
+			, CONDITION) 
+		VALUES(#{productId}
+			, #{pname}
+			, #{unitPrice}
+			, #{description}
+			, #{manufacturer}
+			, #{category}
+			, #{unitInStock}
+			, #{condition}
+			)
+	</insert>
+	
+	<!-- 상품 목록 -->
+ 	<select id="list" parameterType="String" resultType="productVO">
+ 		SELECT P.PRODUCT_ID, P.PNAME, P.UNIT_PRICE, P.DESCRIPTION, P.MANUFACTURER
+			, P.CATEGORY, P.UNIT_IN_STOCK, P.CONDITION, (SELECT A.ATTACH_NAME FROM ATTACH A
+		        WHERE  P.PRODUCT_ID = A.TID
+		        AND    A.SEQ = 1) FILENAME
+		FROM PRODUCT P
+		WHERE 1= 1
+	<if test="keyWord!=null and keyWord!=''">
+		AND (P.PNAME LIKE '%' || #{keyWord} || '%'
+		OR P.CATEGORY LIKE '%' || #{keyWord} || '%')
+	</if>
+		ORDER BY P.PRODUCT_ID DESC
+ 	</select>
+	
+	<!-- 
+	ProductVO [productId=P1236, pname=null, unitPrice=0, description=null, 
+		//manufacturer=null, category=null, unitInStock=0, condition=null, filename=null, quantity=0]
+	 -->
+	<select id="select_detail" parameterType="productVO" resultType="productVO">
+		SELECT P.PRODUCT_ID
+		     , P.PNAME
+		     , P.UNIT_PRICE
+		     , P.DESCRIPTION
+		     , P.MANUFACTURER
+		     , P.CATEGORY
+		     , P.UNIT_IN_STOCK
+		     , P.CONDITION
+		     , (SELECT A.ATTACH_NAME FROM ATTACH A
+		        WHERE  P.PRODUCT_ID = A.TID
+		        AND    A.SEQ = 1) FILENAME
+		FROM   PRODUCT P
+		WHERE  P.PRODUCT_ID = #{productId}
+	</select>
+	
+	<!-- 상품 변경 -->
+	<update id="update" parameterType="productVO">
+		UPDATE PRODUCT 
+		SET   PNAME = #{pname}
+		    , UNIT_PRICE = #{unitPrice}
+		    , DESCRIPTION = #{description}
+		    , MANUFACTURER = #{manufacturer}
+		    , CATEGORY = #{category}
+		    , UNIT_IN_STOCK = #{unitInStock}
+		    , CONDITION = #{condition}
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<!-- String productId -->
+	<delete id="delete" parameterType="string">
+	DELETE FROM PRODUCT 
+	WHERE PRODUCT_ID = #{productId}
+	</delete>
+	
+	<!-- CART 테이블에 insert 
+	드루와 : CartVO
+	가즈아 : 생략(insert/update/delete는 resultType="int"를 생략)
+	-->
+	<insert id="insertCart">
+		INSERT INTO CART(CART_ID, NAME, SHIPPING_DATE, COUNTRY,
+						 ZIP_CODE, ADDRESS_NAME, ADDRESS_DETAIL, REGIST_DT)
+		VALUES(#{cartId},#{name},#{shippingDate},#{country},
+			   #{zipCode},#{addressName},#{addressDetail},sysdate)
+	</insert>
+	
+	<!-- ATTACH 테이블에 insert
+	드루와 : List<AttachVO>
+		AttachVO [seq=1, tid=P1241, attachName=/2022/10/31/e4dd7fa4-6ac0-4033-be04-5cf492fb0c44_P1234.png, attachSize=80268, attachType=image/png, registDate=null]
+		AttachVO [seq=2, tid=P1241, attachName=2022/10/31/e504dfc8-9e75-4174-91fc-b4e3a4fec8e2_P1235.png, attachSize=78395, attachType=image/png, registDate=null]
+		AttachVO [seq=3, tid=P1241, attachName=2022/10/31/0b71e89a-4d27-4571-a993-eaef9c6a987e_P1236.png, attachSize=41771, attachType=image/png, registDate=null]
+	가즈아 : 생략
+	INSERT ALL
+	INTO ATTACH VALUES(1,'P1238','1',2,'jpeg',sysdate) 
+	INTO ATTACH VALUES(2,'P1238','2',2,'jpeg',sysdate) 
+	INTO ATTACH VALUES(3,'P1238','3',2,'jpeg',sysdate) 
+	SELECT * FROM SYS.DUAL
+	 -->
+	 <update id="insertAttach" parameterType="java.util.List">
+	 	<foreach collection="list" item="attachVO" open="INSERT ALL "
+	 		close="SELECT * FROM SYS.DUAL" separator=" ">
+	 		INTO ATTACH VALUES(#{attachVO.seq},#{attachVO.tid},#{attachVO.attachName}
+	 			,#{attachVO.attachSize},#{attachVO.attachType},sysdate)
+	 	</foreach>
+	 </update>
+	 
+	 <!-- PRODUCT테이블의 기본키 자동 생성 -->
+	 <select id="getProductId" resultType="String">
+	 	SELECT SUBSTR(MAX(PRODUCT_ID),0,1)
+		     || TRIM((SUBSTR(MAX(PRODUCT_ID),2)+1)) PRODUCT_ID
+		FROM   PRODUCT
+	 </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

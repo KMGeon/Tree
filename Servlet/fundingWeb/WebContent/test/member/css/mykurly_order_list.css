@@ -1,0 +1,589 @@
+#container, #content{
+    position:relative;
+}
+
+.page_aticle button, .page_aticle input, .page_aticle select, .page_aticle * {
+    font-family: noto sans;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+
+#main{
+    border-bottom: 1px solid #f7f7f7;
+}
+
+#content{
+    min-width:1050px;
+    padding-bottom: 120px;
+}
+
+.mypage_top {
+    width: 100%;
+    padding: 50px 0;
+    margin-bottom: -20px;
+    background-color: #f7f7f7;
+}
+
+.page_aticle {
+    margin: 0 auto;
+}
+
+.mypage_top .mypagetop_user {
+    overflow: hidden;
+    width: 1050px;
+    margin: 0 auto;
+}
+
+.mypage_top .inner_mypagetop {
+    overflow: hidden;
+    width: 100%;
+    background: url(https://res.kurly.com/pc/service/common/1904/bg_mypagetop.png) repeat-y 0 0;
+}
+
+
+.mypage_top .grade_user {
+    float: left;
+    width: 444px;
+    height: 100%;
+    padding: 28px 0 30px 30px;
+    background-color: #fff;
+}
+
+.mypage_top .grade_user .grade {
+    overflow: hidden;
+    width: 100%;
+    padding-right: 26px;
+}
+
+#main .mypage_top .grade_user .class0 {
+    border: 1px solid #5f0080;
+    background-color: #fff;
+    color: #5f0080;
+}
+
+.mypage_top .grade_user .ico_grade {
+    float: left;
+    width: 64px;
+    height: 64px;
+    margin: 2px 20px 0 0;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    word-break: break-all;
+}
+
+.mypage_top .grade_user .inner_grade {
+    display: table;
+    width: 100%;
+    height: 64px;
+    padding-bottom: 3px;
+}
+
+.mypage_top .grade_user .in_grade {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    line-height: 18px;
+    word-break: keep-all;
+}
+
+.mypage_top .grade_bnenfit {
+    overflow: hidden;
+}
+
+.mypage_top .grade_user .user {
+    overflow: hidden;
+    padding: 2px 0 14px;
+}
+
+.mypage_top .name {
+    overflow: hidden;
+    float: left;
+    max-width: 263px;
+    font-weight: 700;
+    font-size: 20px;
+    color: #333;
+    line-height: 28px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.mypage_top .txt {
+    float: left;
+    padding-left: 5px;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.mypage_top .grade_user .benefit {
+    padding-top: 2px;
+}
+
+.mypage_top .benefit {
+    font-size: 12px;
+    line-height: 18px;
+    color: #333;
+}
+
+.mypage_top .benefit .tit {
+    color: #5f0080;
+}
+
+.mypage_top .next {
+    overflow: hidden;
+    width: 100%;
+    padding: 22px 0 0 84px;
+}
+
+.mypage_top .next a {
+    float: left;
+    height: 30px;
+    padding-top: 4px;
+    margin-right: 10px;
+    border: 1px solid #f4f4f3;
+    border-radius: 15px;
+    background-color: #f4f4f4;
+    font-size: 14px;
+    color: #333;
+    line-height: 18px;
+    text-align: center;
+}
+
+.mypage_top .total_grade {
+    width: 121px;
+}
+
+.mypage_top .next_month {
+    width: 169px;
+}
+
+.mypage_top .list_mypage {
+    float: right;
+    width: 602px;
+}
+
+.mypage_top .list_mypage li {
+    float: left;
+    width: 198px;
+    margin-right: 4px;
+    background-color: #fff;
+}
+
+.mypage_top .list_mypage .link {
+    float: left;
+    width: 100%;
+    padding: 29px 0 0 30px;
+}
+
+.mypage_top .list_mypage .tit {
+    padding-bottom: 26px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333;
+}
+
+.mypage_top .list_mypage .info {
+    font-weight: 700;
+    font-size: 20px;
+    color: #5f0080;
+    line-height: 28px;
+}
+
+.mypage_top .list_mypage .info img {
+    width: 28px;
+    height: 28px;
+    margin: 1px 0 0 -4px;
+    vertical-align: top;
+}
+
+.mypage_top .list_mypage .info .date {
+    display: block;
+    padding-top: 12px;
+    font-size: 12px;
+    color: #999;
+    line-height: 16px;
+}
+
+.mypage_top .list_mypage .user_kurlypass {
+    margin-right: 0;
+}
+
+.mypage_top .bnr_event {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 60px;
+    margin-top: 20px;
+    background-size: 1050px 60px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+
+.page_aticle.aticle_type2 {
+    padding-top: 65px;
+}
+
+.page_aticle {
+    width: 1050px;
+    margin: 0 auto;
+}
+
+#snb {
+    float: left;
+    width: 200px;
+}
+
+#snb .tit_snb {
+    padding: 8px 0 33px 1px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 34px;
+    color: #333;
+    letter-spacing: -.5px;
+}
+
+#snb .inner_sub{
+    border: 1px solid #f2f2f2;
+    border-bottom: 0;
+}
+
+#snb .list_menu li {
+    border-bottom: 1px solid #f2f2f2;
+}
+
+#snb .list_menu li.on a, #snb .list_menu li a:hover {
+    background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 174px 52%;
+    background-size: 6px 11px;
+    font-weight: 700;
+    color: #5f0080;
+}
+
+#snb .list_menu li a {
+    display: block;
+    overflow: hidden;
+    padding: 15px 0 15px 20px;
+    background: #fff url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11.svg) no-repeat 174px 52%;
+    background-size: 6px 11px;
+    font-size: 14px;
+    color: #666;
+    line-height: 20px;
+    letter-spacing: -.3px;
+}
+
+#snb .link_inquire {
+    display: block;
+    overflow: hidden;
+    width: 200px;
+    height: 60px;
+    margin-top: 20px;
+    padding: 9px 0 0 21px;
+    border-radius: 0 100px 100px 0;
+    background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 174px 25px;
+    background-size: 6px 11px;
+    font-size: 12px;
+    color: #333;
+    line-height: 20px;
+}
+
+#snb .link_inquire .emph {
+    display: block;
+    padding-bottom: 1px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.page_aticle.aticle_type2:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    clear: both;
+}
+
+.page_aticle.aticle_type2 .page_section {
+    float: right;
+    width: 820px;
+}
+
+.page_aticle .head_aticle {
+    padding: 5px 0 34px;
+}
+
+.page_aticle .head_aticle .tit {
+    height: 36px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: #333;
+    letter-spacing: -.5px;
+}
+
+.page_aticle .head_aticle .tit_sub {
+    padding-left: 11px;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    letter-spacing: -.3px;
+    vertical-align: 3px;
+}
+
+.search_date {
+    position: relative;
+    z-index: 1;
+}
+
+.search_date .btn_layer {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: -74px;
+    width: 157px;
+    height: 44px;
+    padding: 11px 0 0 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #666;
+    line-height: 18px;
+    letter-spacing: -.5px;
+}
+
+.search_date .btn_layer:after {
+    content: "";
+    position: absolute;
+    left: 128px;
+    top: 18px;
+    width: 12px;
+    height: 8px;
+    background: url(https://res.kurly.com/pc/ico/2008/ico_down_12x8.svg) no-repeat 0 0;
+    background-size: 12px 8px;
+}
+
+
+.search_date .layer_search {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: -30px;
+    width: 157px;
+    border: 1px solid #dddfe1;
+    border-top: 0;
+}
+
+.search_date .layer_search li:first-child {
+    border-top: 0;
+}
+
+.search_date .layer_search li {
+    background-color: #fff;
+    border-top: 1px solid #dddfe1;
+}
+
+.search_date .layer_search a.on {
+    background-color: #f7f7f7;
+}
+
+.search_date .layer_search a {
+    display: block;
+    overflow: hidden;
+    height: 32px;
+    padding: 7px 0 0 8px;
+    font-size: 12px;
+    color: #666;
+    line-height: 18px;
+    letter-spacing: -.2px;
+}
+
+.section_orderlist .list_order {
+    padding-top: 10px;
+    border-top: 2px solid #333;
+}
+
+.section_orderlist .list_order .date {
+    padding-top: 20px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #666;
+}
+
+.section_orderlist .list_order .order_goods {
+    position: relative;
+    margin-top: 10px;
+    padding: 0 20px;
+    border: 1px solid #dddfe1;
+}
+
+.section_orderlist .list_order .name {
+    padding: 20px 0 13px;
+    border-bottom: 1px solid #dddfe1;
+}
+
+.section_orderlist .list_order .name a {
+    display: block;
+    overflow: hidden;
+    background: url(https://res.kurly.com/pc/ico/1806/ico_arrow_10x15.png) no-repeat 100% 1px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+}
+
+.section_orderlist .list_order .order_info {
+    overflow: hidden;
+    padding: 14px 0 20px;
+}
+
+.section_orderlist .list_order .thumb {
+    float: left;
+    width: 60px;
+    margin-right: 20px;
+}
+
+
+.section_orderlist .list_order .thumb img {
+    width: 60px;
+    height: auto;
+}
+
+.section_orderlist .list_order .desc {
+    overflow: hidden;
+    padding-top: 1px;
+}
+
+.section_orderlist .list_order .order_info dl:first-child {
+    padding-top: 3px;
+}
+
+.section_orderlist .list_order .order_info dl {
+    overflow: hidden;
+    padding-top: 6px;
+}
+
+.section_orderlist .list_order .order_info dt {
+    float: left;
+    padding-right: 15px;
+    font-size: 12px;
+    color: #000;
+    line-height: 20px;
+}
+
+.section_orderlist .list_order .order_info dd {
+    float: left;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #000;
+}
+
+.section_orderlist .list_order .order_info .end {
+    color: #514859;
+}
+
+.section_orderlist .list_order .order_info .status {
+    color: #5f0080;
+}
+
+.section_orderlist .list_order .order_status {
+    display: table;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    height: 114px;
+    vertical-align: middle;
+}
+
+.section_orderlist .list_order .inner_status {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.section_orderlist .list_order .order_status .link {
+    display: block;
+    width: 100px;
+    height: 34px;
+    border: 1px solid #5f0080;
+    background-color: #fff;
+    font-size: 12px;
+    color: #5f0080;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.page_aticle .layout-pagination {
+    font-size: 0;
+}
+
+.page_aticle .layout-pagination-first-page:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.page_aticle .layout-pagination-button:first-child {
+    border-left: 0;
+}
+
+.page_aticle .layout-pagination a {
+    cursor: pointer;
+}
+
+.page_aticle .layout-pagination a, .page_aticle .layout-pagination strong {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+body #container #main .layout-pagination-button:first-child{
+    border-left: 1px solid #ddd;
+}
+.layout-pagination-prev-page {
+    background-image: url(https://res.kurly.com/pc/etc/old/images/common/icon-pagination-prev.png);
+}
+.layout-pagination-first-page, .layout-pagination-prev-page, .layout-pagination-next-page, .layout-pagination-last-page {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    text-indent: -9999px;
+}
+
+.layout-pagination-button {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #ddd;
+    border-left: 0;
+    vertical-align: top;
+}
+
+.layout-pagination {
+    margin: 60px 0 0;
+    text-align: center;
+}
+
+.layout-pagination-first-page {
+    background-image: url(https://res.kurly.com/pc/etc/old/images/common/icon-pagination-first.png);
+}
+
+.layout-pagination-number:hover, .layout-pagination-number.__active {
+    background-color: #f7f7f7;
+    color: #5f0080;
+}
+
+.layout-pagination-number{
+    font-weight: 700;
+    color: #333;
+    line-height: 34px;
+}
+
+body #container #main .layout-pagination .pagediv span strong{
+    border-left: 0px;
+}
+
+.layout-pagination-next-page {
+    background-image: url(https://res.kurly.com/pc/etc/old/images/common/icon-pagination-next.png);
+}
+
+.layout-pagination-last-page {
+    background-image: url(https://res.kurly.com/pc/etc/old/images/common/icon-pagination-last.png);
+}

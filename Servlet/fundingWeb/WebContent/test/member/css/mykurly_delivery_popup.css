@@ -1,0 +1,249 @@
+.section_destination {
+    padding-bottom: 0;
+}
+
+.section_destination .modify {
+    padding: 4px 20px 0;
+}
+
+.section_destination .only_pc {
+    position: static;
+}
+
+.only_pc {
+    width: 530px;
+    margin: 0 auto;
+}
+
+.section_destination .only_pc .tit_result {
+    padding: 40px 0 9px 5px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    font-size: 20px;
+}
+
+.section_destination .only_pc .tit_result .desc {
+    padding-top: 10px;
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: -.5px;
+}
+
+.section_destination .only_pc.modify .field {
+    padding-top: 22px;
+}
+
+.section_destination .only_pc .address_search {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 0 128px 10px 0;
+}
+
+.section_destination .only_pc input[type=text] {
+    height: 44px;
+    padding: 1px 11px 0 15px;
+    border-radius: 3px;
+    font-family: Noto Sans;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: -.5px;
+}
+
+.section_destination .only_pc input[type=text] {
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+.section_destination .only_pc.modify .label_default {
+    padding: 20px 0 19px;
+    font-size: 14px;
+}
+
+.skin_checkbox input[type=radio], input[type=checkbox] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.skin_checkbox input[type=radio]+.ico, input[type=checkbox]+.ico {
+    display: inline-block;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    border: 0;
+    background-image: url(https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: 50% 50%;
+    vertical-align: -7px;
+}
+
+.section_destination .only_pc.modify .btn.active {
+    display: block;
+    width: 100%;
+}
+
+.section_destination .only_pc.modify .btn {
+    height: 44px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 42px;
+}
+
+.btn.active {
+    border: 1px solid #5f0081;
+    background-color: #5f0080;
+    color: #fff;
+}
+
+.only_pc:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.section_destination .only_pc .address_search .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 120px;
+    border: 1px solid #5f0080;
+    background-color: #fff;
+    font-weight: 700;
+    color: #5f0080;
+}
+
+.section_destination .only_pc.modify .btn {
+    height: 44px;
+    border-radius: 3px;
+
+    font-size: 14px;
+    line-height: 42px;
+}
+
+
+.section_destination .only_pc .address_search .address {
+    float: left;
+    width: 100%;
+    height: 44px;
+    padding: 12px 12px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    letter-spacing: -.5px;
+}
+
+
+
+/* 여기서부터 modify popup */
+
+.delivery_modify .address{
+    padding-bottom: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -.3px;
+}
+
+
+.only_pc .pop_head {
+    padding: 32px 0 0 0px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: -.5px;
+}
+
+.section_destination .only_pc input[type=text] {
+    height: 44px;
+    padding: 1px 11px 0 15px;
+    border-radius: 3px;
+    font-family: Noto Sans;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -.5px;
+}
+
+.section_destination .only_pc.modify .label_block {
+    padding-bottom: 7px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -.3px;
+}
+
+.btn.normal {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    margin-top:8px;
+}
+
+.btn {
+    width: 100%;
+    height: 48px;
+    border: 0;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 50px;
+    text-align: center;
+    outline: none;
+}
+
+.section_destination .only_pc.modify .label_default {
+    padding: 7px 0 9px;
+    font-size: 14px;
+}
+
+.section_destination .modify .label_default {
+    display: block;
+
+    line-height: 24px;
+    letter-spacing: -.3px;
+}
+
+.skin_checkbox input[type=radio], input[type=checkbox] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+input[type=checkbox]+.ico, input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    background: 0 0;
+    vertical-align: -2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.skin_checkbox input[type=radio]+.ico, input[type=checkbox]+.ico {
+    display: inline-block;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    border: 0;
+    background-image: url(https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: 50% 50%;
+    vertical-align: -7px;
+}
+
+input[type="checkbox"]:checked + .ico {
+    background: url(https://res.kurly.com/mobile/service/common/2003/ico_checkbox_checked.png) no-repeat 50% 50%;
+    background-size: 24px 24px;
+}

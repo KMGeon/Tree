@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+	<title>Portfolio</title>
+	<!-- 인터넷 익스플로러에서 자바스크립트 관련 차단된 컨텐츠 허용 뜨는것 방지-->
+	<!-- saved from url=(0013)about:internet -->
+
+	<!-- icon -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+		integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+	<!-- fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Heebo|Noto+Sans+KR" rel="stylesheet">
+
+	<!-- user style -->
+	<link rel="stylesheet" href="portfolio.css">
+
+	<style>
+		#asdf {
+			margin-left: 350px;
+		}
+
+		#test {
+			background-color: rgba(231, 235, 239, 0.226);
+			/* border: 1px solid black; */
+			height: 70px;
+			color: black;
+			text-align: center;
+			font-weight: bolder;
+
+		}
+
+		.image-slide {
+			margin-left: 80px;
+		}
+
+		#footer {
+			height: 150px;
+		}
+
+		#realfoot {
+			margin-top: 50px;
+			border: 10px solid balck;
+		}
+	</style>
+
+
+</head>
+
+<body>
+
+	<header class="header-area navbar-fade" id="header">
+		<nav class="navbar">
+			<a class="navbar-brand" id="navbarBrand" onClick="location.href='/02_ImageSlider/portfolio.html'"><img
+					src="/02_ImageSlider/img/profile/logo.jpg.png"></a>
+			<a class="navbar-toggler" id="toggleBtn"><i class="fa fa-bars"></i></a>
+
+			<div class="navbar-menu" id="menu">
+				<div class="nav-item"><a class="nav-link" id="navbarAbout">로그인</a></div>
+				<div class="nav-item"><a class="nav-link" id="navbarService">쇼핑하기</a></div>
+				<div class="nav-item"><a class="nav-link" id="navbarPortfolio">세일</a></div>
+				<div class="nav-item">
+					<div class="nav-link" id="navbarReview" onClick="location.href='/02_ImageSlider/메인/리스트.html'">공지사항
+					</div>
+				</div>
+			</div>
+		</nav>
+
+	</header>
+
+
+	<nav>
+		<div id="test"> <br>
+			<h3>앱 설치 후 가격하락, 재입고 푸쉬알림 및 다양한 할인혜택까지 받아보세요!</h3>
+		</div>
+	</nav>
+< width="100%">
+
+</div>
+	<div class="section-container">
+
+		<div class="welcome-area">
+			<div class="container">
+
+				<div class="image-slide">
+
+					<img src="/02_ImageSlider/img/profile/엠디.jpg" width="800" height="500px">
+				</div>
+				<div class="image-slide">
+					<img src="/02_ImageSlider/img/profile/메인사진.gif" width="800" height="500px">
+				</div>
+				<div class="image-slide">
+					<img src="/02_ImageSlider/img/profile/사람.gif" width="800" height="500px">
+				</div>
+				<div class="image-slide">
+					<img src="/02_ImageSlider/img/profile/마지막 사진.gif" width="800" height="500px">
+				</div>
+
+				<div class="dots">
+					<span class="dot" id="firstDot"></span>
+					<span class="dot" id="secondDot"></span>
+					<span class="dot" id="thirdDot"></span>
+					<span class="dot" id="forthDot"></span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<img src="/02_ImageSlider/img/profile/임시.png" id="tempImg">
+	<div id="footer">
+		<div>
+
+			
+			<ul id="f_content">
+				<li><br></li>
+				<li><br></li>
+
+				<li>서울시 강남구 삼성동 1234 우:123-1234</li>
+				<li>TEL:010-7600-4475 Email : email@domain.com</li>
+				<li>COPYRIGHT (C) 대덕인재개발원 ALL RIGHTS RESERVED</li>
+			</ul>
+		</div>
+
+	
+		<!-- user script -->
+		<script src="portfolio.js"></script>
+
+</body>
+
+</html>

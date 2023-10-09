@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+   function myclick() {
+      var sel = document.querySelector("#mysel");
+      var ta = document.querySelector("#myta");
+      var str = "";
+      for(var i=1; i<=9; i++) {
+         str += sel.value + " X " + i + " = " + (parseInt(sel.value) * i) + "\r\n"; 
+      }
+      ta.innerHTML = str;
+   }
+</script>
+</head>
+<body>
+   <table>
+      <tr>
+         <td>출력단수</td>
+         <td>
+            <select id="mysel">
+               <option value="2">2단</option>
+               <option value="3">3단</option>
+               <option value="4">4단</option>
+               <option value="5">5단</option>
+               <option value="6">6단</option>
+               <option value="7">7단</option>
+               <option value="8">8단</option>
+               <option value="9">9단</option>
+            </select>
+         </td>
+      </tr>
+      <tr>
+         <td colspan=2>
+            <input type="button" value="구구단 출력하기" onclick="myclick()">
+         </td>
+      </tr>
+      <tr>
+         <td colspan=2>
+            <textarea id="myta" rows=20 cols=20 readonly></textarea>
+         </td>
+      </tr>
+   </table>
+</body>
+</html>

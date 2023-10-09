@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>{{ str }}</h1>
+
+
+	{% for i in emps %}
+	{% for j in i %}
+	
+	
+	<table style="border:1px solid black">
+	<th>
+	{{j}}
+	{{i[j]}}
+	</th>
+		</table>
+	
+	
+	 {% endfor %}
+	 {% endfor %}
+	
+</body>
+</html>

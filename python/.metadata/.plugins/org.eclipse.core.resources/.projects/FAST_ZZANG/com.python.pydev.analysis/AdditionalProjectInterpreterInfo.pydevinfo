@@ -1,0 +1,20 @@
+-- VERSION_5
+-- START DISKCACHE_3
+E:\workspace_python\.metadata\.plugins\org.eclipse.core.resources\.projects\FAST_ZZANG\com.python.pydev.analysis\v2_indexcache
+myajax|1665976796148174800|E:\workspace_python\FAST_ZZANG\myajax.py
+-- END DISKCACHE
+-- START DICTIONARY
+2
+1=E:\workspace_python\FAST_ZZANG\myajax.py
+2=myajax
+-- END DICTIONARY
+-- START TREE 1
+4
+app|1|app!1^9#1*19@
+emp|1|emp_list!1^15#5*18@
+tem|1|templates!1^10#1*19@
+zza|1|zzang!1^21#5*18@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

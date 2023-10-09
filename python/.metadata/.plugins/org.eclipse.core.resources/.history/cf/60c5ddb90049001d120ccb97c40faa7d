@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Item Details</title>
+<script type="text/javascript">
+function fn_add(){
+	location.href = "emp_insert"
+}
+</script>
+</head>
+<body>
+	EMP_LIST
+	<table border="1px">
+		<tr>
+			<td>사번</td>
+			<td>이름</td>
+			<td>성별</td>
+			<td>주소</td>
+		</tr>
+		{% for emp in emps %}
+		<tr>
+			<td><a href="emp_detail?e_id={{emp.e_id}}">{{emp.e_id}}</a></td>
+			<td>{{emp.e_name}}</td>
+			<td>{{emp.sex}}</td>
+			<td>{{emp.addr}}</td>
+		</tr>
+		{% endfor %} {% extends 'layout.html' %} {% include 'header.html' %}
+		{% block title %} Home {% endblock %} {% block body %}
+		<script type="text/javascript">
+    $(document).ready(function() {
+        var id;
+        var title;
+        var description;
+
+        $("#add_button").click(function() {
+
+            title = $("#title").val();
+            description = $("#description").val();
+
+            $.ajax({
+                url: "/notes",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    title: title,
+                    description: description
+                }),
+
+            }).then(setTimeout(location.reload.bind(location), 200));
+        });
+
+
+	</table>
+	<input type="button" value="추가" onclick="fn_add()">
+</body>
+</html>

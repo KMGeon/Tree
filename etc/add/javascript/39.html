@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)http://192.168.142.3/jsstudy/%eb%ac%b8%ec%a0%9c%ed%98%95%ed%83%9c.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //document.write 넘 길어 ㅠ
+    function myprint(p_arg){
+        document.write(p_arg);
+    }
+
+    function prtRadio(p_munNum){
+        for(var i=1; i<=v_sunda; i++){
+            myprint(i+"<input type=radio name=nm_mun"+p_munNum +" value="+i+" >");
+        }
+    }
+
+    var v_munjeSu=10;
+    var v_sunda=4;
+    //랜덤 답 생성
+    var v_dap = [];
+    for(var i=1; i<=v_munjeSu; i++){
+        v_dap.push(Math.ceil(Math.random()*v_sunda));
+    }
+    alert("눈으로 괜히 생성값 확인" +v_dap);
+
+
+    for(var i=1; i<=v_munjeSu; i++){
+        myprint("<h4> 문제" + i + "</h4><hr>");
+        prtRadio(i);  // 이중 for문이 부담 스러워서 밖으로 빼버림
+    }
+
+    document.write("<br><input type=button value=채점><br>");
+    document.write("맞은 갯수:<input type=text value=''><br>")
+    document.write("점수:<input type=text value=''>");
+</script><h4> 문제1</h4><hr>1<input type="radio" name="nm_mun1" value="1">2<input type="radio" name="nm_mun1" value="2">3<input type="radio" name="nm_mun1" value="3">4<input type="radio" name="nm_mun1" value="4"><h4> 문제2</h4><hr>1<input type="radio" name="nm_mun2" value="1">2<input type="radio" name="nm_mun2" value="2">3<input type="radio" name="nm_mun2" value="3">4<input type="radio" name="nm_mun2" value="4"><h4> 문제3</h4><hr>1<input type="radio" name="nm_mun3" value="1">2<input type="radio" name="nm_mun3" value="2">3<input type="radio" name="nm_mun3" value="3">4<input type="radio" name="nm_mun3" value="4"><h4> 문제4</h4><hr>1<input type="radio" name="nm_mun4" value="1">2<input type="radio" name="nm_mun4" value="2">3<input type="radio" name="nm_mun4" value="3">4<input type="radio" name="nm_mun4" value="4"><h4> 문제5</h4><hr>1<input type="radio" name="nm_mun5" value="1">2<input type="radio" name="nm_mun5" value="2">3<input type="radio" name="nm_mun5" value="3">4<input type="radio" name="nm_mun5" value="4"><h4> 문제6</h4><hr>1<input type="radio" name="nm_mun6" value="1">2<input type="radio" name="nm_mun6" value="2">3<input type="radio" name="nm_mun6" value="3">4<input type="radio" name="nm_mun6" value="4"><h4> 문제7</h4><hr>1<input type="radio" name="nm_mun7" value="1">2<input type="radio" name="nm_mun7" value="2">3<input type="radio" name="nm_mun7" value="3">4<input type="radio" name="nm_mun7" value="4"><h4> 문제8</h4><hr>1<input type="radio" name="nm_mun8" value="1">2<input type="radio" name="nm_mun8" value="2">3<input type="radio" name="nm_mun8" value="3">4<input type="radio" name="nm_mun8" value="4"><h4> 문제9</h4><hr>1<input type="radio" name="nm_mun9" value="1">2<input type="radio" name="nm_mun9" value="2">3<input type="radio" name="nm_mun9" value="3">4<input type="radio" name="nm_mun9" value="4"><h4> 문제10</h4><hr>1<input type="radio" name="nm_mun10" value="1">2<input type="radio" name="nm_mun10" value="2">3<input type="radio" name="nm_mun10" value="3">4<input type="radio" name="nm_mun10" value="4"><br><input type="button" value="채점"><br>맞은 갯수:<input type="text" value=""><br>점수:<input type="text" value="">    
+
+</body></html>

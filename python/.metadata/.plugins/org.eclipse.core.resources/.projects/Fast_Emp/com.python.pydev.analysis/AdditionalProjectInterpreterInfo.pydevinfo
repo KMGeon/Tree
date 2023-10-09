@@ -1,0 +1,37 @@
+-- VERSION_5
+-- START DISKCACHE_3
+E:\workspace_python\.metadata\.plugins\org.eclipse.core.resources\.projects\Fast_Emp\com.python.pydev.analysis\v2_indexcache
+myemp|1665448751204796600|E:\workspace_python\Fast_Emp\myemp.py
+emp_dao|1665453060193904400|E:\workspace_python\Fast_Emp\emp_dao.py
+myajax|1665113128643000000|E:\workspace_python\Fast_Emp\myajax.py
+-- END DISKCACHE
+-- START DICTIONARY
+8
+4=myemp
+3=E:\workspace_python\Fast_Emp\myemp.py
+6=emp_dao
+7=EmpDao
+8=EmpDao.__init__
+1=E:\workspace_python\Fast_Emp\myajax.py
+2=myajax
+5=E:\workspace_python\Fast_Emp\emp_dao.py
+-- END DICTIONARY
+-- START TREE 1
+5
+app|2|app!1^11#1*19@app!3^11#1*35@
+ed|1|ed!5^78#5*51@
+emp|9|emp_mod!1^35#5*18@emp_del!1^42#5*18@emp_detail!1^28#5*18@emp_insert_act!1^61#5*18@EmpDao!5^4#7*49@emp_mod_act!1^49#5*18@emp_list!3^20#11*34@emp_insert!1^56#5*18@emp_list!1^20#11*18@
+row|1|row!5^79#5*51@
+tem|2|templates!3^15#1*35@templates!1^15#1*19@
+-- END TREE
+-- START TREE 2
+8
+__d|1|__del__!7&5^72#9*50@
+__i|1|__init__!7&5^6#9*50@
+con|1|conn!8&5^8#9*51@
+cur|1|curs!8&5^10#9*51@
+del|1|delete!7&5^63#9*50@
+ins|1|insert!7&5^34#9*50@
+sel|2|select!7&5^18#9*50@selects!7&5^12#9*50@
+upd|1|update!7&5^51#9*50@
+-- END TREE

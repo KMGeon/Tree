@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>별찍기</h1>
+
+	<table border="1">
+		<tr>
+			<td>시작갯수</td>
+			<td>2<input type="radio" name="rf" value="2" /> 3<input
+				type="radio" name="rf" value="3" /> 4<input type="radio" name="rf"
+				value="4" /> 5<input type="radio" name="rf" value="5" />
+			</td>
+
+		</tr>
+
+		<tr>
+			<td>끝갯수</td> 6
+			<td><input type="radio" name="rl" value="6" /> 7<input
+				type="radio" name="rl" value="7" /> 8<input type="radio" name="rl"
+				value="8" /> 9<input type="radio" name="rl" value="9" /></td>
+		</tr>
+
+	</table>
+</body>
+</html>

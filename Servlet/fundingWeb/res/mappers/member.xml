@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<update id="acceptSeller"
+		parameterType="kr.or.funding.member.VO.MemberVO">
+
+		UPDATE member
+		SET use_at = 'Y'
+		WHERE mbs_id =#{mbsId}
+
+	</update>
+
+
+
+
+
+
+	<update id="updateMember"
+		parameterType="kr.or.funding.member.VO.MemberVO">
+
+		UPDATE member
+		SET mbs_pw = #{mbsPw}
+		, mbs_mail =
+		#{mbsMail}
+		, mbs_addr = #{mbsAddr}
+		, mbs_ph = #{mbsPh}
+		,mbs_nm= #{mbsNm}
+		WHERE mbs_id = #{mbsId}
+
+	</update>
+
+	<delete id="deleteMember" parameterType="String">
+
+		delete from member where
+		MBS_id = #{mbsId}
+		and MBS_PW = #{mbsPw}
+
+	</delete>
+	<!-- 일반회원 회원가입 -->
+
+	<insert id="insertMember"
+		parameterType="kr.or.funding.member.VO.MemberVO">
+
+
+		INSERT INTO member (
+		MBS_NUM,
+		MBS_ID,
+		MBS_PW,
+		MBS_MAIL,
+		MBS_ADDR,
+		BR_DT,
+		MBS_PH,
+		RF_CD,
+		MBS_AHY,
+		MBS_NM,
+		ATCH_FILE_ID,
+		MILG_NUM
+		,USE_AT
+		)
+		VALUES
+		(mbs_num_seq.nextval,
+		#{mbsId},
+		#{mbsPw},
+		#{mbsMail},
+		#{mbsAddr},
+		#{brDt},
+		#{mbsPh},
+		#{rfCd},
+		1,
+		#{mbsNm},
+		null,
+		null
+		,'N'
+		)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="kr.or.funding.member.VO.MemberVO" resultType="kr.or.funding.member.VO.MemberVO">
+		select *
+		from member
+		where
+		mbs_Id= #{mbsId} and mbs_pw = #{mbsPw}
+	</select>
+
+	<!-- 판매자 회원가입 -->
+
+	<insert id="selInsertMemeber"
+		parameterType="kr.or.funding.member.VO.MemberVO">
+
+
+		INSERT INTO member (
+		MBS_NUM,
+		MBS_ID,
+		MBS_PW,
+		MBS_MAIL,
+		MBS_ADDR,
+		BR_DT,
+		MBS_PH,
+		MBS_AHY,
+		MBS_NM,
+		ATCH_FILE_ID,
+		MILG_NUM,
+		USE_AT
+		)
+		VALUES
+		(mbs_num_seq.nextval,
+		#{mbsId},
+		#{mbsPw},
+		#{mbsMail},
+		#{mbsAddr},
+		#{brDt},
+		#{mbsPh},
+		2,
+		#{mbsNm},
+		#{atchFileId},
+		0,
+		'N'
+		)
+	</insert>
+	<resultMap type="kr.or.funding.member.VO.MemberVO"
+		id="memMap">
+		<result property="mbsNum" column="MBS_NUM" />
+		<result property="mbsId" column="MBS_ID" />
+		<result property="mbsPw" column="MBS_PW" />
+		<result property="mbsMail" column="MBS_MAIL" />
+		<result property="mbsAddr" column="MBS_ADDR" />
+		<result property="brDt" column="BR_DT" />
+		<result property="mbsPh" column="MBS_PH" />
+		<result property="rfCd" column="RF_CD" />
+		<result property="mbsAhy" column="MBS_AHY" />
+		<result property="useAt" column="USE_AT" />
+	</resultMap>
+
+
+	<select id="memberAllList" resultMap="memMap">
+		select *
+		from member
+		where
+		mbs_ahy= 2
+		and use_at='N'
+	</select>
+
+
+
+
+
+	<select id="checkMember" parameterType="String" resultType="int">
+
+		select count(*) as cnt
+		from member
+		where mbs_id =#{memId}
+
+	</select>
+
+
+	<select id="getMember" parameterType="String" resultMap="memMap">
+
+		select *
+		from member
+		where mbs_id = #{memId}
+		and mbs_ahy=2
+
+	</select>
+
+</mapper>

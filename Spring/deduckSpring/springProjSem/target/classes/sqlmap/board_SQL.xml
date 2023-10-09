@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper.xml 파일 DTD 를 위한 코드 -->
+<!-- namespace : xml 파일이 여러개일 수 있으므로 
+   이를 구별하기 위한 식별 용도로 사용
+-->
+<mapper namespace="board">
+
+   <select id="list" parameterType="String" resultType="boardVO">
+	   	SELECT MEM_ID, MEM_PASS, MEM_NAME, MEM_JOB, MEM_LIKE
+	   	FROM MEM
+		WHERE 1 = 1
+		<if test="keyword!=null and keyword!=''">
+			AND   (MEM_ID LIKE '%' || #{keyword} || '%' 
+			OR 	  MEM_NAME LIKE '%' || #{keyword} || '%')
+		</if>
+		ORDER BY MEM_ID
+   </select>
+   
+   <insert id="insert" parameterType="kr.or.ddit.vo.BoardVO">
+      INSERT INTO MEM(MEM_ID, MEM_PASS, MEM_NAME, MEM_JOB, MEM_LIKE) 
+      VALUES(#{memId}, #{memPass}, #{memName}, #{memJob}, #{memLike})
+   </insert>
+</mapper>

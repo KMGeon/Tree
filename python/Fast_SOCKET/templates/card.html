@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.can{
+   width: 170px;
+   height: 170px;
+}
+</style>
+<script>
+var flag_ing = false;
+var s1i =-1;
+var s1j =-1;
+var s1v =-1;
+var s2i =-1;
+var s2j =-1;
+var s2v =-1;
+
+var step = 0;
+
+var img2D =  [
+   [1,1,2,2],
+   [3,3,4,4],
+   [5,5,6,6],
+   [7,7,8,8]
+];
+
+var cvr2D =  [
+   [0,0,0,0],
+   [0,0,0,0],
+   [0,0,0,0],
+   [0,0,0,0]
+];
+
+var dsp2D =  [
+   [0,0,0,0],
+   [0,0,0,0],
+   [0,0,0,0],
+   [0,0,0,0]
+];
+
+
+   var client_id = Date.now()
+   var ws = new WebSocket(`ws://192.168.142.21:8000/ws/${client_id}`);
+   ws.onmessage = function(event) {
+      var txt = event.data;
+      console.log("onmessage", txt);
+
+      var arr_txt = txt.split(":");
+      if (arr_txt[0] == "ready") {
+         reiv_ready(arr_txt[1]);
+      }
+      if (arr_txt[0] == "start") {
+         reiv_start();
+      }
+      if (arr_txt[0] == "score") {
+         reiv_score(arr_txt[1],arr_txt[2]);
+      }
+      if (arr_txt[0] == "display") {
+         reiv_display(arr_txt[1],arr_txt[2]);
+      }
+      if (arr_txt[0] == "victory") {
+         reiv_victory(arr_txt[1]);
+      }
+
+   };
+   
+   function reiv_victory(user) {
+         flag_ing = false;
+         alert(user+"님이 이겼습니다.");
+   }
+
+
+   function reiv_display(user, info) {
+      var idx = indexUser(user);
+      var arr = info.split(",");
+      console.log(arr);
+
+      var c = document.querySelectorAll(".can")[idx];
+      var ctx = c.getContext("2d");
+      for (var i = 0; i < 4; i++) {
+         for (var j = 0; j < 4; j++) {
+            if (arr[i * 4 + j] == "1") {
+               ctx.fillStyle = "blue";
+            } else {
+               ctx.fillStyle = "black";
+            }
+            ctx.fillRect(60 * j, 30 * i, 55, 27);
+         }
+      }
+   }
+   
+   function reiv_score(user, score) {
+      var idx = indexUser(user);
+      var obj_scores = document.querySelectorAll(".score");
+      obj_scores[idx].innerHTML = score;
+
+   }
+
+   function reiv_start() {
+      shuffle();
+      flag_ing = true;
+   }
+
+   var users = [];
+   function reiv_ready(user) {
+      var obj_users = document.querySelectorAll(".user");
+
+      var idx = indexUser(user);
+      if (idx == -1) {
+         users.push(user);
+      }
+
+      for (var i = 0; i < users.length; i++) {
+         obj_users[i].innerHTML = users[i];
+      }
+
+   }
+
+   function indexUser(user) {
+      var idx = -1;
+      for (var i = 0; i < users.length; i++) {
+         if (user == users[i]) {
+            return i;
+         }
+      }
+      return idx;
+   }
+
+   function sendMessage(txt) {
+      console.log("sendMessage", txt);
+      ws.send(txt)
+   }
+
+   function myinit() {
+      shuffle();
+      patchIJEvent();
+   }
+
+   function setDsp2D() {
+      for (var i = 0; i < 4; i++) {
+         for (var j = 0; j < 4; j++) {
+            if (cvr2D[i][j] == 1) {
+               dsp2D[i][j] = img2D[i][j];
+            } else {
+               dsp2D[i][j] = 0;
+            }
+         }
+      }
+
+      if (step == 0) {
+         dsp2D[s1i][s1j] = s1v;
+      }
+      if (step == 1) {
+         dsp2D[s1i][s1j] = s1v;
+         dsp2D[s2i][s2j] = s2v;
+      }
+
+   }
+
+   function myclick(e) {
+      if (!flag_ing) {
+         return;
+      }
+      if (step == 2) {
+         return;
+      }
+      var arr_ij = e.target.alt.split(",");
+      var i = parseInt(arr_ij[0]);
+      var j = parseInt(arr_ij[1]);
+
+      if (step == 0) {
+         s1i = i;
+         s1j = j;
+         s1v = img2D[i][j];
+      }
+      if (step == 1) {
+         if (s1i == i && s1j == j) {
+            return;
+         }
+         s2i = i;
+         s2j = j;
+         s2v = img2D[i][j];
+      }
+
+      setDsp2D();
+      render();
+      nextStep();
+      console.log("step", step);
+
+      if (step == 2) {
+         setTimeout(gostep3, 100)
+      }
+   }
+
+   function gostep3() {
+      if (s1v == s2v) {
+         cvr2D[s1i][s1j] = 1;
+         cvr2D[s2i][s2j] = 1;
+      }
+      setDsp2D();
+      render();
+
+      var cnt_final = 0;
+      for (var i = 0; i < 4; i++) {
+         for (var j = 0; j < 4; j++) {
+            if (cvr2D[i][j] == 1) {
+               cnt_final++;
+            }
+         }
+      }
+
+      var obj_disp = document.querySelector("#mydisp");
+      obj_disp.innerHTML = 16 - cnt_final;
+
+      var obj_user = document.querySelector("#user");
+      sendMessage("score:" + obj_user.value + ":" + (16 - cnt_final));
+      sendMessage("display:" + obj_user.value + ":" + (cvr2D + ""));
+
+      if (cnt_final == 16) {
+         sendMessage("victory:" + obj_user.value);
+         flag_ing = false;
+      }
+
+      s1i = -1;
+      s1j = -1;
+      s1v = -1;
+      s2i = -1;
+      s2j = -1;
+      s2v = -1;
+
+      nextStep();
+      console.log("babo");
+      console.log(cvr2D);
+   }
+
+   function nextStep() {
+      if (step == 0) {
+         step = 1;
+      } else if (step == 1) {
+         step = 2;
+      } else if (step == 2) {
+         step = 0;
+      }
+   }
+
+   function patchIJEvent() {
+      var imgs = document.querySelectorAll("img");
+      for (var i = 0; i < 4; i++) {
+         for (var j = 0; j < 4; j++) {
+            imgs[i * 4 + j].alt = i + "," + j;
+            imgs[i * 4 + j].addEventListener('click', function(event) {
+               myclick(event);
+            });
+         }
+      }
+   }
+
+   function shuffle() {
+
+      for (var i = 0; i < 100; i++) {
+         var rndi = parseInt(Math.random() * 4);
+         var rndj = parseInt(Math.random() * 4);
+         var a = img2D[rndi][rndj];
+         var b = img2D[0][0]
+         img2D[0][0] = a;
+         img2D[rndi][rndj] = b;
+      }
+      console.log(img2D);
+
+   }
+
+   function render() {
+      var imgs = document.querySelectorAll("img");
+      for (var i = 0; i < 4; i++) {
+         for (var j = 0; j < 4; j++) {
+            imgs[i * 4 + j].src = "static/img/" + dsp2D[i][j] + ".png";
+         }
+      }
+   }
+
+   function send_ready() {
+      var obj_user = document.querySelector("#user");
+      var user = obj_user.value;
+      sendMessage("ready:" + user)
+   }
+
+   function send_start() {
+      sendMessage("start:")
+   }
+</script>
+</head>
+<body onload="myinit()">
+<table border="1px">
+   <tr>
+      <td>
+      
+<table>
+   <tr>
+      <td>남은 갯수</td>
+      <td>
+         <div id="mydisp">16</div>
+      </td>
+      <td>
+         <input type="text" id="user" />
+      </td>   
+      <td>
+         <input type="button" value="ready" onclick="send_ready()" />
+      </td>   
+      <td>
+         <input type="button" value="start" onclick="send_start()" />
+      </td>
+      
+   </tr>
+</table>
+<table>
+   <tr>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+   </tr>
+   <tr>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+   </tr>
+   <tr>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+   </tr>
+   <tr>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+      <td><img src="static/img/0.png"></td>
+   </tr>
+</table>
+      
+      </td>
+      <td>
+      
+<table border="1px">
+   <tr>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+   </tr>
+   <tr>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+   </tr>
+   <tr>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+   </tr>
+   <tr>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+   </tr>
+   <tr>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+   </tr>
+   <tr>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+   </tr>
+   <tr>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+      <td><span class="user">_</span> <span class="score">_</span> </td>
+   </tr>
+   <tr>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+      <td><canvas class="can"></canvas></td>
+   </tr>
+   
+   
+</table>
+      
+      </td>
+      
+   </tr>
+</table>
+
+
+
+
+
+
+
+</body>
+</html>
+

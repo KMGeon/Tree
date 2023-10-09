@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://192.168.142.3/jsstudy/%eb%ac%b86.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Document</title>
+<style>
+    #id_disp {
+        position: relative;
+        width:400px;
+        height:300px;
+        background-color: aquamarine;
+        border: 20px groove yellowgreen;
+    }
+</style>
+</head>
+<body>
+    <div id="id_disp"><div style="position: absolute; top: 220px; left: 10px; height: 80px; width: 30px; background-color: black;"></div><div style="position: absolute; top: 200px; left: 10px;">80</div></div>
+    <input type="text" value="80,100,56,120,180,30,40,120,160">
+    <input type="button" value="그리기" onclick="f_draw()">
+<script>
+    var v_disp = document.querySelector("#id_disp");
+    function f_draw(){
+        var v_dataArr = 
+         document.querySelector("input[type=text]").value.split(",");
+
+        //막대 1개에 대해서만 샘플 .....
+        v_disp.innerHTML = ""; // 클리엉  
+        var v_bar = document.createElement("div");
+        v_bar.style.position="absolute";
+        v_bar.style.top = 300 - v_dataArr[0] + "px";
+        v_bar.style.left = "10px"; 
+        v_bar.style.height = v_dataArr[0] + "px";
+        v_bar.style.width = "30px";
+        v_bar.style.backgroundColor = "black";
+        v_disp.appendChild(v_bar);
+        //값 
+        var v_label = document.createElement("div");
+        v_label.innerHTML = v_dataArr[0];
+        v_label.style.position ="absolute";
+        v_label.style.top = parseInt(v_bar.style.top) - 20 + "px";
+        v_label.style.left = "10px"; 
+        v_disp.appendChild(v_label);
+
+    }
+</script> 
+
+</body></html>

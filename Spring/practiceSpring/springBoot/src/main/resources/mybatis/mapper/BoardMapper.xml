@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 여기서 namespace는 @mapper가 있는 패키지를 적어야됨-->
+<mapper namespace="com.example.test.dao.BoardMapper">
+    <select id="boardList" resultType="com.example.test.dto.BoardDto">
+        select *
+        from myboard
+        order by idx desc
+    </select>
+
+    <insert id="insertData" parameterType="com.example.test.dto.BoardDto">
+        <selectKey order="BEFORE" keyProperty="idx" resultType="Integer">
+            SELECT NVL(MAX(idx),0)+1 FROM myboard
+        </selectKey>
+        insert into myboard(title,content,writer,idx)
+        values(#{title},#{content},#{writer},#{idx})
+    </insert>
+
+
+    <delete id="boardDelete" parameterType="int">
+        delete
+        from myboard
+        where idx = #{idx}
+    </delete>
+
+    <update id="boardUpdate" parameterType="com.example.test.dto.BoardDto">
+        update myboard
+        set title=#{title},
+            content=#{content}
+        where idx = #{idx}
+    </update>
+
+    <update id="boardCount">
+        update
+            myboard
+        set count = count + 1
+        where idx = #{idx}
+    </update>
+</mapper>

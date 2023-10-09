@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="../게시판/gesilib.js"></script>
+<style>
+    .active{ /* 현재페이지를 표시하기 위한 스타일 */
+        font-size: 2em; /* 두배 */
+        color: red;
+    }
+</style>
+</head>
+<body>
+<h1>게시판 리스트</h1>
+<div id="id_disp"></div> <!-- 리스트 출력할 영역 지정 -->
+<script>
+    
+    var v_disp = document.querySelector('#id_disp');
+    var v_dataArr = JSON.parse(localStorage.getItem(v_tblName));
+    /*
+        페이지를 나누려면 산수가 필요함
+        페이지당 글 수 ?
+        페이지번호 ?
+        전체 글 수 ? 
+    
+    */
+    var v_pDsu = 10; // 페이지당 10개가 나오게 하려고 함
+    var v_pageNum = request.getParameter("pageNum"); // 처음으로 왔을 때 defult로 첫 페이지 설정
+    if(!v_pageNum){
+        v_pageNum = 1; // 페이지 넘버가 넘어 온 적이 없다면 기본 1 페이지
+    }
+
+    var v_totalG = v_dataArr.length; 
+    var v_pageGasu = Math.ceil(v_totalG / v_pDsu); // 나머지가 있으면 올림
+    // 페이지별 글 시작넘버, 끝넘버가 필요
+    // 1페이지는 0~9 인덱스, 2페이지는 10~19...
+    var v_sNum = (v_pageNum - 1) * v_pDsu;
+    var v_eNum = v_sNum + (v_pDsu -1);
+
+    // 마지막 페이지는 글 개수가 모자를 수 있다.
+    if(v_eNum > v_totalG - 1) {
+        v_eNum = v_totalG - 1; // 강제로 마지막 index 값으로 만들어 준다.
+    }
+
+    var v_tblStr = "<table border=2>";
+    v_tblStr += "<tr><th>순번</th><th>제목</th><th>글쓴이</th>";
+    v_tblStr += "<th>카테고리</th><th>레벨</th><th>삭제</th></tr>";
+    for (var i = v_sNum; i <= v_eNum; i++) {
+        var v_ggul = v_dataArr[i];
+        // console.log("i=",i," v_ggul=",v_ggul);
+        v_tblStr += "<tr onmouseover='f_over(this)'' onmouseout='f_out(this)''>" 
+        v_tblStr += "<td>" + (i+1) + "</td>";
+        v_tblStr += "<td><a href=../게시판/read.html?gnum=" + v_ggul.pid + " >" + v_ggul.title + "</a></td>";
+        v_tblStr += "<td>" + v_ggul.writer + "</td>";
+        v_tblStr += "<td>" + v_ggul.cats + "</td>";
+        v_tblStr += "<td>" + v_ggul.level + "</td>";
+        v_tblStr += "<td><input type=checkbox name=nm_del value="+ v_ggul.pid +" ></td>";
+        v_tblStr += "</tr>"
+    }
+    v_tblStr += "</table><br><br>";
+
+    // 페이지 넘버 화면에 출력해보기
+    // 마지막 페이지 처리
+    for(var i = 1; i <= v_pageGasu; i++) {
+        if(i == v_pageNum){
+            v_tblStr += "<a class=active href='../게시판/list.html?pageNum="+ i +"'>" + i + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp";
+        }else {
+            v_tblStr += "<a href='../게시판/list.html?pageNum="+ i +"'>" + i + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp";
+        }
+    }
+    v_tblStr += "<hr><a href=../게시판/write.html>새글 쓰기</a><br>";
+    // 버튼에 기능 구현, 배열을 삭제하는 splice(인덱스, 갯수)메소드를 사용한다.
+    v_tblStr += "<input id=id_del type=button value='선택된 것만 삭제하기'>"; 
+    v_disp.innerHTML = v_tblStr;
+
+    var v_delBtn = document.querySelector("#id_del");
+    var v_delBoxs = document.querySelectorAll("input[name=nm_del]");
+    function f_del(){
+        // 체크된 체크박스의 value값 가져오기
+        var v_checkedVals = [];
+        for(var i=0; i<v_delBoxs.length; i++){
+            if(v_delBoxs[i].checked){
+                v_checkedVals.push(v_delBoxs[i].value);
+            }
+        }
+        // alert(v_checkedVals); // 결과 눈으로 확인
+        // 해당하는 값 배열에서 지우기
+        for(var i=0; i<v_checkedVals.length; i++){
+            for(var j=0; j<v_dataArr.length; j++){
+                if(v_dataArr[j].pid == v_checkedVals[i]){
+                    v_dataArr.splice(j,1); // 1개 지우기
+                    break;
+                }
+            }
+        }
+        console.log(v_dataArr); // 눈으로 확인
+        // v_dataArr는 메모리상의 변수라서, 실제 localStorage에서는 
+        // 안 지워져 있으므로, localStorage에 덮어쓰기로 저장
+        localStorage.setItem(v_tblName, JSON.stringify(v_dataArr));
+
+        // 화면이 안 고쳐져 있어서, 화면을 새로 불러와야 함(아님 새로 만들던가)
+        location.replace("../게시판/list.html?pageNum="+v_pageNum); // 다시 불러오기
+
+    }
+    
+    v_delBtn.addEventListener("click",f_del);
+
+    function f_over(p_this) {
+        p_this.style.backgroundColor = "black";
+        p_this.style.color = "pink";
+    }
+
+    function f_out(p_this) {
+        p_this.style.backgroundColor = "white";
+        p_this.style.color = "black";
+    }
+
+
+
+    // 마우스 올라간 TR만 배경색이 핑크로 바꾸기
+    // mouseover, mouseout
+
+    var v_trs = document.querySelectorAll("tr");
+
+    // tr 1개 이벤트 함수 등록
+    function f_overOut(p_tr){
+        p_tr.addEventListener("mouseover",function(){
+            p_tr.style.backgroundColor = "black";
+            p_tr.style.color = "pink";
+        });
+        p_tr.addEventListener("mouseout",function(){
+            p_tr.style.backgroundColor = "white";
+            p_tr.style.color = "black";
+        });
+    }
+
+    // 마스터 디테일 패턴 보기
+    for(var k = 0; k < v_trs.length; k++) { // var는 function에 의해서만 지역변수로 바뀜, let는 지역변수
+        // f_overOut(v_trs[k]);
+        
+        // v_trs[k].addEventListener("mouseover",function(){
+        //     v_trs[k].style.backgroundColor = "black";
+        //     v_trs[k].style.color = "pink";
+        // });
+        
+        // v_trs[k].addEventListener("mouseout",function(){
+        //     v_trs[k].style.backgroundColor = "white";
+        //     v_trs[k].style.color = "black";
+        // });
+    }
+
+    // alert("확인 : " + k);
+</script>
+</body>
+</html>

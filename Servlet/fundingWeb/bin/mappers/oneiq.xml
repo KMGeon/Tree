@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oneiq">
+	
+	
+	<!-- 공지사항 목록 출력 -->
+	<resultMap type="kr.or.funding.oneIq.OneiqVO" id="oneiqMap">
+		<result property="iqNum"  column="IQ_NUM"/>
+		<result property="wtDt"  column="WT_DT"/>
+		<result property="iqCnt"  column="IQ_CNT"/>
+		<result property="iqTit"  column="IQ_TIT"/>
+		<result property="iqCgy"  column="IQ_CGY"/>
+		<result property="cmmCnt"  column="CMM_CNT"/>
+		<result property="cmmDt"  column="CMM_DT"/>
+		<result property="cmmr"  column="CMMR"/>
+		<result property="mbsNum"  column="MBS_NUM"/>
+	
+	</resultMap>
+	
+		<select id="oneiqList" resultMap="oneiqMap">
+			select * from ONE_IQ
+		</select>
+		
+		
+		<select id="getOneiq" parameterType="String" resultMap="oneiqMap">
+			select * 
+			from ONE_IQ
+			WHERE IQ_NUM = #{iqNum}
+			
+		</select>
+		
+		<insert id="insertOneiq" parameterType="kr.or.funding.oneIq.OneiqVO">
+			INSERT INTO ONE_IQ(
+				IQ_NUM,
+				WT_DT,
+				IQ_CNT,
+				IQ_TIT,
+				IQ_CGY,
+				MBS_NUM				
+			)
+			VALUES
+			(
+			  IQ_NUM_SEQ.nextval, 
+			  sysdate, 
+			  #{iqCnt},
+			  #{iqTit},
+			  #{iqCgy},
+			  #{mbsNum}
+			)		
+		
+		</insert>
+		
+		<update id="updateOneiq" parameterType="kr.or.funding.oneIq.OneiqVO">
+			
+			UPDATE ONE_IQ
+			SET
+				IQ_CNT = #{iqCnt},
+				IQ_TIT =  #{iqTit},
+				IQ_CGY = #{iqCgy}					
+			WHERE IQ_NUM = #{iqNum}	
+		</update>
+		
+		
+		<delete id="deleteOneiq" parameterType="String">
+		
+			delete from ONE_IQ
+			WHERE IQ_NUM = #{iqNum} 
+		
+		</delete>
+		
+		
+		<update id="replyOneiq" parameterType="kr.or.funding.oneIq.OneiqVO">
+			
+			UPDATE ONE_IQ
+			SET
+				CMM_CNT = #{cmmCnt},	
+				CMM_DT = sysdate,
+				CMMR = 0					
+			WHERE IQ_NUM = #{iqNum}	
+		</update>
+		<update id="replyOneiqDelete" parameterType="kr.or.funding.oneIq.OneiqVO">
+			
+			UPDATE ONE_IQ
+			SET
+				CMM_CNT = null,	
+				CMM_DT = null,
+				CMMR = null					
+			WHERE IQ_NUM = #{iqNum}	
+		</update>
+		
+</mapper>

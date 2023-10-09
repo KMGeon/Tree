@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="../게시판/gesilib.js"></script>
+<script>
+    var v_gnum = request.getParameter("nm_gnum");
+    // localStorage 글 읽어오기
+    var v_dataArr = JSON.parse(localStorage.getItem(v_tblName));
+
+    for(var i=0; i<v_dataArr.length; i++){
+        if(v_dataArr[i].pid == v_gnum){
+            v_dataArr.splice(i, 1); // index 번호 i 부터 1개를 지워라
+            break;
+        }
+    }
+
+    localStorage.setItem(v_tblName, JSON.stringify(v_dataArr));
+    alert("삭제되었습니다!");
+    location.replace("../게시판/list.html");
+</script>

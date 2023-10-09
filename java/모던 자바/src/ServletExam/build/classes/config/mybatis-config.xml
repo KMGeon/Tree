@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties resource="db.properties" />
+
+	<settings>
+		<setting name="logImpl" value="LOG4J" />
+
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="kr.or.ddit.member.vo.MemberVO"
+			alias="memVO" />
+		<typeAlias type="kr.or.ddit.comm.vo.AtchFileVO"
+			alias="atchVO"/>
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<!-- Mybatis 자체 DB커넥션 풀을 사용한다. 미리 DB 커넥션 객체를 생성해 두고 요청하면 즉시 반환한다. -->
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+				<property name="poolMaximumActiveConnections" value="2" />
+				<property name="poolMaximumIdleConnections" value="2" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="mappers/member.xml" />
+		<mapper resource="mappers/atchFile.xml"/>
+	</mappers>
+</configuration>
