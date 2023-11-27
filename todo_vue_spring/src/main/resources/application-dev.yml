@@ -1,0 +1,39 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  redis:
+    host: localhost
+    port: 6379
+  session:
+    timeout: 600
+    store-type: redis
+    redis:
+      flush-mode: on-save
+      namespace: spring:session
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+
+jwt:
+  secretKey: ${secretKey}
+  refreshKey: ${refreshKey}
+
+#logging:
+#  slack:
+#    webhook-uri:  ${webhook}
+
+#  config: classpath:logback-spring.xml
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

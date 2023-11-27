@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.giggal.board.domain.admin.mapper.AdminMapper">
+
+    <insert id="blockCountry" parameterType="com.giggal.board.domain.admin.dto.response.AdminDto">
+        <selectKey order="BEFORE" keyProperty="adminId" resultType="long">
+            SELECT IFNULL(MAX(adminId), 0) + 1 FROM ADMIN
+        </selectKey>
+
+        INSERT INTO ADMIN
+            (adminId, adminIp, adminCountry)
+               VALUES( #{adminId}, #{adminIp} , #{adminCountry} )
+    </insert>
+
+    <select id="findAllAdmin" resultType="com.giggal.board.domain.admin.dto.response.AdminDto">
+        select *
+        from admin
+    </select>
+
+    <select id="findMember" resultType="com.giggal.board.domain.admin.dto.response.MemberAdminResponse">
+        select *
+        from member
+    </select>
+
+    <select id="findMemberByEmail" resultType="com.giggal.board.domain.admin.dto.response.MemberAdminResponse"
+    parameterType="string">
+        select *
+        from member
+        where member_email = #{memberEmail}
+    </select>
+</mapper>
