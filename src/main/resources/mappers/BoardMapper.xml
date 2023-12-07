@@ -3,8 +3,20 @@
 
 <mapper namespace="com.example.mybatis.mapper.BoardDao">
 
-    <select id="getList" resultType="com.example.mybatis.dto.BoardResponseDto">
+    <select id="getList" resultType="com.example.mybatis.domain.Board">
         SELECT * FROM BOARD ORDER BY id desc
     </select>
 
+    <insert id="insertBoard" parameterType="java.util.HashMap">
+        INSERT INTO board (title, content, writer)
+        VALUES (#{title}, #{content}, #{writer})
+    </insert>
+
+    <select id="detail" resultType="com.example.mybatis.domain.Board" parameterType="int">
+        SELECT * FROM BOARD WHERE id=#{id}
+    </select>
+
+    <delete id="delete">
+        delete
+    </delete>
 </mapper>

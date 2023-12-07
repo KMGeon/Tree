@@ -16,33 +16,34 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>아이디</th>
-        <th>제목</th>
-        <th>내용</th>
-        <th>작가</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <c:forEach items="${list}" var="board">
+    <table>
         <tr>
-            <td>${board.id}</td>
-            <td><a href="${pageContext.request.contextPath}/content?id=${board.id}">${board.title}</a></td>
-            <td>${board.content}</td>
-            <td>${board.writer}</td>
-            <td>${board.count}</td>
+            <td>아이디</td>
+            <td>${detail.id}</td>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<a href="/insert" class="btn btn-primary">글쓰기</a>
-
-<div>
-    <div class="panel-footer"></div>
-</div>
+        <tr>
+            <td>제목</td>
+            <td>${detail.title}</td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td>${detail.content}</td>
+        </tr>
+        <tr>
+            <td>작가</td>
+            <td>${detail.content}</td>
+        </tr>
+        <tr>
+            <td>조회수</td>
+            <td>${detail.count}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <a href="update" class="btn btn-primary">수정화면</a>
+                <a href="/delete/${detail.id}" class="btn btn-block">삭제</a>
+                <a href="/" class="btn btn-danger">목록</a>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
