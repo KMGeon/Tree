@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:test
+    url: jdbc:h2:./test
     username: sa
-    password:
+    password: 1234
     driver-class-name: org.h2.Driver
   sql:
     init:
@@ -18,5 +18,39 @@ spring:
     livereload:
       enabled: true
 
+
+
 mybatis:
   mapper-locations: classpath:mappers/*.xml
+
+
+
+management:
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
+    env:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+#      show-components: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+
+
+#  server:
+#    port: 9292
+
+# info에 추가하고 싶은 정보
+info:
+  app:
+    name: hello-actuator
+    company: yh
+
