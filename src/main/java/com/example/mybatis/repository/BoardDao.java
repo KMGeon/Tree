@@ -1,4 +1,4 @@
-package com.example.mybatis.mapper;
+package com.example.mybatis.repository;
 
 import com.example.mybatis.domain.Board;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class BoardDao {
@@ -18,7 +17,7 @@ public class BoardDao {
     }
 
     public List<Board> getList(){
-        return sqlSessionTemplate.selectList("getList");
+        return sqlSessionTemplate.selectList("board.getList");
     }
 
     public int insertBoard(String title, String content, String writer) {
@@ -26,14 +25,14 @@ public class BoardDao {
         param.put("title",title);
         param.put("content",content);
         param.put("writer",writer);
-        return sqlSessionTemplate.insert("insertBoard", param);
+        return sqlSessionTemplate.insert("board.insertBoard", param);
     }
 
     public Board detail(int id) {
-        return sqlSessionTemplate.selectOne("detail",id);
+        return sqlSessionTemplate.selectOne("board.detail",id);
     }
 
     public int delete(Long id) {
-        return sqlSessionTemplate.delete("delete",id);
+        return sqlSessionTemplate.delete("board.delete",id);
     }
 }

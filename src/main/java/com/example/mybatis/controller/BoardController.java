@@ -1,66 +1,44 @@
 package com.example.mybatis.controller;
 
-import com.example.mybatis.domain.Board;
-import com.example.mybatis.service.BoardService;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.example.mybatis.application.BoardService;
+import com.example.mybatis.controller.dto.request.InsertBoardRequest;
+import com.example.mybatis.controller.dto.response.BoardInfoResponseDTO;
+import com.example.mybatis.controller.validGroup.ValidationSequence;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
-@Controller
+
+@RestController
+@RequestMapping("/api")
+@RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
+    @GetMapping("/board")
+    public ResponseEntity<List<BoardInfoResponseDTO>> getBoardList() {
+        logger.info("====== /board [" + getClass().getSimpleName() + "getBoardList()] start ======");
+        List<BoardInfoResponseDTO> boardInfosResponse = boardService.getBoardInfos();
+        logger.info("====== /board [" + getClass().getSimpleName() + "getBoardList()] start ======");
+        return ResponseEntity.ok(boardInfosResponse);
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public String test(Model model) {
-        List<Board> list = boardService.getList();
-        model.addAttribute("list", list);
-        return "index";
-    }
-
-    @GetMapping("/insert")
-    @ResponseStatus(HttpStatus.OK)
-    public String insert() {
-        return "insert";
-    }
-
-    @PostMapping("/boardInsert")
-    public String insertBoard(HttpServletRequest httpServletRequest) {
-        String title = httpServletRequest.getParameter("title");
-        String content = httpServletRequest.getParameter("content");
-        String writer = httpServletRequest.getParameter("writer");
-        log.info("{},{},{}", title,content,writer);
-
-        Integer integer = boardService.insertBoard(title, content, writer);
-
-        if (integer > 0) {
-            return "redirect:";
-        }else {
-            return "redirect:insert";
-        }
-    }
-
-    @GetMapping("content")
-    public String pathContent(@RequestParam("id") int id, Model model) {
-        Board board = boardService.boardDetail(id);
-        model.addAttribute("detail", board);
-        return "boardDetail";
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        boardService.delte(id);
-        return "redirect:";
+    @PostMapping("/board")
+    public Integer insertBoard(
+            @Validated(ValidationSequence.class)
+            @RequestBody InsertBoardRequest request
+    ) {
+        logger.info("====== " + getClass().getSimpleName() + "insertBoard()] start ======");
+        Integer result = boardService.insertBoard(request);
+        logger.info("====== " + getClass().getSimpleName() + "insertBoard()] insertResult :", result);
+        logger.info("====== " + getClass().getSimpleName() + "insertBoard()] end ======");
+        return result;
     }
 }

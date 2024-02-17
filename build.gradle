@@ -19,27 +19,29 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'io.micrometer:micrometer-registry-prometheus' //추가
-
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-
-
-
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+    //actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    //prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    //devtools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     //jsp
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
     providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
-
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    //lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    //h2
     runtimeOnly 'com.h2database:h2'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 
+    //valid
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {

@@ -1,19 +1,32 @@
 spring:
   datasource:
-    url: jdbc:h2:./test
+    url: jdbc:h2:tcp://localhost/~/test
     username: sa
-    password: 1234
+    password: 4167
     driver-class-name: org.h2.Driver
+    hikari:
+      connection-timeout: 100000
+      validation-timeout: 100000
+      minimum-idle: 5
+      max-lifetime: 180000
+      maximum-pool-size: 10
+      idle-timeout: 90000
   sql:
     init:
       mode: always
       schema-locations: classpath*:schema.sql
       data-locations: classpath*:data.sql
-
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+    async:
+      request-timeout: 60000
   devtools:
     livereload:
       enabled: true
