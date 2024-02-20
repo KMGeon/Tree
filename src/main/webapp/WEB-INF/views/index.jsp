@@ -22,6 +22,11 @@
                     handleReloadBoard();
                 });
 
+                eventSource.addEventListener("send", function (event) {
+                    console.log(event.data);
+                    handleReloadBoard();
+                });
+
                 // SSE 에러 핸들러
                 eventSource.onerror = function(error) {
                     console.log('SSE Error: ' + error);

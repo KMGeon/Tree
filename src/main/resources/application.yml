@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
-    username: sa
-    password: 4167
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/testDB?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.jdbc.Driver
     hikari:
       connection-timeout: 100000
       validation-timeout: 100000
@@ -30,8 +30,14 @@ spring:
   devtools:
     livereload:
       enabled: true
+  main:
+    allow-bean-definition-overriding: true
 
-
+  binlog:
+    host: localhost
+    port: 3306
+    user: root
+    password: 1234
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
@@ -54,7 +60,6 @@ management:
     web:
       exposure:
         include: "*"
-
 
 
 

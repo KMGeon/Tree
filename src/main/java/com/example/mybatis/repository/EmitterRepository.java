@@ -3,14 +3,14 @@ package com.example.mybatis.repository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class EmitterRepository {
     private static final String SSE_KEY = "key";
-    private Map<String, SseEmitter> emitterMap = new HashMap<>();
+    private Map<String, SseEmitter> emitterMap = new ConcurrentHashMap<>();
 
 
     public SseEmitter save(SseEmitter sseEmitter) {

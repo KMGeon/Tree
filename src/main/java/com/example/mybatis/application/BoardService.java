@@ -3,6 +3,7 @@ package com.example.mybatis.application;
 import com.example.mybatis.controller.dto.request.InsertBoardRequest;
 import com.example.mybatis.controller.dto.response.BoardInfoResponseDTO;
 import com.example.mybatis.domain.Board;
+import com.example.mybatis.event.EventPublisher;
 import com.example.mybatis.repository.BoardDao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class BoardService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
     private final BoardDao boardDao;
     private final SseService sseService;
+    private final EventPublisher eventPublisher;
 
 
     public List<BoardInfoResponseDTO> getBoardInfos() {
@@ -49,10 +51,8 @@ public class BoardService {
         logger.info("======  [" + getClass().getSimpleName() + ".insertBoard()] content :  " + content);
         logger.info("======  [" + getClass().getSimpleName() + ".insertBoard()] writer :  " + writer);
         int result = boardDao.insertBoard(title, content, writer);
-
-
-        sseService.send(result);
-
+        //sse send 보내기
+        eventPublisher.publish();
         return result;
     }
 

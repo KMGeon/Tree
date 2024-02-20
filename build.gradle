@@ -38,7 +38,13 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     //h2
-    runtimeOnly 'com.h2database:h2'
+//    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    //binlog
+    // https://mvnrepository.com/artifact/com.github.shyiko/mysql-binlog-connector-java
+    implementation 'com.github.shyiko:mysql-binlog-connector-java:0.21.0'
+
 
     //valid
     implementation 'org.springframework.boot:spring-boot-starter-validation'
