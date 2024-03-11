@@ -1,11 +1,11 @@
 #!/bin/bash
 BASE_PATH=/home/ubuntu/nginxPractice
-BUILD_PATH=$(ls /home/ubuntu/nginxPractice/build/libs/*.jar)
+BUILD_PATH=$(ls /home/ubuntu/nginxPractice/build/libs/*.war)
 JAR_NAME=$(basename $BUILD_PATH)
 echo "> build 파일명: $JAR_NAME"
 
 echo "> build 파일 복사"
-DEPLOY_PATH=$BASE_PATH/jar/
+DEPLOY_PATH=$BASE_PATH/war/
 cp $BUILD_PATH $DEPLOY_PATH
 
 echo "> 현재 구동중인 Set 확인"
@@ -28,8 +28,8 @@ else
   IDLE_PORT=8081
 fi
 
-echo "> application.jar 교체"
-IDLE_APPLICATION=$IDLE_PROFILE-app.jar
+echo "> application.war 교체"
+IDLE_APPLICATION=$IDLE_PROFILE-nginxPractice.war
 IDLE_APPLICATION_PATH=$DEPLOY_PATH$IDLE_APPLICATION
 
 ln -Tfs $DEPLOY_PATH$JAR_NAME $IDLE_APPLICATION_PATH
@@ -81,4 +81,6 @@ done
 
 echo "> 스위칭"
 sleep 10
-sudo sh /home/ubuntu/nginxPractice/script/switch.sh
+
+echo "> 성공 스위치"
+sudo sh /home/ubuntu/was/switch.sh
