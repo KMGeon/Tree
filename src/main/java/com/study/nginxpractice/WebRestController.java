@@ -22,4 +22,9 @@ public class WebRestController {
                 .findFirst()
                 .orElse("");
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
 }

@@ -13,11 +13,11 @@ CURRENT_PROFILE=$(curl -s http://localhost/profile)
 echo "> $CURRENT_PROFILE"
 
 # 쉬고 있는 set 찾기: set1이 사용중이면 set2가 쉬고 있고, 반대면 set1이 쉬고 있음
-if [ $CURRENT_PROFILE == set1 ]
+if [ "$CURRENT_PROFILE" = "set1" ]
 then
   IDLE_PROFILE=set2
   IDLE_PORT=8082
-elif [ $CURRENT_PROFILE == set2 ]
+elif [ "$CURRENT_PROFILE" = "set2" ]
 then
   IDLE_PROFILE=set1
   IDLE_PORT=8081
@@ -37,7 +37,7 @@ ln -Tfs $DEPLOY_PATH$JAR_NAME $IDLE_APPLICATION_PATH
 echo "> $IDLE_PROFILE 에서 구동중인 애플리케이션 pid 확인"
 IDLE_PID=$(pgrep -f $IDLE_APPLICATION)
 
-if [ -z $IDLE_PID ]
+if [ -z "$IDLE_PID" ]
 then
   echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
 else
@@ -51,7 +51,7 @@ echo "> $IDLE_PROFILE $IDLE_APPLICATION_PATH 경로"
 sudo nohup java -jar -Dspring.profiles.active=$IDLE_PROFILE $IDLE_APPLICATION_PATH 1>/dev/null 2>&1 &
 
 echo "> $IDLE_PROFILE 10초 후 Health check 시작"
-echo "> curl -s http://localhost:$IDLE_PORT/health "
+echo "> curl -s http://localhost:$IDLE_PORT/actuator/health "
 sleep 10
 
 for retry_count in {1..10}
@@ -83,4 +83,4 @@ echo "> 스위칭"
 sleep 10
 
 echo "> 성공 스위치"
-sudo sh /home/ubuntu/was/switch.sh
+sudo sh /home/ubuntu/nginxPractice/script/switch.sh
