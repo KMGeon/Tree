@@ -20,7 +20,7 @@ public class WebRestController {
         this.env = env;
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/profile2")
     public String getProfile () {
         return Arrays.stream(env.getActiveProfiles())
                 .findFirst()
