@@ -4,3 +4,8 @@ spring:
       on-profile: real1
 server:
   port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
