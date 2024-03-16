@@ -43,7 +43,7 @@ deploy() {
 
     echo "> $IDLE_PROFILE 배포"
     echo "> $IDLE_PROFILE $IDLE_APPLICATION_PATH 경로"
-    sudo nohup java -jar -Dspring.profiles.active="$IDLE_PROFILE" "$IDLE_APPLICATION_PATH" 1>/dev/null 2>&1 &
+    sudo nohup java -jar -Dspring.profiles.active=$IDLE_PROFILE $IDLE_APPLICATION_PATH 1>/dev/null 2>&1 &
 
     echo "> $IDLE_PROFILE 10초 후 Health check 시작"
     echo "> curl -s http://localhost:$IDLE_PORT/actuator/health "
