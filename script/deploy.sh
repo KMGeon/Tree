@@ -21,6 +21,9 @@ deploy() {
     echo "> ===============[deploy.sh START]==============="
     copy_war_file
     IDLE_PROFILE=$(find_idle_profile)
+
+    echo "> IDLE_PROFILE : {${IDLE_PROFILE}}"
+
     IDLE_APPLICATION="$IDLE_PROFILE-nginxPractice.war"
     IDLE_APPLICATION_PATH="$DEPLOY_PATH$IDLE_APPLICATION"
 
