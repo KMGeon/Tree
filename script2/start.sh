@@ -8,9 +8,10 @@ REPOSITORY=/home/ubuntu/nginxPractice
 PROJECT_NAME=nginxPractice
 
 echo "> Build 파일 복사"
-echo "> cp $REPOSITORY/bliud/libs/*.war $REPOSITORY/"
+echo "> cp $REPOSITORY/bliud/libs/*.war $REPOSITORY"
 
-cp $REPOSITORY/*.war $REPOSITORY/
+cp $REPOSITORY/build/libs/*.war $REPOSITORY/
+
 
 echo "> 새 어플리케이션 배포"
 JAR_NAME=$(ls -tr $REPOSITORY/*.war | tail -n 1)
@@ -27,4 +28,3 @@ nohup java -jar \
     -Dspring.config.location=classpath:/application-$IDLE_PROFILE.yml \
     -Dspring.profiles.active=$IDLE_PROFILE \
     $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
-

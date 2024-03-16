@@ -2,23 +2,25 @@
 
 function find_idle_profile()
 {
-    RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/profile)
-    echo "> RESPONSE_CODE : $RESPONSE_CODE"
+    echo "> 현재 구동중인 Set 확인"
+    CURRENT_PROFILE=$(curl -s http://localhost/profile)
+    echo "> $CURRENT_PROFILE"
 
-    if [[ ${RESPONSE_CODE} -ge 400 ]]
+    if [ "$CURRENT_PROFILE" = "set1" ]
     then
-        CURRENT_PROFILE=real2
-    else
-        CURRENT_PROFILE=$(curl -s http://localhost/profile)
-    fi
-
-    if [[ ${CURRENT_PROFILE} == real1 ]]
+      IDLE_PROFILE=set2
+      IDLE_PORT=8082
+    elif [ "$CURRENT_PROFILE" = "set2" ]
     then
-      IDLE_PROFILE=real2
+      IDLE_PROFILE=set1
+      IDLE_PORT=8081
     else
-      IDLE_PROFILE=real1
+      echo "> 일치하는 Profile이 없습니다. Profile: $CURRENT_PROFILE"
+      echo "> set1을 할당합니다. IDLE_PROFILE: set1"
+      IDLE_PROFILE=set1
+      IDLE_PORT=8081
     fi
-
+w
     echo "${IDLE_PROFILE}"
 }
 
@@ -26,7 +28,7 @@ function find_idle_port()
 {
     IDLE_PROFILE=$(find_idle_profile)
 
-    if [[ ${IDLE_PROFILE} == real1 ]]
+    if [[ ${IDLE_PROFILE} == set1 ]]
     then
       echo "8081"
     else
