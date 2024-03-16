@@ -5,6 +5,11 @@ spring:
       on-profile: set1
 server:
   port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 ---
 spring:
@@ -13,3 +18,8 @@ spring:
       on-profile: set2
 server:
   port: 8082
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
