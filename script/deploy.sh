@@ -1,8 +1,9 @@
 #!/bin/bash
 
+BASE_PATH=/home/ubuntu/nginxPractice
+BUILD_PATH=$(ls /home/ubuntu/nginxPractice/build/libs/*.war)
+JAR_NAME=$(basename $BUILD_PATH)
 
-BASE_PATH="/home/ubuntu/nginxPractice"
-DEPLOY_PATH="$BASE_PATH/build/libs"
 
 find_idle_profile() {
     echo "> 현재 구동중인 Set 확인"
