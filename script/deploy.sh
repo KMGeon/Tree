@@ -13,7 +13,7 @@ copy_war_file() {
     JAR_NAME=$(basename "$BUILD_PATH")
     echo "> Build 파일명: $JAR_NAME"
     echo "> Build 파일 복사"
-    cp "$BUILD_PATH" "$DEPLOY_PATH"
+    cp $BUILD_PATH $DEPLOY_PATH
 }
 
 
@@ -24,8 +24,8 @@ deploy() {
 
     echo "> IDLE_PROFILE : {${IDLE_PROFILE}}"
 
-    IDLE_APPLICATION="$IDLE_PROFILE-nginxPractice.war"
-    IDLE_APPLICATION_PATH="$DEPLOY_PATH$IDLE_APPLICATION"
+    IDLE_APPLICATION=$IDLE_PROFILE-nginxPractice.war
+    IDLE_APPLICATION_PATH=$DEPLOY_PATH$IDLE_APPLICATION
 
     echo "> application.war 교체"
     ln -Tfs $DEPLOY_PATH$JAR_NAME $IDLE_APPLICATION_PATH
