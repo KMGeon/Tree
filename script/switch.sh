@@ -21,7 +21,7 @@ find_idle_profile() {
     echo "$IDLE_PROFILE"
 }
 
-find_idle_port(){
+function find_idle_port(){
     IDLE_PROFILE=$(find_idle_profile)
 
     if [ ${IDLE_PROFILE} == "set1" ]
@@ -42,6 +42,15 @@ switch_nginx_proxy_port() {
 
     PROXY_PORT=$(curl -s http://localhost/profile)
     echo "> Nginx Current Proxy Port: $PROXY_PORT"
+
+    NGINX_CONF_FILE="/etc/nginx/sites-available/default"
+
+    # 변경할 문자열
+    OLD_STRING='$service-url'
+    NEW_STRING='http://$was_path'
+
+    # 변경 적용
+    sudo sed -i "s/proxy_pass $OLD_STRING;/proxy_pass $NEW_STRING;/g" "$NGINX_CONF_FILE"
 
     echo "> Nginx Reload"
     sudo service nginx reload
