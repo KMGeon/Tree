@@ -20,3 +20,15 @@ find_idle_profile() {
 
     echo "$IDLE_PROFILE"
 }
+
+function find_idle_port()
+{
+    IDLE_PROFILE=$(find_idle_profile)
+
+    if [ ${IDLE_PROFILE} == "set1" ]
+    then
+      echo "8081"
+    else
+      echo "8082"
+    fi
+}

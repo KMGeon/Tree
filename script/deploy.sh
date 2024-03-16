@@ -28,7 +28,7 @@ deploy() {
     IDLE_APPLICATION_PATH="$DEPLOY_PATH$IDLE_APPLICATION"
 
     echo "> application.war 교체"
-    ln -Tfs "$DEPLOY_PATH$JAR_NAME" "$IDLE_APPLICATION_PATH"
+    ln -Tfs $DEPLOY_PATH$JAR_NAME $IDLE_APPLICATION_PATH
 
     echo "> $IDLE_PROFILE 에서 구동중인 애플리케이션 pid 확인"
     IDLE_PID=$(pgrep -f "$IDLE_APPLICATION")
