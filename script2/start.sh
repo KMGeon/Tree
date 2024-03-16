@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY=/home/ubuntu/nginxPractice/script2
+REPOSITORY=/home/ubuntu/nginxPractice
 PROJECT_NAME=nginxPractice
 
 echo "> Build 파일 복사"
