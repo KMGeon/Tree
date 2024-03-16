@@ -2,7 +2,7 @@
 
 
 BASE_PATH="/home/ubuntu/nginxPractice"
-DEPLOY_PATH="$BASE_PATH/war/"
+DEPLOY_PATH="$BASE_PATH/build/libs"
 
 find_idle_profile() {
     echo "> 현재 구동중인 Set 확인"
@@ -100,6 +100,9 @@ deploy() {
     sleep 10
 
     echo "> ===============[deploy.sh END]==============="
+
+    echo "> 성공 스위치"
+    sudo sh /home/ubuntu/nginxPractice/script/switch.sh
 }
 
 deploy
