@@ -1,8 +1,8 @@
 #!/bin/bash
-
 BASE_PATH=/home/ubuntu/nginxPractice
 BUILD_PATH=$(ls /home/ubuntu/nginxPractice/build/libs/*.war)
 JAR_NAME=$(basename $BUILD_PATH)
+echo "> build 파일명: $JAR_NAME"
 
 
 find_idle_profile() {
@@ -28,8 +28,6 @@ find_idle_profile() {
 
 function find_idle_port()
 {
-    IDLE_PROFILE=$(find_idle_profile)
-
     if [ ${IDLE_PROFILE} == "set1" ]
     then
       echo "8081"

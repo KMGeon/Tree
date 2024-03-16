@@ -8,6 +8,7 @@ echo "> build 파일 복사"
 DEPLOY_PATH=$BASE_PATH/war/
 cp $BUILD_PATH $DEPLOY_PATH
 
+
 echo "> 현재 구동중인 Set 확인"
 CURRENT_PROFILE=$(curl -s http://localhost/profile)
 echo "> $CURRENT_PROFILE"
