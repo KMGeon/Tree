@@ -1,48 +1,32 @@
-import reactImg from './asset/logo.png';
-import { CORE_CONCEPTS} from "./data";
+import React, {useState} from 'react';
+import CORE_CONCEPTS from "./data/data";
+import DATA2_CORE_CONCEPTS, {EXAMPLES} from "./data/data2.jsx";
+import MyComponent from './components/Header.jsx';
+import CoreConcept from "./components/CoreConcept";
+import TabButton from "./components/TabButton";
 
 
-const reactDescriptions = ['Fundamental', 'Crucial', 'Core'];
-
-function genRandomInt(max) {
-    return Math.floor(Math.random() * (max + 1));
-}
-
-function Header() {
-    const descriptions = reactDescriptions[genRandomInt(2)];
-
-    return (
-        <header>
-            <h1>React Essentials</h1>
-            <p>
-                {/* 중갈호 사이에 js 표현을 사용할 수 있다.
-                코드가 실행되는 시점에서 변수 또는 상수로 표현살 수 있다.
-
-                - 모든 코드가 변환 및 최적화 되어서 함께 묶여진다. 이 과정에서 로딩된 이미지 파일은 유실될 수 있다.
-                기존의 이미지 -> src/assets/...
-
-                */}
-                {/*<img src={reactImg} alt="atom"/>*/}
-                {descriptions} React concepts you will need for almost any app you are going to build!
-            </p>
-        </header>
-    );
-}
-
-function CoreConcept({title, description}) {
-    return(
-    <li>
-        <h3>{title}</h3>
-        <p>
-            {description}
-        </p>
-    </li>
-    );
-}
+const Labels = {
+    components: "components",
+    jsx: "jsx",
+    props: "props",
+    state: "state"
+};
 
 function App() {
+    const [basicTopic, newTopic] = useState(Labels.components);
+
+    const handleSelect = (label) => {
+        newTopic(label);
+        alert(`You clicked ${label}`);
+    }
+
+
+
     return (
         <div>
+
+            <MyComponent/>
 
             <section id="core-concepts">
                 <h2>Core Concepts</h2>
@@ -67,9 +51,31 @@ function App() {
                 </ul>
 
             </section>
-            <Header/>
+            <section id="examples">
+                <h2>Examples</h2>
+                <menu>
+                    <TabButton label={Labels.components} onSelect = {() => handleSelect(Labels.components)}/>
+                    <TabButton label={Labels.jsx} onSelect={()=> handleSelect(Labels.jsx)}/>
+                    <TabButton label={Labels.props} onSelect={()=> handleSelect(Labels.props)}/>
+                    <TabButton label={Labels.state} onSelect={()=> handleSelect(Labels.state)}/>
+                </menu>
+            </section>
+
+
+            <section id="tab-content">
+                <h3>{EXAMPLES[basicTopic].title}</h3>
+                <p>{EXAMPLES[basicTopic].description}</p>
+                <pre>
+                    <code>
+                        {EXAMPLES[basicTopic].code}
+                    </code>
+                </pre>
+            </section>
+
             <main>
-                <h2>Time to get started!</h2>
+                <div>
+                    Please select a tab : {basicTopic}
+                </div>
             </main>
         </div>
     );
