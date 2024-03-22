@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, Fragment} from 'react';
+
 import CORE_CONCEPTS from "./data/data";
 import {EXAMPLES} from "./data/data2.jsx";
 import MyComponent from './components/Header.jsx';
@@ -38,7 +39,7 @@ function App() {
         )
     }
     return (
-        <div>
+        <>
             <MyComponent/>
             <section id="core-concepts">
                 <h2>Core Concepts</h2>
@@ -99,7 +100,7 @@ function App() {
                     Please select a tab : {basicTopic}
                 </div>
             </main>
-        </div>
+        </>
     );
 }
 
