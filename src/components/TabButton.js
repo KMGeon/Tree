@@ -2,10 +2,14 @@ import React from 'react';
 
 
 
-const MyComponent = ({label, onSelect}) => {
+const MyComponent = ({label, onSelect, isSelected}) => {
     return (
         <li>
-            <button onClick={onSelect}>{label}</button>
+            <button
+                className={isSelected ? 'active' : undefined}
+                onClick={onSelect}>
+                {label}
+            </button>
         </li>
     );
 };

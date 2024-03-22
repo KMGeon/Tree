@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import CORE_CONCEPTS from "./data/data";
-import DATA2_CORE_CONCEPTS, {EXAMPLES} from "./data/data2.jsx";
+import {EXAMPLES} from "./data/data2.jsx";
 import MyComponent from './components/Header.jsx';
 import CoreConcept from "./components/CoreConcept";
 import TabButton from "./components/TabButton";
@@ -14,7 +14,7 @@ const Labels = {
 };
 
 function App() {
-    const [basicTopic, newTopic] = useState(Labels.components);
+    const [basicTopic, newTopic] = useState();
 
     const handleSelect = (label) => {
         newTopic(label);
@@ -22,19 +22,32 @@ function App() {
     }
 
 
+    let content = <p>Please select a topic</p>;
 
+    if (basicTopic) {
+        content = (
+            <section id="tab-content">
+                <h3>{EXAMPLES[basicTopic].title}</h3>
+                <p>{EXAMPLES[basicTopic].description}</p>
+                <pre>
+                    <code>
+                        {EXAMPLES[basicTopic].code}
+                    </code>
+                </pre>
+            </section>
+        )
+    }
     return (
         <div>
-
             <MyComponent/>
-
             <section id="core-concepts">
                 <h2>Core Concepts</h2>
 
                 <ul>
+                    {CORE_CONCEPTS.map((item) => <CoreConcept key={item.title} {...item}/>)}
                     {/*
                         여기서 title, description, img는 props라고 부른다.
-                    */}
+
                     <CoreConcept
                         title={CORE_CONCEPTS[0].title}
                         description={CORE_CONCEPTS[0].description}
@@ -48,29 +61,38 @@ function App() {
                         title={CORE_CONCEPTS[3].title}
                         description={CORE_CONCEPTS[3].description}
                     />
+                    */}
                 </ul>
 
             </section>
             <section id="examples">
                 <h2>Examples</h2>
                 <menu>
-                    <TabButton label={Labels.components} onSelect = {() => handleSelect(Labels.components)}/>
-                    <TabButton label={Labels.jsx} onSelect={()=> handleSelect(Labels.jsx)}/>
-                    <TabButton label={Labels.props} onSelect={()=> handleSelect(Labels.props)}/>
-                    <TabButton label={Labels.state} onSelect={()=> handleSelect(Labels.state)}/>
+                    <TabButton
+                        isSelected={basicTopic === Labels.components}
+                        label={Labels.components}
+                        onSelect={() => handleSelect(Labels.components)}
+                    />
+                    <TabButton
+                        isSelected={basicTopic === Labels.jsx}
+                        label={Labels.jsx}
+                        onSelect={() => handleSelect(Labels.jsx)}
+                    />
+                    <TabButton
+                        isSelected={basicTopic === Labels.props}
+                        label={Labels.props}
+                        onSelect={() => handleSelect(Labels.props)}
+                    />
+                    <TabButton
+                        isSelected={basicTopic === Labels.state}
+                        label={Labels.state}
+                        onSelect={() => handleSelect(Labels.state)}
+                    />
                 </menu>
             </section>
 
+            {content}
 
-            <section id="tab-content">
-                <h3>{EXAMPLES[basicTopic].title}</h3>
-                <p>{EXAMPLES[basicTopic].description}</p>
-                <pre>
-                    <code>
-                        {EXAMPLES[basicTopic].code}
-                    </code>
-                </pre>
-            </section>
 
             <main>
                 <div>
