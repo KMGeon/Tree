@@ -3,24 +3,32 @@ import React, {useRef, useState} from 'react';
 const MyComponent = () => {
     const playerName = useRef();
     const [enteredPlayerName, setEWnteredPlayerName] = useState('');
-    const [submitted, setSubmitted] = useState(false);
+    // const [submitted, setSubmitted] = useState(false);
 
 
     function handleState(event){
-        setSubmitted(false);
+        // setSubmitted(false);
         setEWnteredPlayerName(event.target.value);
     }
 
     function handleClick(){
-        setSubmitted(true);
+        // setSubmitted(true);
+        let value = playerName.current.value;
+        console.log(value);
+        setEWnteredPlayerName(value);
     }
 
 
     return (
         <section id="player">
-            <h2>Welcome {!submitted? 'unknown entity' : enteredPlayerName}</h2>
+            <h2>Welcome {enteredPlayerName}</h2>
             <p>
-                <input type="text"  value={enteredPlayerName} onChange={handleState}/>
+                <input
+                    ref={playerName}
+                    type="text"
+                    value={enteredPlayerName}
+                    onChange={handleState}
+                />
                 <button onClick={handleClick}>Set Name</button>
             </p>
         </section>
