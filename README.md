@@ -38,3 +38,8 @@ $git push
 - [x] Redis, MongoDB 학습
 - [x] JWT, ArgumentResolver
 - [x] TDD
+
+## 2024
+- [x] nginx
+- [x] Jenkins
+- [x] mybatis
