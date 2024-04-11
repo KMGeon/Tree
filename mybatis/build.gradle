@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.0.2'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.gorylenko.gradle-git-properties' version '2.4.1'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+    //actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    //prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    //devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    //jsp
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    //lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    //h2
+//    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    //binlog
+    // https://mvnrepository.com/artifact/com.github.shyiko/mysql-binlog-connector-java
+    implementation 'com.github.shyiko:mysql-binlog-connector-java:0.21.0'
+
+
+    //valid
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+springBoot {
+    buildInfo()
+}
