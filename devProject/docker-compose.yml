@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  study-database:
+    image: mysql:latest
+    container_name: study-database
+    environment:
+      MYSQL_DATABASE: CStudy
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./infra/database/data:/var/lib/mysql
+      - ./infra/database/config:/etc/mysql/conf.d
