@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/CStudy?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  batch:
+    jdbc:
+      initialize-schema: always
+
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace # 바인딩되는 모든 파라미터를 찍습니다.
